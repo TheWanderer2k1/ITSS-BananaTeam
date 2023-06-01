@@ -3,11 +3,16 @@ const app = express();
 const server = require("http").createServer(app);
 const router = express.Router();
 const bodyParser = require('body-parser');
+const data=require('././seed/initMysqlDB');
 const cors = require('cors');
 /**
  * 
  * Import các biến toàn cục
  */
+data.connect.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+    if (error) throw error;
+    console.log('The solution is: ', results[0].solution);
+  });
 require("dotenv").config();
 require("./global")(server);
 

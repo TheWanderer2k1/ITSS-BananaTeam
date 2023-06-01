@@ -101,8 +101,6 @@ const initSampleCompanyDB = async () => {
             ? {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
-                useCreateIndex: true,
-                useFindAndModify: false,
                 user: process.env.DB_USERNAME,
                 pass: process.env.DB_PASSWORD,
                 auth: {
@@ -112,8 +110,6 @@ const initSampleCompanyDB = async () => {
             : {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
-                useCreateIndex: true,
-                useFindAndModify: false,
             };
     const systemDB = mongoose.createConnection(
         `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT || "27017"}/${process.env.DB_NAME
@@ -126,8 +122,6 @@ const initSampleCompanyDB = async () => {
             ? {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
-                useCreateIndex: true,
-                useFindAndModify: false,
                 user: process.env.DB_USERNAME,
                 pass: process.env.DB_PASSWORD,
                 auth: {
@@ -137,8 +131,6 @@ const initSampleCompanyDB = async () => {
             : {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
-                useCreateIndex: true,
-                useFindAndModify: false,
             };
     const vnistDB = mongoose.createConnection(
         `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT || "27017"}/vnist`,

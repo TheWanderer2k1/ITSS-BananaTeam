@@ -230,8 +230,6 @@ const initHumanResourceData = async () => {
      * 1.1 Khởi tạo model cho db
      */
     const initModels = (db) => {
-        console.log("models", db.models);
-
         if (!db.models.Component) Component(db);
         if (!db.models.RoleType) RoleType(db);
         if (!db.models.Role) Role(db);
@@ -261,8 +259,6 @@ const initHumanResourceData = async () => {
         if (!db.models.OrganizationalUnitKpi) OrganizationalUnitKpi(db);
         if (!db.models.OrganizationalUnitKpiSet) OrganizationalUnitKpiSet(db);
         if (!db.models.Task) Task(db);
-
-        console.log("models_list", db.models);
     };
 
     initModels(vnistDB);

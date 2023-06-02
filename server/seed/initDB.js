@@ -39,10 +39,13 @@ const initDB = async () => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         }
-    const systemDB = mongoose.createConnection(
+
+    console.log(`mongodb://${process.env.DB_HOST}:${process.env.DB_PORT || "27017"}/${process.env.DB_NAME}`)
+    const systemDB = await mongoose.createConnection(
         `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT || "27017"}/${process.env.DB_NAME}`,
         connectOptions
     );
+    console.log('connectOptions', systemDB);
     if (!systemDB) throw ('Error! Cannot connect to MongoDB. Please check connection. :(');
 
     /**

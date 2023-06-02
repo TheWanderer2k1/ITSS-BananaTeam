@@ -15,7 +15,7 @@ const ProductRating = require("../../models/productRating");
  * }} data 
  * @returns new ProductRating
  */
-exports.createProductRating = async (data) => {
+ exports.createProductRating= async (data) => {
 	data.starNumbers = parseInt(data.starNumbers);
 	let newRating = {
 		orderId: data.orderId,

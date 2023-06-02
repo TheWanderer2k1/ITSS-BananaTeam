@@ -1,48 +1,48 @@
-const sql = require("../../seed/initMysqlDB");
-const getCategoryData="Select categoryId,name,src from category,image where category.imageId=image.ID";
-const getSliderData="select ID,Src FROM (Select foodDesciption.ID ,Name,Src ,AVG(rating) AS rate from food,foodDesciption,foodreview,image where foodDesciption.ID=FoodDesID AND foodDesciption.FoodID=food.ID   AND image.GroupID=fooddesciption.GroupImageID GROUP By foodDesciption.FoodID,RestaurantID ORDER BY rate DESC limit 6) AS Query_table";
-const getFoodMostLiked="select ID,Src,Name FROM (Select foodDesciption.ID ,Name,Src ,AVG(rating) AS rate from food,foodDesciption,foodreview,image where foodDesciption.ID=FoodDesID AND foodDesciption.FoodID=food.ID   AND image.GroupID=fooddesciption.GroupImageID GROUP By foodDesciption.FoodID,RestaurantID ORDER BY rate DESC limit 6) AS Query_table";
-const getRestaurantMostLiked="Select RestaurantID,Name,Src FROM (Select RestaurantID,FoodID,rate from ( Select foodDesciption.ID,RestaurantID,foodDesciption.FoodID ,Name,Src ,AVG(rating) AS rate from food,foodDesciption,foodreview,image where foodDesciption.ID=FoodDesID AND foodDesciption.FoodID=food.ID   AND image.GroupID=fooddesciption.GroupImageID GROUP By foodDesciption.FoodID,RestaurantID ) As t1"+
+const sql = require("../../seed/queryMysqlDB");
+const { param } = require("./route");
+const getCategoryData="Select category.ID AS categoryID,src AS img from category,image where category.imageId=image.ID";
+const getSliderData="select Src As img,ID AS foodDescriptionId FROM (Select foodDesciption.ID ,Name,Src ,AVG(rating) AS rate from food,foodDesciption,foodreview,image where foodDesciption.ID=FoodDesID AND foodDesciption.FoodID=food.ID   AND image.GroupID=fooddesciption.GroupImageID GROUP By foodDesciption.FoodID,RestaurantID ORDER BY rate DESC limit 6) AS Query_table";
+const getFoodMostLiked="select ID AS id,Src AS img ,Name  AS name FROM (Select foodDesciption.ID ,Name,Src ,AVG(rating) AS rate from food,foodDesciption,foodreview,image where foodDesciption.ID=FoodDesID AND foodDesciption.FoodID=food.ID   AND image.GroupID=fooddesciption.GroupImageID GROUP By foodDesciption.FoodID,RestaurantID ORDER BY rate DESC limit 6) AS Query_table";
+const getRestaurantMostLiked="Select RestaurantID AS id,Src AS img,Name AS name FROM (Select RestaurantID,FoodID,rate from ( Select foodDesciption.ID,RestaurantID,foodDesciption.FoodID ,Name,Src ,AVG(rating) AS rate from food,foodDesciption,foodreview,image where foodDesciption.ID=FoodDesID AND foodDesciption.FoodID=food.ID   AND image.GroupID=fooddesciption.GroupImageID GROUP By foodDesciption.FoodID,RestaurantID ) As t1 "+
 "where (SELECT COUNT(*) FROM ( Select foodDesciption.ID,RestaurantID,foodDesciption.FoodID ,Name,Src ,AVG(rating) AS rate from food,foodDesciption,foodreview,image where foodDesciption.ID=FoodDesID AND foodDesciption.FoodID=food.ID   AND image.GroupID=fooddesciption.GroupImageID GROUP By foodDesciption.FoodID,RestaurantID ) As t2 WHERE t1.RestaurantID=t2.RestaurantID AND t2.rate>=t1.rate ) <=3 ORDER BY t1.RestaurantID,t1.rate DESC) As t3 , restaurant,image where t3.RestaurantID=restaurant.ID AND restaurant.GroupImageID=image.GroupID GROUP BY t3.RestaurantID order by AVG(t3.rate) desc limit 6";
+
+/**
+* Lay du lieu hien thi trang Home
+* @param {{
+*	}} 
+* @returns {{
+* ""data"": {
+*      ""food_slider"": [{
+*          ""img"": ""abc.jpg"",
+*          ""foodDescriptionId"": 15
+*      }],
+*     ""categories"": [{
+*        ""img"": ""abc.jpg"",
+*        ""categoryId"": 14
+*   }],
+*   ""foodDecription"": [{
+*      ""id"": 1,
+*     ""img"": ""food1.jpg"",
+*     ""name"": ""Cơm gà"",
+* }],
+*""restaurant"": [{
+*   ""id"": 2,
+*  ""img"": ""restaurant1.jpg"",
+* ""name"": ""Kơm ngon""
+*}]
+*},
+*}}
+*/
 exports.getDataHomePage=async()=>{
   var resultSlideData,resultFoodMostLiked,resultCategory,resultRestaurantMostLiked;
-sql.QueryGetData(getSliderData)
-  .then(data => {
-    resultSlideData=data
-  })
-  .catch(error => {
-    console.error(error);
-    // Handle the error here
-  });
+  resultSlideData= await sql.QueryGetData(getSliderData)
+ 
+  resultCategory=await sql.QueryGetData(getCategoryData) 
 
-
-  sql.QueryGetData(getCategoryData)
-  .then(data => {
-    resultCategory=data;
-  })
-  .catch(error => {
-    console.error(error);
-    // Handle the error here
-  });
-
-  sql.QueryGetData(getFoodMostLiked)
-  .then(data => {
-    resultFoodMostLiked=data;
-  })
-  .catch(error => {
-    console.error(error);
-    // Handle the error here
-  });
-
-  sql.QueryGetData(getRestaurantMostLiked)
-  .then(data => {
-    //console.log(data);
-    resultRestaurantMostLiked=data
-  })
-  .catch(error => {
-    console.error(error);
-    
-  });
+  resultFoodMostLiked=await sql.QueryGetData(getFoodMostLiked)
+  
+  resultRestaurantMostLiked=await sql.QueryGetData(getRestaurantMostLiked)
+  
    return result ={
     food_slider:resultSlideData,
     categories:resultCategory,

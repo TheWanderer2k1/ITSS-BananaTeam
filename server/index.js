@@ -3,16 +3,13 @@ const app = express();
 const server = require("http").createServer(app);
 const router = express.Router();
 const bodyParser = require('body-parser');
-const data=require('././seed/initMysqlDB');
+const data=require('./seed/queryMysqlDB');
 const cors = require('cors');
 /**
  * 
  * Import các biến toàn cục
  */
-data.connect.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-    if (error) throw error;
-    console.log('The solution is: ', results[0].solution);
-  });
+
 require("dotenv").config();
 require("./global")(server);
 
@@ -27,6 +24,8 @@ app.use(express.urlencoded({ extended: false, limit: '50mb', parameterLimit: 500
 router.use("", require("./modules/rating/route"));
 router.use("", require("./modules/userComplant/route"));
 router.use("", require("./modules/order/route"));
+router.use("", require("./modules/homepageInfor/route"));
+
 
 
 app.use(router);

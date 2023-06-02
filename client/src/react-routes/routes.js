@@ -11,6 +11,7 @@ import Introduction from "../modules/intro/components"
 import ResetPassword from "../modules/auth/components/resetPasswordNew"
 
 const Home = lazy(() => import("../modules/home/components"))
+const HomePage = lazy(() => import("../modules/homepage/components"))
 const NotFound = lazy(() => import("../modules/not-found/components"))
 
 
@@ -55,6 +56,12 @@ class Routes extends Component {
                         auth={auth}
                         path="/reset-password"
                         component={ResetPassword}
+                    />
+                    <AuthRoute
+                        auth={auth}
+                        exact
+                        path={"/homepage"}
+                        component={HomePage}
                     />
 
                     <PrivateRoute

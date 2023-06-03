@@ -1,0 +1,19 @@
+.category-item-category-item {
+  flex: 0 0 auto;
+  width: 14.28%;
+  height: 100%;
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.category-item-image {
+  width: 116px;
+  height: 100px;
+  align-self: center;
+  object-fit: cover;
+}
+.category-item-text {
+  align-self: center;
+  margin-top: 8px;
+}

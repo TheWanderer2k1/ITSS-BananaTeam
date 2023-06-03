@@ -73,6 +73,7 @@
   position: relative;
   border-radius: var(--dl-radius-radius-radius2);
 }
+
 .navbar-interactive-dropdown-toggle {
   fill: #595959;
   color: #595959;

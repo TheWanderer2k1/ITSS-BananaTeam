@@ -58,9 +58,8 @@ class Routes extends Component {
                         component={ResetPassword}
                     />
                     <AuthRoute
-                        auth={auth}
                         exact
-                        path={"/homepage"}
+                        path="/homepage"
                         component={HomePage}
                     />
 
@@ -75,6 +74,21 @@ class Routes extends Component {
                         link={"/home"}
                         path={"/home"}
                         pageName={"home"}
+                        layout={Layout}
+                        component={HomePage}
+                    />
+
+                    <PrivateRoute
+                        isLoading={auth.isLoading}
+                        key={"homepage"}
+                        arrPage={[
+                            { link: "/homepage", name: "homepage", icon: "fa fa-home" },
+                        ]}
+                        auth={auth}
+                        exact={true}
+                        link={"/homepage"}
+                        path={"/homepage"}
+                        pageName={"homepage"}
                         layout={Layout}
                         component={Home}
                     />

@@ -6,6 +6,7 @@ import Signup from './signUp';
 import Location from './location';
 import Contact from './contact';
 import Footer from './footer';
+import { HomePage } from '../../homepage/components/index';
 
 import './intro.css';
 
@@ -13,12 +14,7 @@ const Introduction = () => {
 
     return (
         <React.Fragment>
-            <Header />
-            <Intro />
-            <Service />
-            <Signup />
-            <Location />
-            <Contact />
+            <HomePage />
             <Footer />
         </React.Fragment>
     );

@@ -3,7 +3,6 @@ const { initModels, connect, autoRun, backup } = require("./helpers/dbHelper");
 const models = require("./models");
 const { Configuration } = models;
 const CronJob = require("cron").CronJob;
-const serviceAccount = require("./dx-workplace-firebase-adminsdk-wxsr2-726a4a58e4.json");
 
 module.exports = async (server) => {
     // Socket.io realtime
@@ -65,8 +64,7 @@ module.exports = async (server) => {
             useUnifiedTopology: true,
         }
 
-    global.DB_CONNECTION = mongoose.createConnection(process.env.MONGO_URL?
-        process.env.MONGO_URL:
+    global.DB_CONNECTION = mongoose.createConnection(
         `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT || "27017"}/${process.env.DB_NAME}`,
         connectOptions
     );
@@ -102,18 +100,6 @@ module.exports = async (server) => {
     for (const [db] of Object.entries(BACKUP)) {
         if (BACKUP[db].auto) BACKUP[db].job.start();
     }
-
-    global.AUTO_SENDEMAIL_TASK = require("./modules" +
-        "/scheduler/scheduler.service").sendEmailTaskAutomatic;
-    AUTO_SENDEMAIL_TASK.start();
-
-    global.AUTO_CREATE_NOTIFICATION_BIRTHDAY = require("./modules" +
-        "/scheduler/scheduler.service").createNotificationForEmployeesHaveBrithdayCurrent;
-    AUTO_CREATE_NOTIFICATION_BIRTHDAY.start();
-
-    global.AUTO_CREATE_NOTIFICATION_END_CONTRACT = require("./modules" +
-        "/scheduler/scheduler.service").createNotificationEndOfContract;
-    AUTO_CREATE_NOTIFICATION_END_CONTRACT.start();
 
     global.PORTAL = process.env.DB_NAME; // tên db cần kết nối
 };

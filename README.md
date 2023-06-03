@@ -1,6 +1,8 @@
 # ITSS-BananaTeam
 
 ## Cách cài đặt project
+#### Cài MongoDB
+Project này sử dụng mongoDB để lưu dữ liệu phía backend. Truy cập vào đường link [install mongoDB](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/) để xem cách cài đặt chi tiết (nếu dùng linux thì click vào nút "install on Linux" cũng có hướng dẫn chi tiết
 #### Cài đặt server
 Chuyển đường dẫn về server, sau đó chạy lệnh instal như dưới đây:
 ```shell

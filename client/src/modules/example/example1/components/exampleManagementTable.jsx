@@ -9,7 +9,6 @@ import { DataTableSetting, DeleteNotification, PaginateBar } from "../../../../c
 import ExampleCreateForm from "./exampleCreateForm";
 import ExampleEditForm from "./exampleEditForm";
 import ExampleDetailInfo from "./exampleDetailInfo";
-import ExampleImportForm from "./exampleImortForm";
 import { getTableConfiguration } from '../../../../helpers/tableConfiguration';
 
 class ExampleManagementTable extends Component {

@@ -416,9 +416,9 @@ var con = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "tabeyou"
+  database: "tabeyou2"
 });
-
+// connect and create table
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");

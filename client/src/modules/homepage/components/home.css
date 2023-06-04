@@ -8,13 +8,15 @@
   justify-content: flex-start;
   background-color: white;
 }
+.home-container form {
+  align-self: flex-end;
+  margin-right: 7.75%;
+}
 .home-search-field {
   width: 612px;
   height: 63px;
-  align-self: flex-end;
   margin-top: 50px;
   border-width: 0px;
-  margin-right: 7.75%;
   border-radius: 27px;
   background-color: #ffb1b178;
   padding-left: 60px; /* Adjust the padding as needed */
@@ -23,6 +25,7 @@
   background-position: 20px center; /* Position the icon on the left center */
   background-size: 30px; /* Adjust the size of the icon */
 }
+
 .home-slide-show {
   width: 84.5%;
   height: 430px;

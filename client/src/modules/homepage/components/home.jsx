@@ -8,6 +8,7 @@ import FoodList from './food-list'
 import ResItem from './res-item'
 import ResList from './res-list'
 import SlideShow from './slideshow'
+import InputComponent from './input-component'
 import './home.css'
 
 const Home = (props) => {
@@ -17,7 +18,7 @@ const Home = (props) => {
         <meta property="og:title" content="TABEYOU" />
       <NavbarInteractive rootClassName="navbar-interactive-root-class-name"></NavbarInteractive>
 
-      <input type="text" placeholder="食べ物で検索" className="home-search-field input"/>
+      <InputComponent></InputComponent>
     
       <div className='home-slide-show'>
         <SlideShow></SlideShow>

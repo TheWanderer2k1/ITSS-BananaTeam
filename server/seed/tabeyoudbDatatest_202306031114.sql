@@ -21,7 +21,7 @@ DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS role;
 
 
-DROP TABLE IF EXISTS fooddesciption;
+DROP TABLE IF EXISTS fooddescription;
 
 
 DROP TABLE IF EXISTS food;
@@ -49,18 +49,13 @@ CHARACTER SET utf8mb4,
 COLLATE utf8mb4_0900_ai_ci;
 
 
-ALTER TABLE image 
-  ADD INDEX IDX_GroupImageID(GroupID);
 
-
-ALTER TABLE image 
-  ADD UNIQUE INDEX UK_image_GroupID(GroupID);
 
 
 CREATE TABLE restaurant (
   ID INT NOT NULL AUTO_INCREMENT,
   Name VARCHAR(256) NOT NULL DEFAULT '',
-  Desciption VARCHAR(256) NOT NULL DEFAULT '',
+  Description VARCHAR(256) NOT NULL DEFAULT '',
   OpenTime VARCHAR(5) NOT NULL DEFAULT '',
   CloseTime VARCHAR(5) NOT NULL DEFAULT '',
   Phone VARCHAR(256) NOT NULL DEFAULT '',
@@ -73,11 +68,6 @@ ENGINE = INNODB,
 AUTO_INCREMENT = 7,
 CHARACTER SET utf8mb4,
 COLLATE utf8mb4_0900_ai_ci;
-
-
-ALTER TABLE restaurant 
-  ADD CONSTRAINT FK_Restaurant_GroupImageID FOREIGN KEY (GroupImageID)
-    REFERENCES image(GroupID);
 
 
 CREATE TABLE category (
@@ -115,11 +105,11 @@ ALTER TABLE food
     REFERENCES category(ID);
 
 
-CREATE TABLE fooddesciption (
+CREATE TABLE fooddescription (
   ID INT NOT NULL AUTO_INCREMENT,
   FoodID INT NOT NULL,
   RestaurantID INT NOT NULL,
-  Desciption VARCHAR(2048) NOT NULL DEFAULT '',
+  Description VARCHAR(2048) NOT NULL DEFAULT '',
   GroupImageID INT DEFAULT NULL,
   Price INT DEFAULT NULL,
   Status SMALLINT NOT NULL,
@@ -131,13 +121,13 @@ CHARACTER SET utf8mb4,
 COLLATE utf8mb4_0900_ai_ci;
 
 
-ALTER TABLE fooddesciption 
-  ADD CONSTRAINT FK_fooddesciption_FoodID FOREIGN KEY (FoodID)
+ALTER TABLE fooddescription
+  ADD CONSTRAINT FK_fooddescription_FoodID FOREIGN KEY (FoodID)
     REFERENCES food(ID);
 
 
-ALTER TABLE fooddesciption 
-  ADD CONSTRAINT FK_fooddesciption_RestaurantID FOREIGN KEY (RestaurantID)
+ALTER TABLE fooddescription
+  ADD CONSTRAINT FK_fooddescription_RestaurantID FOREIGN KEY (RestaurantID)
     REFERENCES restaurant(ID);
 
 
@@ -204,12 +194,8 @@ COLLATE utf8mb4_0900_ai_ci;
 
 ALTER TABLE foodreview 
   ADD CONSTRAINT FK_foodreview_FoodDesID FOREIGN KEY (FoodDesID)
-    REFERENCES fooddesciption(ID);
+    REFERENCES fooddescription(ID);
 
-
-ALTER TABLE foodreview 
-  ADD CONSTRAINT FK_foodreview_GroupImageID FOREIGN KEY (GroupImageID)
-    REFERENCES image(GroupID);
 
 
 ALTER TABLE foodreview 
@@ -335,7 +321,7 @@ INSERT INTO role VALUES
 (4, 'アドミン');
 
 
-INSERT INTO fooddesciption VALUES
+INSERT INTO fooddescription VALUES
 (150, 1, 1, 'dsad', 1, 48000, 1),
 (151, 2, 1, 'dsaddd', 2, 56000, 1),
 (152, 3, 1, 'dddd', 3, 32000, 1),

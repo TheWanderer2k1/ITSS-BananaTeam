@@ -171,11 +171,6 @@ function ExampleManagementTable(props) {
                 perPage={perPage}
             />
 
-            <ExampleImportForm
-                page={page}
-                perPage={perPage}
-            />
-
             <div className="box-body qlcv">
                 <div className="form-inline">
                     {/* Button thêm mới */}

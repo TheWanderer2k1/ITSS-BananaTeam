@@ -31,11 +31,11 @@ function Slideshow() {
 
   const fetchImages = async () => {
     const resp = await sendRequest({
-        url: `https://mocki.io/v1/72763f80-9ce7-4523-9957-ff0192e559ed`,
+        url: `http://localhost:8000/api/v1/home`,
         method: "GET",
       })
-    console.log('in home', resp.data['data']['food_slider'])
-    setImages(resp.data['data']['food_slider'])
+    console.log('in home', resp.data['content']['food_slider'])
+    setImages(resp.data['content']['food_slider'])
   };
 
   return (

@@ -11,11 +11,11 @@ function ListComponent() {
 
   const fetchfoodDecription = async () => {
     const resp = await sendRequest({
-        url: `https://mocki.io/v1/72763f80-9ce7-4523-9957-ff0192e559ed`,
+        url: `http://localhost:8000/api/v1/home`,
         method: "GET",
       })
-    console.log('in home', resp.data['data']['foodDecription'])
-    setfoodDecription(resp.data['data']['foodDecription'])
+    console.log('in home', resp.data['content']['foodDecription'])
+    setfoodDecription(resp.data['content']['foodDecription'])
   };
  
   const firstFourfoodDecription = foodDecription.slice(0, 4);

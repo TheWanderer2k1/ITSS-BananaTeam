@@ -9,6 +9,7 @@ Chuyển đường dẫn về server, sau đó chạy lệnh instal như dưới
 cd server
 npm install
 npm i nodemon
+npm run init
 ```
 #### Cài đặt client
 Chuyển đường dẫn về client, chạy lệnh install như dưới đây (khi chạy lệnh install mất thời gian khá lâu, khoảng 5p)

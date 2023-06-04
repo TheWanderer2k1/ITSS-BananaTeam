@@ -27,7 +27,7 @@ function ListComponent() {
         {firstFourfoodDecription.map((food) => (
           <FoodItem
             key={food.id}
-            image_src={food.img}
+            image_src={"http://localhost:8000" + food.img}
             text={food.name}
           />
         ))}
@@ -36,7 +36,7 @@ function ListComponent() {
         {remainingfoodDecription.map((food) => (
           <FoodItem
             key={food.id}
-            image_src={food.img}
+            image_src={"http://localhost:8000" + food.img}
             text={food.name}
           />
         ))}

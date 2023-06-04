@@ -22,7 +22,7 @@ function ListComponent() {
       {categories.map((category) => (
         <CategoryItem
           key={category.categoryId}
-          image_src={category.img}
+          image_src={"http://localhost:8000" + category.img}
           categoryId={category.categoryId}
         />
       ))}

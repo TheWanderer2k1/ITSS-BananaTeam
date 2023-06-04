@@ -169,10 +169,6 @@ class ExampleManagementTable extends Component {
                     perPage={perPage}
                 />
 
-                <ExampleImportForm
-                    page={page}
-                    perPage={perPage}
-                />
 
                 <div className="box-body qlcv">
                     <div className="form-inline">

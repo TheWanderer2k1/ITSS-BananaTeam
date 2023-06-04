@@ -6,7 +6,7 @@ exports.getDataHomepage = async (req, res) => {
         res.status(201).json({
             success: true,
             messages: ["Get Data Success"],
-            data: dataHomepage
+            content: dataHomepage
         })
     } catch (error) {
         console.log(error);

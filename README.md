@@ -10,6 +10,7 @@ cd server
 npm install
 npm i nodemon
 npm run init
+npm run init-mysqldb
 ```
 #### Cài đặt client
 Chuyển đường dẫn về client, chạy lệnh install như dưới đây (khi chạy lệnh install mất thời gian khá lâu, khoảng 5p)

@@ -1,27 +1,24 @@
 import React from 'react'
-
 import PropTypes from 'prop-types'
-
 import './food-item.css'
 
-const FoodItem = (props) => {
+const FoodItem =  ({ image_alt, image_src, text }) => {
   return (
-    <div className={`food-item-food-item ${props.rootClassName} `}>
+    <div className={`food-item-food-item `}>
       <img
-        src={props.image_src}
-        alt={props.image_alt}
+        src={image_src}
+        alt={image_alt}
         className="food-item-image"
       />
-      <span className="food-item-text">{props.Text}</span>
+      <span className="food-item-text">{text}</span>
     </div>
   )
 }
 
 FoodItem.defaultProps = {
-  image_src: '/external/food_slideshow_1-1500w.jpg',
-  image_alt: 'image',
-  Text: '豚つくね',
-  rootClassName: '',
+  image_src: '/library/dx/images/food-slideshow.png',
+  image_alt: 'fav-food-img',
+  text: '豚つくね',
 }
 
 FoodItem.propTypes = {

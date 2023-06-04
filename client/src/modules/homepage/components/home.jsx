@@ -4,7 +4,9 @@ import NavbarInteractive from './navbar-interactive'
 import CategoryItem from './category-item'
 import CategoryList from './category-list'
 import FoodItem from './food-item'
+import FoodList from './food-list'
 import ResItem from './res-item'
+import ResList from './res-list'
 import SlideShow from './slideshow'
 import './home.css'
 
@@ -33,14 +35,9 @@ const Home = (props) => {
         <button type="button" className="home-button button">
           &lt;
         </button>
-        <div className="home-container1">
-          <CategoryList></CategoryList>
-        </div>
-        <button type="button" className="home-button1 button">
-          <span className="home-text1">
-            <span>&gt;</span>
-            <br></br>
-          </span>
+        <CategoryList></CategoryList>
+        <button type="button" className="home-button button">
+          &gt;        
         </button>
       </div>
       <div className="home-container2">
@@ -54,19 +51,8 @@ const Home = (props) => {
           <h1 className="home-text">人気がある料理</h1>
         </div>
       </div>
-      <div className="home-fav-food">
-        <div className="home-line-1">
-          <FoodItem></FoodItem>
-          <FoodItem></FoodItem>
-          <FoodItem></FoodItem>
-          <FoodItem></FoodItem>
-        </div>
-        <div className="home-line-2">
-          <FoodItem></FoodItem>
-          <FoodItem></FoodItem>
-          <FoodItem></FoodItem>
-          <FoodItem></FoodItem>
-        </div>
+      <div className="home-fav-food-container">
+        <FoodList></FoodList>
       </div>
       <div className="home-container3">
         <div className="home-category-header2">
@@ -79,19 +65,8 @@ const Home = (props) => {
           <h1 className="home-text">人気があるレストラン</h1>
         </div>
       </div>
-      <div className="home-fav-res">
-        <div className="home-line-11">
-          <ResItem></ResItem>
-          <ResItem></ResItem>
-          <ResItem></ResItem>
-          <ResItem></ResItem>
-        </div>
-        <div className="home-line-21">
-          <ResItem rootClassName="res-item-root-class-name"></ResItem>
-          <ResItem rootClassName="res-item-root-class-name3"></ResItem>
-          <ResItem rootClassName="res-item-root-class-name1"></ResItem>
-          <ResItem rootClassName="res-item-root-class-name2"></ResItem>
-        </div>
+      <div className="home-fav-res-container">
+        <ResList></ResList>
       </div>
     </div>
   )

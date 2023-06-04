@@ -123,9 +123,19 @@
   align-self: center;
   margin-left: 60px;
 }
-.home-fav-food {
+.home-fav-food-container {
   flex: 0 0 auto;
   width: 84.5%;
+  height: 435px;
+  display: flex;
+  align-self: center;
+  margin-top: 16px;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.home-fav-food {
+  flex: 0 0 auto;
+  width: 100%;
   height: 435px;
   display: flex;
   align-self: center;
@@ -177,23 +187,33 @@
 }
 .home-fav-res {
   flex: 0 0 auto;
+  width: 100%;
+  height: 435px;
+  display: flex;
+  align-self: center;
+  margin-top: 16px;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.home-fav-res-container {
+  flex: 0 0 auto;
   width: 84.5%;
   height: 435px;
   display: flex;
   align-self: center;
   margin-top: 16px;
   align-items: flex-start;
-  margin-bottom: var(--dl-space-space-oneandhalfunits);
   flex-direction: column;
+  margin-bottom: var(--dl-space-space-oneandhalfunits);
 }
-.home-line-11 {
+.res-line-1 {
   flex: 0 0 auto;
   width: 100%;
   height: 50%;
   display: flex;
   align-items: flex-start;
 }
-.home-line-21 {
+.res-line-2 {
   flex: 0 0 auto;
   width: 100%;
   height: 50%;

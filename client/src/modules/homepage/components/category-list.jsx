@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from "react";
 import CategoryItem from "./category-item";
+import { sendRequest } from '../../../helpers/requestHelper';
 
 function ListComponent() {
   const [categories, setCategories] = useState([]);
-  
   useEffect(() => {
     fetchCategories();
   }, []);
 
-  const fetchCategories = () => {
-    fetch("https://mocki.io/v1/7765e32a-6765-486e-af9a-56220ac6f88a")
-      .then((response) => response.json())
-      .then((data) => setCategories(data.categories))
-      .catch((error) => console.error("Error fetching categories:", error));
+  const fetchCategories = async () => {
+    const resp = await sendRequest({
+        url: `https://mocki.io/v1/e56cca61-2e6a-4274-8ac2-ac8597e0bbdb`,
+        method: "GET",
+      })
+    console.log('in home', resp.data['data']['categories'])
+    setCategories(resp.data['data']['categories'])
   };
-
+  
   return (
-    <div className="category-list">
+    <div className="home-container1">
       {categories.map((category) => (
         <CategoryItem
           key={category.categoryId}

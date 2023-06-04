@@ -16,11 +16,10 @@ const CategoryItem = ({ image_alt, image_src, text }) => {
 }
 
 CategoryItem.defaultProps = {
-  image_alt: 'image',
+  image_alt: 'category-img',
   text: '弁当',
-  image_src: 'https://play.teleporthq.io/static/svg/default-img.svg',
+  //image_src: 'https://play.teleporthq.io/static/svg/default-img.svg',
 }
-
 
 CategoryItem.propTypes = {
   image_alt: PropTypes.string,

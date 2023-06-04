@@ -1,38 +1,42 @@
-import React from 'react'
-
-import './slideshow.css'
-
-const images = [
-    "library/dx/images/food-slideshow.png",
-    "library/dx/images/food-slideshow2.jpg",
-    "library/dx/images/food-slideshow3.png"
-  ];
-  const delay = 7500;
+import React, { useEffect, useState } from 'react';
+import './slideshow.css';
+import { sendRequest } from '../../../helpers/requestHelper';
 
 function Slideshow() {
-  const [index, setIndex] = React.useState(0);
-  const timeoutRef = React.useRef(null);
+  const [images, setImages] = useState([]);
+  const [index, setIndex] = useState(0);
+  const delay = 7500;
+  let timeoutRef = null;
 
-  function resetTimeout() {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-  }
+  useEffect(() => {
+    fetchImages();
+  }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     resetTimeout();
-    timeoutRef.current = setTimeout(
-      () =>
-        setIndex((prevIndex) =>
-          prevIndex === images.length - 1 ? 0 : prevIndex + 1
-        ),
-      delay
-    );
+    timeoutRef = setTimeout(() => {
+      setIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+    }, delay);
 
     return () => {
       resetTimeout();
     };
-  }, [index]);
+  }, [index, images]);
+
+  const resetTimeout = () => {
+    if (timeoutRef) {
+      clearTimeout(timeoutRef);
+    }
+  };
+
+  const fetchImages = async () => {
+    const resp = await sendRequest({
+        url: `https://mocki.io/v1/72763f80-9ce7-4523-9957-ff0192e559ed`,
+        method: "GET",
+      })
+    console.log('in home', resp.data['data']['food_slider'])
+    setImages(resp.data['data']['food_slider'])
+  };
 
   return (
     <div className="slideshow">
@@ -40,12 +44,8 @@ function Slideshow() {
         className="slideshowSlider"
         style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
       >
-        {images.map((imageUrl, index) => (
-          <div
-            className="slide"
-            key={index}
-            style={{ backgroundImage: `url(${imageUrl})` }}
-          ></div>
+        {images.map((image, idx) => (
+          <div className="slide" key={idx} style={{ backgroundImage: `url(${image.img})` }}></div>
         ))}
       </div>
 
@@ -53,7 +53,7 @@ function Slideshow() {
         {images.map((_, idx) => (
           <div
             key={idx}
-            className={`slideshowDot${index === idx ? " active" : ""}`}
+            className={`slideshowDot${index === idx ? ' active' : ''}`}
             onClick={() => {
               setIndex(idx);
             }}
@@ -64,4 +64,4 @@ function Slideshow() {
   );
 }
 
-export default Slideshow
+export default Slideshow;

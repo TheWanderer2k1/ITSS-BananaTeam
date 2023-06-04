@@ -10,7 +10,7 @@ function ListComponent() {
 
   const fetchCategories = async () => {
     const resp = await sendRequest({
-        url: `https://mocki.io/v1/e56cca61-2e6a-4274-8ac2-ac8597e0bbdb`,
+        url: `https://mocki.io/v1/72763f80-9ce7-4523-9957-ff0192e559ed`,
         method: "GET",
       })
     console.log('in home', resp.data['data']['categories'])
@@ -22,7 +22,7 @@ function ListComponent() {
       {categories.map((category) => (
         <CategoryItem
           key={category.categoryId}
-          img={category.img}
+          image_src={category.img}
           categoryId={category.categoryId}
         />
       ))}

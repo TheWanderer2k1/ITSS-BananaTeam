@@ -2,7 +2,11 @@
 
 ## Cách cài đặt project
 #### Cài MongoDB
-Project này sử dụng mongoDB để lưu dữ liệu phía backend. Truy cập vào đường link [install mongoDB](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/) để xem cách cài đặt chi tiết (nếu dùng linux thì click vào nút "install on Linux" cũng có hướng dẫn chi tiết
+Truy cập vào đường link [install mongoDB](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/) để xem cách cài đặt chi tiết (nếu dùng linux thì click vào nút "install on Linux" cũng có hướng dẫn chi tiết
+#### Cài Mysql server
+1. Truy cập vào đường link [MySQL Installer](https://dev.mysql.com/downloads/installer/) để cài đặt MySql Installer, sau đó sử dụng MySql Installer để cài đặt MySql server và Mysql workbench.
+2. Mở mysql workbench và tạo 1 datababse tên là 'tabeyoudb'
+
 #### Cài đặt server
 Chuyển đường dẫn về server, sau đó chạy lệnh instal như dưới đây:
 ```shell
@@ -10,6 +14,7 @@ cd server
 npm install
 npm i nodemon
 npm run init
+npm run init-mysqldb
 ```
 #### Cài đặt client
 Chuyển đường dẫn về client, chạy lệnh install như dưới đây (khi chạy lệnh install mất thời gian khá lâu, khoảng 5p)

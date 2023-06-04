@@ -44,7 +44,8 @@ router.use("/component", require("./modules/super-admin/component/component.rout
 router.use("/link", require("./modules/super-admin/link/link.route"));
 router.use("/api", require("./modules/super-admin/api/api.route"));
 router.use("/organizational-units", require("./modules/super-admin/organizational-unit/organizationalUnit.route"));
-router.use("", require("./modules/homepageInfor/route"));
+router.use("/api/v1", require("./modules/homepageInfor/route"));
+router.use("/api/v1", require("./modules/food/food.route"));
 
 router.use("/examples", require("./modules/example/example.route"));
 

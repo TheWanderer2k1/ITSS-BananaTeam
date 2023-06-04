@@ -1,17 +1,14 @@
-const mysql = require('mysql')
+const sql = require("../../seed/queryMysqlDB");
 
-exports.getExamples = async (keyword, page=null, pageSize=null) => {
-    let page, perPage;
-    page = data?.page ? Number(data.page) : 1;
-    perPage = data?.perPage ? Number(data.perPage) : 20;
-
-    let totalList = await Example(connect(DB_CONNECTION, portal)).countDocuments(keySearch);
-    let examples = await Example(connect(DB_CONNECTION, portal)).find(keySearch)
-        .skip((page - 1) * perPage)
-        .limit(perPage);
-
-    return { 
-        data: examples, 
-        totalList 
-    }
+exports.getFoodDescriptionList = async (keyword, page=null, pageSize=null) => {
+    keySearch = ''
+    if (keyword) keySearch = `AND food.name like '%${keyword}%'`
+    query = `SELECT food.name, price, fooddesciption.Desciption, restaurant.name as restaurantName, restaurant.OpenTime, restaurant.CloseTime, restaurant.Address
+        FROM food, fooddesciption, restaurant
+        WHERE food.id = fooddesciption.FoodID
+        ${keySearch}
+        AND fooddesciption.RestaurantID = restaurant.ID`
+    result = sql.QueryGetData(query)
+    result['attr'] = 'test'
+    return result
 }

@@ -15,6 +15,7 @@
     "sp": "node seed/initSamplePackage.js",
     "shr": "node seed/initHumanResourceData.js",
     "init-db": "node seed/initDB.js",
+    "init-mysqldb": "node seed/initMysqlDB.js",
     "init-sample-company": "node seed/initSampleCompanyDB.js",
     "init-human-resource-data": "node seed/initHumanResourceData.js",
     "init": "node seed/initDB.js&& node seed/initSampleCompanyDB.js && node seed/initHumanResourceData.js",
@@ -56,6 +57,7 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "mysql-import": "^5.0.26",
     "raw-loader": "^4.0.2",
     "source-map-loader": "^1.1.2",
     "webpack-cli": "^4.2.0",

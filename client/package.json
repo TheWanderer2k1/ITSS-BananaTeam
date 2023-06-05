@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "1.0.0",
   "private": true,
-    "antd": "^5.5.2",
+  "antd": "^5.5.2",
   "scripts": {
     "start": "env-cmd react-scripts --openssl-legacy-provider start",
     "build": "react-scripts --max_old_space_size=4096 build",
@@ -20,6 +20,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "antd": "^5.5.2",
     "axios": "^1.4.0",
     "env-cmd": "^10.1.0",
     "exceljs": "^4.3.0",

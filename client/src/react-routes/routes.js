@@ -60,6 +60,7 @@ class Routes extends Component {
                     />
                     <AuthRoute
                         exact
+                        auth={auth}
                         path="/homepage"
                         component={HomePage}
                     />

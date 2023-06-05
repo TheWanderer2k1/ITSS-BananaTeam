@@ -29,6 +29,9 @@ app.use("/upload/user-guide/document", express.static("upload/user-guide/documen
 app.use("/upload/user-guide/asset", express.static("upload/user-guide/asset"));
 app.use("/upload/user-guide/bill", express.static("upload/user-guide/bill"));
 
+app.use("/upload/img-resource/foods", express.static("upload/img-resource/foods"));            //food img
+app.use("/upload/img-resource/categories", express.static("upload/img-resource/categories"));  //category img
+
 const router = express.Router();
 
 router.use("/auth", require("./modules/auth/auth.route"));

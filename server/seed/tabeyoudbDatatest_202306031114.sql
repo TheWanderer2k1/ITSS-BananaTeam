@@ -21,7 +21,7 @@ DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS role;
 
 
-DROP TABLE IF EXISTS fooddesciption;
+DROP TABLE IF EXISTS fooddescription;
 
 
 DROP TABLE IF EXISTS food;
@@ -49,18 +49,13 @@ CHARACTER SET utf8mb4,
 COLLATE utf8mb4_0900_ai_ci;
 
 
-ALTER TABLE image 
-  ADD INDEX IDX_GroupImageID(GroupID);
 
-
-ALTER TABLE image 
-  ADD UNIQUE INDEX UK_image_GroupID(GroupID);
 
 
 CREATE TABLE restaurant (
   ID INT NOT NULL AUTO_INCREMENT,
   Name VARCHAR(256) NOT NULL DEFAULT '',
-  Desciption VARCHAR(256) NOT NULL DEFAULT '',
+  Description VARCHAR(256) NOT NULL DEFAULT '',
   OpenTime VARCHAR(5) NOT NULL DEFAULT '',
   CloseTime VARCHAR(5) NOT NULL DEFAULT '',
   Phone VARCHAR(256) NOT NULL DEFAULT '',
@@ -73,11 +68,6 @@ ENGINE = INNODB,
 AUTO_INCREMENT = 7,
 CHARACTER SET utf8mb4,
 COLLATE utf8mb4_0900_ai_ci;
-
-
-ALTER TABLE restaurant 
-  ADD CONSTRAINT FK_Restaurant_GroupImageID FOREIGN KEY (GroupImageID)
-    REFERENCES image(GroupID);
 
 
 CREATE TABLE category (
@@ -115,11 +105,11 @@ ALTER TABLE food
     REFERENCES category(ID);
 
 
-CREATE TABLE fooddesciption (
+CREATE TABLE fooddescription (
   ID INT NOT NULL AUTO_INCREMENT,
   FoodID INT NOT NULL,
   RestaurantID INT NOT NULL,
-  Desciption VARCHAR(2048) NOT NULL DEFAULT '',
+  Description VARCHAR(2048) NOT NULL DEFAULT '',
   GroupImageID INT DEFAULT NULL,
   Price INT DEFAULT NULL,
   Status SMALLINT NOT NULL,
@@ -131,13 +121,13 @@ CHARACTER SET utf8mb4,
 COLLATE utf8mb4_0900_ai_ci;
 
 
-ALTER TABLE fooddesciption 
-  ADD CONSTRAINT FK_fooddesciption_FoodID FOREIGN KEY (FoodID)
+ALTER TABLE fooddescription
+  ADD CONSTRAINT FK_fooddescription_FoodID FOREIGN KEY (FoodID)
     REFERENCES food(ID);
 
 
-ALTER TABLE fooddesciption 
-  ADD CONSTRAINT FK_fooddesciption_RestaurantID FOREIGN KEY (RestaurantID)
+ALTER TABLE fooddescription
+  ADD CONSTRAINT FK_fooddescription_RestaurantID FOREIGN KEY (RestaurantID)
     REFERENCES restaurant(ID);
 
 
@@ -204,12 +194,8 @@ COLLATE utf8mb4_0900_ai_ci;
 
 ALTER TABLE foodreview 
   ADD CONSTRAINT FK_foodreview_FoodDesID FOREIGN KEY (FoodDesID)
-    REFERENCES fooddesciption(ID);
+    REFERENCES fooddescription(ID);
 
-
-ALTER TABLE foodreview 
-  ADD CONSTRAINT FK_foodreview_GroupImageID FOREIGN KEY (GroupImageID)
-    REFERENCES image(GroupID);
 
 
 ALTER TABLE foodreview 
@@ -267,26 +253,26 @@ ALTER TABLE reactreview
 
 
 INSERT INTO image VALUES
-(1, 1, 'dsads', 'dsdsd'),
-(2, 2, 'dsads', 'e3f3g3'),
-(3, 3, 'dsads', 'cxvb'),
-(4, 4, 'dsads', 'frt5y'),
-(5, 5, 'dsads', 'acbvb'),
-(6, 6, 'dsads', 'dt43y5y'),
-(7, 7, 'dsads', 'dsagg55'),
-(8, 8, 'dsads', 'dqr4365'),
-(9, 9, 'dsads', 'vdvdhty'),
-(10, 10, 'dsads', 'dwer435'),
-(11, 11, 'dsads', 'd3t4t4'),
-(12, 12, 'dsads', 'd32t43t'),
-(13, 13, 'dsads', 'dsadsv445'),
-(14, 14, 'dsads', 'd3r35r'),
-(15, 15, 'dsads', 'dsd55'),
-(16, 16, 'dsads', 'd3rr353'),
-(17, 17, 'dsads', 'd4646'),
-(18, 18, 'dsads', 'dsd2222'),
-(19, 19, 'dsads', 'dvdbd'),
-(20, 20, 'dsads', 'dgy757');
+(1, 1, 'dsads', '/upload/img-resource/foods/tempura.png'),
+(2, 2, 'dsads', '/upload/img-resource/foods/sushi.jpg'),
+(3, 3, 'dsads', '/upload/img-resource/foods/sashimi.jpg'),
+(4, 4, 'dsads', '/upload/img-resource/foods/yakitori.jpg'),
+(5, 5, 'dsads', '/upload/img-resource/foods/ramen.png'),
+(6, 6, 'dsads', '/upload/img-resource/foods/okonomiyaki.jpg'),
+(7, 7, 'dsads', '/upload/img-resource/foods/jiaozi.jpg'),
+(8, 8, 'dsads', '/upload/img-resource/foods/takoyaki.jpg'),
+(9, 9, 'dsads', '/upload/img-resource/foods/sukiyaki.jpg'),
+(10, 10, 'dsads', '/upload/img-resource/foods/Champon.jpg'),
+(11, 11, 'dsads', '/upload/img-resource/foods/edamame.jpg'),
+(12, 12, 'dsads', '/upload/img-resource/foods/Fugu.jpg'),
+(13, 13, 'dsads', '/upload/img-resource/foods/Gyoza.jpg'),
+(14, 14, 'dsads', '/upload/img-resource/foods/gyudon.jpg'),
+(15, 15, 'dsads', '/upload/img-resource/foods/gyukatsu.jpg'),
+(16, 16, 'dsads', '/upload/img-resource/foods/gyutan,jpg'),
+(17, 17, 'dsads', '/upload/img-resource/foods/karaage.jpeg'),
+(18, 18, 'dsads', '/upload/img-resource/foods/katsudon.jpeg'),
+(19, 19, 'dsads', '/upload/img-resource/foods/Kushikatsu.jpg'),
+(20, 20, 'dsads', '/upload/img-resource/foods/Miso-soup.jpeg');
 
 
 INSERT INTO category VALUES
@@ -335,7 +321,7 @@ INSERT INTO role VALUES
 (4, 'アドミン');
 
 
-INSERT INTO fooddesciption VALUES
+INSERT INTO fooddescription VALUES
 (150, 1, 1, 'dsad', 1, 48000, 1),
 (151, 2, 1, 'dsaddd', 2, 56000, 1),
 (152, 3, 1, 'dddd', 3, 32000, 1),

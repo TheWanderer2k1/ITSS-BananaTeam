@@ -1,0 +1,26 @@
+.res-item-container {
+  flex: 0 0 auto;
+  width: 25%;
+  height: 100%;
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.res-item-image {
+  width: 209px;
+  height: 176px;
+  align-self: center;
+  object-fit: cover;
+}
+.res-item-text {
+  font-size: 20px;
+  align-self: center;
+  font-style: normal;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+
+
+

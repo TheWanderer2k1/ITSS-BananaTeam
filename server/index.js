@@ -29,6 +29,9 @@ app.use("/upload/user-guide/document", express.static("upload/user-guide/documen
 app.use("/upload/user-guide/asset", express.static("upload/user-guide/asset"));
 app.use("/upload/user-guide/bill", express.static("upload/user-guide/bill"));
 
+app.use("/upload/img-resource/foods", express.static("upload/img-resource/foods"));            //food img
+app.use("/upload/img-resource/categories", express.static("upload/img-resource/categories"));  //category img
+
 const router = express.Router();
 
 router.use("/auth", require("./modules/auth/auth.route"));
@@ -44,7 +47,8 @@ router.use("/component", require("./modules/super-admin/component/component.rout
 router.use("/link", require("./modules/super-admin/link/link.route"));
 router.use("/api", require("./modules/super-admin/api/api.route"));
 router.use("/organizational-units", require("./modules/super-admin/organizational-unit/organizationalUnit.route"));
-router.use("", require("./modules/homepageInfor/route"));
+router.use("/api/v1", require("./modules/homepageInfor/route"));
+router.use("/api/v1", require("./modules/food/food.route"));
 
 router.use("/examples", require("./modules/example/example.route"));
 

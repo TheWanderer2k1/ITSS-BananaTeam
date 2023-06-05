@@ -538,19 +538,28 @@ span.dx-options  > div > a {
 
 .search-box {
     background-color: #FFB1B178;
-    border-radius: 20px;    
+    border-radius: 20px;   
+    align-items: center; 
+}
+
+.search-icon i {
+    font-size: 20px;
 }
 
 .search-text input {
-    background-color: #FFB1B178;
     border: none;
     border-radius: 20px;
-    width: 100%;
     padding: 12px;
+    background-color: transparent;
+}
+
+.food-list {
+    flex-wrap: wrap;
+    margin: 12px 24px;
 }
 
 .food-item {
-    width: 50%;
+    width: 45%;
     margin: 12px;
 }
 
@@ -578,6 +587,10 @@ span.dx-options  > div > a {
     padding: 2px 6px;
 }
 
+.food-rate i {
+    color: rgb(235, 235, 0);
+}
+
 .food-info {
     margin-left: 12px;
 }
@@ -592,4 +605,24 @@ span.dx-options  > div > a {
 
 .food-price {
     font-weight: bold;
+}
+
+.pagination-box {
+    background-color: #FFBCBC33;
+    border-radius: 20px;
+    padding: 12px 36px; 
+}
+
+.pagination-page {
+    border-radius: 50%;
+}
+
+.pagination-page__selected {
+    border-radius: 50%;
+    background-color: #FFBCBC;
+}
+
+.pagination-page:hover {
+    border-radius: 50%;
+    background-color: #FFBCBC;
 }

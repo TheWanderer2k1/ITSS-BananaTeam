@@ -129,16 +129,16 @@ const Search = ({ translate }) => {
                         <div className="col-xs-12 col-sm-12 col-md-6 col-lg-8" >
                         </div>
                         <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
-                            <div className="search-box">
-                            <div className="search-icon"></div>
-                            <div className="search-text">
-                                <input type="text" placeholder='Nem cuốn'/>
+                            <div className="search-box d-flex">
+                                <div className="search-icon"><button type="button" class="btn btn-link"><i class="fa fa-search"></i></button></div>
+                                <div className="search-text">
+                                    <input type="text" placeholder='Nem cuốn'/>
+                                </div>
                             </div>
-                    </div>
                         </div>                            
                     </div>
                     
-                    <div className="food-list">
+                    <div className="food-list d-flex">
                         <div className="food-item">
                             <div className="row d-flex">
                                 <div className="food-image">
@@ -147,7 +147,7 @@ const Search = ({ translate }) => {
                                 </div>
                                 <div className="food-info">
                                     <div className="food-name">Nem Cuốn (春巻き）</div>
-                                    <div className="food-restaurant"><i class="fa fa-location"></i> Hoàng Mai</div>
+                                    <div className="food-restaurant"><i class="fa fa-pin"></i> Hoàng Mai</div>
                                     <div className="food-price"><i class="fa fa-money"></i> 700円</div>
                                 </div>
                             </div>
@@ -160,7 +160,7 @@ const Search = ({ translate }) => {
                                 </div>
                                 <div className="food-info">
                                     <div className="food-name">Nem Cuốn (春巻き）</div>
-                                    <div className="food-restaurant"><i class="fa fa-location"></i> Hoàng Mai</div>
+                                    <div className="food-restaurant"><i class="fa fa-location"></i>Hoàng Văn Thụ, Quận Hoàng Mai, Hà Nội</div>
                                     <div className="food-price"><i class="fa fa-money"></i> 700円</div>
                                 </div>
                             </div>
@@ -205,7 +205,21 @@ const Search = ({ translate }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="pagination-box"></div>
+                    <div className="row">
+                        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-8" >
+                        </div>
+                        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
+                            <div className="pagination-box">
+                            <button type="button" className="btn btn-link pagination-page pagination-page__selected">1</button>
+                            <button type="button" className="btn btn-link pagination-page">2</button>
+                            <button type="button" className="btn btn-link pagination-page">3</button>
+                            <button type="button" className="btn btn-link pagination-page">4</button>
+                            <button type="button" className="btn btn-link pagination-page">5</button>
+                            <button type="button" className="btn btn-link pagination-page">6</button>
+                            </div>
+                        </div>                            
+                    </div>
+                    
                 </div>
             </div>
         </div>

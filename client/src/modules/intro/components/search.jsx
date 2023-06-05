@@ -125,8 +125,86 @@ const Search = ({ translate }) => {
                     </div>
                 </div>
                 <div className="content">
-                    <div className="search-box"></div>
-                    <div className="food-list"></div>
+                    <div className="row">
+                        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-8" >
+                        </div>
+                        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
+                            <div className="search-box">
+                            <div className="search-icon"></div>
+                            <div className="search-text">
+                                <input type="text" placeholder='Nem cuốn'/>
+                            </div>
+                    </div>
+                        </div>                            
+                    </div>
+                    
+                    <div className="food-list">
+                        <div className="food-item">
+                            <div className="row d-flex">
+                                <div className="food-image">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg" alt="" />
+                                    <div className="food-rate">5 <i class="fa fa-star"></i></div>
+                                </div>
+                                <div className="food-info">
+                                    <div className="food-name">Nem Cuốn (春巻き）</div>
+                                    <div className="food-restaurant"><i class="fa fa-location"></i> Hoàng Mai</div>
+                                    <div className="food-price"><i class="fa fa-money"></i> 700円</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="food-item">
+                            <div className="row d-flex">
+                                <div className="food-image">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg" alt="" />
+                                    <div className="food-rate">5 <i class="fa fa-star"></i></div>
+                                </div>
+                                <div className="food-info">
+                                    <div className="food-name">Nem Cuốn (春巻き）</div>
+                                    <div className="food-restaurant"><i class="fa fa-location"></i> Hoàng Mai</div>
+                                    <div className="food-price"><i class="fa fa-money"></i> 700円</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="food-item">
+                            <div className="row d-flex">
+                                <div className="food-image">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg" alt="" />
+                                    <div className="food-rate">5 <i class="fa fa-star"></i></div>
+                                </div>
+                                <div className="food-info">
+                                    <div className="food-name">Nem Cuốn (春巻き）</div>
+                                    <div className="food-restaurant"><i class="fa fa-location"></i> Hoàng Mai</div>
+                                    <div className="food-price"><i class="fa fa-money"></i> 700円</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="food-item">
+                            <div className="row d-flex">
+                                <div className="food-image">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg" alt="" />
+                                    <div className="food-rate">5 <i class="fa fa-star"></i></div>
+                                </div>
+                                <div className="food-info">
+                                    <div className="food-name">Nem Cuốn (春巻き）</div>
+                                    <div className="food-restaurant"><i class="fa fa-location"></i> Hoàng Mai</div>
+                                    <div className="food-price"><i class="fa fa-money"></i> 700円</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="food-item">
+                            <div className="row d-flex">
+                                <div className="food-image">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg" alt="" />
+                                    <div className="food-rate">5 <i class="fa fa-star"></i></div>
+                                </div>
+                                <div className="food-info">
+                                    <div className="food-name">Nem Cuốn (春巻き）</div>
+                                    <div className="food-restaurant"><i class="fa fa-location"></i> Hoàng Mai</div>
+                                    <div className="food-price"><i class="fa fa-money"></i> 700円</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div className="pagination-box"></div>
                 </div>
             </div>

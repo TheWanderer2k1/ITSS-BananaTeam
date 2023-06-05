@@ -7,8 +7,6 @@ import { DeleteNotification, PaginateBar, SmartTable } from "../../../../common-
 import { ExampleCreateForm } from "./exampleCreateForm";
 import { ExampleEditForm } from "./exampleEditForm";
 import { ExampleDetailInfo } from "./exampleDetailInfo";
-import { ExampleImportForm } from "./exampleImortForm";
-
 import { exampleActions } from "../redux/actions";
 import { getTableConfiguration } from '../../../../helpers/tableConfiguration';
 
@@ -169,11 +167,6 @@ function ExampleManagementTable(props) {
             />
 
             <ExampleCreateForm
-                page={page}
-                perPage={perPage}
-            />
-
-            <ExampleImportForm
                 page={page}
                 perPage={perPage}
             />

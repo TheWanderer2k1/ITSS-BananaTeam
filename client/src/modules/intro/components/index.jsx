@@ -5,8 +5,9 @@ import Service from './service';
 import Signup from './signUp';
 import Location from './location';
 import Contact from './contact';
-import Footer from './footer';
+import Footer from '../../homepage/components/footer';
 import Search from './search';
+import { HomePage } from '../../homepage/components/index';
 
 import './intro.css';
 
@@ -14,13 +15,8 @@ const Introduction = () => {
 
     return (
         <React.Fragment>
+            <HomePage />
             <Search />
-            <Header />
-            <Intro />
-            <Service />
-            <Signup />
-            <Location />
-            <Contact />
             <Footer />
         </React.Fragment>
     );

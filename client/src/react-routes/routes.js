@@ -12,6 +12,7 @@ import ResetPassword from "../modules/auth/components/resetPasswordNew"
 import Search from "../modules/search/components";
 
 const Home = lazy(() => import("../modules/home/components"))
+const HomePage = lazy(() => import("../modules/homepage/components"))
 const NotFound = lazy(() => import("../modules/not-found/components"))
 
 
@@ -57,6 +58,11 @@ class Routes extends Component {
                         path="/reset-password"
                         component={ResetPassword}
                     />
+                    <AuthRoute
+                        exact
+                        path="/homepage"
+                        component={HomePage}
+                    />
 
                     <PrivateRoute
                         isLoading={auth.isLoading}
@@ -69,6 +75,21 @@ class Routes extends Component {
                         link={"/home"}
                         path={"/home"}
                         pageName={"home"}
+                        layout={Layout}
+                        component={HomePage}
+                    />
+
+                    <PrivateRoute
+                        isLoading={auth.isLoading}
+                        key={"homepage"}
+                        arrPage={[
+                            { link: "/homepage", name: "homepage", icon: "fa fa-home" },
+                        ]}
+                        auth={auth}
+                        exact={true}
+                        link={"/homepage"}
+                        path={"/homepage"}
+                        pageName={"homepage"}
                         layout={Layout}
                         component={Home}
                     />

@@ -1,11 +1,8 @@
-import { DayTableSlicer } from '@fullcalendar/daygrid';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
-import Swal from 'sweetalert2';
 import { Loading } from '../../../common-components';
 import moment from 'moment'
-import { filter, forEach } from 'lodash';
 
 class Content extends Component {
     constructor(props) {

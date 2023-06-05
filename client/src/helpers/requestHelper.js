@@ -3,22 +3,18 @@ import { getStorage, clearStorage } from '../config';
 import ServerResponseAlert from '../modules/alert/components/serverResponseAlert';
 import { toast } from 'react-toastify';
 import React from 'react';
-import FingerprintJS from '@fingerprintjs/fingerprintjs';
 // import store from '../redux/store'
 // import { AuthConstants } from '../modules/auth/redux/constants';
 import JSEncrypt from 'jsencrypt';
-import { key } from './pub.json'
 
 function encryptMessage(message) {
-    const publicKey = key;
+    const publicKey = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6J3DDsYRVeZ4g8HI5ni4Izb4xkepWp/ArqrI162hF7P/9sMegdeSKS9VAcqJzTFwTsrl2VB7c7jmISCLHLOcwlxeCGPaGqdTgKVKWne8bugb9XbOn2eEcBmj7hlzKC+0rP3pwszvBEjougI2vWi9Hd10LutwaCxyjEhtTyWYd1op5FjwBidA/UViAtZ0QMXp9Y44pk5IlFlolodFBBB0Hv/JvZy2M+7LNjM6c01q6UeOkl1BZz2mqM2gDp4p7EPu+CqODjjySV76C8k0QxqejUKoXPr7KMF7SsgxI9KeCvriltDxmhlhRiUnGniPWE+EVVbzdSQ/HBh0h7F2t8d4QQIDAQAB\n-----END PUBLIC KEY-----";
     const jsEncrypt = new JSEncrypt();
     jsEncrypt.setPublicKey(publicKey);
-
     return jsEncrypt.encrypt(message);
 }
 
 const AuthenticateHeader = async () => {
-    // const fpAgent = await FingerprintJS.load();
     // const result = await fpAgent.get();
     // const fingerprint = result.visitorId;
   

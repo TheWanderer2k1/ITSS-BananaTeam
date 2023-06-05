@@ -1,0 +1,25 @@
+.food-item-food-item {
+  flex: 0 0 auto;
+  width: 25%;
+  height: 100%;
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.food-item-image {
+  width: 257.5px;
+  height: 169px;
+  align-self: center;
+  box-shadow: 5px 5px 10px 0px #d4d4d4;
+  object-fit: cover;
+  border-color: var(--dl-color-gray-white);
+  border-width: 2px;
+  border-radius: 50px;
+}
+.food-item-text {
+  align-self: center;
+  font-style: normal;
+  margin-top: 7px;
+  font-weight: 900;
+}

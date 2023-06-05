@@ -13,7 +13,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import { SocketConstants } from './modules/socket/redux/constants';
 
 import 'react-toastify/dist/ReactToastify.css';
-import './app.css'
 import { getStorage, setStorage } from './config';
 
 const history = createBrowserHistory();

@@ -4,6 +4,7 @@ import { withTranslate } from 'react-redux-multilingual';
 import SystemHome from './systemHome';
 import { SuperHome } from './superHome';
 import Introduction from '../../intro/components';
+import { HomePage } from '../../homepage/components';
 
 class Home extends Component {
     constructor(props) {

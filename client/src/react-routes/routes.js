@@ -9,6 +9,7 @@ import Layout from "../layout/layout";
 import Login from "../modules/auth/components/login"
 import Introduction from "../modules/intro/components"
 import ResetPassword from "../modules/auth/components/resetPasswordNew"
+import Search from "../modules/search/components";
 
 const Home = lazy(() => import("../modules/home/components"))
 const NotFound = lazy(() => import("../modules/not-found/components"))
@@ -214,6 +215,26 @@ class Routes extends Component {
                         pageName={"manage_examples_hooks_3"}
                         layout={Layout}
                         component={ExampleManagementHooks3}
+                    />
+
+                    <PrivateRoute
+                        isLoading={this.props.example3.isLoading}
+                        key={"search"}
+                        arrPage={[
+                            { link: "/", name: "search", icon: "fa fa-home" },
+                            {
+                                link: "/search",
+                                name: "search",
+                                icon: "fa fa-circle",
+                            },
+                        ]}
+                        auth={auth}
+                        exact={true}
+                        link={"/manage-examples-hooks-3"}
+                        path={"/manage-examples-hooks-3"}
+                        pageName={"manage_examples_hooks_3"}
+                        layout={Layout}
+                        component={Search}
                     />
 
                     {/* NOT FOUND */}

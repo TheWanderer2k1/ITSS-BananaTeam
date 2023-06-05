@@ -41,29 +41,44 @@ const Header = (props) => {
     }, [user]);
 
     return (
+        // <header className="fixed-top p-center-h">
+        //     <h1>DX workplace</h1>
+        //     <span id="dx-language-setting" className="dx-language-setting p-center-h">
+        //         <a style={{ cursor: "pointer" }} onClick={_setEng}><img src='/library/dx/images/eng.png' className="img-circle" /></a>
+        //         <a style={{ cursor: "pointer" }} onClick={_setVie}><img src='/library/dx/images/vietnam.png' className="img-circle" /></a>
+        //     </span>
+        //     <span className="dx-options">
+        //         <a href="#dx-intro">Giới thiệu</a>
+        //         <a href="#dx-service">Dịch vụ</a>
+        //         <a href="#dx-contact">Liên hệ</a>
+        //         <a href="#dx-location">Thông tin</a>
+        //         <a href="#dx-service-signup">Đăng ký</a>
+        //     </span>
+        //     <span className="dx-language">
+        //         <button onClick={_setLanguage}><i className="fa fa-language"></i></button>
+        //     </span>
+        //     <span className="dx-auth">
+        //         {
+        //             user ?
+        //                 <a href="/home" className="dx-workspace-button" title={translate('intro.auth.start')}>{translate('intro.auth.start')}</a> :
+        //                 <a href="/login" className="dx-workspace-button" title={translate('intro.auth.signin')}>{translate('intro.auth.signin')}</a>
+        //         }
+        //     </span>
+        // </header>
         <header className="fixed-top p-center-h">
-            <h1>DX workplace</h1>
-            <span id="dx-language-setting" className="dx-language-setting p-center-h">
+            <img src="/library/dx/images/tabeyou-logo.png" alt="" className="header-logo"/>
+            <h1>TABEYOU</h1>
+            {/* <span id="dx-language-setting" className="dx-language-setting p-center-h">
                 <a style={{ cursor: "pointer" }} onClick={_setEng}><img src='/library/dx/images/eng.png' className="img-circle" /></a>
                 <a style={{ cursor: "pointer" }} onClick={_setVie}><img src='/library/dx/images/vietnam.png' className="img-circle" /></a>
-            </span>
+            </span> */}
             <span className="dx-options">
-                <a href="#dx-intro">Giới thiệu</a>
-                <a href="#dx-service">Dịch vụ</a>
-                <a href="#dx-contact">Liên hệ</a>
-                <a href="#dx-location">Thông tin</a>
-                <a href="#dx-service-signup">Đăng ký</a>
+                <div className="dx-option"><a href="#dx-intro">ホームページ</a></div>
+                <div className="dx-option"><a href="#dx-service">ハノイ</a><i class="fa fa-chevron-down"></i></div>
+                <div className="dx-option"><a href="#dx-contact">食べ物&飲み物</a><i class="fa fa-chevron-down"></i></div>
+                <div className="dx-option"><a href="#dx-service-signup">ログアウト</a></div>
             </span>
-            <span className="dx-language">
-                <button onClick={_setLanguage}><i className="fa fa-language"></i></button>
-            </span>
-            <span className="dx-auth">
-                {
-                    user ?
-                        <a href="/home" className="dx-workspace-button" title={translate('intro.auth.start')}>{translate('intro.auth.start')}</a> :
-                        <a href="/login" className="dx-workspace-button" title={translate('intro.auth.signin')}>{translate('intro.auth.signin')}</a>
-                }
-            </span>
+            
         </header>
     )
 }

@@ -352,3 +352,186 @@ img.service-image {
     font-size: 1.5rem;
     font-weight: bolder;
 }
+
+/* Banana Team */
+footer.bnn-footer {
+    background-color: #EFF0F1;    
+}
+
+footer.bnn-footer > div.copyright {
+    padding: 20px;
+    border-top: 0.5px solid #c1c1c1;
+    text-align: center;
+}
+
+section.bnn-container {
+    background-color: #EFF0F1;
+    padding: 140px 100px;
+}
+
+div.bnn-social-logo-list {
+    display: flex;
+    
+}
+
+div.bnn-social-logo {
+    border-radius: 50px;
+    margin: 36px;
+    text-align: center;
+    padding: 10px;
+    width: 64px;
+    height: 64px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    overflow: hidden;
+}
+
+div.bnn-social-logo:hover {
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.2);
+}
+
+ul.bnn-footer-info-list, li {
+    list-style: none;
+    list-style-position:inside;
+    padding: 0;
+    margin: 10px 0;
+}
+
+ul.bnn-footer-info-list >li > a,
+ul.bnn-footer-info-list >li > a:hover {
+    color: #000
+}
+
+.bnn-info-title {
+    font-weight: bold;
+}
+
+img.header-logo {
+    height: 52px;
+}
+
+header.fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    background-color: #fff;
+    padding: 12px 24px;
+}
+
+header.fixed-top > h1 {
+    font-family: 'Trebuchet MS', sans-serif;
+    margin: 0;
+    color: #E41414;
+    font-size: 3.0rem;
+    font-weight: bold;
+    padding: 12px 24px 12px 24px;
+}
+
+span.dx-options {
+    position: absolute;
+    /* top: 20px; */
+    /* right: 180px; */
+    font-weight: bold;
+    height: 81px;
+    line-height: 81px;
+    background-color: #FFA3A3;
+    top: 0;
+    right: 36px;
+    padding: 0 12px;
+    border-radius: 30px;
+    display: flex;
+}
+
+span.dx-options  > div {
+    margin: 0 60px;
+    padding-left: 12px;
+    font-size: 1.6rem;
+}
+
+span.dx-options  > div > a {
+    color: #000;
+    margin-right: 12px;
+}
+
+/* Search screen */
+.search-container {
+    margin-top: 81px;
+    background-color: #fff;
+    padding: 24px;
+}
+
+.salutation {
+    display: flex;
+    align-items: center;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-info > img {
+    width: 50px;
+    border: 2px solid #000;
+    border-radius: 50%;
+}
+
+.coin-icon {
+    width: 20px;
+    margin-right: 2px;
+}
+
+.main-layout {
+    /* height: 100vh; */
+}
+
+.filter-sidebar {
+    background-color: #FFE2E2;
+    flex: 2;
+    border-radius: 20px;
+}
+
+.content {
+    flex: 8;
+}
+
+
+/*  */
+.d-flex {
+    display: flex;
+}
+.flex-direction-column {
+    flex-direction: column;
+}
+.mt-6 {
+    margin-top: 6px;
+}
+.mr-6 {
+    margin-right: 6px;
+}
+.px-12 {
+    padding: 0 12px;
+}
+
+.rate-star-item {
+    display: flex;
+    align-items: center;
+}
+
+.action-button {
+    justify-content: space-around;
+}
+
+.action-button button {
+    border-radius: 30px;
+    background-color: #FFA3A3;
+    color: #000;
+    border: none;
+    padding: 12px;
+    width: 100px;
+    font-weight: bold;
+    margin-bottom: 24px;
+}

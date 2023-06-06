@@ -31,6 +31,7 @@ app.use("/upload/user-guide/bill", express.static("upload/user-guide/bill"));
 
 app.use("/upload/img-resource/foods", express.static("upload/img-resource/foods"));            //food img
 app.use("/upload/img-resource/categories", express.static("upload/img-resource/categories"));  //category img
+app.use("/upload/img-resource/favicon", express.static("upload/img-resource/favicon"));
 
 const router = express.Router();
 

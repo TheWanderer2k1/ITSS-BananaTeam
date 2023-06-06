@@ -12,7 +12,8 @@ function InputComponent() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (inputValue.trim() !== '') {
-      history.push('/other');
+      history.push(`/?search_query=${encodeURIComponent(inputValue)}`);
+      console.log(inputValue);
     }
   };
 

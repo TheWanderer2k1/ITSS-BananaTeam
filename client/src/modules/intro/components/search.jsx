@@ -32,6 +32,9 @@ let initialRatingFilter = [
 
 function Search () {
   const [searchData, setSearchData] = useState('');
+	// Dữ liệu lấy về từ server
+	const [allFoodDescription, setAllFoodDescription] = useState([]);
+	// Dữ liệu được hiển thị
   const [foodDecription, setfoodDecription] = useState([]);
   const [fromTime, setFromTime] = useState(null);
   const [toTime, setToTime] = useState(null);
@@ -61,6 +64,8 @@ function Search () {
           method: "GET",
       })
       setfoodDecription(resp.data['content'])
+			setAllFoodDescription(resp.data['content'])
+			console.log('in fetch', resp.data['content'], foodDecription)
   };
 
   const clickFilter = () => {
@@ -83,7 +88,6 @@ function Search () {
     setToTime(date);
   };
 	const onChangePriceFilter = (id) => {
-		console.log('before', priceFilter[id])
 		const newPriceFilter = priceFilter.map(price => {
 			if (price.id === id) 
 				return {...price, checked:!price.checked}
@@ -91,10 +95,32 @@ function Search () {
 				return price
 		})
 		setPriceFilter(newPriceFilter)
-		console.log('filter', newPriceFilter)
 	};
-	const handleFilter = () => {
-		console.log('dang filter ne:3')
+	const handleFilter = async () => {
+        const checkPrice = (price) => {
+            for (let p of priceFilter) {
+                if (p.checked === false && (p.from < price && (p.to == '以上' || price < p.to))) 
+                    return false
+            }
+            return true
+        }
+        const checkRating = (rating) => {
+            for (let r of ratingFilter) {
+                if (r.checked === false && (r.value <= rating && rating < r.value + 1))
+                    return false
+            }
+            return true
+        }
+				// TODO: Thêm code filter thời gian mở cửa hàng
+				const checkTime = () => {
+					
+				}
+				console.log('foodDescript', allFoodDescription)
+        let newFoodDescription = allFoodDescription.filter(food => {
+            return checkPrice(food.price) && checkRating(food.rating)
+        })
+				console.log('newfood', newFoodDescription)
+        setfoodDecription(newFoodDescription)
 	}
 
     return (

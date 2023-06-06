@@ -1,4 +1,9 @@
-import { Button, Rate, DatePicker  } from 'antd';
+import { Button, Rate, DatePicker, TimePicker  } from 'antd';
+import FoodList from './food-list'
+import FoodItem from "./food-item";
+
+import { sendRequest } from '../../../helpers/requestHelper';
+
 
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
@@ -9,8 +14,60 @@ import moment from "moment";
 import store from '../../../redux/store';
 import './intro.css';
 
-const Search = ({ translate }) => {
 
+function Search ({ translate }) {
+    const [searchData, setSearchData] = useState('');
+  const [foodDecription, setfoodDecription] = useState([]);
+  const [fromTime, setFromTime] = useState(null);
+  const [toTime, setToTime] = useState(null);
+    
+    const handleSearchData = (event) => {
+      setSearchData(event.target.value);
+    };
+
+    const handleKeyUp = (event) => {
+      if (event.keyCode === 13) {
+        fetchfoodDecription();
+      }
+    }
+  useEffect(() => {
+      fetchfoodDecription();
+  }, []); 
+
+  const fetchfoodDecription = async () => {
+      var url = `http://localhost:8000/api/v1/foods`;
+      if(searchData != '') url += `?keyword=${searchData}`
+      console.log(url);
+      const resp = await sendRequest({
+          url: url,
+          method: "GET",
+      })
+      setfoodDecription(resp.data['content'])
+  };
+
+  const clickFilter = () => {
+    console.log('haha');
+    console.log('haha', foodDecription);
+  }
+
+  const sortByPriceIncrease = () => {
+    setfoodDecription([...foodDecription].sort((a, b) => a.price - b.price));
+  };
+
+  const sortByPriceDecrease = () => {
+    setfoodDecription([...foodDecription].sort((a, b) => b.price - a.price));
+  };
+
+  const onChangeFromTime = (date, dateString) => {
+    setFromTime(date);
+  };
+  const onChangeToTime = (date, dateString) => {
+    setToTime(date);
+  };
+
+//   const onChangeFromTime = () => {
+//     console.log("toang");
+//   };
     return (
         <div className='search-container'>  
             <div className="salutation">
@@ -40,11 +97,9 @@ const Search = ({ translate }) => {
                                 食べ物
                             </p>
                             <div id="fastFilter" class="collapse in">
-                                <ul>
-                                    <li>近く人気がある料理</li>
-                                    <li>安いから高いまで値段</li>
-                                    <li>高いから安いまで値段</li>
-                                </ul>  
+                                <Button type="text">近く人気がある料理</Button>
+                                <Button type="text" onClick={sortByPriceIncrease}>安いから高いまで値段</Button>
+                                <Button type="text" onClick={sortByPriceDecrease}>高いから安いまで値段</Button>
                             </div>
                         </div>
                         <div className="time-filter">
@@ -55,10 +110,10 @@ const Search = ({ translate }) => {
                             </p>
                             <div id="timeFilter" class="collapse in row">
                                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
-                                    <DatePicker />
+                                    <TimePicker value={fromTime} onChange={onChangeFromTime}/>
                                 </div>
                                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
-                                    <DatePicker />
+                                    <TimePicker value={toTime} onChange={onChangeToTime}/>
                                 </div>                            
                             </div>
                         </div>
@@ -125,86 +180,48 @@ const Search = ({ translate }) => {
                     </div>
                 </div>
                 <div className="content">
-                    <div className="row">
+                    {/* <div className="row">
                         <div className="col-xs-12 col-sm-12 col-md-6 col-lg-8" >
                         </div>
                         <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
                             <div className="search-box d-flex">
                                 <div className="search-icon"><button type="button" class="btn btn-link"><i class="fa fa-search"></i></button></div>
                                 <div className="search-text">
-                                    <input type="text" placeholder='Nem cuốn'/>
+                                    <input type="text" placeholder='Nem cuốn' value={searchData} onChange={handleSearchData} onKeyUp={handleKeyUp}/>
                                 </div>
                             </div>
                         </div>                            
-                    </div>
-                    
-                    <div className="food-list d-flex">
-                        <div className="food-item">
-                            <div className="row d-flex">
-                                <div className="food-image">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg" alt="" />
-                                    <div className="food-rate">5 <i class="fa fa-star"></i></div>
-                                </div>
-                                <div className="food-info">
-                                    <div className="food-name">Nem Cuốn (春巻き）</div>
-                                    <div className="food-restaurant"><i class="fa fa-pin"></i> Hoàng Mai</div>
-                                    <div className="food-price"><i class="fa fa-money"></i> 700円</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="food-item">
-                            <div className="row d-flex">
-                                <div className="food-image">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg" alt="" />
-                                    <div className="food-rate">5 <i class="fa fa-star"></i></div>
-                                </div>
-                                <div className="food-info">
-                                    <div className="food-name">Nem Cuốn (春巻き）</div>
-                                    <div className="food-restaurant"><i class="fa fa-location"></i>Hoàng Văn Thụ, Quận Hoàng Mai, Hà Nội</div>
-                                    <div className="food-price"><i class="fa fa-money"></i> 700円</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="food-item">
-                            <div className="row d-flex">
-                                <div className="food-image">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg" alt="" />
-                                    <div className="food-rate">5 <i class="fa fa-star"></i></div>
-                                </div>
-                                <div className="food-info">
-                                    <div className="food-name">Nem Cuốn (春巻き）</div>
-                                    <div className="food-restaurant"><i class="fa fa-location"></i> Hoàng Mai</div>
-                                    <div className="food-price"><i class="fa fa-money"></i> 700円</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="food-item">
-                            <div className="row d-flex">
-                                <div className="food-image">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg" alt="" />
-                                    <div className="food-rate">5 <i class="fa fa-star"></i></div>
-                                </div>
-                                <div className="food-info">
-                                    <div className="food-name">Nem Cuốn (春巻き）</div>
-                                    <div className="food-restaurant"><i class="fa fa-location"></i> Hoàng Mai</div>
-                                    <div className="food-price"><i class="fa fa-money"></i> 700円</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="food-item">
-                            <div className="row d-flex">
-                                <div className="food-image">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg" alt="" />
-                                    <div className="food-rate">5 <i class="fa fa-star"></i></div>
-                                </div>
-                                <div className="food-info">
-                                    <div className="food-name">Nem Cuốn (春巻き）</div>
-                                    <div className="food-restaurant"><i class="fa fa-location"></i> Hoàng Mai</div>
-                                    <div className="food-price"><i class="fa fa-money"></i> 700円</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div>             */}
+                    {/* <FoodList searchData={searchData}></FoodList> */}
+                    {/* <FoodList></FoodList> */}
+                    <div className="row">
+        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-8" >
+        </div>
+        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
+            <div className="search-box d-flex">
+                <div className="search-icon"><button type="button" class="btn btn-link"><i class="fa fa-search"></i></button></div>
+                <div className="search-text">
+                    <input type="text" placeholder='Nem cuốn' value={searchData} onChange={handleSearchData} onKeyUp={handleKeyUp}/>
+                </div>
+            </div>
+            <Button type="primary" onClick={clickFilter}>
+                Open the notification box
+            </Button>
+        </div>                            
+      </div>    
+    <div className="food-list d-flex">
+        {foodDecription.map((food) => (
+          <FoodItem
+            key={food.id}
+            image_src={"http://localhost:8000" + food.img}
+            rating={food.rating}
+            name={food.name}
+            price={food.price}
+            description={food.description}
+            restaurant={food.restaurant}
+          />
+        ))}
+    </div>
                     <div className="row">
                         <div className="col-xs-12 col-sm-12 col-md-6 col-lg-8" >
                         </div>

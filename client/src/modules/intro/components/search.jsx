@@ -14,12 +14,30 @@ import moment from "moment";
 import store from '../../../redux/store';
 import './intro.css';
 
+let initialPriceFilter = [
+	{ id: 0, from: 0, to: 50000, checked: true },
+	{ id: 1, from: 50000, to: 100000, checked: true },
+	{ id: 2, from: 100000, to: 200000, checked: true },
+	{ id: 3, from: 200000, to: 300000, checked: true },
+	{ id: 4, from: 300000, to: '以上', checked: true }
+]
 
-function Search ({ translate }) {
-    const [searchData, setSearchData] = useState('');
+let initialRatingFilter = [
+	{ id: 1, value: 1, checked: true },
+	{ id: 2, value: 2, checked: true },
+	{ id: 4, value: 3, checked: true },
+	{ id: 4, value: 4, checked: true },
+	{ id: 5, value: 5, checked: true }
+]
+
+function Search () {
+  const [searchData, setSearchData] = useState('');
   const [foodDecription, setfoodDecription] = useState([]);
   const [fromTime, setFromTime] = useState(null);
   const [toTime, setToTime] = useState(null);
+	const [priceFilter, setPriceFilter] = useState(initialPriceFilter);
+	const [ratingFilter, setRatingFilter] = useState(initialRatingFilter);
+	const [cityFilter, setCityFilter] = useState('');
     
     const handleSearchData = (event) => {
       setSearchData(event.target.value);
@@ -64,10 +82,21 @@ function Search ({ translate }) {
   const onChangeToTime = (date, dateString) => {
     setToTime(date);
   };
+	const onChangePriceFilter = (id) => {
+		console.log('before', priceFilter[id])
+		const newPriceFilter = priceFilter.map(price => {
+			if (price.id === id) 
+				return {...price, checked:!price.checked}
+			else 
+				return price
+		})
+		setPriceFilter(newPriceFilter)
+		console.log('filter', newPriceFilter)
+	};
+	const handleFilter = () => {
+		console.log('dang filter ne:3')
+	}
 
-//   const onChangeFromTime = () => {
-//     console.log("toang");
-//   };
     return (
         <div className='search-container'>  
             <div className="salutation">
@@ -152,31 +181,19 @@ function Search ({ translate }) {
                             値段
                         </p>
                         <div id="priceFilter" class="collapse in">
-                        <p className="rate-star-item">
-                            <input type="checkbox" />
-                            0-50.000 VNĐ
-                        </p>
-                        <p className="rate-star-item">
-                            <input type="checkbox" />
-                            50.000-100.000 VNĐ
-                        </p>
-                        <p className="rate-star-item">
-                            <input type="checkbox" />
-                            100.000-200.000 VNĐ
-                        </p>
-                        <p className="rate-star-item">
-                            <input type="checkbox" />
-                            200.000-300.000 VNĐ
-                        </p>
-                        <p className="rate-star-item">
-                            <input type="checkbox" />
-                            300.000 VNĐ 以上
-                        </p>
+												{priceFilter.map((price) => (
+													<p className="rate-star-item" key={price.id}>
+													<input type="checkbox" 
+															onChange={() => {onChangePriceFilter(price.id)}} 
+															defaultChecked={price.checked}/>
+														{price.from}-{price.to} VNĐ
+													</p>
+												))}
                         </div>
                     </div>
                     <div className="action-button d-flex">
                         <button className="cancel-button">クリア</button>
-                        <button className="confirm-button">適用</button>
+                        <button className="confirm-button" onClick={handleFilter}>適用</button>
                     </div>
                 </div>
                 <div className="content">

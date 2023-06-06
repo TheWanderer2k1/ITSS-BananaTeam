@@ -1,6 +1,7 @@
 import { Button, Rate, DatePicker, TimePicker  } from 'antd';
 import FoodList from './food-list'
 import FoodItem from "./food-item";
+import { useLocation } from 'react-router-dom';
 
 import { sendRequest } from '../../../helpers/requestHelper';
 
@@ -31,10 +32,12 @@ let initialRatingFilter = [
 ]
 
 function Search () {
-  const [searchData, setSearchData] = useState('');
-  const [foodDecription, setfoodDecription] = useState([]);
-  const [fromTime, setFromTime] = useState(null);
-  const [toTime, setToTime] = useState(null);
+    const location = useLocation();
+    const [inputValue, setInputValue] = useState('');
+    const [searchData, setSearchData] = useState('');
+    const [foodDecription, setfoodDecription] = useState([]);
+    const [fromTime, setFromTime] = useState(null);
+    const [toTime, setToTime] = useState(null);
 	const [priceFilter, setPriceFilter] = useState(initialPriceFilter);
 	const [ratingFilter, setRatingFilter] = useState(initialRatingFilter);
 	const [cityFilter, setCityFilter] = useState('');
@@ -48,9 +51,13 @@ function Search () {
         fetchfoodDecription();
       }
     }
-  useEffect(() => {
-      fetchfoodDecription();
-  }, []); 
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const inputValueParam = params.get('search_query');
+        setInputValue(inputValueParam || '');
+        setSearchData(inputValueParam);
+        fetchfoodDecription();
+  }, [inputValue]); 
 
   const fetchfoodDecription = async () => {
       var url = `http://localhost:8000/api/v1/foods`;
@@ -92,6 +99,15 @@ function Search () {
 		})
 		setPriceFilter(newPriceFilter)
 		console.log('filter', newPriceFilter)
+	};
+    const onChangeRatingFilter = (id) => {
+		const newRatingFilter = ratingFilter.map(rating => {
+			if (rating.id === id) 
+				return {...rating, checked:!rating.checked}
+			else 
+				return rating
+		})
+		setRatingFilter(newRatingFilter)
 	};
 	const handleFilter = () => {
 		console.log('dang filter ne:3')
@@ -152,27 +168,15 @@ function Search () {
                                 <i class="fa fa-lock mr-6"></i>
                                 評価
                             </p>
-                            <div id="starFilter" class="collapse in">                                
-                                <label className="rate-star-item">
-                                    <input type="checkbox" />
-                                    <Rate disabled defaultValue={1} />
-                                </label>
-                                <label className="rate-star-item">
-                                    <input type="checkbox" />
-                                    <Rate disabled defaultValue={2} />
-                                </label>
-                                <label className="rate-star-item">
-                                    <input type="checkbox" />
-                                    <Rate disabled defaultValue={3} />
-                                </label>
-                                <label className="rate-star-item">
-                                    <input type="checkbox" />
-                                    <Rate disabled defaultValue={4} />
-                                </label>
-                                <label className="rate-star-item">
-                                    <input type="checkbox" />
-                                    <Rate disabled defaultValue={5} />
-                                </label>
+                            <div id="starFilter" class="collapse in"> 
+                                {ratingFilter.map((rating) => (
+                                    <label className="rate-star-item">
+                                        <input type="checkbox" 
+                                            onChange={() => {onChangeRatingFilter(rating.id)}} 
+                                            defaultChecked={rating.checked}/>
+                                        <Rate disabled defaultValue={rating.value} />
+                                    </label>
+                                ))}                                                               
                             </div>
                         </div>
                         <p data-toggle="collapse" data-target="#priceFilter">
@@ -189,6 +193,22 @@ function Search () {
 														{price.from}-{price.to} VNĐ
 													</p>
 												))}
+                        </div>
+
+                        <p data-toggle="collapse" data-target="#cityFilter">
+                            <i class="fa fa-chevron-down mr-6"></i>
+                            <i class="fa fa-lock mr-6"></i>
+                            場所
+                        </p>
+                        <div id="cityFilter" class="collapse in">
+                            {priceFilter.map((price) => (
+                                <p className="rate-star-item" key={price.id}>
+                                <input type="checkbox" 
+                                        onChange={() => {onChangePriceFilter(price.id)}} 
+                                        defaultChecked={price.checked}/>
+                                    {price.from}-{price.to} VNĐ
+                                </p>
+                            ))}
                         </div>
                     </div>
                     <div className="action-button d-flex">

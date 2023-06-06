@@ -1,6 +1,7 @@
 import { Button, Rate, DatePicker, TimePicker  } from 'antd';
 import FoodList from './food-list'
 import FoodItem from "./food-item";
+import { useLocation } from 'react-router-dom';
 
 import { sendRequest } from '../../../helpers/requestHelper';
 
@@ -16,10 +17,12 @@ import './intro.css';
 
 
 function Search ({ translate }) {
+    const location = useLocation();
+    const [inputValue, setInputValue] = useState('');
     const [searchData, setSearchData] = useState('');
-  const [foodDecription, setfoodDecription] = useState([]);
-  const [fromTime, setFromTime] = useState(null);
-  const [toTime, setToTime] = useState(null);
+    const [foodDecription, setfoodDecription] = useState([]);
+    const [fromTime, setFromTime] = useState(null);
+    const [toTime, setToTime] = useState(null);
     
     const handleSearchData = (event) => {
       setSearchData(event.target.value);
@@ -31,12 +34,16 @@ function Search ({ translate }) {
       }
     }
   useEffect(() => {
-      fetchfoodDecription();
-  }, []); 
+        const params = new URLSearchParams(location.search);
+        const inputValueParam = params.get('search_query');
+        setInputValue(inputValueParam || '');
+        setSearchData(inputValueParam);
+        fetchfoodDecription();
+  }, [inputValue]); 
 
   const fetchfoodDecription = async () => {
       var url = `http://localhost:8000/api/v1/foods`;
-      if(searchData != '') url += `?keyword=${searchData}`
+      if(searchData != ''){url += `?keyword=${searchData}`;}
       console.log(url);
       const resp = await sendRequest({
           url: url,

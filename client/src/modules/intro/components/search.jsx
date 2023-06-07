@@ -27,7 +27,7 @@ let initialPriceFilter = [
 let initialRatingFilter = [
 	{ id: 1, value: 1, checked: true },
 	{ id: 2, value: 2, checked: true },
-	{ id: 4, value: 3, checked: true },
+	{ id: 3, value: 3, checked: true },
 	{ id: 4, value: 4, checked: true },
 	{ id: 5, value: 5, checked: true }
 ]
@@ -167,6 +167,7 @@ function Search () {
 			else 
 				return price
 		})
+        console.log('đổi lọc giá');
 		setPriceFilter(newPriceFilter)
 	};
     const onChangeRatingFilter = (id) => {
@@ -178,6 +179,17 @@ function Search () {
 		})
 		setRatingFilter(newRatingFilter)
 	};
+
+    const clearFilter = () => {
+        setFromTime(null);
+        setToTime(null);
+        setCityFilter(undefined);
+        // const newPriceFilter = priceFilter.map(price => ({...price, checked: true}));
+        // console.log('bỏ filter');
+		// setPriceFilter(newPriceFilter)
+        setPriceFilter(initialPriceFilter)
+    }
+
 	const handleFilter = async () => {
         const checkPrice = (price) => {
             for (let p of priceFilter) {
@@ -212,7 +224,8 @@ function Search () {
         }
 
         const checkProvince = (province) => {
-            if (province === cityFilter) return true;
+            if (!cityFilter) return true;
+            else if (province === cityFilter) return true;
             return false;
         }
         let newFoodDescription = allFoodDescription.filter(food => {
@@ -278,7 +291,7 @@ function Search () {
                             </p>
                             <div id="starFilter" class="collapse in"> 
                                 {ratingFilter.map((rating) => (
-                                    <label className="rate-star-item">
+                                    <label className="rate-star-item" key={rating.id}>
                                         <input type="checkbox" 
                                             onChange={() => {onChangeRatingFilter(rating.id)}} 
                                             defaultChecked={rating.checked}/>
@@ -319,6 +332,7 @@ function Search () {
                             ))} */}
                             <Select
                                 allowClear
+                                value={cityFilter}
                                 onChange={handleChangeCityFilter}
                                 options={listCityFilter}
                                 style={{ width: '100%' }}
@@ -326,7 +340,7 @@ function Search () {
                         </div>
                     </div>
                     <div className="action-button d-flex mt-12">
-                        <button className="cancel-button">クリア</button>
+                        <button className="cancel-button" onClick={clearFilter}>クリア</button>
                         <button className="confirm-button" onClick={handleFilter}>適用</button>
                     </div>
                 </div>

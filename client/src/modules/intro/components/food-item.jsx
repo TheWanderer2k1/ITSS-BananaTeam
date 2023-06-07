@@ -8,7 +8,9 @@ const FoodItem =  ({ image_alt, image_src, name, price, rating, restaurant }) =>
         <div className="row d-flex">
             <div className="food-image">
                 <img src={image_src} alt={image_alt} />
-                <div className="food-rate">{Math.round(rating)} <i class="fa fa-star"></i></div>
+                {/* <div className="food-rate">{Math.round(rating)} <i class="fa fa-star"></i></div> */}
+                {/* <div className="food-rate">{rating} <i class="fa fa-star"></i></div> */}
+                <div className="food-rate">{rating ? rating.toFixed(2): Math.round(rating)} <i class="fa fa-star"></i></div>
             </div>
             <div className="food-info">
                 <div className="food-name">{name}</div>

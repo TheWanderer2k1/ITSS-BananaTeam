@@ -123,6 +123,7 @@ function Search () {
 
     const handleChangeCityFilter = (value) => {
         console.log(`selected ${value}`);
+        setCityFilter(value);
       };
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -144,11 +145,6 @@ function Search () {
 			setAllFoodDescription(resp.data['content'])
 			console.log('in fetch', resp.data['content'], foodDecription)
   };
-
-  const clickFilter = () => {
-    console.log('haha');
-    console.log('haha', foodDecription);
-  }
 
   const sortByPriceIncrease = () => {
     setfoodDecription([...foodDecription].sort((a, b) => a.price - b.price));
@@ -197,25 +193,31 @@ function Search () {
             }
             return true
         }
-        console.log('from time', fromTime);
-        console.log('to time', toTime);
-        // TODO: Thêm code filter thời gian mở cửa hàng
+
         const checkTime = (from, to) => {
-            // const fromTimeFilterString = fromTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             var fromTimeFilter = new Date(fromTime);
             var toTimeFilter = new Date(toTime);
-            var openTimeRestaurant = new Date().setHours(parseInt(from.slice(0,2)), parseInt(from.slice(3,5)));
-            var closeTimeRestaurant = new Date().setHours(to.slice(0,2), to.slice(3,5));
-            console.log(fromTimeFilter);
-            console.log(openTimeRestaurant);
-            console.log(toTimeFilter);
-            console.log(closeTimeRestaurant);
+            var openTimeRestaurant = new Date(new Date().setHours(parseInt(from.slice(0,2)), parseInt(from.slice(3,5)), 0, 0));
+            var closeTimeRestaurant = new Date(new Date().setHours(to.slice(0,2), to.slice(3,5), 0, 0));
+            if(fromTime && toTime) {
+                if(fromTimeFilter <= openTimeRestaurant && toTimeFilter >= closeTimeRestaurant) return true;
+                else return false;
+            } else if (fromTime) {
+                if(fromTimeFilter <= openTimeRestaurant) return true;
+                else return false;
+            } else if (toTime) {
+                if(toTimeFilter >= closeTimeRestaurant) return true;
+                else return false;
+            } else return true;       
         }
-        console.log('foodDescript', allFoodDescription)
+
+        const checkProvince = (province) => {
+            if (province === cityFilter) return true;
+            return false;
+        }
         let newFoodDescription = allFoodDescription.filter(food => {
-            return checkPrice(food.price) && checkRating(food.rating) && checkTime(food.restaurant.openTime, food.restaurant.closeTime)
+            return checkPrice(food.price) && checkRating(food.rating) && checkTime(food.restaurant.openTime, food.restaurant.closeTime) && checkProvince(food.restaurant.address)
         })
-				console.log('newfood', newFoodDescription)
         setfoodDecription(newFoodDescription)
 	}
 

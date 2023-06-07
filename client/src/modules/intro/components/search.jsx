@@ -1,4 +1,4 @@
-import { Button, Rate, DatePicker, TimePicker, Select  } from 'antd';
+import { Button, Rate, TimePicker, Select  } from 'antd';
 import FoodList from './food-list'
 import FoodItem from "./food-item";
 import { useLocation } from 'react-router-dom';
@@ -14,6 +14,7 @@ import { getStorage, setStorage } from '../../../config';
 import moment from "moment";
 import store from '../../../redux/store';
 import './intro.css';
+import { DatePicker } from '../../../common-components';
 
 let initialPriceFilter = [
 	{ id: 0, from: 0, to: 50000, checked: true },
@@ -196,13 +197,23 @@ function Search () {
             }
             return true
         }
-				// TODO: Thêm code filter thời gian mở cửa hàng
-				const checkTime = () => {
-					
-				}
-				console.log('foodDescript', allFoodDescription)
+        console.log('from time', fromTime);
+        console.log('to time', toTime);
+        // TODO: Thêm code filter thời gian mở cửa hàng
+        const checkTime = (from, to) => {
+            // const fromTimeFilterString = fromTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            var fromTimeFilter = new Date(fromTime);
+            var toTimeFilter = new Date(toTime);
+            var openTimeRestaurant = new Date().setHours(parseInt(from.slice(0,2)), parseInt(from.slice(3,5)));
+            var closeTimeRestaurant = new Date().setHours(to.slice(0,2), to.slice(3,5));
+            console.log(fromTimeFilter);
+            console.log(openTimeRestaurant);
+            console.log(toTimeFilter);
+            console.log(closeTimeRestaurant);
+        }
+        console.log('foodDescript', allFoodDescription)
         let newFoodDescription = allFoodDescription.filter(food => {
-            return checkPrice(food.price) && checkRating(food.rating)
+            return checkPrice(food.price) && checkRating(food.rating) && checkTime(food.restaurant.openTime, food.restaurant.closeTime)
         })
 				console.log('newfood', newFoodDescription)
         setfoodDecription(newFoodDescription)
@@ -250,10 +261,10 @@ function Search () {
                             </p>
                             <div id="timeFilter" class="collapse in row">
                                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
-                                    <TimePicker value={fromTime} onChange={onChangeFromTime}/>
+                                    <TimePicker showTime={{ format: 'HH:mm' }} format="HH:mm" value={fromTime} onChange={onChangeFromTime}/>
                                 </div>
                                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
-                                    <TimePicker value={toTime} onChange={onChangeToTime}/>
+                                    <TimePicker showTime={{ format: 'HH:mm' }} format="HH:mm" value={toTime} onChange={onChangeToTime}/>
                                 </div>                            
                             </div>
                         </div>

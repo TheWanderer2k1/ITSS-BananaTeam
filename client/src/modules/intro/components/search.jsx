@@ -33,6 +33,10 @@ let initialRatingFilter = [
 	{ id: 4, value: 4, checked: true },
 	{ id: 5, value: 5, checked: true }
 ]
+let listSearchOption = [
+    {id: 1, value: "料理の名前"},
+    {id: 2, value: "場所"}
+]
 
 let listCityFilter = [
     { value: "HA Noi", label: "Thành phố Hà Nội" },
@@ -113,6 +117,7 @@ function Search () {
 	const [priceFilter, setPriceFilter] = useState(initialPriceFilter);
 	const [ratingFilter, setRatingFilter] = useState(initialRatingFilter);
 	const [cityFilter, setCityFilter] = useState(null);
+	const [searchOption, setSearchOption] = useState(listSearchOption[0].value);
     
     const moveToHomePage = () => {
         // Navigate to the desired route
@@ -132,6 +137,10 @@ function Search () {
     const handleChangeCityFilter = (value) => {
         console.log(`selected ${value}`);
         setCityFilter(value);
+      };
+
+      const handleChangeSearchOption = (value) => {
+        setSearchOption(value);
       };
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -371,7 +380,16 @@ function Search () {
                     {/* <FoodList searchData={searchData}></FoodList> */}
                     {/* <FoodList></FoodList> */}
                     <div className="row">
-        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-8" >
+        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
+        </div>
+        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-2" >
+            <Select
+                placeholder='都道府県'
+                value={searchOption}
+                onChange={handleChangeSearchOption}
+                options={listSearchOption}
+                style={{ width: '100%'}}
+            />
         </div>
         <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
             <div className="search-box d-flex">

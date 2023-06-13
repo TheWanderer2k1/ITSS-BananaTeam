@@ -271,7 +271,7 @@ function Search () {
                                 <i class="fa fa-lock mr-6"></i>
                                 食べ物
                             </p>
-                            <div id="fastFilter" class="collapse in">
+                            <div id="fastFilter" class="collapse">
                                 <Button type="text">近く人気がある料理</Button>
                                 <Button type="text" onClick={sortByPriceIncrease}>安いから高いまで値段</Button>
                                 <Button type="text" onClick={sortByPriceDecrease}>高いから安いまで値段</Button>
@@ -283,7 +283,7 @@ function Search () {
                                 <i class="fa fa-lock mr-6"></i>
                                 営業時間
                             </p>
-                            <div id="timeFilter" class="collapse in row">
+                            <div id="timeFilter" class="collapse row">
                                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
                                     <TimePicker placeholder='時間' showTime={{ format: 'HH:mm' }} format="HH:mm" value={fromTime} onChange={onChangeFromTime}/>
                                 </div>
@@ -298,7 +298,7 @@ function Search () {
                                 <i class="fa fa-lock mr-6"></i>
                                 評価
                             </p>
-                            <div id="starFilter" class="collapse in"> 
+                            <div id="starFilter" class="collapse"> 
                                 {ratingFilter.map((rating) => (
                                     <label className="rate-star-item" key={rating.id}>
                                         <input type="checkbox" 
@@ -314,7 +314,7 @@ function Search () {
                             <i class="fa fa-lock mr-6"></i>
                             値段
                         </p>
-                        <div id="priceFilter" class="collapse in">
+                        <div id="priceFilter" class="collapse">
                             {priceFilter.map((price) => (
                                 <p className="rate-star-item" key={price.id}>
                                 <input type="checkbox" 
@@ -331,7 +331,7 @@ function Search () {
                             <i class="fa fa-lock mr-6"></i>
                             場所
                         </p>
-                        <div id="cityFilter" class="collapse in">
+                        <div id="cityFilter" class="collapse">
                             {/* {listCityFilter.map((city) => (
                                 <p className="rate-star-item" key={price.id}>
                                 <input type="checkbox" 

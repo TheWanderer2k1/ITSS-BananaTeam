@@ -5,14 +5,22 @@ import { AuthActions } from '../../auth/redux/actions';
 import { getStorage, setStorage } from '../../../config';
 import moment from "moment";
 import store from '../../../redux/store';
+import { useHistory } from 'react-router-dom';
 import './intro.css';
 
 const Header = (props) => {
+    const history = useHistory();
+
     const [user, setUser] = useState({});
     const { translate } = props;
     const _setLanguage = () => {
         window.$('#dx-language-setting').slideToggle()
     }
+
+    const moveToHomePage = () => {
+        // Navigate to the desired route
+        history.push('/homepage');
+      };
 
     const _setVie = () => {
         setStorage('lang', 'vn');

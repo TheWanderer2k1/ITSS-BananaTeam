@@ -5,6 +5,7 @@ header.fixed-top {
     left: 0;
     z-index: 1;
     background-color: #683BA4;
+    padding: 12px 0;
 }
 
 header.fixed-top > h1 {
@@ -628,4 +629,8 @@ span.dx-options  > div > a {
 .pagination-page:hover {
     border-radius: 50%;
     background-color: #FFBCBC;
+}
+
+.search-nav-bar {
+    background-color: #fff;
 }

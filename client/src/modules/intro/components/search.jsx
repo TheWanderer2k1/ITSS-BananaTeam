@@ -4,6 +4,8 @@ import FoodItem from "./food-item";
 import { useLocation } from 'react-router-dom';
 
 import { sendRequest } from '../../../helpers/requestHelper';
+import { useHistory } from 'react-router-dom';
+
 
 
 import React, { useState, useEffect } from 'react';
@@ -99,6 +101,7 @@ let listCityFilter = [
 ]
 
 function Search () {
+    const history = useHistory();
     const location = useLocation();
     // Dữ liệu lấy về từ server
     const [allFoodDescription, setAllFoodDescription] = useState([]);
@@ -109,8 +112,13 @@ function Search () {
     const [toTime, setToTime] = useState(null);
 	const [priceFilter, setPriceFilter] = useState(initialPriceFilter);
 	const [ratingFilter, setRatingFilter] = useState(initialRatingFilter);
-	const [cityFilter, setCityFilter] = useState('');
+	const [cityFilter, setCityFilter] = useState(null);
     
+    const moveToHomePage = () => {
+        // Navigate to the desired route
+        history.push('/homepage');
+      };
+
     const handleSearchData = (event) => {
       setSearchData(event.target.value);
     };
@@ -184,10 +192,9 @@ function Search () {
         setFromTime(null);
         setToTime(null);
         setCityFilter(undefined);
-        // const newPriceFilter = priceFilter.map(price => ({...price, checked: true}));
-        // console.log('bỏ filter');
-		// setPriceFilter(newPriceFilter)
-        setPriceFilter(initialPriceFilter)
+        const newPriceFilter = priceFilter.map(price => ({...price, checked: true}));
+		setPriceFilter(newPriceFilter)
+        setPriceFilter(initialPriceFilter)        
     }
 
 	const handleFilter = async () => {
@@ -199,11 +206,13 @@ function Search () {
             return true
         }
         const checkRating = (rating) => {
+            if(!rating) return false;
+
             for (let r of ratingFilter) {
                 if (r.checked === false && (r.value <= rating && rating < r.value + 1))
-                    return false
+                    return false;
             }
-            return true
+            return true;
         }
 
         const checkTime = (from, to) => {
@@ -276,10 +285,10 @@ function Search () {
                             </p>
                             <div id="timeFilter" class="collapse in row">
                                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
-                                    <TimePicker showTime={{ format: 'HH:mm' }} format="HH:mm" value={fromTime} onChange={onChangeFromTime}/>
+                                    <TimePicker placeholder='時間' showTime={{ format: 'HH:mm' }} format="HH:mm" value={fromTime} onChange={onChangeFromTime}/>
                                 </div>
                                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
-                                    <TimePicker showTime={{ format: 'HH:mm' }} format="HH:mm" value={toTime} onChange={onChangeToTime}/>
+                                    <TimePicker placeholder='時間' showTime={{ format: 'HH:mm' }} format="HH:mm" value={toTime} onChange={onChangeToTime}/>
                                 </div>                            
                             </div>
                         </div>
@@ -306,14 +315,15 @@ function Search () {
                             値段
                         </p>
                         <div id="priceFilter" class="collapse in">
-												{priceFilter.map((price) => (
-													<p className="rate-star-item" key={price.id}>
-													<input type="checkbox" 
-															onChange={() => {onChangePriceFilter(price.id)}} 
-															defaultChecked={price.checked}/>
-														{price.from}-{price.to} VNĐ
-													</p>
-												))}
+                            {priceFilter.map((price) => (
+                                <p className="rate-star-item" key={price.id}>
+                                <input type="checkbox" 
+                                        onChange={() => {onChangePriceFilter(price.id)}} 
+                                        defaultChecked={price.checked}/>
+                                    {/* {price.from}-{price.to} 円 */}
+                                    {price.from}-{price.to} VNĐ
+                                </p>
+                            ))}
                         </div>
 
                         <p data-toggle="collapse" data-target="#cityFilter">
@@ -332,6 +342,7 @@ function Search () {
                             ))} */}
                             <Select
                                 allowClear
+                                placeholder='都道府県'
                                 value={cityFilter}
                                 onChange={handleChangeCityFilter}
                                 options={listCityFilter}

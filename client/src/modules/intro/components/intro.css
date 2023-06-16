@@ -509,6 +509,9 @@ span.dx-options  > div > a {
 .mt-6 {
     margin-top: 6px;
 }
+.mt-12 {
+    margin-top: 12px;
+}
 .mr-6 {
     margin-right: 6px;
 }
@@ -599,7 +602,7 @@ span.dx-options  > div > a {
     font-weight: bold;
 }
 
-.food-restaurant {
+.food-restaurant-time {
     color: #999
 }
 

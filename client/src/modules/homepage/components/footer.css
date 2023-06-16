@@ -58,21 +58,7 @@
   align-self: center;
   box-shadow: 0px 0px 10px 0px #d4d4d4;
   object-fit: cover;
-  border-radius: var(--dl-radius-radius-round);
-}
-.footer-image2 {
-  width: 45px;
-  align-self: center;
-  box-shadow: 0px 0px 10px 0px #d4d4d4;
-  object-fit: cover;
-  border-radius: var(--dl-radius-radius-round);
-}
-.footer-image3 {
-  width: 45px;
-  align-self: center;
-  box-shadow: 0px 0px 10px 0px #d4d4d4;
-  object-fit: cover;
-  border-radius: var(--dl-radius-radius-round);
+  border-radius: 50%;
 }
 .footer-container4 {
   flex: 0 0 auto;
@@ -136,5 +122,5 @@
   align-self: center;
   box-shadow: 0px 0px 10px 0px #d4d4d4;
   object-fit: cover;
-  border-radius: var(--dl-radius-radius-round);
+  border-radius: 50%;
 }

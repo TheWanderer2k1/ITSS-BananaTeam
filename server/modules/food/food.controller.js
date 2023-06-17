@@ -37,3 +37,59 @@ exports.getFoodByAddress = async (req, res) => {
         })
     }
 }
+
+exports.getFoodInforById = async (req, res) => {
+    try {
+        let {foodId}=req.query
+        let foodInfor = await FoodService.getFoodInforById(foodId);
+
+        res.status(200).json({
+            success: true,
+            messages: 'Get food info',
+            content: foodInfor
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            messages: 'something went wrong',
+            content: error
+        })
+    }
+}
+
+exports.getFoodDescriptionList = async (req, res) => {
+    try {
+        let {keyword, page, pageSize} = req.query
+        let foodDescriptionList = await FoodService.getFoodDescriptionList(keyword, page, pageSize);
+
+        res.status(200).json({
+            success: true,
+            messages: 'Get food list success',
+            content: foodDescriptionList
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            messages: 'something went wrong',
+            content: error
+        })
+    }
+}
+
+exports.updateFoodInfor = async (req, res) => {
+    try {
+        let data = req.body
+        await FoodService.updateFoodInfor(data);
+
+        res.status(200).json({
+            success: true,
+            messages: 'edit food info success!',
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            messages: 'something went wrong',
+            content: error
+        })
+    }
+}

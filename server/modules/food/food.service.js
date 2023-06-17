@@ -34,8 +34,13 @@ exports.getFoodDescriptionList = async (keyword) => {
 exports.getFoodByAddress = async (data) => {
     let result=[];
    
-    queryFindRestaurantByAddress = `Select ID as id, Name as name, OpenTime as openTime, CloseTime as closeTime, Province as province, District as district, Ward as ward, DetailedAddress as detailedAddress From Restaurant
-                               WHERE Province like  '%${data.province}%' AND District like '%${data.district}%' AND Ward like '%${data.ward}%'`
+    queryFindRestaurantByAddress = `Select ID as id, Name as name, OpenTime as openTime, CloseTime as closeTime, Province as province, District as district, Ward as ward, DetailedAddress as detailedAddress From Restaurant`
+    condition1=`Province like  '%${data.province}%'`
+    condition2= `District like '%${data.district}%'`
+    condition3= `Ward like '%${data.ward}%'`
+    whereCondition=(data.province?condition1:'')+(data.district?+' And '+condition2:'')+(data.ward?+' And '+condition3:'')
+    if(whereCondition!='')
+    queryFindRestaurantByAddress=queryFindRestaurantByAddress+' Where '+ whereCondition
     arrayRestaurant= await sql.QueryGetData(queryFindRestaurantByAddress)
     
     for(restaurant of arrayRestaurant){
@@ -69,4 +74,16 @@ exports.getFoodByAddress = async (data) => {
 
     return result;
 
+}
+
+exports.updateFoodInfor = async (data) => {
+    updateFoodInforQuery = `UPDATE fooddescription
+                            JOIN food on  fooddescription.foodId = food.ID
+                            SET food.Name = '${data.name}',
+                                food.CategoryId = ${data.category},
+                                fooddescription.Description = '${data.description}',
+                                fooddescription.Price = ${data.price}
+                            WHERE food.ID = ${data.foodId}`
+    await sql.QueryUpdateData(updateFoodInforQuery);
+    return;
 }

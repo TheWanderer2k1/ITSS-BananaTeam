@@ -79,12 +79,38 @@ exports.getFoodDescriptionList = async (req, res) => {
 exports.updateFoodInfor = async (req, res) => {
     try {
         let data = req.body
-        await FoodService.updateFoodInfor(data);
+        let rowEfect = await FoodService.updateFoodInfor(data);
+        if(rowEfect == 0){
+            res.status(200).json({
+                success: true,
+                messages: 'not thing change',
+            })
+        }else{
+            res.status(200).json({
+                success: true,
+                messages: 'edit food info success!',
+            })
+        }
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            messages: 'something went wrong',
+            content: error
+        })
+    }
+}
 
+exports.deleteFoodInfor = async (req, res) => {
+    try {
+        let {foodId} = req.query
+        await FoodService.deleteFoodInfor(foodId);
+        
+        
         res.status(200).json({
             success: true,
-            messages: 'edit food info success!',
+            messages: 'delete food success!',
         })
+        
     } catch (error) {
         res.status(400).json({
             success: false,

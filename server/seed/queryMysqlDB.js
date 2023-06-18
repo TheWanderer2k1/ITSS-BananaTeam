@@ -43,7 +43,7 @@ require("dotenv").config();
             if (err) {
               reject(err);
             } else {
-              resolve(results.affectedRows); // Return the number of affected rows
+              resolve(results.affectedRows); 
             }
           });
       

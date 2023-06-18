@@ -41,7 +41,7 @@ exports.getFoodByAddress = async (data) => {
     whereCondition=(data.province?condition1:'')+(data.district?+' And '+condition2:'')+(data.ward?+' And '+condition3:'')
     if(whereCondition!='')
     queryFindRestaurantByAddress=queryFindRestaurantByAddress+' Where '+ whereCondition
-    arrayRestaurant= await sql.QueryGetData(queryFindRestaurantByAddress)
+    arrayRestaurant = await sql.QueryGetData(queryFindRestaurantByAddress)
     
     for(restaurant of arrayRestaurant){
         queryFindFoodByRestaurant =  `SELECT food.ID as id, food.Name as name, image.Src as img, price, AVG(rating) AS rating, fooddescription.Description as description, Category.Id as categoryId , Category.Name as categoryName, Category.Description as categoryDescription
@@ -79,11 +79,28 @@ exports.getFoodByAddress = async (data) => {
 exports.updateFoodInfor = async (data) => {
     updateFoodInforQuery = `UPDATE fooddescription
                             JOIN food on  fooddescription.foodId = food.ID
-                            SET food.Name = '${data.name}',
-                                food.CategoryId = ${data.category},
-                                fooddescription.Description = '${data.description}',
-                                fooddescription.Price = ${data.price}
-                            WHERE food.ID = ${data.foodId}`
-    await sql.QueryUpdateData(updateFoodInforQuery);
+                           `
+
+    setCondition = (data.name?` food.Name = '${data.name}', `:'')
+                  +(data.categoryId?` food.CategoryId = ${data.categoryId}, `:'')
+                  +(data.description?` fooddescription.Description = '${data.description}', `:'')
+                  +(data.price?` fooddescription.Price = ${data.price}`:'')
+    rowEfect = 0;
+    whereCondition = ` WHERE food.ID = ${data.foodId} `
+    if(setCondition!=''){
+        updateFoodInforQuery+=' SET ' + setCondition + whereCondition
+        rowEfect = await sql.QueryUpdateData(updateFoodInforQuery);
+    }
+    
+    return rowEfect;
+}
+
+exports.deleteFoodInfor = async (foodId) => {
+    console.log(foodId)
+    queryDelteFoodInfor = `DELETE FROM food WHERE ID = ${foodId}`
+
+    await sql.QueryUpdateData(queryDelteFoodInfor);
+   
     return;
+    
 }

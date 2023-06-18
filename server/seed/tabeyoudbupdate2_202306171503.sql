@@ -86,7 +86,7 @@ COLLATE utf8mb4_0900_ai_ci;
 
 ALTER TABLE food 
   ADD CONSTRAINT FK_Food_CategoryId FOREIGN KEY (CategoryId)
-    REFERENCES category(ID);
+    REFERENCES category(ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 CREATE TABLE restaurant (
@@ -103,6 +103,8 @@ CREATE TABLE restaurant (
   Ward VARCHAR(255) DEFAULT NULL,
   DetailedAddress VARCHAR(255) DEFAULT NULL,
   Avatar VARCHAR(255) DEFAULT NULL,
+  `From` VARCHAR(255) DEFAULT NULL,
+  `To` VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (ID)
 )
 ENGINE = INNODB,
@@ -131,12 +133,12 @@ COLLATE utf8mb4_0900_ai_ci;
 
 ALTER TABLE fooddescription 
   ADD CONSTRAINT FK_fooddescription_FoodID FOREIGN KEY (FoodID)
-    REFERENCES food(ID);
+    REFERENCES food(ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 ALTER TABLE fooddescription 
   ADD CONSTRAINT FK_fooddescription_RestaurantID FOREIGN KEY (RestaurantID)
-    REFERENCES restaurant(ID);
+    REFERENCES restaurant(ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 CREATE TABLE role (
@@ -205,12 +207,12 @@ COLLATE utf8mb4_0900_ai_ci;
 
 ALTER TABLE foodreview 
   ADD CONSTRAINT FK_foodreview_FoodDesID FOREIGN KEY (FoodDesID)
-    REFERENCES fooddescription(ID);
+    REFERENCES fooddescription(ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 ALTER TABLE foodreview 
   ADD CONSTRAINT FK_foodreview_UserID FOREIGN KEY (UserID)
-    REFERENCES user(ID);
+    REFERENCES user(ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 CREATE TABLE reply (
@@ -229,12 +231,12 @@ COLLATE utf8mb4_0900_ai_ci;
 
 ALTER TABLE reply 
   ADD CONSTRAINT FK_reply_ReviewID FOREIGN KEY (ReviewID)
-    REFERENCES foodreview(ID);
+    REFERENCES foodreview(ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 ALTER TABLE reply 
   ADD CONSTRAINT FK_reply_UserID FOREIGN KEY (UserID)
-    REFERENCES user(ID);
+    REFERENCES user(ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 CREATE TABLE reactreview (
@@ -294,16 +296,15 @@ INSERT INTO category VALUES
 
 
 INSERT INTO restaurant VALUES
-(1, 'Tikkaway', 'abc', '08:30', '22:30', '0123456730', 'Hà Nội', 1, 1, ' Đỗ Đức Dục', 'Từ Liêm', 'số 8 Đỗ Đức Dục, Từ Liêm, Hà Nội', NULL),
-(2, 'Curry Kingdom', 'adb', '08:00', '22:00', '0123456738', 'Hà Nội', 2, 1, 'Gia Ngư', 'Hoàn Kiếm', '38 Gia Ngư, Hoàn Kiếm, Hà Nội', NULL),
-(3, 'Tikka Talk', 'ddddd', '17:30', '21:00', '0123456748', 'Hà Nội', 3, 1, 'Ngụy Như Kon Tum', 'Thanh Xuân', 'số 1 Ngụy Như Kon Tum, Thanh Xuân, Hà Nội', NULL),
-(4, 'The Spice Factory', 'ddsads', '06:33', '12:30', '0123456758', 'Hà Nội', 4, 1, 'Nguyễn Quang Bích', 'Hoàn Kiếm', '12 Nguyễn Quang Bích, Hoàn Kiếm, Hà Nội', NULL),
-(5, 'The Paneer Bar', 'ewqewq', '08:30', '23:00', '0123456735', 'Hà Nội', 5, 1, 'Đinh Tiên Hoàng', 'Hoàn Kiếm', 'số 7 Đinh Tiên Hoàng, Hoàn Kiếm, Hà Nội', NULL),
-(6, 'Curry Leaves', 'ewqewqe', '12:30', '23:40', '0123456755', 'Hà Nội', 6, 1, 'Tông Đản', 'Hoàn Kiếm', '24 Tông Đản, Tràng Tiền, Hoàn Kiếm, Hà Nội', NULL);
+(1, 'Tikkaway', 'abc', '08:30', '22:30', '0123456730', 'Hà Nội', 1, 1, ' Đỗ Đức Dục', 'Từ Liêm', 'số 8 Đỗ Đức Dục, Từ Liêm, Hà Nội', 'dsads', 'Thứ 2', 'Thứ 6'),
+(2, 'Curry Kingdom', 'adb', '08:00', '22:00', '0123456738', 'Hà Nội', 2, 1, 'Gia Ngư', 'Hoàn Kiếm', '38 Gia Ngư, Hoàn Kiếm, Hà Nội', 'ewqe', 'Thứ 2', 'Chủ Nhật'),
+(3, 'Tikka Talk', 'ddddd', '17:30', '21:00', '0123456748', 'Hà Nội', 3, 1, 'Ngụy Như Kon Tum', 'Thanh Xuân', 'số 1 Ngụy Như Kon Tum, Thanh Xuân, Hà Nội', 'dddd', 'Thứ 5', 'Chủ Nhật'),
+(4, 'The Spice Factory', 'ddsads', '06:33', '12:30', '0123456758', 'Hà Nội', 4, 1, 'Nguyễn Quang Bích', 'Hoàn Kiếm', '12 Nguyễn Quang Bích, Hoàn Kiếm, Hà Nội', 'yttty', 'Thứ 6', 'Chủ Nhật'),
+(5, 'The Paneer Bar', 'ewqewq', '08:30', '23:00', '0123456735', 'Hà Nội', 5, 1, 'Đinh Tiên Hoàng', 'Hoàn Kiếm', 'số 7 Đinh Tiên Hoàng, Hoàn Kiếm, Hà Nội', 'dsdeer', 'Thứ 2', 'Thứ 5'),
+(6, 'Curry Leaves', 'ewqewqe', '12:30', '23:40', '0123456755', 'Hà Nội', 6, 1, 'Tông Đản', 'Hoàn Kiếm', '24 Tông Đản, Tràng Tiền, Hoàn Kiếm, Hà Nội', 'wewe', 'Thứ 3', 'Thứ 7');
 
 
 INSERT INTO food VALUES
-(1, 'Tempura', 1),
 (2, 'Sushi', 1),
 (3, 'Sashimi', 1),
 (4, 'Yakitori', 1),
@@ -332,7 +333,6 @@ INSERT INTO role VALUES
 
 
 INSERT INTO fooddescription VALUES
-(150, 1, 1, 'dsad', 1, 48000, 1),
 (151, 2, 1, 'dsaddd', 2, 56000, 1),
 (152, 3, 1, 'dddd', 3, 32000, 1),
 (153, 4, 1, 'asasas', 4, 30000, 1),
@@ -347,7 +347,6 @@ INSERT INTO fooddescription VALUES
 (162, 6, 3, 'wdwwdwd', 6, 99999, 1),
 (163, 7, 3, 'dwqdwqdw', 7, 11234, 1),
 (164, 8, 3, 'dwqdwqd', 8, 43888, 1),
-(165, 1, 4, 'dwqdwq', 1, 65777, 1),
 (166, 3, 4, 'dwqdwq', 3, 32323, 1),
 (167, 5, 4, 'dwqdwqd', 5, 12344, 1),
 (168, 9, 4, 'dwqdwq', 9, 12344, 1),
@@ -375,7 +374,6 @@ INSERT INTO user VALUES
 
 INSERT INTO foodreview VALUES
 (205, 3, 159, 'dsadsa', 3, 1, NULL, '2023-06-02 00:00:00'),
-(206, 2, 165, 'dsadsa', 4, 1, NULL, '2023-06-02 00:00:00'),
 (207, 4, 157, 'dsadsa', 4, 1, NULL, '2023-06-02 00:00:00'),
 (208, 3, 152, 'dsadsa', 4, 1, NULL, '2023-06-02 00:00:00'),
 (209, 1, 151, 'dsadsa', 3, 1, NULL, '2023-06-02 00:00:00'),
@@ -416,7 +414,6 @@ INSERT INTO foodreview VALUES
 (244, 4, 163, 'dsadsa', 1, 1, NULL, '2023-06-02 00:00:00'),
 (245, 5, 157, 'dsadsa', 2, 1, NULL, '2023-06-02 00:00:00'),
 (246, 5, 169, 'dsadsa', 2, 1, NULL, '2023-06-02 00:00:00'),
-(247, 5, 165, 'dsadsa', 2, 1, NULL, '2023-06-02 00:00:00'),
 (248, 3, 171, 'dsadsa', 5, 1, NULL, '2023-06-02 00:00:00'),
 (249, 1, 152, 'dsadsa', 1, 1, NULL, '2023-06-02 00:00:00'),
 (250, 1, 175, 'dsadsa', 2, 1, NULL, '2023-06-02 00:00:00'),
@@ -432,6 +429,5 @@ INSERT INTO foodreview VALUES
 (260, 5, 171, 'dsadsa', 3, 1, NULL, '2023-06-02 00:00:00'),
 (261, 5, 154, 'dsadsa', 5, 1, NULL, '2023-06-02 00:00:00'),
 (262, 3, 162, 'dsadsa', 5, 1, NULL, '2023-06-02 00:00:00'),
-(263, 3, 165, 'dsadsa', 5, 1, NULL, '2023-06-02 00:00:00'),
 (264, 4, 178, 'dsadsa', 3, 1, NULL, '2023-06-02 00:00:00'),
 (265, 1, 169, 'dsadsa', 3, 1, NULL, '2023-06-02 00:00:00');

@@ -2,4 +2,5 @@ const express = require("express");
 const router = express.Router();
 const ReviewController = require("./review.controller");
 
-router.get('/foods/getReviewById',ReviewController.getReviewById)
+//router.get('/foods/getReviewById',ReviewController.getReviewById)
+module.exports = router;

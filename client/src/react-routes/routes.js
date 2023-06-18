@@ -11,6 +11,7 @@ import Introduction from "../modules/intro/components"
 import ResetPassword from "../modules/auth/components/resetPasswordNew"
 import Search from "../modules/search/components";
 
+const Foods = lazy(() => import("../modules/foods/components"))
 const Home = lazy(() => import("../modules/home/components"))
 const HomePage = lazy(() => import("../modules/homepage/components"))
 const NotFound = lazy(() => import("../modules/not-found/components"))
@@ -65,6 +66,13 @@ class Routes extends Component {
                         component={HomePage}
                     />
 
+                     <AuthRoute
+                        exact
+                        auth={auth}
+                        path="/foods"
+                        component={Foods}
+                    />
+
                     <PrivateRoute
                         isLoading={auth.isLoading}
                         key={"home"}
@@ -79,6 +87,8 @@ class Routes extends Component {
                         layout={Layout}
                         component={HomePage}
                     />
+
+                  
 
                     <PrivateRoute
                         isLoading={auth.isLoading}

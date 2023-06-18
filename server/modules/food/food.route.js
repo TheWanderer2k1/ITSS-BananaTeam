@@ -4,9 +4,10 @@ const FoodController = require("./food.controller");
 
 router.get('/foods', FoodController.getFoodDescriptionList);
 router.get('/foods/findByAddress', FoodController.getFoodByAddress);
-router.get('/foods/getInforById', FoodController.getFoodInforById);
-router.put('/foods/updateInfor', FoodController.updateFoodInfor);
-router.delete('/foods/deleteInfor', FoodController.deleteFoodInfor);
+router.get('/foods/:foodId', FoodController.getFoodInforById);
+
+router.put('/foods/:foodId', FoodController.updateFoodInfor);
+router.delete('/foods/:foodId', FoodController.deleteFoodInfor);
 
 
 module.exports = router;

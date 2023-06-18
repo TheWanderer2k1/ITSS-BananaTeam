@@ -2,7 +2,7 @@ const RestaurantService = require('./restaurant.service');
 
 exports.getRestaurantInforById = async (req, res) => {
     try {
-        let {restaurantId}=req.query
+        let {restaurantId}=req.params
         let restaurantInfor = await RestaurantService.getRestaurantInforById(restaurantId);
 
         res.status(200).json({

@@ -75,6 +75,52 @@ exports.getFoodByAddress = async (data) => {
     return result;
 
 }
+exports.getFoodInforById = async (foodId) => {
+    queryGetFoodInforById = `SELECT fooddescription.ID as id , food.Name as name, price,  AVG(rating) AS rating, fooddescription.Description as description, Category.ID as categoryId, Category.Name as name, Category.Description as categoryDescription, restaurant.Id as restaurantId, restaurant.Avatar AS avatarImg
+    FROM fooddescription
+    JOIN food on food.id = fooddescription.FoodID
+    LEFT JOIN FoodReview on fooddescription.id = foodreview.FoodDesId
+    JOIN restaurant on fooddescription.RestaurantID = restaurant.ID
+    JOIN Category ON Category.ID = food.CategoryId
+    WHERE food.ID = ${foodId}
+    GROUP BY fooddescription.id`
+
+    listFood = await sql.QueryGetData(queryGetFoodInforById)
+    console.log(listFood)
+    for(foodItem of listFood) {
+        foodItem['category'] = {
+            id:foodItem.categoryId,
+            name:foodItem.categoryName,
+            description:foodItem.categoryDescription
+        }
+
+        foodItem['restaurant'] = {
+            id:foodItem.restaurantId,
+            avatarImg:foodItem.avatarImg
+        }
+        
+        queryGetImg = `SELECT src 
+                       FROM image
+                       JOIN fooddescription ON image.GroupID = fooddescription.GroupImageId 
+                       WHERE fooddescription.ID = ${foodItem.id}`
+
+        listImg = await sql.QueryGetData(queryGetImg)
+        arrImg = []
+        listImg.map((item)=>{
+            arrImg.push(item.src)
+        })
+        foodItem['img'] = arrImg
+        delete foodItem.categoryId
+        delete foodItem.categoryName
+        delete foodItem.categoryDescription
+        delete foodItem.restaurantId
+        delete foodItem.avatarImg
+        delete foodItem.id
+    }
+
+    return listFood
+    
+}
 
 exports.updateFoodInfor = async (data) => {
     updateFoodInforQuery = `UPDATE fooddescription

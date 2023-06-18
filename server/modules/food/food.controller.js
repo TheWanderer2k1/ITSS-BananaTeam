@@ -40,7 +40,8 @@ exports.getFoodByAddress = async (req, res) => {
 
 exports.getFoodInforById = async (req, res) => {
     try {
-        let {foodId}=req.query
+        let {foodId} = req.params
+        console.log(foodId)
         let foodInfor = await FoodService.getFoodInforById(foodId);
 
         res.status(200).json({
@@ -79,6 +80,10 @@ exports.getFoodDescriptionList = async (req, res) => {
 exports.updateFoodInfor = async (req, res) => {
     try {
         let data = req.body
+        let {foodId} = req.params
+
+        data.foodId = foodId
+        console.log(data)
         let rowEfect = await FoodService.updateFoodInfor(data);
         if(rowEfect == 0){
             res.status(200).json({
@@ -102,7 +107,7 @@ exports.updateFoodInfor = async (req, res) => {
 
 exports.deleteFoodInfor = async (req, res) => {
     try {
-        let {foodId} = req.query
+        let {foodId} = req.params
         await FoodService.deleteFoodInfor(foodId);
         
         

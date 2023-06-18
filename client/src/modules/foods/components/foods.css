@@ -5,7 +5,7 @@
 .header {
     display: flex;
     padding: 15px;
-    margin-top: 50px;
+    margin-top: 30px;
     border-bottom: 1px solid #FFA3A3;
 }
 
@@ -41,6 +41,23 @@
 
 .hidden-data {
     visibility: hidden;
+}
+
+.food-main {
+    padding: 0 130px;
+}
+
+.title-menu {
+    padding-top: 30px;
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    gap: 10px;
+}
+
+.title-menu img {
+    width: 30px;
+    height: 30px;
 }
 
 .pagging {

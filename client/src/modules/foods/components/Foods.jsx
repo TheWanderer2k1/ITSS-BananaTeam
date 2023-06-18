@@ -2,10 +2,11 @@ import { useState } from "react";
 import { columns, data, dataSource } from "./data";
 import NavbarInteractive from "./navbar-interactive"
 import { Space, Table, Tag } from 'antd';
+import update5 from './img/update5.png';
 
 const Foods = () => {
 
-    const admin = false
+    const admin = true
 
     const newData = [];
 
@@ -22,8 +23,11 @@ const Foods = () => {
     return (
         <div className="wrapper">
             <NavbarInteractive />
-            <div>
-
+            <div className="food-main">
+            <div className="title-menu">
+                <img src={update5} alt="" />
+                <div>Menu</div>
+            </div>
             <div className="header">
                 <div className="item item-header">順番</div>
                 <div className="item item-header">フード名</div>

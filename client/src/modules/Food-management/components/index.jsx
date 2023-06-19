@@ -1,17 +1,17 @@
 import React from 'react';
 import Footer from '../../homepage/components/footer';
-import Search from './search';
+import FoodScreen from './food-screen';
 
 import './intro.css';
 
-const Introduction = () => {
+const FoodInforPage = () => {
 
     return (
         <React.Fragment>
-            <Search />
+            <FoodScreen />
             <Footer />
         </React.Fragment>
     );
 }
 
-export default Introduction;
+export default FoodInforPage;

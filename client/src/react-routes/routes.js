@@ -9,11 +9,12 @@ import Layout from "../layout/layout";
 import Login from "../modules/auth/components/login"
 import Introduction from "../modules/intro/components"
 import ResetPassword from "../modules/auth/components/resetPasswordNew"
+import Search from "../modules/search/components";
+import FoodInforPage from "../modules/Food-management/components";
 
 const Home = lazy(() => import("../modules/home/components"))
 const HomePage = lazy(() => import("../modules/homepage/components"))
 const NotFound = lazy(() => import("../modules/not-found/components"))
-
 
 // Example
 const ExampleManagement1 = lazy(() => import("../modules/example/example1/components"))
@@ -45,6 +46,9 @@ class Routes extends Component {
                         path="/"
                         component={Introduction}
                     />
+
+                   
+                    
                     <AuthRoute
                         exact={false}
                         auth={auth}
@@ -59,6 +63,7 @@ class Routes extends Component {
                     />
                     <AuthRoute
                         exact
+                        auth={auth}
                         path="/homepage"
                         component={HomePage}
                     />
@@ -113,7 +118,14 @@ class Routes extends Component {
                         pageName={"documents"}
                         layout={Layout}
                         component={Document}
-                    />                    
+                    /> 
+
+                    <AuthRoute
+                        exact
+                        auth={auth}
+                        path="/FoodInforPage"
+                        component={FoodInforPage}
+                    />                   
 
                     {/* Example Management */}
                     <PrivateRoute
@@ -237,8 +249,30 @@ class Routes extends Component {
                         component={ExampleManagementHooks3}
                     />
 
+                    <PrivateRoute
+                        isLoading={this.props.example3.isLoading}
+                        key={"search"}
+                        arrPage={[
+                            { link: "/", name: "search", icon: "fa fa-home" },
+                            {
+                                link: "/search",
+                                name: "search",
+                                icon: "fa fa-circle",
+                            },
+                        ]}
+                        auth={auth}
+                        exact={true}
+                        link={"/manage-examples-hooks-3"}
+                        path={"/manage-examples-hooks-3"}
+                        pageName={"manage_examples_hooks_3"}
+                        layout={Layout}
+                        component={Search}
+                    />
+
                     {/* NOT FOUND */}
                     <Route component={NotFound}></Route>
+
+
                 </Switch>
             </Suspense>
         );

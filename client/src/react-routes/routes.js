@@ -14,6 +14,7 @@ import Search from "../modules/search/components";
 const Home = lazy(() => import("../modules/home/components"))
 const HomePage = lazy(() => import("../modules/homepage/components"))
 const ResInfo = lazy(() => import("../modules/res-info/components"))
+const ResInfoStaff = lazy(() => import("../modules/res-info-staff/components"))
 const NotFound = lazy(() => import("../modules/not-found/components"))
 
 
@@ -70,6 +71,12 @@ class Routes extends Component {
                         auth={auth}
                         path="/resinfo"
                         component={ResInfo}
+                    />
+                    <AuthRoute
+                        exact
+                        auth={auth}
+                        path="/resinfo-staff"
+                        component={ResInfoStaff}
                     />
 
                     <PrivateRoute

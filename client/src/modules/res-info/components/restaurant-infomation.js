@@ -12,13 +12,15 @@ const RestaurantInfomation = (props) => {
 
   const fetchrestaurantinfo = async () => {
     const resp = await sendRequest({
-        url: `https://mocki.io/v1/71565a2a-ffd7-4599-af48-fb0b8b050bc1`,
+        url: `https://mocki.io/v1/32491675-2162-45a2-886b-d2df95cf568b`,
         method: "GET",
       })
     setRestaurantInfo(resp.data['content'])
   };
- 
-  return (
+  if (restaurantInfo === null) {
+    return <div>Loading...</div>;
+  }
+  return (  
     <div className="restaurant-infomation-container">
         <title>Restaurant-Infomation</title>
         <meta
@@ -69,10 +71,10 @@ const RestaurantInfomation = (props) => {
         </span>
         <span className="restaurant-infomation-res-name5">イメージ</span>
         <div className="restaurant-infomation-slider">
-          {restaurantInfo.img.map((image, index) => (
+          {restaurantInfo.img && restaurantInfo.img.map((image, index) => (
             <img
               key={index}
-              src={image}
+              src={"http://localhost:8000" + image}
               alt={`Image ${index + 1}`}
               className="restaurant-image"
             />

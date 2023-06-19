@@ -75,14 +75,14 @@ exports.getFoodByAddress = async (data) => {
     return result;
 
 }
-exports.getFoodInforById = async (foodId) => {
+exports.getFoodInforById = async (foodDesId) => {
     queryGetFoodInforById = `SELECT fooddescription.ID as id , food.Name as name, price,  AVG(rating) AS rating, fooddescription.Description as description, Category.ID as categoryId, Category.Name as name, Category.Description as categoryDescription, restaurant.Id as restaurantId, restaurant.Avatar AS avatarImg
     FROM fooddescription
     JOIN food on food.id = fooddescription.FoodID
     LEFT JOIN FoodReview on fooddescription.id = foodreview.FoodDesId
     JOIN restaurant on fooddescription.RestaurantID = restaurant.ID
     JOIN Category ON Category.ID = food.CategoryId
-    WHERE food.ID = ${foodId}
+    WHERE fooddescription.id = ${foodDesId}
     GROUP BY fooddescription.id`
 
     listFood = await sql.QueryGetData(queryGetFoodInforById)

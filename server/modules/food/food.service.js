@@ -38,7 +38,7 @@ exports.getFoodByAddress = async (data) => {
     condition1=`Province like  '%${data.province}%'`
     condition2= `District like '%${data.district}%'`
     condition3= `Ward like '%${data.ward}%'`
-    whereCondition=(data.province?condition1:'')+(data.district?+' And '+condition2:'')+(data.ward?+' And '+condition3:'')
+    whereCondition=(data.province?condition1:'1=1')+' AND '+(data.district?condition2:'1=1')+' AND '+(data.ward?condition3:'1=1')
     if(whereCondition!='')
     queryFindRestaurantByAddress=queryFindRestaurantByAddress+' Where '+ whereCondition
     arrayRestaurant = await sql.QueryGetData(queryFindRestaurantByAddress)

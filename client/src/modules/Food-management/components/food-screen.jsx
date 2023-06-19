@@ -4,7 +4,7 @@ import FoodInfo from './food-info';
 import FoodReview from './food-review';
 
 function FoodScreen(props) {
-  const [foodDecription, setFoodDescription] = useState(null);
+  const [foodDecription, setFoodDescription] = useState([]);
   const [foodReviews, setFoodReviews] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
@@ -41,18 +41,18 @@ function FoodScreen(props) {
 
   return (
     <div>
-      <div className="container">
+     <div style={{ minHeight: '100vh', backgroundColor: 'white'}} className="container">
         <div className="left-column">
           {foodDecription && (
             <FoodInfo
-              image={foodDecription.img[currentImageIndex]}
-              name={foodDecription.name}
-              description={foodDecription.description}
-              score={foodDecription.rating}
-              onClickPrev={handlePrev}
-              onClickNext={handleNext}
-              onClickDelete={handleDelete}
-              onClickEdit={handleEdit}
+              // image={foodDecription.img[currentImageIndex]}
+              // name={foodDecription.name}
+              // description={foodDecription.description}
+              // score={foodDecription.rating}
+              // onClickPrev={handlePrev}
+              // onClickNext={handleNext}
+              // onClickDelete={handleDelete}
+              // onClickEdit={handleEdit}
             />
           )}
         </div>

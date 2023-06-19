@@ -28,6 +28,7 @@ function ListComponent() {
           <ResItem
             key={restaurant.id}
             image_src={"http://localhost:8000" + restaurant.img}
+            res_id={restaurant.id}
             text={restaurant.name}
           />
         ))}
@@ -37,6 +38,7 @@ function ListComponent() {
           <ResItem
             key={restaurant.id}
             image_src={"http://localhost:8000" + restaurant.img}
+            res_id={restaurant.id}
             text={restaurant.name}
           />
         ))}

@@ -2,19 +2,32 @@ import React,{ useEffect, useState } from 'react'
 import NavbarInteractive from '../../homepage/components/navbar-interactive'
 import './restaurant-infomation.css'
 import { sendRequest } from '../../../helpers/requestHelper';
+import { useLocation } from 'react-router-dom';
 
 const RestaurantInfomation = (props) => {
+  const location = useLocation();
   const [restaurantInfo, setRestaurantInfo] = useState([]);
+  const [resIdParam, setResIdParan] = useState([]);
 
   useEffect(() => {
-    fetchrestaurantinfo();
+    const params = new URLSearchParams(location.search);
+    const resIdParamloc = params.get('res_id');
+    setResIdParan(resIdParamloc);
   }, []); 
 
+  useEffect(() => {
+    console.log(resIdParam);
+    fetchrestaurantinfo();
+  }, [resIdParam])
   const fetchrestaurantinfo = async () => {
+    const url = 'localhost:8000/api/v1/restaurant/'
+    if(resIdParam != ''){url += {resIdParam}}
     const resp = await sendRequest({
+        //url: url,  //final link
         url: `https://mocki.io/v1/32491675-2162-45a2-886b-d2df95cf568b`,
         method: "GET",
       })
+    console.log(url);
     setRestaurantInfo(resp.data['content'])
   };
   if (restaurantInfo === null) {

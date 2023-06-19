@@ -10,11 +10,11 @@ import Login from "../modules/auth/components/login"
 import Introduction from "../modules/intro/components"
 import ResetPassword from "../modules/auth/components/resetPasswordNew"
 import Search from "../modules/search/components";
+import FoodInforPage from "../modules/Food-management/components";
 
 const Home = lazy(() => import("../modules/home/components"))
 const HomePage = lazy(() => import("../modules/homepage/components"))
 const NotFound = lazy(() => import("../modules/not-found/components"))
-
 
 // Example
 const ExampleManagement1 = lazy(() => import("../modules/example/example1/components"))
@@ -46,6 +46,9 @@ class Routes extends Component {
                         path="/"
                         component={Introduction}
                     />
+
+                   
+                    
                     <AuthRoute
                         exact={false}
                         auth={auth}
@@ -115,7 +118,14 @@ class Routes extends Component {
                         pageName={"documents"}
                         layout={Layout}
                         component={Document}
-                    />                    
+                    /> 
+
+                    <AuthRoute
+                        exact
+                        auth={auth}
+                        path="/FoodInforPage"
+                        component={FoodInforPage}
+                    />                   
 
                     {/* Example Management */}
                     <PrivateRoute
@@ -261,6 +271,8 @@ class Routes extends Component {
 
                     {/* NOT FOUND */}
                     <Route component={NotFound}></Route>
+
+
                 </Switch>
             </Suspense>
         );

@@ -19,6 +19,117 @@ exports.getFoodDescriptionList = async (req, res) => {
     }
 }
 
+exports.getReviewList = async (req, res) => {
+    try {
+        let { foodId } = req.params;
+        let foodReviewList = await FoodService.getReviewList(foodId);
+
+        res.status(200).json({
+            success: true,
+            message: 'Get list review success',
+            content: foodReviewList
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: 'something went wrong',
+            content: error
+        })
+    }
+}
+
+exports.addReview = async (req, res) => {
+    try {
+        let { foodId } = req.params;
+        await FoodService.addReview(foodId, req.body);
+
+        res.status(200).json({
+            success: true,
+            message: 'review success!',
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: 'something went wrong',
+            content: error
+        })
+    }
+}
+
+exports.editReview = async (req, res) => {
+    try {
+        let { foodId, reviewId } = req.params;
+        await FoodService.editReview(foodId, reviewId, req.body);
+
+        res.status(200).json({
+            success: true,
+            message: 'edit success!',
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: 'something went wrong',
+            content: error
+        })
+    }
+}
+
+exports.deleteReview = async (req, res) => {
+    try {
+        let { foodId, reviewId } = req.params;
+        await FoodService.deleteReview(foodId, reviewId);
+
+        res.status(204).json({
+            success: true,
+            message: 'delete success!',
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: 'something went wrong',
+            content: error
+        })
+    }
+}
+
+exports.reactReview = async (req, res) => {
+    try {
+        let { foodId, reviewId } = req.params;
+        let {userId, reactType } = req.body;
+        await FoodService.reactReview(foodId, reviewId, userId, reactType);
+
+        res.status(200).json({
+            success: true,
+            message: 'react success!',
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: 'something went wrong',
+            content: error
+        })
+    }
+}
+
+exports.unreactReview = async (req, res) => {
+    try {
+        let { foodId, reviewId } = req.params;
+        let { userId } = req.body;
+        await FoodService.unreactReview(foodId, reviewId, userId);
+
+        res.status(200).json({
+            success: true,
+            message: 'delete success!',
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: 'something went wrong',
+            content: error
+        })
+    }
+}
+
 exports.getFoodByAddress = async (req, res) => {
     try {
         let {province, district, ward} = req.query
@@ -40,9 +151,9 @@ exports.getFoodByAddress = async (req, res) => {
 
 exports.getFoodInforById = async (req, res) => {
     try {
-        let {foodId} = req.params
-        console.log(foodId)
-        let foodInfor = await FoodService.getFoodInforById(foodId);
+        let {foodDesId} = req.params
+        console.log(foodDesId)
+        let foodInfor = await FoodService.getFoodInforById(foodDesId);
 
         res.status(200).json({
             success: true,
@@ -84,18 +195,13 @@ exports.updateFoodInfor = async (req, res) => {
 
         data.foodId = foodId
         console.log(data)
-        let rowEfect = await FoodService.updateFoodInfor(data);
-        if(rowEfect == 0){
-            res.status(200).json({
-                success: true,
-                messages: 'not thing change',
-            })
-        }else{
+        FoodService.updateFoodInfor(data);
+      
             res.status(200).json({
                 success: true,
                 messages: 'edit food info success!',
             })
-        }
+        
     } catch (error) {
         res.status(400).json({
             success: false,

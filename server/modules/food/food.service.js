@@ -30,3 +30,68 @@ exports.getFoodDescriptionList = async (keyword) => {
     }
     return result
 }
+
+
+exports.getReviewList = async (foodId) => {
+    query = `SELECT COUNT(reactreview.React) AS reactNumber, GroupImageID AS img, user.Username AS userName, AvatarLink AS avatar, foodreview.id AS reviewId, foodreview.UserID AS userId, UpdatedAt AS updateAt, Rating AS rating, Review AS review
+        FROM foodreview
+            LEFT JOIN reactreview ON foodreview.ID = reactreview.ReviewID
+            LEFT JOIN user ON foodreview.UserID = user.ID
+        WHERE FoodDesID = ${foodId}
+        GROUP BY(foodreview.ID)`
+
+    result = await sql.QueryGetData(query);
+
+    for (review of result) {
+        if (review.img) {
+            imgQuery = `SELECT src FROM image
+                WHERE GroupID = ${review.img}`
+            let imgList = await sql.QueryGetData(imgQuery) 
+            review.img = imgList.map((x) => x.src)
+        }
+    }
+    
+    return result
+}
+
+exports.deleteReview = async (foodId, reviewId) => {
+    query = `DELETE FROM foodreview
+        WHERE FoodDesID = ${foodId}
+        AND ID = ${reviewId}`
+    await sql.QueryGetData(query);
+}
+
+exports.editReview = async (foodId, reviewId, data) => {
+    let rating = data.rating? `"${data.rating}"` : `Rating`
+    let review = data.review? `"${data.review}"` : `Review`
+    let userId = data.userId
+    query = `UPDATE foodreview
+        set Rating = ${rating}, Review = ${review}
+        WHERE FoodDesID = ${foodId}
+            AND UserID = ${userId}
+            AND ID = ${reviewId}`
+    await sql.QueryGetData(query)
+}
+
+exports.addReview = async (foodId, data) => {
+    let { userId, review, rating } = data
+
+    //  TODO: Sửa lại file sql
+    let query = `INSERT INTO foodreview (UserID, FoodDesID, Review, Rating, Status)
+    VALUES (${userId}, ${foodId}, "${review}", ${rating}, 1)`
+    let result = await sql.QueryGetData(query)
+    return result
+}
+
+exports.reactReview = async (foodId, reviewId, userId, reactType) => {
+    let query = `INSERT INTO reactreview (UserID, ReviewID, React)
+        VALUES (${userId}, ${reviewId}, ${reactType});`
+    await sql.QueryGetData(query)
+}
+
+exports.unreactReview = async (foodId, reviewId, userId) => {
+    let query = `DELETE FROM reactreview
+        WHERE UserID = ${userId}
+            AND ReviewID = ${reviewId}`
+    await sql.QueryGetData(query)
+}

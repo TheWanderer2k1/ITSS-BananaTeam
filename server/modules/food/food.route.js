@@ -10,4 +10,12 @@ router.delete('/food/:foodId/review/:reviewId', FoodController.deleteReview);
 router.post('/food/:foodId/review/:reviewId/reaction', FoodController.reactReview);
 router.delete('/food/:foodId/review/:reviewId/reaction', FoodController.unreactReview);
 
+
+router.get('/foods/findByAddress', FoodController.getFoodByAddress);
+router.get('/foods/:foodId', FoodController.getFoodInforById);
+
+router.put('/foods/:foodId', FoodController.updateFoodInfor);
+router.delete('/foods/:foodId', FoodController.deleteFoodInfor);
+
+
 module.exports = router;

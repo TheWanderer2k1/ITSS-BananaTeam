@@ -50,6 +50,9 @@ router.use("/api", require("./modules/super-admin/api/api.route"));
 router.use("/organizational-units", require("./modules/super-admin/organizational-unit/organizationalUnit.route"));
 router.use("/api/v1", require("./modules/homepageInfor/route"));
 router.use("/api/v1", require("./modules/food/food.route"));
+router.use("/api/v1", require("./modules/review/review.route"));
+router.use("/api/v1", require("./modules/restaurant/restaurant.route"));
+
 
 router.use("/examples", require("./modules/example/example.route"));
 

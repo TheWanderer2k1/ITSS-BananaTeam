@@ -98,7 +98,7 @@ exports.reactReview = async (req, res) => {
         let {userId, reactType } = req.body;
         await FoodService.reactReview(foodId, reviewId, userId, reactType);
 
-        res.status(204).json({
+        res.status(200).json({
             success: true,
             message: 'react success!',
         })
@@ -112,5 +112,20 @@ exports.reactReview = async (req, res) => {
 }
 
 exports.unreactReview = async (req, res) => {
+    try {
+        let { foodId, reviewId } = req.params;
+        let { userId } = req.body;
+        await FoodService.unreactReview(foodId, reviewId, userId, reactType);
 
+        res.status(200).json({
+            success: true,
+            message: 'delete success!',
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: 'something went wrong',
+            content: error
+        })
+    }
 }

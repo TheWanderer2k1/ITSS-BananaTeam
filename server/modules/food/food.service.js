@@ -38,7 +38,7 @@ exports.getReviewList = async (foodId) => {
             LEFT JOIN reactreview ON foodreview.ID = reactreview.ReviewID
             LEFT JOIN user ON foodreview.UserID = user.ID
         WHERE FoodDesID = ${foodId}
-        GROUP BY(FoodDesID)`
+        GROUP BY(foodreview.ID)`
 
     result = await sql.QueryGetData(query);
 
@@ -81,4 +81,17 @@ exports.addReview = async (foodId, data) => {
     VALUES (${userId}, ${foodId}, "${review}", ${rating}, 1)`
     let result = await sql.QueryGetData(query)
     return result
+}
+
+exports.reactReview = async (foodId, reviewId, userId, reactType) => {
+    let query = `INSERT INTO reactreview (UserID, ReviewID, React)
+        VALUES (${userId}, ${reviewId}, ${reactType});`
+    await sql.QueryGetData(query)
+}
+
+exports.unreactReview = async (foodId, reviewId, userId) => {
+    let query = `DELETE FROM reactreview
+        WHERE UserID = ${userId}
+            AND ReviewID = ${reviewId}`
+    await sql.QueryGetData(query)
 }

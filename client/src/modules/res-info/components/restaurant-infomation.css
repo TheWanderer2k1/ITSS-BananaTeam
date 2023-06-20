@@ -33,6 +33,7 @@
 .restaurant-infomation-logo {
   left: 3%;
   width: 240px;
+  height: 240px;
   bottom: 5%;
   position: absolute;
   object-fit: cover;

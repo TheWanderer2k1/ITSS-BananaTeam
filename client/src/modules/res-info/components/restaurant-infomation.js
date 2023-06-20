@@ -2,7 +2,7 @@ import React,{ useEffect, useState } from 'react'
 import NavbarInteractive from '../../homepage/components/navbar-interactive'
 import './restaurant-infomation.css'
 import { sendRequest } from '../../../helpers/requestHelper';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 
 const RestaurantInfomation = (props) => {
   const location = useLocation();
@@ -16,18 +16,22 @@ const RestaurantInfomation = (props) => {
   }, []); 
 
   useEffect(() => {
-    console.log(resIdParam);
     fetchrestaurantinfo();
-  }, [resIdParam])
+  }, [resIdParam]);
+  
+  const history = useHistory();
+  const handleMenuButton = () => {
+    history.push(`/foods?res_id=${resIdParam}`);
+  }
   const fetchrestaurantinfo = async () => {
-    const url = 'localhost:8000/api/v1/restaurant/'
-    if(resIdParam != ''){url += {resIdParam}}
+    var url = 'http://localhost:8000/api/v1/restaurant/'
+    url +=`${resIdParam}`;
+    console.log(url);
     const resp = await sendRequest({
-        //url: url,  //final link
-        url: `https://mocki.io/v1/32491675-2162-45a2-886b-d2df95cf568b`,
+        url: url,  //final link
+        //url: `https://mocki.io/v1/32491675-2162-45a2-886b-d2df95cf568b`,
         method: "GET",
       })
-    console.log(url);
     setRestaurantInfo(resp.data['content'])
   };
   if (restaurantInfo === null) {
@@ -48,7 +52,7 @@ const RestaurantInfomation = (props) => {
           className="restaurant-infomation-image"
         />
         <img
-          src="library/dx/images/resimg.png"
+          src={restaurantInfo.avatar}
           alt="image"
           className="restaurant-infomation-logo"
         />
@@ -87,13 +91,13 @@ const RestaurantInfomation = (props) => {
           {restaurantInfo.img && restaurantInfo.img.map((image, index) => (
             <img
               key={index}
-              src={"http://localhost:8000" + image}
+              src={process.env.REACT_APP_SERVER + image}
               alt={`Image ${index + 1}`}
               className="restaurant-image"
             />
           ))}
         </div>
-        <button type="button" className="restaurant-infomation-button">
+        <button type="button" className="restaurant-infomation-button" onClick={handleMenuButton}>
           メニュー
         </button>
       </div>

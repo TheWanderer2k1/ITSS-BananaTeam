@@ -44,7 +44,7 @@ function Slideshow() {
         style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
       >
         {images.map((image, idx) => (
-          <div className="slide" key={idx} style={{ backgroundImage: `url(http://localhost:8000${image.img})` }}></div>
+          <div className="slide" key={idx} style={{ backgroundImage: `url(${process.env.REACT_APP_SERVER}${image.img})` }}></div>
         ))}
       </div>
 

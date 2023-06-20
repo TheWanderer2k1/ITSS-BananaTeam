@@ -20,6 +20,6 @@ exports.getRestaurantInforById = async (restaurantId) => {
         resItem['img'] = arrImg
     }
 
-    return restaurantInfor
+    return restaurantInfor[0]
 }
 

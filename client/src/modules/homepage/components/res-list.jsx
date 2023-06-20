@@ -27,7 +27,8 @@ function ListComponent() {
         {firstFourrestaurant.map((restaurant) => (
           <ResItem
             key={restaurant.id}
-            image_src={"http://localhost:8000" + restaurant.img}
+            image_src={process.env.REACT_APP_SERVER + restaurant.img}
+            res_id={restaurant.id}
             text={restaurant.name}
           />
         ))}
@@ -36,7 +37,8 @@ function ListComponent() {
         {remainingrestaurant.map((restaurant) => (
           <ResItem
             key={restaurant.id}
-            image_src={"http://localhost:8000" + restaurant.img}
+            image_src={process.env.REACT_APP_SERVER + restaurant.img}
+            res_id={restaurant.id}
             text={restaurant.name}
           />
         ))}

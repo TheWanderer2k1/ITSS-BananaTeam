@@ -12,6 +12,7 @@ const Foods = () => {
     const isStaff = params.get('staff');
     const [resIdParam, setResIdParan] = useState([]);
     const [menuInfo, setMenuInfo] = useState([]);
+    
     let admin;
     if(isStaff == 1){
         admin = true;

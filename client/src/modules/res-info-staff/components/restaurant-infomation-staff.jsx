@@ -29,6 +29,7 @@ const RestaurantInfomationStaff = (props) => {
   const [previewImage, setPreviewImage] = useState(null);
   const [resIdParam, setResIdParan] = useState([]);
   const [logoImg, setLogoImage] = useState([]);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     fetchrestaurantinfo();
@@ -174,8 +175,7 @@ const RestaurantInfomationStaff = (props) => {
       description: description,
     };
     formData = convertJsonObjectToFormData(requestData);
-    if (uploadImg) {
-      console.log('img', uploadImg)
+    if (uploadImg && uploadImg.length > 0) {
       uploadImg.forEach(obj => {
           formData.append('img', obj.fileUpload)
       })
@@ -196,6 +196,7 @@ const RestaurantInfomationStaff = (props) => {
     } catch (error) {
       console.error(error);
     }
+    window.location.reload();
   };
 
   return (

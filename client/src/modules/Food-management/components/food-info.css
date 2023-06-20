@@ -9,12 +9,12 @@
     height: 300px;
     margin: 0 auto;
     border: 2px solid #FFFFFF;
-    border-radius: 110px;
+    border-radius: 76px;
     box-shadow: 0px 8px 14px rgba(0, 0, 0, 0.44);
     }
     
     .food-image img {
-     border-radius: 110px;
+     border-radius: 76px;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -40,7 +40,7 @@
     font-size: 60px;
     font-weight: 600;
     cursor: pointer;
-    color: #ccc;
+    color: #131212;
     padding: 0 8px;
     }
     
@@ -52,8 +52,31 @@
     right: 0;
     padding: 4px 8px;
     font-size: 24px;
-    color: black;
+    color: #EFC636;
     }
+
+     .FileCirclePlus-button {
+    position: absolute;
+    width: 63px;
+    height: 48px;
+    background: #DB3131;
+    box-shadow: 0px 2px 16px rgba(102, 102, 102, 0.2);
+    border-radius: 18px;
+    border: none;
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #FFFFFF;
+    cursor: pointer;    
+    left: 420px;
+    top: 322px;
+}
     
     .food-name {
     height: 124px;
@@ -62,12 +85,13 @@
     justify-content: center;
     font-family: 'Poppins';
     font-style: normal;
-    font-weight: 300;
-    font-size: 64px;
+    font-weight: 400;
+    font-size: 74px;
     line-height: 96px;
     text-align: center;
     letter-spacing: 0.045em;
     color: #000000;
+    margin-top: 40px;
     }
     
     .food-description {
@@ -88,15 +112,16 @@
     }
     
     .food-actions {
+     width: 760px;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     bottom: 96px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     }
     
-    .delete-button, .edit-button {
+    .delete-button, .edit-button { 
     width: 300px;
     height: 96px;
     background: #FF8484;
@@ -120,6 +145,20 @@
     .edit-button {
     margin-right: 0;
     }
+
+    .delete-button-icon, .edit-button-icon{
+        position: absolute;
+        color: #D61414;
+         font-size: 52px;
+    }
+
+    .delete-button-icon{
+        left: -70px;
+    }
+
+     .edit-button-icon{
+        left: 388px;
+     }
     
     .edit-button:hover,
     .delete-button:hover {

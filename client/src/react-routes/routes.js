@@ -12,6 +12,7 @@ import ResetPassword from "../modules/auth/components/resetPasswordNew"
 import Search from "../modules/search/components";
 import FoodInforPage from "../modules/Food-management/components";
 
+const Foods = lazy(() => import("../modules/foods/components"))
 const Home = lazy(() => import("../modules/home/components"))
 const HomePage = lazy(() => import("../modules/homepage/components"))
 import ResInfo from "../modules/res-info/components"
@@ -82,6 +83,13 @@ class Routes extends Component {
                         component={ResInfoStaff}
                     />
 
+                     <AuthRoute
+                        exact
+                        auth={auth}
+                        path="/foods"
+                        component={Foods}
+                    />
+
                     <PrivateRoute
                         isLoading={auth.isLoading}
                         key={"home"}
@@ -96,6 +104,8 @@ class Routes extends Component {
                         layout={Layout}
                         component={HomePage}
                     />
+
+                  
 
                     <PrivateRoute
                         isLoading={auth.isLoading}

@@ -115,7 +115,7 @@ exports.unreactReview = async (req, res) => {
     try {
         let { foodId, reviewId } = req.params;
         let { userId } = req.body;
-        await FoodService.unreactReview(foodId, reviewId, userId, reactType);
+        await FoodService.unreactReview(foodId, reviewId, userId);
 
         res.status(200).json({
             success: true,

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import FoodInfo from './food-info';
 import FoodReview from './food-review';
+import "./food-screen.css"
 
 function FoodScreen(props) {
   const [foodDecription, setFoodDescription] = useState([]);
@@ -41,7 +42,7 @@ function FoodScreen(props) {
 
   return (
     <div>
-     <div style={{ minHeight: '100vh', backgroundColor: 'white'}} className="container">
+     <div style={{ minHeight: '100vh', backgroundColor: 'white', display: 'flex'}} className="container">
         <div className="left-column">
           {foodDecription && (
             <FoodInfo

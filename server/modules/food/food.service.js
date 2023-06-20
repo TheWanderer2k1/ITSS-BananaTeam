@@ -86,7 +86,6 @@ exports.getFoodInforById = async (foodDesId) => {
     GROUP BY fooddescription.id`
 
     listFood = await sql.QueryGetData(queryGetFoodInforById)
-    console.log(listFood)
     for(foodItem of listFood) {
         foodItem['category'] = {
             id:foodItem.categoryId,
@@ -118,7 +117,7 @@ exports.getFoodInforById = async (foodDesId) => {
         delete foodItem.id
     }
 
-    return listFood
+    return listFood[0]
     
 }
 
@@ -142,7 +141,6 @@ exports.updateFoodInfor = async (data) => {
 }
 
 exports.deleteFoodInfor = async (foodId) => {
-    console.log(foodId)
     queryDelteFoodInfor = `DELETE FROM food WHERE ID = ${foodId}`
 
     await sql.QueryUpdateData(queryDelteFoodInfor);

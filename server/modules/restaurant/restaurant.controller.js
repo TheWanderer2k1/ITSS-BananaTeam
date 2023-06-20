@@ -62,6 +62,7 @@ exports.editRestaurantInfor = async (req, res) => {
         let {restaurantId} = req.params
         let data = req.body
         data.restaurantId = restaurantId
+        data.files = req.files
         await RestaurantService.editRestaurantInfor(data);
 
         res.status(200).json({

@@ -6,5 +6,5 @@ const { uploadFile } = require("../../middleware");
 router.get('/restaurant/:restaurantId',RestaurantController.getRestaurantInforById)
 router.get('/restaurant/:restaurantId/food',RestaurantController.getMenu)
 router.post('/restaurant/:restaurantId/food', uploadFile([{ name: 'img', path: '/restaurant/food' }], 'array'), RestaurantController.addFood)
-router.put('/restaurant/:restaurantId',RestaurantController.editRestaurantInfor)
+router.put('/restaurant/:restaurantId',uploadFile([{ name: 'img', path: '/restaurants' }, {name:'avatar', path:'/restaurant/avatar'}], 'fields'),RestaurantController.editRestaurantInfor)
 module.exports = router;

@@ -18,3 +18,61 @@ exports.getRestaurantInforById = async (req, res) => {
         })
     }
 }
+
+exports.getMenu = async (req, res) => {
+    try {
+        let {restaurantId}=req.params
+        let listMenu = await RestaurantService.getMenu(restaurantId);
+
+        res.status(200).json({
+            success: true,
+            messages: 'Get menu success',
+            content: listMenu
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            messages: 'something went wrong',
+            content: error
+        })
+    }
+}
+
+exports.addFood = async (req, res) => {
+    console.log('run here')
+    try {
+        let { restaurantId } = req.params
+        let { name, categoryId, description, price } = req.body;
+        await RestaurantService.addFood(restaurantId, name, categoryId, description, price, req.files);
+        res.status(201).json({
+            success: true,
+            messages: 'add food success!',
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            messages: 'something went wrong',
+            content: error
+        })
+    }
+}
+
+exports.editRestaurantInfor = async (req, res) => {
+    try {
+        let {restaurantId} = req.params
+        let data = req.body
+        data.restaurantId = restaurantId
+        await RestaurantService.editRestaurantInfor(data);
+
+        res.status(200).json({
+            success: true,
+            messages: 'edit success!',
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            messages: 'something went wrong',
+            content: error
+        })
+    }
+}

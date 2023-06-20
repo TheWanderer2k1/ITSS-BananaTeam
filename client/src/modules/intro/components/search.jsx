@@ -135,7 +135,7 @@ function Search () {
 
   const fetchfoodDecription = async () => {
       var url = `http://localhost:8000/api/v1/foods`;
-      if(searchData != '') url += `?keyword=${searchData}`
+      if(searchData != ''){url += `?keyword=${searchData}`;}
       console.log(url);
       const resp = await sendRequest({
           url: url,

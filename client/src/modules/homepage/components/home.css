@@ -58,6 +58,11 @@
   font-family: Poppins;
   font-weight: 600;
   margin-left: 60px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+a {
+  color: #000;
 }
 .home-category-container {
   flex: 0 0 auto;

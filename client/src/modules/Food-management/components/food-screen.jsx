@@ -29,16 +29,16 @@ function FoodScreen(props) {
     // Xử lý sự kiện nhấn nút Edit
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(`http://localhost:8000/api/v1/foods/${props.id}`);
-      setFoodDescription(result.data);
-      setFoodReviews(result.data.reviews);
-      setCurrentImageIndex(0);
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const result = await axios(`http://localhost:8000/api/v1/foods/${props.id}`);
+  //     setFoodDescription(result.data);
+  //     setFoodReviews(result.data.reviews);
+  //     setCurrentImageIndex(0);
+  //   };
 
-    fetchData();
-  }, [props.id]);
+  //   fetchData();
+  // }, [props.id]);
 
   return (
     <div>
@@ -57,7 +57,7 @@ function FoodScreen(props) {
             />
           )}
         </div>
-        <div className="right-column col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div className="right-column col-xs-12 col-sm-12 col-md-6 col-lg-5">
           {foodReviews && <FoodReview foodReviews={foodReviews} />}
         </div>
       </div>

@@ -1,5 +1,5 @@
 .container {
-    margin: 12px;
+    margin: 12px;   
 }
 
 .c-star-color {
@@ -18,12 +18,29 @@
     align-items: center;
 }
 
+.m-12 {
+    margin: 0 12px;
+}
+
+.mt-12 {
+    margin-top: 12px;
+}
+
+
 .mx-12 {
     margin: 0 12px;
 }
 
 .mx-24 {
     margin: 0 24px;
+}
+
+.mr-24 {
+    margin-right: 24px;
+}
+
+.p-12 {
+    padding: 12px;
 }
 
 .food-info-item {
@@ -52,4 +69,25 @@
     height: 30px;
     width: 30px;
     border-radius: 50%;
+}
+
+.review-block__body {
+    background-color: #D9D9D9;
+    border-radius: 20px;
+}
+
+.post-avatar img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.comment-text-box {
+    position: relative;
+}
+
+.comment-send-icon {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
 }

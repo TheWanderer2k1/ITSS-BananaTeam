@@ -42,8 +42,8 @@ function FoodScreen(props) {
 
   return (
     <div>
-     <div style={{ minHeight: '100vh', backgroundColor: 'white', display: 'flex'}} className="container">
-        <div className="left-column">
+     <div style={{ minHeight: '100vh', backgroundColor: 'white', display: 'flex'}} className="container row">
+        <div className="left-column col-xs-12 col-sm-12 col-md-6 col-lg-6">
           {foodDecription && (
             <FoodInfo
               // image={foodDecription.img[currentImageIndex]}
@@ -57,7 +57,7 @@ function FoodScreen(props) {
             />
           )}
         </div>
-        <div className="right-column">
+        <div className="right-column col-xs-12 col-sm-12 col-md-6 col-lg-6">
           {foodReviews && <FoodReview foodReviews={foodReviews} />}
         </div>
       </div>

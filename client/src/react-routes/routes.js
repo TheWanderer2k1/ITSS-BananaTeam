@@ -11,6 +11,7 @@ import Introduction from "../modules/intro/components"
 import ResetPassword from "../modules/auth/components/resetPasswordNew"
 import Search from "../modules/search/components";
 import FoodInforPage from "../modules/Food-management/components";
+import FoodReview from "../modules/food-review/components";
 
 const Home = lazy(() => import("../modules/home/components"))
 const HomePage = lazy(() => import("../modules/homepage/components"))
@@ -125,7 +126,14 @@ class Routes extends Component {
                         auth={auth}
                         path="/FoodInforPage"
                         component={FoodInforPage}
-                    />                   
+                    />      
+
+                    <AuthRoute
+                        exact
+                        auth={auth}
+                        path="/food-review"
+                        component={FoodReview}
+                    />            
 
                     {/* Example Management */}
                     <PrivateRoute

@@ -1,0 +1,55 @@
+.container {
+    margin: 12px;
+}
+
+.c-star-color {
+    color: #FFD233;
+}
+
+.float-right {
+    float: right;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.aic {
+    align-items: center;
+}
+
+.mx-12 {
+    margin: 0 12px;
+}
+
+.mx-24 {
+    margin: 0 24px;
+}
+
+.food-info-item {
+    display: flex;
+    align-items: center;
+    height: 32px;
+}
+
+.food-info__label {
+    width: 20%;
+}
+
+.review-block__header {
+    display: flex;
+    align-items: center;    
+    justify-content: space-between;
+}
+
+.review-block__username {
+    margin: 0 12px;
+    font-weight: bold;
+}
+
+.review-block__avatar img,
+.review-block__my-avatar img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}

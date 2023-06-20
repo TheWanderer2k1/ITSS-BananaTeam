@@ -31,8 +31,6 @@ exports.getFoodDescriptionList = async (keyword) => {
     return result
 }
 
-(??)
-
 exports.getReviewList = async (foodId) => {
     query = `SELECT COUNT(reactreview.React) AS reactNumber, GroupImageID AS img, user.Username AS userName, AvatarLink AS avatar, foodreview.id AS reviewId, foodreview.UserID AS userId, UpdatedAt AS updateAt, Rating AS rating, Review AS review
         FROM foodreview

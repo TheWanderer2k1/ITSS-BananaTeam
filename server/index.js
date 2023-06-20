@@ -33,6 +33,8 @@ app.use("/upload/img-resource/foods", express.static("upload/img-resource/foods"
 app.use("/upload/img-resource/categories", express.static("upload/img-resource/categories"));  //category img
 app.use("/upload/img-resource/favicon", express.static("upload/img-resource/favicon"));
 
+app.use("/upload/private/restaurant/food", express.static("/upload/private/restaurant/food"))
+
 const router = express.Router();
 
 router.use("/auth", require("./modules/auth/auth.route"));

@@ -1,23 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { columns, data, dataSource } from "./data";
 import NavbarInteractive from "./navbar-interactive"
+import { sendRequest } from '../../../helpers/requestHelper';
 import { Space, Table, Tag } from 'antd';
 import update5 from './img/update5.png';
+import { useHistory } from 'react-router-dom';
 
 const Foods = () => {
-
-    const admin = true
-
-    const newData = [];
-
-    for (let i = 0; i < 80; i++) {
-        const newDataObj = {
-            data1: (i + 1).toString(),
-            data2: data[i % 3].data2 + ' ' + i.toString(),
-            data3: data[i % 3].data3,
-        };
-        newData.push(newDataObj);
+    const history = useHistory();
+    const params = new URLSearchParams(location.search);
+    const isStaff = params.get('staff');
+    const [resIdParam, setResIdParan] = useState([]);
+    const [menuInfo, setMenuInfo] = useState([]);
+    let admin;
+    if(isStaff == 1){
+        admin = true;
+    }else{
+        admin = false;
     }
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const resIdParamloc = params.get('res_id');
+        setResIdParan(resIdParamloc);
+        window.scrollTo(0, 0);
+      }, []);
+    useEffect(() => {
+        fetchmenu();
+     }, [resIdParam]);
+
+    const fetchmenu = async () => {
+        var url = 'http://localhost:8000/api/v1/restaurant/'
+        url +=`${resIdParam}/food`;
+        console.log(url);
+        const resp = await sendRequest({
+            url: url,  //final link
+            method: "GET",
+          })
+        setMenuInfo(resp.data['content'])
+      };
     const [slices, setSlices] = useState(0)
 
     return (
@@ -37,10 +57,10 @@ const Foods = () => {
                 <div className="item item-header">詳細</div>
             </div>
             <div className="content">
-                {newData.slice(slices, slices+10).map(item => <div className="item item-content">
-                    <div className="content-item">{item.data1}</div>
-                    <div className="content-item">{item.data2}</div>
-                    <div className="content-item">{item.data3}</div>
+                {menuInfo.slice(slices, slices+10).map(item => <div className="item item-content">
+                    <div className="content-item">{item.foodId}</div>
+                    <div className="content-item">{item.name}</div>
+                    <div className="content-item">{item.price}</div>
                     <div className={admin ? "content-item" : "hidden-data content-item"}><i class="fa fa-pencil"> </i></div>
                     <div className={admin ? "content-item" : "hidden-data content-item"}><i class="fa fa-trash"> </i></div>
                     <div className="content-item"><i class="fa fa-eye"> </i></div>

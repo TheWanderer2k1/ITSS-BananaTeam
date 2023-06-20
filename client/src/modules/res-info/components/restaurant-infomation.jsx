@@ -13,6 +13,7 @@ const RestaurantInfomation = (props) => {
     const params = new URLSearchParams(location.search);
     const resIdParamloc = params.get('res_id');
     setResIdParan(resIdParamloc);
+    window.scrollTo(0, 0);
   }, []); 
 
   useEffect(() => {
@@ -21,7 +22,7 @@ const RestaurantInfomation = (props) => {
   
   const history = useHistory();
   const handleMenuButton = () => {
-    history.push(`/foods?res_id=${resIdParam}`);
+    history.push(`/foods?res_id=${resIdParam}&staff=0`);
   }
   const fetchrestaurantinfo = async () => {
     var url = 'http://localhost:8000/api/v1/restaurant/'

@@ -37,6 +37,7 @@ const RestaurantInfomationStaff = (props) => {
     const params = new URLSearchParams(location.search);
     const resIdParamloc = params.get('res_id');
     setResIdParan(resIdParamloc);
+    window.scrollTo(0, 0);
   }, []); 
 
   useEffect(() => {
@@ -155,7 +156,7 @@ const RestaurantInfomationStaff = (props) => {
   };
   const history = useHistory();
   const handleMenuButton = () => {
-    history.push(`/foods?res_id=${props.res_id}`);
+    history.push(`/foods?res_id=${resIdParam}&staff=1`);
   }
   let formData;
   const handleSaveButton = async () => {
@@ -185,15 +186,13 @@ const RestaurantInfomationStaff = (props) => {
     
     try {
       var url = 'http://localhost:8000/api/v1/restaurant/'
-        url +=`${resIdParam}`;
-        console.log(JSON.stringify(requestData));
+      url +=`${resIdParam}`;
+      console.log(JSON.stringify(requestData));
       const resp = await sendRequest({
         url: url,
-        //url: 'https://mocki.io/v1/14ea5248-d198-4b30-95c2-e7115f39f942', // placeholder
         method: 'PUT',
-        body: requestData,
+        data: requestData
       });
-      console.log(resp);
     } catch (error) {
       console.error(error);
     }

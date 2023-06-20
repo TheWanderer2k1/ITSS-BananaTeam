@@ -4,6 +4,13 @@ import PropTypes from 'prop-types'
 
 import './footer.css'
 
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+};
+
 const Footer = (props) => {
   return (
     <div className="footer-footer">
@@ -22,19 +29,19 @@ const Footer = (props) => {
           </div>
           <div className="footer-container3">
             <img
-              src={props.image_src2}
+              src="library/dx/images/facebook.png"
               alt={props.image_alt}
               className="footer-image1"
             />
             <img
-              src={props.image_src3}
+              src="library/dx/images/twitter.png"
               alt={props.image_alt}
-              className="footer-image2"
+              className="footer-image1"
             />
             <img
-              src={props.image_src4}
+              src="library/dx/images/youtube.png"
               alt={props.image_alt}
-              className="footer-image3"
+              className="footer-image1"
             />
           </div>
         </div>
@@ -139,9 +146,10 @@ const Footer = (props) => {
       <div className="footer-container7">
         <span className="footer-text6">{props.text}</span>
         <img
-          src={props.image_src}
+          src="library/dx/images/up-arrow.png"
           alt={props.image_alt}
           className="footer-image4"
+          onClick={scrollToTop}
         />
       </div>
     </div>

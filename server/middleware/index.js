@@ -255,18 +255,17 @@ exports.uploadFile = (arrData, type) => {
     const staticPath = ["/avatars"];
     var name, arrFile;
     // Tạo folder chứa file khi chưa có folder
-    const checkExistUploads = async (portal) => {
-        if (portal !== undefined)
+    const checkExistUploads = async () => {
             return await arrData.forEach((x) => {
                 if (staticPath.indexOf(x.path) !== -1) {
-                    let dir2 = `./upload/${x.path}/${portal}`;
+                    let dir2 = `./upload${x.path}`;
                     if (!fs.existsSync(dir2)) {
                         fs.mkdirSync(dir2, {
                             recursive: true,
                         });
                     }
                 } else {
-                    let dir = `./upload/private/${portal}${x.path}`;
+                    let dir = `./upload/private${x.path}`;
                     if (!fs.existsSync(dir)) {
                         fs.mkdirSync(dir, {
                             recursive: true,
@@ -279,15 +278,15 @@ exports.uploadFile = (arrData, type) => {
     const getFile = multer({
         storage: multer.diskStorage({
             destination: (req, file, cb) => {
-                checkExistUploads(req.portal);
+                checkExistUploads();
 
                 if (type === "single" || type === "array") {
                     if (staticPath.indexOf(arrData[0].path) !== -1) {
-                        cb(null, `./upload${arrData[0].path}/${req.portal}`);
+                        cb(null, `./upload${arrData[0].path}`);
                     } else {
                         cb(
                             null,
-                            `./upload/private/${req.portal}${arrData[0].path}`
+                            `./upload/private${arrData[0].path}`
                         );
                     }
                 } else if (type === "fields") {
@@ -296,12 +295,12 @@ exports.uploadFile = (arrData, type) => {
                             if (staticPath.indexOf(arrData[n].path) !== -1) {
                                 cb(
                                     null,
-                                    `./upload${arrData[n].path}/${req.portal}`
+                                    `./upload${arrData[n].path}`
                                 );
                             } else {
                                 cb(
                                     null,
-                                    `./upload/private/${req.portal}${arrData[n].path}`
+                                    `./upload/private${arrData[n].path}`
                                 );
                             }
                             break;
@@ -314,7 +313,6 @@ exports.uploadFile = (arrData, type) => {
                 let oldNameFile = extend.splice(0, extend.length - 1);
                 oldNameFile = oldNameFile.join(".");
                 let hash =
-                    `${req.user._id}_${Date.now()}_` +
                     CryptoJS.MD5(oldNameFile).toString();
                 cb(null, `${hash}.${extend[extend.length - 1]}`);
             },

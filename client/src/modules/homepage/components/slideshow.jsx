@@ -7,7 +7,6 @@ function Slideshow() {
   const [index, setIndex] = useState(0);
   const delay = 7500;
   let timeoutRef = null;
-
   useEffect(() => {
     fetchImages();
   }, []);

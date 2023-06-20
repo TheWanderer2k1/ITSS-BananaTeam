@@ -182,12 +182,16 @@ const RestaurantInfomationStaff = (props) => {
     if (logoImg) {
       formData.append('avatar',logoImg)
     }
-    console.log(formData);
+    
     try {
+      var url = 'http://localhost:8000/api/v1/restaurant/'
+        url +=`${resIdParam}`;
+        console.log(JSON.stringify(requestData));
       const resp = await sendRequest({
-        url: 'https://mocki.io/v1/14ea5248-d198-4b30-95c2-e7115f39f942', // placeholder
+        url: url,
+        //url: 'https://mocki.io/v1/14ea5248-d198-4b30-95c2-e7115f39f942', // placeholder
         method: 'PUT',
-        body: formData,
+        body: requestData,
       });
       console.log(resp);
     } catch (error) {

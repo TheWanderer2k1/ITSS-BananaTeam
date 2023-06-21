@@ -31,7 +31,8 @@ app.use("/upload/user-guide/bill", express.static("upload/user-guide/bill"));
 
 app.use("/upload/img-resource/foods", express.static("upload/img-resource/foods"));            //food img
 app.use("/upload/img-resource/categories", express.static("upload/img-resource/categories"));  //category img
-app.use("/upload/img-resource/favicon", express.static("upload/img-resource/favicon"));
+app.use("/upload/img-resource/favicon", express.static("upload/img-resource/favicon"));        //favicon img
+app.use("/upload/img-resource/review", express.static("upload/img-resource/review"));          //review img
 
 app.use("/upload/private/restaurant/food", express.static("/upload/private/restaurant/food"))
 

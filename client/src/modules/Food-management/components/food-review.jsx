@@ -6,20 +6,25 @@ import './food-review.css';
 import axios from 'axios';
 const { TextArea } = Input;
 
-function FoodReview(props) {
+const FoodReview = ({id}) => {
   const [listComment, setListComment] = useState([]);
   const [newCommentRate, setNewCommentRate] = useState(0);
   const [newCommentText, setNewCommentText] = useState('');
   const [editCommentRate, setEditCommentRate] = useState(0);
   const [editCommentText, setEditCommentText] = useState('');
+  const [editCommentUserId, setEditCommentUserId] = useState(0);
   const [editingReviewId, setEditingReviewId] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = (comment) => {
     setEditingReviewId(comment.reviewId);
     setEditCommentRate(comment.rating);
     setEditCommentText(comment.review);
+    setEditCommentUserId(comment.userId);
     setIsModalOpen(true);
   };
+  const onClickDeleteComment = (comment) => {
+    deleteComment(comment.reviewId);
+  }
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -33,7 +38,7 @@ function FoodReview(props) {
   }, []);
   
   const fetchFoodReview = async () => {
-    var url = `http://localhost:8000/api/v1/food/159/review`;
+    var url = `http://localhost:8000/api/v1/food/${id}/review`;
     const resp = await sendRequest({
       url: url,
       method: "GET",
@@ -64,7 +69,7 @@ function FoodReview(props) {
     };
     // formData = convertJsonObjectToFormData(data);
     try {
-      var url = `http://localhost:8000/api/v1/food/159/review`;
+      var url = `http://localhost:8000/api/v1/food/${id}/review`;
       const resp = await sendRequest({
         url: url,
         method: 'POST',
@@ -82,13 +87,14 @@ function FoodReview(props) {
     const data = { 
       rating: editCommentRate,
       review: editCommentText,
-      userId: 3,
+      userId: editCommentUserId,
       img: null,
     };
     // formData = convertJsonObjectToFormData(data);
     try {
-      var url = `http://localhost:8000/api/v1/food/159/review`;
+      var url = `http://localhost:8000/api/v1/food/${id}/review/`;
       url += `${editingReviewId}`;
+      console.log('rul day: ', url);
       const resp = await sendRequest({
         url: url,
         method: 'PUT',
@@ -98,6 +104,23 @@ function FoodReview(props) {
       console.error(error);
     }
     window.location.reload();
+    // const resp = await axios(url, options);
+    // setListComment([...listComment, resp.data['content']]);
+    // setNewCommentText('');
+  };
+  const deleteComment = async (reviewId) => {
+    try {
+      var url = `http://localhost:8000/api/v1/food/${id}/review/`;
+      url += `${reviewId}`;
+      console.log('rul day: ', url);
+      const resp = await sendRequest({
+        url: url,
+        method: 'DELETE',
+      });
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
     // const resp = await axios(url, options);
     // setListComment([...listComment, resp.data['content']]);
     // setNewCommentText('');
@@ -198,6 +221,7 @@ function FoodReview(props) {
                 </div>
                 <div className="flex-1">
                   <Button type="text"><i class="fa fa-edit" onClick={() => showModal(comment)}></i></Button>                
+                  <Button type="text"><i class="fa fa-trash" onClick={() => onClickDeleteComment(comment)}></i></Button>                
                 </div>
               </div>
               <div className="review-block__footer d-flex mt-12">

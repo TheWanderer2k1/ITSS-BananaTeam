@@ -64,10 +64,11 @@ module.exports = async (server) => {
             useUnifiedTopology: true,
         }
 
-    global.DB_CONNECTION = mongoose.createConnection(
-        `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT || "27017"}/${process.env.DB_NAME}`,
-        connectOptions
-    );
+        global.DB_CONNECTION = mongoose.createConnection(process.env.MONGO_URL?
+            process.env.MONGO_URL:
+            `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT || "27017"}/${process.env.DB_NAME}`,
+            connectOptions
+        );
     initModels(DB_CONNECTION, models);
 
     // Init backup for many company

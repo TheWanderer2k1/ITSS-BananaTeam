@@ -285,16 +285,16 @@ INSERT INTO image VALUES
 (18, 18, 'dsads', '/upload/img-resource/foods/katsudon.jpeg'),
 (19, 19, 'dsads', '/upload/img-resource/foods/Kushikatsu.jpg'),
 (20, 20, 'dsads', '/upload/img-resource/foods/Miso-soup.jpeg'),
-(21, 21, 'dsads', '/upload/img-resource/categories/drink-icon.jpg'),
-(22, 22, 'dsads', '/upload/img-resource/categories/soup-icon.jpg'),
-(23, 23, 'dsads', '/upload/img-resource/categories/skewer-icon.jpg'),
-(24, 24, 'dsads', '/upload/img-resource/categories/rice-icon.jpg'),
-(25, 25, 'dsads', '/upload/img-resource/categories/noodles-icon.jpg'),
-(26, 26, 'dsads', '/upload/img-resource/categories/sushi-icon.jpg'),
-(27, 27, 'dsads', '/upload/img-resource/categories/com-nam-icon.jpg'),
-(28, 28, 'dsads', '/upload/img-resource/categories/soup-icon.jpg'),
-(29, 29, 'dsads', '/upload/img-resource/categories/tea-icon.jpg'),
-(30, 30, 'dsads', '/upload/img-resource/categories/fried-food-icon.jpg');
+(21, 0, 'dsads', '/upload/img-resource/categories/drink-icon.jpg'),
+(22, 0, 'dsads', '/upload/img-resource/categories/soup-icon.jpg'),
+(23, 0, 'dsads', '/upload/img-resource/categories/skewer-icon.jpg'),
+(24, 0, 'dsads', '/upload/img-resource/categories/rice-icon.jpg'),
+(25, 0, 'dsads', '/upload/img-resource/categories/noodles-icon.jpg'),
+(26, 0, 'dsads', '/upload/img-resource/categories/sushi-icon.jpg'),
+(27, 0, 'dsads', '/upload/img-resource/categories/com-nam-icon.jpg'),
+(28, 0, 'dsads', '/upload/img-resource/categories/soup-icon.jpg'),
+(29, 0, 'dsads', '/upload/img-resource/categories/tea-icon.jpg'),
+(30, 0, 'dsads', '/upload/img-resource/categories/fried-food-icon.jpg');
 
 
 INSERT INTO category VALUES

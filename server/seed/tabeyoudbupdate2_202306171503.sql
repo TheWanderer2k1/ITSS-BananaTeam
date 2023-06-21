@@ -265,34 +265,49 @@ ALTER TABLE reactreview
 
 
 INSERT INTO image VALUES
-(1, 1, 'dsads', 'dsdsd'),
-(2, 2, 'dsads', 'e3f3g3'),
-(3, 3, 'dsads', 'cxvb'),
-(4, 4, 'dsads', 'frt5y'),
-(5, 5, 'dsads', 'acbvb'),
-(6, 6, 'dsads', 'dt43y5y'),
-(7, 7, 'dsads', 'dsagg55'),
-(8, 8, 'dsads', 'dqr4365'),
-(9, 9, 'dsads', 'vdvdhty'),
-(10, 10, 'dsads', 'dwer435'),
-(11, 11, 'dsads', 'd3t4t4'),
-(12, 12, 'dsads', 'd32t43t'),
-(13, 13, 'dsads', 'dsadsv445'),
-(14, 14, 'dsads', 'd3r35r'),
-(15, 15, 'dsads', 'dsd55'),
-(16, 16, 'dsads', 'd3rr353'),
-(17, 17, 'dsads', 'd4646'),
-(18, 18, 'dsads', 'dsd2222'),
-(19, 19, 'dsads', 'dvdbd'),
-(20, 20, 'dsads', 'dgy757');
+(1, 1, 'dsads', 'upload\img-resource\foods\tempura.png'),
+(2, 2, 'dsads', 'upload\img-resource\foods\sushi.jpg'),
+(3, 3, 'dsads', 'upload\img-resource\foods\sashimi.jpg'),
+(4, 4, 'dsads', 'upload\img-resource\foods\yakitori.jpg'),
+(5, 5, 'dsads', 'upload\img-resource\foods\ramen.png'),
+(6, 6, 'dsads', 'upload\img-resource\foods\okonomiyaki.jpg'),
+(7, 7, 'dsads', 'upload\img-resource\foods\jiaozi.jpg'),
+(8, 8, 'dsads', 'upload\img-resource\foods\takoyaki.jpg'),
+(9, 9, 'dsads', 'upload\img-resource\foods\sukiyaki.jpg'),
+(10, 10, 'dsads', 'upload\img-resource\foods\Champon.jpg'),
+(11, 11, 'dsads', 'upload\img-resource\foods\edamame.jpg'),
+(12, 12, 'dsads', 'upload\img-resource\foods\Fugu.jpg'),
+(13, 13, 'dsads', 'upload\img-resource\foods\Gyoza.jpg'),
+(14, 14, 'dsads', 'upload\img-resource\foods\gyudon.jpg'),
+(15, 15, 'dsads', 'upload\img-resource\foods\gyukatsu.jpg'),
+(16, 16, 'dsads', 'upload\img-resource\foods\gyutan.jpg'),
+(17, 17, 'dsads', 'upload\img-resource\foods\karaage.jpeg'),
+(18, 18, 'dsads', 'upload\img-resource\foods\katsudon.jpeg'),
+(19, 19, 'dsads', 'upload\img-resource\foods\Kushikatsu.jpg'),
+(20, 20, 'dsads', 'upload\img-resource\foods\Miso-soup.jpeg'),
+(21, 21, 'dsads', 'upload\img-resource\categories\drink-icon.jpg'),
+(22, 22, 'dsads', 'upload\img-resource\categories\soup-icon.jpg'),
+(23, 23, 'dsads', 'upload\img-resource\categories\skewer-icon.jpg'),
+(24, 24, 'dsads', 'upload\img-resource\categories\rice-icon.jpg'),
+(25, 25, 'dsads', 'upload\img-resource\categories\noodles-icon.jpg'),
+(26, 26, 'dsads', 'upload\img-resource\categories\sushi-icon.jpg'),
+(27, 27, 'dsads', 'upload\img-resource\categories\com-nam-icon.jpg'),
+(28, 28, 'dsads', 'upload\img-resource\categories\soup-icon.jpg'),
+(29, 29, 'dsads', 'upload\img-resource\categories\tea-icon.jpg'),
+(30, 30, 'dsads', 'upload\img-resource\categories\fried-food-icon.jpg');
 
 
 INSERT INTO category VALUES
-(1, 'com', 'cui bap', 2),
-(2, 'hamburger', 'cui bap', 3),
-(3, 'Banh gato', 'dsadsa', 4),
-(4, 'Pizza', 'ddddd', 5),
-(5, 'Udon', 'dvddb', 6);
+(1, 'drink', 'cui bap', 21),
+(2, 'hotpot', 'cui bap', 22),
+(3, 'bbq', 'dsadsa', 23),
+(4, 'rice', 'ddddd', 24),
+(5, 'noodle', 'dvddb', 25),
+(6, 'roll', 'dvddb', 26),
+(7, 'snack', 'dvddb', 27),
+(8, 'vegetarian', 'dvddb', 28),
+(9, 'dessert', 'dvddb', 29),
+(10, 'other', 'dvddb', 30);
 
 
 INSERT INTO restaurant VALUES
@@ -305,25 +320,25 @@ INSERT INTO restaurant VALUES
 
 
 INSERT INTO food VALUES
-(2, 'Sushi', 1),
-(3, 'Sashimi', 1),
-(4, 'Yakitori', 1),
-(5, 'Ramen', 2),
-(6, 'Okonomiyaki', 2),
-(7, 'Jiaozi', 2),
-(8, 'Takoyaki', 2),
+(2, 'Sushi', 6),
+(3, 'Sashimi', 4),
+(4, 'Yakitori', 3),
+(5, 'Ramen', 5),
+(6, 'Okonomiyaki', 10),
+(7, 'Jiaozi', 10),
+(8, 'Takoyaki', 3),
 (9, 'Sukiyaki', 3),
-(10, 'Champon', 3),
-(11, 'Edamame', 3),
-(12, 'Fugu', 3),
+(10, 'Champon', 5),
+(11, 'Edamame', 10),
+(12, 'Fugu', 10),
 (13, 'Gyoza', 4),
 (14, 'Gyudon', 4),
 (15, 'Gyukatsu', 4),
 (16, 'Gyutan', 4),
-(17, 'Karaage', 5),
-(18, 'Katsudon', 5),
-(19, 'Kushikatsu', 5),
-(20, 'Miso Soup', 5);
+(17, 'Karaage', 3),
+(18, 'Katsudon', 4),
+(19, 'Kushikatsu', 10),
+(20, 'Miso Soup', 8);
 
 
 INSERT INTO role VALUES

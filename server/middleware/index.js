@@ -265,7 +265,7 @@ exports.uploadFile = (arrData, type) => {
                         });
                     }
                 } else {
-                    let dir = `./upload/private${x.path}`;
+                    let dir = `./upload${x.path}`;
                     if (!fs.existsSync(dir)) {
                         fs.mkdirSync(dir, {
                             recursive: true,
@@ -286,7 +286,7 @@ exports.uploadFile = (arrData, type) => {
                     } else {
                         cb(
                             null,
-                            `./upload/private${arrData[0].path}`
+                            `./upload${arrData[0].path}`
                         );
                     }
                 } else if (type === "fields") {
@@ -300,7 +300,7 @@ exports.uploadFile = (arrData, type) => {
                             } else {
                                 cb(
                                     null,
-                                    `./upload/private${arrData[n].path}`
+                                    `./upload${arrData[n].path}`
                                 );
                             }
                             break;

@@ -562,12 +562,12 @@ span.dx-options  > div > a {
     margin: 12px 24px;
 }
 
-.food-item {
+.hfood-item {
     width: 45%;
     margin: 12px;
 }
 
-.food-image img {
+.hfood-image img {
     position: relative;
     width: 120px;
     height: 90px;
@@ -576,7 +576,7 @@ span.dx-options  > div > a {
     box-shadow: 0 0 10px 
 }
 
-.food-image {
+.hfood-image {
     position: relative;
 }
 
@@ -599,7 +599,7 @@ span.dx-options  > div > a {
     margin-left: 12px;
 }
 
-.food-name {
+.hfood-name {
     font-weight: bold;
 }
 

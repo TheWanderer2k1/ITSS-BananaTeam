@@ -34,6 +34,18 @@
     margin-top: 12px;
 }
 
+.my-12 {
+    margin: 12px 0;
+}
+
+.mb-12 {
+    margin-bottom: 12px;
+}
+
+.mb-24 {
+    margin-bottom: 24px;
+}
+
 
 .mx-12 {
     margin: 0 12px;

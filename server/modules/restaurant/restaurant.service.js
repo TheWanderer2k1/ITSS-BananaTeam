@@ -73,7 +73,7 @@ exports.addFood = async (restaurantId, name, categoryId, description, price, ima
 }
 
 exports.editRestaurantInfor = async (data) => {
-    console.log(data.files.img)
+    console.log(data.files.avatar)
     queryEditRestaurantInfor = `UPDATE restaurant
                                 SET Name = '${data.name}',
                                     Province = '${data.province}',
@@ -86,8 +86,9 @@ exports.editRestaurantInfor = async (data) => {
                                     \`To\` = '${data.to}',
                                     Phone = '${data.phone}',
                                     Description = '${data.description}'`+
-                                   (data.files.avatar[0]?`, Avatar = '${data.files.avatar[0].destination}/${data.files.avatar[0].filename}'`:'') +
+                                   (data.files.avatar?`, Avatar = '${data.files.avatar[0].destination}/${data.files.avatar[0].filename}'`:'') +
                                 ` WHERE ID = ${data.restaurantId} `
+    
     getGroupImageId = `SELECT GroupImageID AS id
                       FROM restaurant
                       WHERE restaurant.ID = ${data.restaurantId}`
@@ -106,7 +107,7 @@ exports.editRestaurantInfor = async (data) => {
             }
         }
         
-    
+        console.log(queryEditRestaurantInfor)
     await sql.QueryUpdateData(queryEditRestaurantInfor)
     return
     

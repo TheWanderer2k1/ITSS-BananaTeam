@@ -216,7 +216,7 @@ const RestaurantInfomationStaff = (props) => {
         />
         {previewImage && <img
           alt="image"
-          src={previewImage}
+          src={process.env.REACT_APP_SERVER + previewImage}
           className="restaurant-infomation-staff-logo"
         />}
         <h1 className="restaurant-infomation-staff-text">{restaurantInfo.name}</h1>

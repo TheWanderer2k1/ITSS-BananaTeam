@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 SET NAMES 'utf8';
 
 
@@ -195,7 +195,7 @@ CREATE TABLE foodreview (
   Rating INT NOT NULL,
   Status SMALLINT NOT NULL,
   GroupImageID INT DEFAULT NULL,
-  UpdatedAt DATETIME NOT NULL,
+  UpdatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (ID)
 )
 ENGINE = INNODB,
@@ -221,7 +221,7 @@ CREATE TABLE reply (
   ReviewID INT NOT NULL,
   Comment VARCHAR(2048) NOT NULL DEFAULT '',
   Status SMALLINT DEFAULT NULL,
-  UpdatedAt DATETIME NOT NULL,
+  UpdatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (ID)
 )
 ENGINE = INNODB,
@@ -298,11 +298,16 @@ INSERT INTO image VALUES
 
 
 INSERT INTO category VALUES
-(1, 'com', 'cui bap', 2),
-(2, 'hamburger', 'cui bap', 3),
-(3, 'Banh gato', 'dsadsa', 4),
-(4, 'Pizza', 'ddddd', 5),
-(5, 'Udon', 'dvddb', 6);
+(1, 'drink', 'cui bap', 21),
+(2, 'hotpot', 'cui bap', 22),
+(3, 'bbq', 'dsadsa', 23),
+(4, 'rice', 'ddddd', 24),
+(5, 'noodle', 'dvddb', 25),
+(6, 'roll', 'dvddb', 26),
+(7, 'snack', 'dvddb', 27),
+(8, 'vegetarian', 'dvddb', 28),
+(9, 'dessert', 'dvddb', 29),
+(10, 'other', 'dvddb', 30);
 
 
 INSERT INTO restaurant VALUES
@@ -315,25 +320,25 @@ INSERT INTO restaurant VALUES
 
 
 INSERT INTO food VALUES
-(2, 'Sushi', 1),
-(3, 'Sashimi', 1),
-(4, 'Yakitori', 1),
-(5, 'Ramen', 2),
-(6, 'Okonomiyaki', 2),
-(7, 'Jiaozi', 2),
-(8, 'Takoyaki', 2),
+(2, 'Sushi', 6),
+(3, 'Sashimi', 4),
+(4, 'Yakitori', 3),
+(5, 'Ramen', 5),
+(6, 'Okonomiyaki', 10),
+(7, 'Jiaozi', 10),
+(8, 'Takoyaki', 3),
 (9, 'Sukiyaki', 3),
-(10, 'Champon', 3),
-(11, 'Edamame', 3),
-(12, 'Fugu', 3),
+(10, 'Champon', 5),
+(11, 'Edamame', 10),
+(12, 'Fugu', 10),
 (13, 'Gyoza', 4),
 (14, 'Gyudon', 4),
 (15, 'Gyukatsu', 4),
 (16, 'Gyutan', 4),
-(17, 'Karaage', 5),
-(18, 'Katsudon', 5),
-(19, 'Kushikatsu', 5),
-(20, 'Miso Soup', 5);
+(17, 'Karaage', 3),
+(18, 'Katsudon', 4),
+(19, 'Kushikatsu', 10),
+(20, 'Miso Soup', 8);
 
 
 INSERT INTO role VALUES

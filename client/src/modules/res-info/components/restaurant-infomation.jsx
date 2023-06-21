@@ -53,7 +53,7 @@ const RestaurantInfomation = (props) => {
           className="restaurant-infomation-image"
         />
         <img
-          src={restaurantInfo.avatar}
+          src={process.env.REACT_APP_SERVER + restaurantInfo.avatar}
           alt="image"
           className="restaurant-infomation-logo"
         />

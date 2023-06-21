@@ -101,13 +101,14 @@ exports.editRestaurantInfor = async (data) => {
         if(data.files.img){
             await sql.QueryUpdateData(queryDelete)
             for(let file of data.files.img){
+                let filePath = `${file.destination}/${file.filename}`.substring(1)
+                console.log(filePath)
                 let imageInsertQuery = `INSERT INTO image (GroupID, Src)
-                VALUES (${groupImageId}, '${file.destination}/${file.filename}')`
+                VALUES (${groupImageId}, '${filePath}')`
                 await sql.QueryGetData(imageInsertQuery) 
             }
         }
         
-        console.log(queryEditRestaurantInfor)
     await sql.QueryUpdateData(queryEditRestaurantInfor)
     return
     

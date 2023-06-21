@@ -31,7 +31,7 @@ function FoodScreen(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(`http://localhost:8000/api/v1/foods/159`);
+      const result = await axios(`http://localhost:8000/api/v1/foods/${props.id}`);
       setFoodDescription(result.data);
       setFoodReviews(result.data.reviews);
       setCurrentImageIndex(0);

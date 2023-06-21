@@ -65,14 +65,17 @@ exports.addFood = async (restaurantId, name, categoryId, description, price, ima
 
     if (images) {
         for (let image of images) {
+            let filePath = `${image.destination}/${image.filename}`.substring(1)
             let imageInsertQuery = `INSERT INTO image (GroupID, Src)
-            VALUES (${groupImageId}, '${image.destination}/${image.filename}')`
+            VALUES (${groupImageId}, '${filePath}')`
             await sql.QueryGetData(imageInsertQuery)
         }
     }
 }
 
 exports.editRestaurantInfor = async (data) => {
+    console.log(data.files.avatar)
+    let filePath = `${data.files.avatar[0].destination}/${data.files.avatar[0].filename}`.substring(1)
     queryEditRestaurantInfor = `UPDATE restaurant
                                 SET Name = '${data.name}',
                                     Province = '${data.province}',
@@ -84,12 +87,35 @@ exports.editRestaurantInfor = async (data) => {
                                     \`From\` = '${data.from}',
                                     \`To\` = '${data.to}',
                                     Phone = '${data.phone}',
-                                    Description = '${data.description}'
-                                WHERE ID = ${data.restaurantId}`
+                                    Description = '${data.description}'`+
+                                   (data.files.avatar?`, Avatar = '${filePath}'`:'') +
+                                ` WHERE ID = ${data.restaurantId} `
+    
+    getGroupImageId = `SELECT GroupImageID AS id
+                      FROM restaurant
+                      WHERE restaurant.ID = ${data.restaurantId}`
+    groupImageIdObj = await sql.QueryGetData(getGroupImageId)
+    groupImageId = groupImageIdObj[0].id
+    
+        queryDelete = `DELETE image
+                       FROM image
+                       WHERE GroupID = ${groupImageId}`
+        if(data.files.img){
+            await sql.QueryUpdateData(queryDelete)
+            for(let file of data.files.img){
+                let filePath = `${file.destination}/${file.filename}`.substring(1)
+                let imageInsertQuery = `INSERT INTO image (GroupID, Src)
+                VALUES (${groupImageId}, '${filePath}')`
+                await sql.QueryGetData(imageInsertQuery) 
+            }
+        }
+        
+        console.log(queryEditRestaurantInfor)
     await sql.QueryUpdateData(queryEditRestaurantInfor)
     return
     
 }
+
 
 
 

@@ -3,6 +3,7 @@ import { TimePicker } from 'antd';
 import NavbarInteractive from '../../homepage/components/navbar-interactive'
 import { sendRequest } from '../../../helpers/requestHelper';
 import {  UploadFile } from '../../../common-components';
+import { useHistory } from 'react-router-dom';
 import { convertJsonObjectToFormData } from '../../../helpers/jsonObjectToFormDataObjectConverter';
 import './restaurant-infomation-staff.css'
 
@@ -25,11 +26,24 @@ const RestaurantInfomationStaff = (props) => {
   const [description, setDescription] = useState(null);
   const [uploadImg, setUploadImg] = useState({recommendFiles: []});
   const [restaurantInfo, setRestaurantInfo] = useState([]);
-
   const [previewImage, setPreviewImage] = useState(null);
+  const [resIdParam, setResIdParan] = useState([]);
+  const [logoImg, setLogoImage] = useState([]);
+  const [count, setCount] = useState(0);
+
   useEffect(() => {
     fetchrestaurantinfo();
+    setLogoImage(restaurantInfo.avatar);
+    fetchProvines();
+    const params = new URLSearchParams(location.search);
+    const resIdParamloc = params.get('res_id');
+    setResIdParan(resIdParamloc);
+    window.scrollTo(0, 0);
   }, []); 
+
+  useEffect(() => {
+    fetchrestaurantinfo();
+  }, [resIdParam]);
 
   useEffect(() => {
     
@@ -44,21 +58,20 @@ const RestaurantInfomationStaff = (props) => {
     setDetailedAddress(restaurantInfo.detailedAddress);
     setContact(restaurantInfo.phone);
     setDescription(restaurantInfo.description);
-    setPreviewImage(restaurantInfo.avatar)
+    setPreviewImage(restaurantInfo.avatar);
 
   }, [restaurantInfo]);
 
   const fetchrestaurantinfo = async () => {
+    var url = 'http://localhost:8000/api/v1/restaurant/'
+        url +=`${resIdParam}`;
     const resp = await sendRequest({
-        url: `https://mocki.io/v1/32491675-2162-45a2-886b-d2df95cf568b`,
+        url: url,
+        //url: `https://mocki.io/v1/32491675-2162-45a2-886b-d2df95cf568b`,
         method: "GET",
       })
     setRestaurantInfo(resp.data['content']);
   };
-
-  useEffect(() => {
-    fetchProvines();
-  }, []);
 
   const fetchProvines = async () => {
     const resp = await sendRequest({
@@ -66,7 +79,6 @@ const RestaurantInfomationStaff = (props) => {
         method: "GET",
       })
     setLocations(resp.data['content']);
-
   };
 
   const handleProvineChange = (event) => {
@@ -118,15 +130,12 @@ const RestaurantInfomationStaff = (props) => {
       url: x.urlFile,
       fileUpload: x.fileUpload
     }))
-    setUploadImg({
-      recommendFiles,
-    });
-
+    setUploadImg(recommendFiles);
   };
-
   const handleLogoChange = (files) => { 
     if(files.length){
       setPreviewImage(files[0].urlFile);
+      setLogoImage(files[0]);
     }else{
       setPreviewImage(restaurantInfo.avatar);
     }
@@ -146,7 +155,11 @@ const RestaurantInfomationStaff = (props) => {
   const handleAddressChange = (event) => {
     setDetailedAddress(event.target.value);
   };
-
+  const history = useHistory();
+  const handleMenuButton = () => {
+    history.push(`/foods?res_id=${resIdParam}&staff=1`);
+  }
+  let formData;
   const handleSaveButton = async () => {
     const requestData = {
       name: resname,
@@ -161,22 +174,30 @@ const RestaurantInfomationStaff = (props) => {
       phone: contact,
       description: description,
     };
-    console.log(JSON.stringify(requestData));
+    formData = convertJsonObjectToFormData(requestData);
+    
+    if (uploadImg && uploadImg.length > 0) {
+      uploadImg.forEach(obj => {
+          formData.append('img', obj.fileUpload)
+      })
+    }
+    
+    if (logoImg) {
+      formData.append('avatar',logoImg.fileUpload)
+    }
+    
     try {
+      var url = 'http://localhost:8000/api/v1/restaurant/'
+      url +=`${resIdParam}`;
+      console.log(JSON.stringify(requestData));
       const resp = await sendRequest({
-        url: 'https://mocki.io/v1/14ea5248-d198-4b30-95c2-e7115f39f942', // placeholder
+        url: url,
         method: 'PUT',
-        body: JSON.stringify(requestData),
+        data: formData
       });
-      console.log(resp);
     } catch (error) {
       console.error(error);
     }
-    let formData = convertJsonObjectToFormData(uploadImg);
-    uploadImg.forEach(obj => {
-      formData.append('recommendFiles', obj.fileUpload)
-    })
-    this.props.createRecommendProcure(formData);
   };
 
   return (
@@ -195,7 +216,7 @@ const RestaurantInfomationStaff = (props) => {
         />
         {previewImage && <img
           alt="image"
-          src={previewImage}
+          src={"http://localhost:8000" + previewImage}
           className="restaurant-infomation-staff-logo"
         />}
         <h1 className="restaurant-infomation-staff-text">{restaurantInfo.name}</h1>
@@ -337,6 +358,7 @@ const RestaurantInfomationStaff = (props) => {
           <button
             type="button"
             className="restaurant-infomation-staff-button button"
+            onClick={handleMenuButton}
           >
             Menu
           </button>

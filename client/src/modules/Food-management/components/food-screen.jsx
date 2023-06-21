@@ -29,17 +29,17 @@ function FoodScreen(props) {
     // Xử lý sự kiện nhấn nút Edit
   };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const result = await axios(`http://localhost:8000/api/v1/foods/${props.id}`);
-  //     setFoodDescription(result.data);
-  //     setFoodReviews(result.data.reviews);
-  //     setCurrentImageIndex(0);
-    //   console.log("Day la data: " ,result.data )
-    // };
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(`http://localhost:8000/api/v1/foods/${props.id}`);
+      setFoodDescription(result.data);
+      setFoodReviews(result.data.reviews);
+      setCurrentImageIndex(0);
+      console.log("Day la data: " ,result.data )
+    };
 
-  //   fetchData();
-  // }, [props.id]);
+    fetchData();
+  }, [props.id]);
 
   return (
     <div>

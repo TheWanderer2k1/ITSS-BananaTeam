@@ -34,7 +34,9 @@ app.use("/upload/img-resource/categories", express.static("upload/img-resource/c
 app.use("/upload/img-resource/favicon", express.static("upload/img-resource/favicon"));        //favicon img
 app.use("/upload/img-resource/review", express.static("upload/img-resource/review"));          //review img
 
-app.use("/upload/private/restaurant/food", express.static("/upload/private/restaurant/food"))
+app.use("/upload/restaurant/avatar", express.static("upload/restaurant/avatar"));
+app.use("/upload/restaurant/food", express.static("upload/restaurant/food"));
+app.use("/upload/restaurant/image", express.static("upload/restaurant/image"));
 
 const router = express.Router();
 

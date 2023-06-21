@@ -65,19 +65,18 @@ exports.addFood = async (restaurantId, name, categoryId, description, price, ima
 
     if (images) {
         for (let image of images) {
+            let filePath = `${image.destination}/${image.filename}`.substring(1)
             let imageInsertQuery = `INSERT INTO image (GroupID, Src)
-            VALUES (${groupImageId}, '${image.destination}/${image.filename}')`
+            VALUES (${groupImageId}, '${filePath}')`
             await sql.QueryGetData(imageInsertQuery)
         }
     }
 }
 
 exports.editRestaurantInfor = async (data) => {
-    console.log(data.files.img)
-    let filePathAvatar
-    if(data.files.avatar){
-        filePathAvatar = `${data.files.avatar[0].destination}/${data.files.avatar[0].filename}`.substring(1)
-    }
+
+    console.log(data.files.avatar)
+    let filePath = `${data.files.avatar[0].destination}/${data.files.avatar[0].filename}`.substring(1)
     queryEditRestaurantInfor = `UPDATE restaurant
                                 SET Name = '${data.name}',
                                     Province = '${data.province}',
@@ -90,10 +89,10 @@ exports.editRestaurantInfor = async (data) => {
                                     \`To\` = '${data.to}',
                                     Phone = '${data.phone}',
                                     Description = '${data.description}'`+
-                                   (data.files.avatar?`, Avatar = '${filePathAvatar}'`:'') +
+                                   (data.files.avatar?`, Avatar = '${filePath}'`:'') +
                                 ` WHERE ID = ${data.restaurantId} `
-        
-    console.log(queryEditRestaurantInfor)
+    
+
     getGroupImageId = `SELECT GroupImageID AS id
                       FROM restaurant
                       WHERE restaurant.ID = ${data.restaurantId}`
@@ -113,7 +112,7 @@ exports.editRestaurantInfor = async (data) => {
             }
         }
         
-    
+        console.log(queryEditRestaurantInfor)
     await sql.QueryUpdateData(queryEditRestaurantInfor)
     return
     

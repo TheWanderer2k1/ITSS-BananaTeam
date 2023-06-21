@@ -35,8 +35,8 @@ function FoodScreen(props) {
   //     setFoodDescription(result.data);
   //     setFoodReviews(result.data.reviews);
   //     setCurrentImageIndex(0);
-      console.log("Day la data: " ,result.data )
-    };
+    //   console.log("Day la data: " ,result.data )
+    // };
 
   //   fetchData();
   // }, [props.id]);

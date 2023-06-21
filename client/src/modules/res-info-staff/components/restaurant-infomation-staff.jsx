@@ -216,7 +216,7 @@ const RestaurantInfomationStaff = (props) => {
         />
         {previewImage && <img
           alt="image"
-          src={previewImage}
+          src={"http://localhost:8000" + previewImage}
           className="restaurant-infomation-staff-logo"
         />}
         <h1 className="restaurant-infomation-staff-text">{restaurantInfo.name}</h1>

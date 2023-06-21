@@ -191,7 +191,7 @@ const RestaurantInfomationStaff = (props) => {
       const resp = await sendRequest({
         url: url,
         method: 'PUT',
-        data: requestData
+        data: formData
       });
     } catch (error) {
       console.error(error);

@@ -216,7 +216,11 @@ const RestaurantInfomationStaff = (props) => {
         />
         {previewImage && <img
           alt="image"
+<<<<<<< HEAD
           src={process.env.REACT_APP_SERVER + previewImage}
+=======
+          src={"http://localhost:8000" + previewImage}
+>>>>>>> 15ea707a0a474478c858f88b1623921703ddcf2e
           className="restaurant-infomation-staff-logo"
         />}
         <h1 className="restaurant-infomation-staff-text">{restaurantInfo.name}</h1>

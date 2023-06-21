@@ -5,7 +5,7 @@ import FoodReview from './food-review';
 import "./food-screen.css"
 
 function FoodScreen(props) {
-  const [foodDecription, setFoodDescription] = useState([]);
+  const [foodDecription, setFoodDescription] = useState({});
   const [foodReviews, setFoodReviews] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
@@ -31,9 +31,8 @@ function FoodScreen(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(`http://localhost:8000/api/v1/foods/${props.id}`);
+      const result = await axios(`http://localhost:8000/api/v1/foods/159`);
       setFoodDescription(result.data);
-      setFoodReviews(result.data.reviews);
       setCurrentImageIndex(0);
       console.log("Day la data: " ,result.data )
     };
@@ -43,23 +42,23 @@ function FoodScreen(props) {
 
   return (
     <div>
-     <div style={{ minHeight: '100vh', backgroundColor: 'white', display: 'flex'}} className="container">
-        <div className="left-column">
+     <div style={{ minHeight: '100vh', backgroundColor: 'white', display: 'flex'}} className="container row">
+        <div className="left-column col-xs-12 col-sm-12 col-md-6 col-lg-6">
           {foodDecription && (
             <FoodInfo
-              // image={foodDecription.img[currentImageIndex]}
-              // name={foodDecription.name}
-              // description={foodDecription.description}
-              // score={foodDecription.rating}
-              // onClickPrev={handlePrev}
-              // onClickNext={handleNext}
-              // onClickDelete={handleDelete}
-              // onClickEdit={handleEdit}
+              image={foodDecription.img[currentImageIndex]}
+              name={foodDecription.name}
+              description={foodDecription.description}
+              score={foodDecription.rating}
+              onClickPrev={handlePrev}
+              onClickNext={handleNext}
+              onClickDelete={handleDelete}
+              onClickEdit={handleEdit}
             />
           )}
         </div>
-        <div className="right-column">
-          {foodReviews && <FoodReview foodReviews={foodReviews} />}
+        <div className="right-column col-xs-12 col-sm-12 col-md-6 col-lg-5">
+          {foodReviews && <FoodReview />}
         </div>
       </div>
     </div>

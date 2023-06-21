@@ -23,4 +23,53 @@
     margin-top: 7px;
     font-weight: 900;
   }
+
+  .food-item {
+    width: 45%;
+    margin: 12px;
+}
+
+.food-image img {
+    position: relative;
+    width: 120px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 
+}
+
+.hfood-image {
+    position: relative;
+}
+
+.food-rate {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    padding: 2px 6px;
+}
+
+.food-rate i {
+    color: rgb(235, 235, 0);
+}
+
+.food-info {
+    margin-left: 12px;
+}
+
+.food-name {
+    font-weight: bold;
+}
+
+.food-restaurant-time {
+    color: #999
+}
+
+.food-price {
+    font-weight: bold;
+}
   

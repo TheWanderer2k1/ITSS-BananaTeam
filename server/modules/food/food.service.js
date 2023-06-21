@@ -2,16 +2,17 @@ const sql = require("../../seed/queryMysqlDB");
 
 exports.getFoodDescriptionList = async (keyword) => {
     let keySearch = ''
-    if (keyword) keySearch = `AND food.name like '%${keyword}%'`
+    if (keyword) keySearch = `WHERE food.name like '%${keyword}%'`
 
-    query = `SELECT fooddescription.id, image.Src as img, AVG(rating) AS rating, food.name, price, fooddescription.Description as description, restaurant.name as restaurantName, restaurant.id AS restaurantId, restaurant.OpenTime, restaurant.CloseTime, restaurant.Address
+    query = `SELECT CategoryId, c.Name AS categoryName, c.Description AS categoryDes, fooddescription.id, image.Src as img, AVG(rating) AS rating, food.name, price, fooddescription.Description as description, restaurant.name as restaurantName, restaurant.id AS restaurantId, restaurant.OpenTime, restaurant.CloseTime, restaurant.Province, District, Ward, DetailedAddress
         FROM fooddescription
-        JOIN food on food.id = fooddescription.FoodID
-        LEFT JOIN FoodReview on fooddescription.id = foodreview.FoodDesId
-        JOIN restaurant on fooddescription.RestaurantID = restaurant.ID
-        JOIN image on fooddescription.GroupImageId = image.GroupId
+            JOIN food on food.id = fooddescription.FoodID
+            LEFT JOIN FoodReview on fooddescription.id = foodreview.FoodDesId
+            JOIN restaurant on fooddescription.RestaurantID = restaurant.ID
+            JOIN image on fooddescription.GroupImageId = image.GroupId
+            LEFT JOIN category c ON food.CategoryId = c.ID
         ${keySearch}
-        GROUP BY fooddescription.id, img`
+        GROUP BY fooddescription.id, img;`
         
     result = await sql.QueryGetData(query)
     for (food of result) {
@@ -20,13 +21,27 @@ exports.getFoodDescriptionList = async (keyword) => {
             'name': food['restaurantName'],
             'openTime': food['OpenTime'],
             'closeTime': food['CloseTime'],
-            'address': food['Address']
+            'province': food['Province'],
+            'district': food['District'],
+            'ward': food['Ward'],
+            'detailedAdress': food['DetailedAddress']
+        }
+        food['category'] = {
+            'id': food['CategoryId'],
+            'name': food['categoryName'],
+            'description': food['categoryDes']
         }
         delete food['restaurantId']
         delete food['restaurantName']
         delete food['OpenTime']
         delete food['CloseTime']
-        delete food['Address']
+        delete food['Province']
+        delete food['District']
+        delete food['Ward']
+        delete food['DetailedAddress']
+        delete food['CategoryId']
+        delete food['categoryName']
+        delete food['categoryDes']
     }
     return result
 }

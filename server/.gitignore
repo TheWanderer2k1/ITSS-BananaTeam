@@ -1,6 +1,5 @@
 /node_modules
 
-.env
 
 /logs/_multi-tenant
 /logs/history

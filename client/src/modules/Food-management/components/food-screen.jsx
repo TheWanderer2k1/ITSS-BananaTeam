@@ -5,7 +5,7 @@ import FoodReview from './food-review';
 import "./food-screen.css"
 
 function FoodScreen(props) {
-  const [foodDecription, setFoodDescription] = useState([]);
+  const [foodDecription, setFoodDescription] = useState({});
   const [foodReviews, setFoodReviews] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
@@ -31,7 +31,7 @@ function FoodScreen(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(`http://localhost:8000/api/v1/foods/${props.id}`);
+      const result = await axios(`http://localhost:8000/api/v1/foods/159`);
       setFoodDescription(result.data);
       setFoodReviews(result.data.reviews);
       setCurrentImageIndex(0);
@@ -47,14 +47,14 @@ function FoodScreen(props) {
         <div className="left-column">
           {foodDecription && (
             <FoodInfo
-              // image={foodDecription.img[currentImageIndex]}
-              // name={foodDecription.name}
-              // description={foodDecription.description}
-              // score={foodDecription.rating}
-              // onClickPrev={handlePrev}
-              // onClickNext={handleNext}
-              // onClickDelete={handleDelete}
-              // onClickEdit={handleEdit}
+              image={foodDecription.img[currentImageIndex]}
+              name={foodDecription.name}
+              description={foodDecription.description}
+              score={foodDecription.rating}
+              onClickPrev={handlePrev}
+              onClickNext={handleNext}
+              onClickDelete={handleDelete}
+              onClickEdit={handleEdit}
             />
           )}
         </div>

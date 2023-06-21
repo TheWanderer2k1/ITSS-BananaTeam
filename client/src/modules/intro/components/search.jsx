@@ -118,8 +118,10 @@ function Search () {
 	const [ratingFilter, setRatingFilter] = useState(initialRatingFilter);
 	const [cityFilter, setCityFilter] = useState(null);
 	const [districtFilter, setDistrictFilter] = useState(null);
+    const [citySearch, setCitySearch] = useState(null);
+	const [districtSearch, setDistrictSearch] = useState(null);
 	const [listDistrictFilter, setListDistrictFilter] = useState([]);
-	const [searchOption, setSearchOption] = useState(listSearchOption[0].value);
+	const [searchOption, setSearchOption] = useState(listSearchOption[0].id);
     
 
     const moveToHomePage = () => {
@@ -138,18 +140,30 @@ function Search () {
     }
 
     const handleChangeCityFilter = (value) => {
-        console.log(`selected ${value}`);
         setCityFilter(value);
         fetchDistrict(value);
     };
 
     const handleChangeDistrictFilter = (value) => {
-        console.log(`selected ${value}`);
         setDistrictFilter(value);
     };
 
-    const handleChangeSearchOption = (value) => {
-        setSearchOption(value);
+    const handleChangeCitySearch = (value) => {
+        setCitySearch(value);
+        fetchDistrict(value);
+        let newFoodDescription = allFoodDescription.filter(food => {
+            return checkPrice(food.price) && checkRating(food.rating) && checkTime(food.restaurant.openTime, food.restaurant.closeTime) && checkProvince(food.restaurant.address) 
+            // && (food.restaurant.province)
+        })
+    };
+
+    const handleChangeDistrictSearch = (value) => {
+        setDistrictSearch(value);
+    };
+
+    const handleChangeSearchOption = (event) => {
+        setSearchOption(event.target.value);
+        console.log('haha: ', searchOption);
       };
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -429,30 +443,49 @@ const fetchDistrict = async (provinceValue) => {
                     <div className="row">
         <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
         </div>
-        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-2" >
-            {/* <Select
-                placeholder='都道府県'
-                value={searchOption}
-                onChange={handleChangeSearchOption}
-                options={listSearchOption}
-                style={{ width: '100%'}}
-            /> */}
-            <select class="form-select select-search-option" aria-label="Default select example">
+        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-2" >        
+            <select value={searchOption} onChange={handleChangeSearchOption} class="form-select select-search-option" aria-label="Default select example">
                 <option value="1" selected>料理の名前</option>
                 <option value="2">場所</option>
             </select>
         </div>
-        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
-            <div className="search-box d-flex">
-                <div className="search-icon"><button type="button" class="btn btn-link"><i class="fa fa-search"></i></button></div>
-                <div className="search-text">
-                    <input type="text" placeholder='Nem cuốn' value={searchData} onChange={handleSearchData} onKeyUp={handleKeyUp}/>
-                </div>
-            </div>
-            {/* <Button type="primary" onClick={clickFilter}>
-                Open the notification box
-            </Button> */}
-        </div>                            
+            {
+                searchOption == 1 ? (
+                    <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
+                        <div className="search-box d-flex">
+                            <div className="search-icon"><button type="button" class="btn btn-link"><i class="fa fa-search"></i></button></div>
+                            <div className="search-text">
+                                <input type="text" placeholder='Nem cuốn' value={searchData} onChange={handleSearchData} onKeyUp={handleKeyUp}/>
+                            </div>
+                        </div>
+                    </div>                            
+                ) : (
+                    <React.Fragment>
+                        {/* <div id="addressSearch" class="row">        */}
+                            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-2" >
+                                <Select
+                                    allowClear
+                                    placeholder='市'
+                                    value={citySearch}
+                                    onChange={handleChangeCitySearch}
+                                    options={listCityFilter}
+                                    style={{ width: '100%' }}
+                                />
+                            </div>   
+                            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-2" >
+                                <Select
+                                    allowClear
+                                    placeholder='区'
+                                    value={districtSearch}
+                                    onChange={handleChangeDistrictSearch}
+                                    options={listDistrictFilter}
+                                    style={{ width: '100%' }}
+                                />
+                            </div>
+                        {/* </div> */}
+                    </React.Fragment>
+                )
+            }
       </div>    
     <div className="food-list d-flex">
         {foodDecription.map((food) => (

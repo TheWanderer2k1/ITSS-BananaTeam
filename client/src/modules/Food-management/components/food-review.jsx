@@ -236,7 +236,7 @@ const FoodReview = ({id}) => {
           ))}          
         </div>
       </div>      
-      <Modal title="Edit review" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title="Edit review" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={<div></div>}>
         <React.Fragment>
           <div className="post-avatar">
             <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className="mr-24"/>

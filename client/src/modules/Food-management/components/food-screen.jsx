@@ -4,6 +4,8 @@ import axios from 'axios';
 import FoodInfo from './food-info';
 import FoodReview from './food-review';
 import "./food-screen.css"
+// import "../../homepage/components/navbar-interactive"
+import NavbarInteractive from '../../homepage/components/navbar-interactive';
 
 function FoodScreen(props) {
   let { id } = useParams();
@@ -43,7 +45,9 @@ function FoodScreen(props) {
   }, [props.id]);
 
   return (
-    <div>
+    <div className='hcontainer'>
+      <NavbarInteractive rootClassName="navbar-interactive-root-class-name"></NavbarInteractive>
+
      <div style={{ minHeight: '100vh', backgroundColor: 'white', display: 'flex'}} className="container row">
         <div className="left-column col-xs-12 col-sm-12 col-md-6 col-lg-6">
           {foodDecription && (

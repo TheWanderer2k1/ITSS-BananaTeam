@@ -73,6 +73,7 @@ exports.addFood = async (restaurantId, name, categoryId, description, price, ima
 }
 
 exports.editRestaurantInfor = async (data) => {
+    console.log(data.files.img)
     queryEditRestaurantInfor = `UPDATE restaurant
                                 SET Name = '${data.name}',
                                     Province = '${data.province}',
@@ -84,12 +85,33 @@ exports.editRestaurantInfor = async (data) => {
                                     \`From\` = '${data.from}',
                                     \`To\` = '${data.to}',
                                     Phone = '${data.phone}',
-                                    Description = '${data.description}'
-                                WHERE ID = ${data.restaurantId}`
+                                    Description = '${data.description}'`+
+                                   (data.files.avatar[0]?`, Avatar = '${data.files.avatar[0].destination}/${data.files.avatar[0].filename}'`:'') +
+                                ` WHERE ID = ${data.restaurantId} `
+    getGroupImageId = `SELECT GroupImageID AS id
+                      FROM restaurant
+                      WHERE restaurant.ID = ${data.restaurantId}`
+    groupImageIdObj = await sql.QueryGetData(getGroupImageId)
+    groupImageId = groupImageIdObj[0].id
+    
+        queryDelete = `DELETE image
+                       FROM image
+                       WHERE GroupID = ${groupImageId}`
+        if(data.files.img){
+            await sql.QueryUpdateData(queryDelete)
+            for(let file of data.files.img){
+                let imageInsertQuery = `INSERT INTO image (GroupID, Src)
+                VALUES (${groupImageId}, '${file.destination}/${file.filename}')`
+                await sql.QueryGetData(imageInsertQuery) 
+            }
+        }
+        
+    
     await sql.QueryUpdateData(queryEditRestaurantInfor)
     return
     
 }
+
 
 
 

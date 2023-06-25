@@ -80,3 +80,13 @@
     align-items: center;
     justify-content: center;
 }
+
+.background-paging {
+    background-color: #FFA3A3;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

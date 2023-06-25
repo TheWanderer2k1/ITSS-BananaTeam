@@ -62,9 +62,19 @@
 
 .pagging {
     width: 100%;
-    justify-content: end;
+    justify-content: space-between;
     display: flex;
     padding: 20px;
+}
+
+.add-food {
+    color: white;
+    background-color: #FFA3A3;
+    border-radius: 20px;
+    min-width: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .content-pagging {

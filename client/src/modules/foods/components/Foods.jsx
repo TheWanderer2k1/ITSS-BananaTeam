@@ -66,9 +66,11 @@ const Foods = () => {
                 </div>)}
             </div>
             <div className="pagging">
+                <div className="add-food">料理を追加する</div>
                 <div className="content-pagging">
                     <i onClick={() => setSlices(slices - 10 < 0 ? 0 : slices - 10)} class="fa fa-long-arrow-left" ></i>
-                    {paging.map(item => <div onClick={() => {setPaging(item * 10 - 10)}} className={(slices+10) / 10 === paging && "background-paging"}>{item}</div>)}
+                    {console.log((slices+10) / 10, slices, "(slices+10) / 10")}
+                    {paging.map(item => <div onClick={() => {setSlices(item * 10 - 10)}} className={(slices+10) / 10 === item && "background-paging"}>{item}</div>)}
                     <i onClick={() => setSlices(slices + 10 > 70 ? 70 : slices + 10)} class="fa fa-long-arrow-right" ></i>
                 </div>
             </div>

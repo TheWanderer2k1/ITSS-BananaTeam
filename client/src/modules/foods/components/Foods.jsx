@@ -12,7 +12,7 @@ const Foods = () => {
     const [menuInfo, setMenuInfo] = useState([]);
     const [paging, setPaging] = useState([1,2,3,4,5,6,7,8])
     let admin;
-    if(isStaff == 1){
+    if(isStaff !== 1){
         admin = true;
     }else{
         admin = false;
@@ -66,10 +66,9 @@ const Foods = () => {
                 </div>)}
             </div>
             <div className="pagging">
-                <div className="add-food">料理を追加する</div>
+                <div className={!admin ? "content-item" : "add-food"}>料理を追加する</div>
                 <div className="content-pagging">
                     <i onClick={() => setSlices(slices - 10 < 0 ? 0 : slices - 10)} class="fa fa-long-arrow-left" ></i>
-                    {console.log((slices+10) / 10, slices, "(slices+10) / 10")}
                     {paging.map(item => <div onClick={() => {setSlices(item * 10 - 10)}} className={(slices+10) / 10 === item && "background-paging"}>{item}</div>)}
                     <i onClick={() => setSlices(slices + 10 > 70 ? 70 : slices + 10)} class="fa fa-long-arrow-right" ></i>
                 </div>

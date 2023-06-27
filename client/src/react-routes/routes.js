@@ -148,7 +148,7 @@ class Routes extends Component {
                     <AuthRoute
                         exact
                         auth={auth}
-                        path="/FoodInforPage"
+                        path="/FoodInforPage/:id"
                         component={FoodInforPage}
                     />      
 

@@ -6,20 +6,26 @@ import './food-review.css';
 import axios from 'axios';
 const { TextArea } = Input;
 
-function FoodReview(props) {
+const FoodReview = ({id}) => {
+  const [listAllComment, setListAllComment] = useState([]);
   const [listComment, setListComment] = useState([]);
   const [newCommentRate, setNewCommentRate] = useState(0);
   const [newCommentText, setNewCommentText] = useState('');
   const [editCommentRate, setEditCommentRate] = useState(0);
   const [editCommentText, setEditCommentText] = useState('');
+  const [editCommentUserId, setEditCommentUserId] = useState(0);
   const [editingReviewId, setEditingReviewId] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = (comment) => {
     setEditingReviewId(comment.reviewId);
     setEditCommentRate(comment.rating);
     setEditCommentText(comment.review);
+    setEditCommentUserId(comment.userId);
     setIsModalOpen(true);
   };
+  const onClickDeleteComment = (comment) => {
+    deleteComment(comment.reviewId);
+  }
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -33,12 +39,13 @@ function FoodReview(props) {
   }, []);
   
   const fetchFoodReview = async () => {
-    var url = `http://localhost:8000/api/v1/food/159/review`;
+    var url = `http://localhost:8000/api/v1/food/${id}/review`;
     const resp = await sendRequest({
       url: url,
       method: "GET",
     });    
     setListComment(resp.data['content']);
+    setListAllComment(resp.data['content']);
   }
 
   const getFormatDate = (dateString) => {
@@ -64,7 +71,7 @@ function FoodReview(props) {
     };
     // formData = convertJsonObjectToFormData(data);
     try {
-      var url = `http://localhost:8000/api/v1/food/159/review`;
+      var url = `http://localhost:8000/api/v1/food/${id}/review`;
       const resp = await sendRequest({
         url: url,
         method: 'POST',
@@ -82,13 +89,14 @@ function FoodReview(props) {
     const data = { 
       rating: editCommentRate,
       review: editCommentText,
-      userId: 3,
+      userId: editCommentUserId,
       img: null,
     };
     // formData = convertJsonObjectToFormData(data);
     try {
-      var url = `http://localhost:8000/api/v1/food/159/review`;
+      var url = `http://localhost:8000/api/v1/food/${id}/review/`;
       url += `${editingReviewId}`;
+      console.log('rul day: ', url);
       const resp = await sendRequest({
         url: url,
         method: 'PUT',
@@ -102,11 +110,39 @@ function FoodReview(props) {
     // setListComment([...listComment, resp.data['content']]);
     // setNewCommentText('');
   };
+  const deleteComment = async (reviewId) => {
+    try {
+      var url = `http://localhost:8000/api/v1/food/${id}/review/`;
+      url += `${reviewId}`;
+      console.log('rul day: ', url);
+      const resp = await sendRequest({
+        url: url,
+        method: 'DELETE',
+      });
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+    // const resp = await axios(url, options);
+    // setListComment([...listComment, resp.data['content']]);
+    // setNewCommentText('');
+  };
+
+  const onFilterByStar = (rateStar) => {
+    if(rateStar !== 0) {
+      let newList = listAllComment.filter(comment => {
+        return comment.rating === rateStar;
+      })
+      setListComment(newList);
+    } else {
+      setListComment(listAllComment);
+    }
+  };
 
   return (
     <React.Fragment>
       <div className="container">
-        <div className="post-comment">
+        <div className="post-comment mb-24">
           <div className="post-avatar">
             <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className="mr-24"/>
             <Rate onChange={setNewCommentRate} value={newCommentRate} />
@@ -117,38 +153,37 @@ function FoodReview(props) {
               <Button type="text" onClick	={postComment}><i class="fa fa-paper-plane"></i></Button>
             </div>
           </div>  
-
         </div>
         <div className="food-info-list">
           <div className="food-info-item">
             <div className="food-info__label">
-              Sao
+              星
             </div>
             <div className="food-info__detail">
-              <Button type="text">Tất cả</Button>
-              <Button type="text">1 <i class="fa fa-star c-star-color"></i></Button>
-              <Button type="text">2 <i class="fa fa-star c-star-color"></i></Button>
-              <Button type="text">3 <i class="fa fa-star c-star-color"></i></Button>
-              <Button type="text">4 <i class="fa fa-star c-star-color"></i></Button>
-              <Button type="text">5 <i class="fa fa-star c-star-color"></i></Button>
+              <Button type="text" onClick={() => onFilterByStar(0)}>すべて</Button>
+              <Button type="text" onClick={() => onFilterByStar(1)}>1 <i class="fa fa-star c-star-color"></i></Button>
+              <Button type="text" onClick={() => onFilterByStar(2)}>2 <i class="fa fa-star c-star-color"></i></Button>
+              <Button type="text" onClick={() => onFilterByStar(3)}>3 <i class="fa fa-star c-star-color"></i></Button>
+              <Button type="text" onClick={() => onFilterByStar(4)}>4 <i class="fa fa-star c-star-color"></i></Button>
+              <Button type="text" onClick={() => onFilterByStar(5)}>5 <i class="fa fa-star c-star-color"></i></Button>
             </div>
           </div>
           <div className="food-info-item">
             <div className="food-info__label">
-              Thời gian
+              時間
             </div>
             <div className="food-info__detail">
-              <Button type="text">Tất cả</Button>
-              <Button type="text">Gần đây</Button>              
+              <Button type="text">すべて</Button>
+              <Button type="text">新着順</Button>              
             </div>
           </div>
           <div className="food-info-item">
             <div className="food-info__label">
-              Đính kèm
+              添付
             </div>
             <div className="food-info__detail">
-              <Checkbox>Ảnh</Checkbox>
-              <Checkbox>Video</Checkbox>
+              <Checkbox>写真</Checkbox>
+              <Checkbox>ビデオ</Checkbox>
             </div>
           </div>
         </div>
@@ -169,38 +204,23 @@ function FoodReview(props) {
                 </div>    
                 <div className="d-flex aic">
                   <div className="review-block__rating mx-24 ">
-                    <Rate disabled defaultValue={comment.rating}/>
+                    <Rate disabled value={comment.rating}/>
                   </div>
                   <div className="review-block__like">
                     <i class="fa fa-heart"></i> {comment.reactNumber}
                   </div>
                 </div>
               </div>
-              {/* {
-                isEditing ? (
-                  <React.Fragment>
-                    <div className="post-avatar">
-                      <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className="mr-24"/>
-                      <Rate onChange={setNewCommentRate} value={newCommentRate} />
-                    </div>
-                    <div className="comment-text-box">
-                      <TextArea onChange={handleCommentText} value={newCommentText} rows={4} className="mt-12" placeholder=""/>
-                      <div className="comment-send-icon">              
-                        <Button type="text" onClick	={postComment}><i class="fa fa-paper-plane"></i></Button>
-                      </div>
-                    </div>
-                  </React.Fragment>
-              ) : (<p>d</p>)
-              } */}
               <div className="d-flex">
                 <div className="review-block__body p-12 flex-9">
                   {comment.review}
                 </div>
                 <div className="flex-1">
                   <Button type="text"><i class="fa fa-edit" onClick={() => showModal(comment)}></i></Button>                
+                  <Button type="text"><i class="fa fa-trash" onClick={() => onClickDeleteComment(comment)}></i></Button>                
                 </div>
               </div>
-              <div className="review-block__footer d-flex mt-12">
+              <div className="review-block__footer d-flex my-12">
                 <div className="review-block__my-avatar mx-24">
                   <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                 </div>
@@ -212,7 +232,7 @@ function FoodReview(props) {
           ))}          
         </div>
       </div>      
-      <Modal title="Edit review" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title="Edit review" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={<div></div>}>
         <React.Fragment>
           <div className="post-avatar">
             <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className="mr-24"/>

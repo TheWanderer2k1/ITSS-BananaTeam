@@ -149,6 +149,7 @@ function Search () {
     };
 
     const handleChangeCitySearch = (value) => {
+        console.log('city:' + value);
         setCitySearch(value);
         fetchDistrict(value);
         let newFoodDescription = allFoodDescription.filter(food => {
@@ -158,6 +159,7 @@ function Search () {
     };
 
     const handleChangeDistrictSearch = (value) => {
+        console.log('district:' + value);
         setDistrictSearch(value);
     };
 

@@ -58,6 +58,7 @@ function FoodScreen(props) {
             <FoodInfo
               image={foodDecription.img ? foodDecription.img[currentImageIndex]: ''}
               name={foodDecription.name}
+              price={foodDecription.price}
               description={foodDecription.description}
               score={foodDecription.rating}
               onClickPrev={handlePrev}

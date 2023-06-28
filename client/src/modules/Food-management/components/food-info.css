@@ -5,9 +5,9 @@
     .food-image {
     position: relative;
     box-sizing: border-box;
-    width: 400px;
-    height: 300px;
-    margin: 0 auto;
+    width: 350px;
+    height: 270px;
+    margin: 40px auto;
     border: 2px solid #FFFFFF;
     border-radius: 76px;
     box-shadow: 0px 8px 14px rgba(0, 0, 0, 0.44);
@@ -77,9 +77,8 @@
     left: 420px;
     top: 322px;
 }
-    
-    .food-name {
-    height: 124px;
+
+    .food-price{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -91,13 +90,26 @@
     text-align: center;
     letter-spacing: 0.045em;
     color: #000000;
-    margin-top: 40px;
+    }
+    
+    .food-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 74px;
+    line-height: 96px;
+    text-align: center;
+    letter-spacing: 0.045em;
+    color: #000000;
+    margin-top: 20px;
     }
     
     .food-description {
-        margin: 0 100px;
+    margin: 0 100px;
     margin-top: 40px;
-    height: 124px;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan, faEdit, faFileCirclePlus } from '@fortawesome/free-solid-svg-icons'
 
 function FoodInfo(props) {
-  const { image, name, description, score, onClickPrev, onClickNext, onClickDelete, onClickEdit } = props;
+  const { image, name, price, description, score, onClickPrev, onClickNext, onClickDelete, onClickEdit } = props;
 
   return (
     <div className="food-info">
@@ -21,6 +21,9 @@ function FoodInfo(props) {
         <div className="food-score">
           <p>{score}/5</p>
         </div>
+      </div>
+      <div className="food-price">
+        <h2>{price}</h2>
       </div>
       <div className="food-name">
         <h1>{name}</h1>

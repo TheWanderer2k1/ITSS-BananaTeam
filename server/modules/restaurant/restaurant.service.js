@@ -112,7 +112,6 @@ exports.editRestaurantInfor = async (data) => {
             }
         }
         
-        console.log(queryEditRestaurantInfor)
     await sql.QueryUpdateData(queryEditRestaurantInfor)
     return
     

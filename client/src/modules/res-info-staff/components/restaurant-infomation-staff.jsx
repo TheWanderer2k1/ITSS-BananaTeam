@@ -198,6 +198,7 @@ const RestaurantInfomationStaff = (props) => {
     } catch (error) {
       console.error(error);
     }
+    fetchrestaurantinfo();
   };
 
   return (
@@ -216,7 +217,7 @@ const RestaurantInfomationStaff = (props) => {
         />
         {previewImage && <img
           alt="image"
-          src={"http://localhost:8000" + previewImage}
+          src={process.env.REACT_APP_SERVER + previewImage}
           className="restaurant-infomation-staff-logo"
         />}
         <h1 className="restaurant-infomation-staff-text">{restaurantInfo.name}</h1>

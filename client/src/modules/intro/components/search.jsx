@@ -554,6 +554,7 @@ function Search () {
         {foodDecription.map((food) => (
           <FoodItem
             key={food.id}
+            id={food.id}
             image_src={"http://localhost:8000" + food.img}
             rating={food.rating}
             name={food.name}

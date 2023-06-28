@@ -23,7 +23,7 @@
     .food-nav {
     position: absolute;
     top: 50%;
-    left: -65px;
+    left: -90px;
     width: 525px;
     transform: translateY(-50%);
     display: flex;
@@ -50,7 +50,7 @@
     position: absolute;
     bottom: -50px;
     right: 0;
-    padding: 4px 8px;
+    margin: -16px 8px;
     font-size: 24px;
     color: #EFC636;
     }

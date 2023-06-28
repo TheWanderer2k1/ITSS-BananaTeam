@@ -228,3 +228,7 @@ a {
   display: flex;
   align-items: flex-start;
 }
+
+.address-search {
+  margin-top: 50px;
+}

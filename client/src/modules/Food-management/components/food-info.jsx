@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan, faEdit, faFileCirclePlus } from '@fortawesome/free-solid-svg-icons'
 
 function FoodInfo(props) {
-  const { image, name, price, description, score, onClickPrev, onClickNext, onClickDelete, onClickEdit } = props;
+  const { image, name, price, description, score, onClickPrev, onClickNext, onClickDelete, onClickEdit, isAdmin } = props;
 
   return (
     <div className="food-info">
@@ -30,7 +30,28 @@ function FoodInfo(props) {
       </div>
       <div className="food-description">
       <p>{description}</p>     
-       </div>
+      </div>
+      <div className="food-actions">
+        <div className="food-delete">
+          <div className="edit-button-icon">
+     <FontAwesomeIcon  icon={faTrashCan} />
+    </div>
+      <button className="delete-button" onClick={onClickDelete}>
+      <div className="button-text">Xoá món ăn</div>
+      </button>
+      
+        </div>
+       
+    <div className="food-edit">
+      <div className="edit-button-icon">
+     <FontAwesomeIcon  icon={faEdit} />
+    </div>
+      <div className="edit-button" onClick={onClickEdit}>
+    <div className="button-text">Chỉnh sửa món ăn</div> 
+    </div>
+    </div>
+    
+      </div>
     </div>
   );
 }

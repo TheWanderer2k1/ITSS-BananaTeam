@@ -124,7 +124,7 @@
     }
     
     .food-actions {
-     width: 760px;
+     width: 600px;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -132,45 +132,42 @@
     display: flex;
     justify-content: space-between;
     }
+
+    .food-delete, .food-edit{
+        width: 230px;
+        display: flex;
+        justify-content: space-between;
+    }
     
-    .delete-button, .edit-button { 
-    width: 300px;
-    height: 96px;
+    .delete-button , .edit-button { 
+    width: 200px;
+    height: 40px;
     background: #FF8484;
     box-shadow: 0px 2px 16px rgba(102, 102, 102, 0.2);
     border-radius: 80px;
     border: none;
     font-family: 'Noto Sans';
     font-style: normal;
-    font-weight: 600;
-    font-size: 30px;
-    line-height: 48px;
+    font-weight: 400;
+    font-size: 22px;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     text-align: center;
     color: #FFFFFF;
-    cursor: pointer;
-    margin-right: 40px;
-    }
-    
-    .edit-button {
-    margin-right: 0;
+    cursor: pointer;   
+    padding: auto 10px;
     }
 
     .delete-button-icon, .edit-button-icon{
-        position: absolute;
         color: #D61414;
-         font-size: 52px;
+         font-size: 28px;
+         margin: 0 8px;
     }
 
-    .delete-button-icon{
-        left: -70px;
+    .button-text{
+        padding: 0 10px;
     }
-
-     .edit-button-icon{
-        left: 388px;
-     }
     
     .edit-button:hover,
     .delete-button:hover {

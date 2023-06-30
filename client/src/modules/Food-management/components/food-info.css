@@ -5,9 +5,9 @@
     .food-image {
     position: relative;
     box-sizing: border-box;
-    width: 400px;
-    height: 300px;
-    margin: 0 auto;
+    width: 350px;
+    height: 270px;
+    margin: 40px auto;
     border: 2px solid #FFFFFF;
     border-radius: 76px;
     box-shadow: 0px 8px 14px rgba(0, 0, 0, 0.44);
@@ -23,7 +23,7 @@
     .food-nav {
     position: absolute;
     top: 50%;
-    left: -65px;
+    left: -90px;
     width: 525px;
     transform: translateY(-50%);
     display: flex;
@@ -50,7 +50,7 @@
     position: absolute;
     bottom: -50px;
     right: 0;
-    padding: 4px 8px;
+    margin: -16px 8px;
     font-size: 24px;
     color: #EFC636;
     }
@@ -77,9 +77,8 @@
     left: 420px;
     top: 322px;
 }
-    
-    .food-name {
-    height: 124px;
+
+    .food-price{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -91,13 +90,26 @@
     text-align: center;
     letter-spacing: 0.045em;
     color: #000000;
-    margin-top: 40px;
+    }
+    
+    .food-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 74px;
+    line-height: 96px;
+    text-align: center;
+    letter-spacing: 0.045em;
+    color: #000000;
+    margin-top: 20px;
     }
     
     .food-description {
-        margin: 0 100px;
+    margin: 0 100px;
     margin-top: 40px;
-    height: 124px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -112,7 +124,7 @@
     }
     
     .food-actions {
-     width: 760px;
+     width: 600px;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -120,45 +132,42 @@
     display: flex;
     justify-content: space-between;
     }
+
+    .food-delete, .food-edit{
+        width: 230px;
+        display: flex;
+        justify-content: space-between;
+    }
     
-    .delete-button, .edit-button { 
-    width: 300px;
-    height: 96px;
+    .delete-button , .edit-button { 
+    width: 200px;
+    height: 40px;
     background: #FF8484;
     box-shadow: 0px 2px 16px rgba(102, 102, 102, 0.2);
     border-radius: 80px;
     border: none;
     font-family: 'Noto Sans';
     font-style: normal;
-    font-weight: 600;
-    font-size: 30px;
-    line-height: 48px;
+    font-weight: 400;
+    font-size: 22px;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     text-align: center;
     color: #FFFFFF;
-    cursor: pointer;
-    margin-right: 40px;
-    }
-    
-    .edit-button {
-    margin-right: 0;
+    cursor: pointer;   
+    padding: auto 10px;
     }
 
     .delete-button-icon, .edit-button-icon{
-        position: absolute;
         color: #D61414;
-         font-size: 52px;
+         font-size: 28px;
+         margin: 0 8px;
     }
 
-    .delete-button-icon{
-        left: -70px;
+    .button-text{
+        padding: 0 10px;
     }
-
-     .edit-button-icon{
-        left: 388px;
-     }
     
     .edit-button:hover,
     .delete-button:hover {

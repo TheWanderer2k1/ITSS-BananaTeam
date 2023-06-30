@@ -316,24 +316,30 @@
   padding-left: 20px;
 }
 #timeFilter {
-  margin-left: 80px;
-  height: 64px;
-  width: 100%;
+  margin-left: 80px !important;
+  height: 64px !important;
+  width: 100% !important;
 }
 .col-xs-12 {
-  padding: 0;
-  max-width: 160px;
-  height: 100%;
-  margin-left: 20px;
+  padding: 0 !important;
+  max-width: 160px !important;
+  height: 100% !important;
+  margin-left: 20px !important;
 }
-:where(.css-dev-only-do-not-override-k7429z).ant-picker {
-  height: 100%;
-  border-color: black;
-  border-width: 2px;
-  box-shadow: 3px 3px 10px 0px #d4d4d4;
+:where(.css-dev-only-do-not-override-1wazalj).ant-picker-focused {
+  height: 100% !important;
+  border-color: black !important; 
+  border-width: 2px !important;
+  box-shadow: 3px 3px 10px 0px #d4d4d4 !important;
+}
+:where(.css-dev-only-do-not-override-1wazalj).ant-picker {
+  height: 100% !important;
+  border-color: black !important; 
+  border-width: 2px !important;
+  box-shadow: 3px 3px 10px 0px #d4d4d4 !important;
 }
 :where(.css-dev-only-do-not-override-k7429z).ant-picker .ant-picker-input >input {
-  font-size: 18px;
+  font-size: 18px !important;
 }
 .restaurant-infomation-staff-container1 .form-group {
   margin-left: 300px;

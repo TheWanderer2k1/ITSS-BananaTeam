@@ -1,6 +1,6 @@
 const sql = require("../../seed/queryMysqlDB");
 const { param } = require("./route");
-const getCategoryData = "Select category.ID AS categoryid,src AS img from category,image where category.imageId=image.ID";
+const getCategoryData = "Select category.ID AS categoryid,category.Name as name ,src AS img from category,image where category.imageId=image.ID";
 const getSliderData = `
 	SELECT Src As img,ID AS foodDescriptionId 
   	FROM (

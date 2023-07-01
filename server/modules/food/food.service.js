@@ -112,8 +112,7 @@ exports.unreactReview = async (foodId, reviewId, userId) => {
 
 
 exports.getFoodByAddress = async (data) => {
-    let result=[];
-   
+    let foodTrans=[];
     queryFindRestaurantByAddress = `Select ID as id, Name as name, OpenTime as openTime, CloseTime as closeTime, Province as province, District as district, Ward as ward, DetailedAddress as detailedAddress From Restaurant`
     condition1=`Province like  '%${data.province}%'`
     condition2= `District like '%${data.district}%'`
@@ -124,7 +123,7 @@ exports.getFoodByAddress = async (data) => {
     arrayRestaurant = await sql.QueryGetData(queryFindRestaurantByAddress)
     
     for(restaurant of arrayRestaurant){
-        queryFindFoodByRestaurant =  `SELECT food.ID as id, food.Name as name, image.Src as img, price, AVG(rating) AS rating, fooddescription.Description as description, Category.Id as categoryId , Category.Name as categoryName, Category.Description as categoryDescription
+        queryFindFoodByRestaurant =  `SELECT fooddescription.ID as id, food.Name as name, image.Src as img, price, AVG(rating) AS rating, fooddescription.Description as description, Category.Id as categoryId , Category.Name as categoryName, Category.Description as categoryDescription
         FROM fooddescription
         JOIN food on food.ID = fooddescription.FoodID
         LEFT JOIN FoodReview on fooddescription.id = foodreview.FoodDesId
@@ -133,7 +132,7 @@ exports.getFoodByAddress = async (data) => {
         WHERE fooddescription.RestaurantID = ${restaurant.id}
         GROUP BY fooddescription.ID, img`                
         food=await sql.QueryGetData(queryFindFoodByRestaurant);
-        foodTrans=food.map((foodItem)=>{
+        food.map((foodItem)=>{
             category={
                 id:foodItem.categoryId,
                 name:foodItem.categoryName,
@@ -142,17 +141,15 @@ exports.getFoodByAddress = async (data) => {
             delete foodItem.categoryId
             delete foodItem.categoryName
             delete foodItem.categoryDescription
-            foodItem.category = category;
-            return foodItem;
+            foodItem.category = category
+            foodItem.restaurant = restaurant
+            foodTrans.push(foodItem)
+           
 
-        })
-        result.push({
-            food:foodTrans,
-            restaurant:restaurant
         })
     }
 
-    return result;
+    return foodTrans;
 
 }
 exports.getFoodInforById = async (foodDesId) => {

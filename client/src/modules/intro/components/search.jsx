@@ -19,19 +19,19 @@ import './intro.css';
 import { DatePicker } from '../../../common-components';
 
 let initialPriceFilter = [
-	{ id: 0, from: 0, to: 50000, checked: true },
-	{ id: 1, from: 50000, to: 100000, checked: true },
-	{ id: 2, from: 100000, to: 200000, checked: true },
-	{ id: 3, from: 200000, to: 300000, checked: true },
-	{ id: 4, from: 300000, to: '以上', checked: true }
+	{ id: 0, from: 0, to: 50000, checked: false },
+	{ id: 1, from: 50000, to: 100000, checked: false },
+	{ id: 2, from: 100000, to: 200000, checked: false },
+	{ id: 3, from: 200000, to: 300000, checked: false },
+	{ id: 4, from: 300000, to: '以上', checked: false }
 ]
 
 let initialRatingFilter = [
-	{ id: 1, value: 1, checked: true },
-	{ id: 2, value: 2, checked: true },
-	{ id: 3, value: 3, checked: true },
-	{ id: 4, value: 4, checked: true },
-	{ id: 5, value: 5, checked: true }
+	{ id: 1, value: 1, checked: false },
+	{ id: 2, value: 2, checked: false },
+	{ id: 3, value: 3, checked: false },
+	{ id: 4, value: 4, checked: false },
+	{ id: 5, value: 5, checked: false }
 ]
 let listSearchOption = [
     {id: 1, value: "料理の名前"},
@@ -118,10 +118,17 @@ function Search () {
 	const [ratingFilter, setRatingFilter] = useState(initialRatingFilter);
 	const [cityFilter, setCityFilter] = useState(null);
 	const [districtFilter, setDistrictFilter] = useState(null);
+	const [wardFilter, setWardFilter] = useState(null);
     const [citySearch, setCitySearch] = useState(null);
 	const [districtSearch, setDistrictSearch] = useState(null);
+	const [wardSearch, setWardSearch] = useState(null);
 	const [listDistrictFilter, setListDistrictFilter] = useState([]);
+	const [listDistrictSearch, setListDistrictSearch] = useState([]);
+	const [listWardFilter, setListWardFilter] = useState([]);
+	const [listWardSearch, setListWardSearch] = useState([]);
 	const [searchOption, setSearchOption] = useState(listSearchOption[0].id);
+	const [isShowAddressFilter, setIsShowAddressFilter] = useState(true);
+	const [isFirstLoad, setIsFirstLoad] = useState(true);
     
 
     const moveToHomePage = () => {
@@ -141,101 +148,146 @@ function Search () {
 
     const handleChangeCityFilter = (value) => {
         setCityFilter(value);
-        fetchDistrict(value);
+        if(value != undefined) fetchDistrict(value);
     };
 
     const handleChangeDistrictFilter = (value) => {
         setDistrictFilter(value);
+        if(value != undefined) fetchWard(value);
+    };
+
+    const handleChangeWardFilter = (value) => {
+        setWardFilter(value);
     };
 
     const handleChangeCitySearch = (value) => {
-        console.log('city:' + value);
         setCitySearch(value);
-        fetchDistrict(value);
-        let newFoodDescription = allFoodDescription.filter(food => {
-            return checkPrice(food.price) && checkRating(food.rating) && checkTime(food.restaurant.openTime, food.restaurant.closeTime) && checkProvince(food.restaurant.address) 
-            // && (food.restaurant.province)
-        })
+        if(value != undefined) fetchDistrict(value);
+        // fetchfoodDecriptionByAddress();
     };
 
     const handleChangeDistrictSearch = (value) => {
-        console.log('district:' + value);
         setDistrictSearch(value);
+        if(value != undefined) fetchWard(value);
+        // fetchfoodDecriptionByAddress();
+    };
+
+    const handleChangeWardSearch = (value) => {
+        setWardSearch(value);
+        // fetchfoodDecriptionByAddress();
     };
 
     const handleChangeSearchOption = (event) => {
         setSearchOption(event.target.value);
-        console.log('haha: ', searchOption);
-      };
+        if(event.target.value == 1) {
+            setIsShowAddressFilter(true);
+        } else {
+            setIsShowAddressFilter(false);
+        }
+    };
+    
     useEffect(() => {
         const params = new URLSearchParams(location.search);
         const inputValueParam = params.get('search_query');
-        setInputValue(inputValueParam || '');
-        setSearchData(inputValueParam);
-        fetchfoodDecription();
-  }, [inputValue]); 
+        const provinceParam = params.get('province');
+        if(isFirstLoad) {
+            setCitySearch(provinceParam);
+            setIsFirstLoad(false);
+        }
+        if(citySearch) {
+            setSearchOption(2);
+            setIsShowAddressFilter(false);
+            // fetchfoodDecriptionByAddress();
+        } else {
+            setInputValue(inputValueParam || '');
+            setSearchData(inputValueParam);
+            fetchfoodDecription();
+        }
+    }, [inputValue, citySearch]); 
 
-  const fetchfoodDecription = async () => {
-      var url = `http://localhost:8000/api/v1/foods`;
-      if(searchData != ''){url += `?keyword=${searchData}`;}
-      console.log(url);
-      const resp = await sendRequest({
-          url: url,
-          method: "GET",
-      })
-      setfoodDecription(resp.data['content'])
-			setAllFoodDescription(resp.data['content'])
-			console.log('in fetch', resp.data['content'], foodDecription)
-  };
+    useEffect(() => {
+        fetchfoodDecriptionByAddress();
+    }, [citySearch, districtSearch, wardSearch]);
 
-//   const fetchDistrict = async (provinceValue) => {
-//     var provinceId = listCityFilter.find(x => x.value === provinceValue).id;
-//     var url = 'https://vapi.vnappmob.com/api/province/district/' + provinceId;
-//     const resp = await sendRequest({
-//         url: url,
-//         method: "GET",
-//     })
-//     var a = [];
-//     console.log(resp.data['results']);
-//     resp.data['results'].forEach(item => {
-//         a.push({...item, value: item.district_name, label: item.district_name})
-//     })
-//     console.log(a);
-//     setListDistrictFilter(a);
-//     console.log(listDistrictFilter);
-//   }
+    const fetchfoodDecription = async () => {
+        var url = `http://localhost:8000/api/v1/foods`;
+        if(searchData != ''){url += `?keyword=${searchData}`;}
+        console.log(url);
+        const resp = await sendRequest({
+            url: url,
+            method: "GET",
+        })
+        setfoodDecription(resp.data['content'])
+            setAllFoodDescription(resp.data['content'])
+            console.log('in fetch', resp.data['content'], foodDecription)
+    };
 
-const fetchDistrict = async (provinceValue) => {
+    const fetchfoodDecriptionByAddress = async () => {
+        var url = `http://localhost:8000/api/v1/foods/findByAddress`;
+        if(citySearch) {
+            url += `?province=${citySearch}`;
+            if(districtSearch) {
+                url += `?district=${districtSearch}`;
+                if(wardSearch) {
+                    url += `?ward=${wardSearch}`;
+                }
+            }
+        }
+        console.log(url);
+        const resp = await sendRequest({
+            url: url,
+            method: "GET",
+        })
+        setfoodDecription(resp.data['content'])
+            setAllFoodDescription(resp.data['content'])
+            console.log('in fetch', resp.data['content'], foodDecription)
+    };
+
+    const fetchDistrict = async (provinceValue) => {
     var provinceId = listCityFilter.find(x => x.value === provinceValue).id;
     var url = 'https://vapi.vnappmob.com/api/province/district/' + provinceId;
     const resp = await sendRequest({
         url: url,
         method: "GET",
     })
-    // var a = [];
-    // resp.data['results'].map(item => ({
-    //     value: item.district_name, label: item.district_name})
-    // );
     setListDistrictFilter(resp.data['results'].map(item => ({
-        value: item.district_name, label: item.district_name})
+        value: item.district_name, label: item.district_name, id: item.district_id})
     ));
-    console.log('came here');
-  }
+    setListDistrictSearch(resp.data['results'].map(item => ({
+        value: item.district_name, label: item.district_name, id: item.district_id})
+    ));
+    }
 
-  const sortByPriceIncrease = () => {
-    setfoodDecription([...foodDecription].sort((a, b) => a.price - b.price));
-  };
+    const fetchWard = async (districtValue) => {
+        var districtId = listDistrictFilter.find(x => x.value === districtValue).id;
+        console.log('salad on the test: '+ districtId);
+        var url = 'https://vapi.vnappmob.com/api/province/ward/' + districtId;
+        const resp = await sendRequest({
+            url: url,
+            method: "GET",
+        })
+        setListWardFilter(resp.data['results'].map(item => ({
+            value: item.ward_name, label: item.ward_name, id: item.ward_id})
+        ));
+        setListWardSearch(resp.data['results'].map(item => ({
+            value: item.ward_name, label: item.ward_name, id: item.ward_id})
+        ));
+    }
 
-  const sortByPriceDecrease = () => {
-    setfoodDecription([...foodDecription].sort((a, b) => b.price - a.price));
-  };
+    const sortByPriceIncrease = () => {
+        setfoodDecription([...foodDecription].sort((a, b) => a.price - b.price));
+    };
 
-  const onChangeFromTime = (date, dateString) => {
-    setFromTime(date);
-  };
-  const onChangeToTime = (date, dateString) => {
-    setToTime(date);
-  };
+    const sortByPriceDecrease = () => {
+        setfoodDecription([...foodDecription].sort((a, b) => b.price - a.price));
+    };
+
+    const onChangeFromTime = (date, dateString) => {
+        setFromTime(date);
+    };
+    const onChangeToTime = (date, dateString) => {
+        setToTime(date);
+    };
 	const onChangePriceFilter = (id) => {
 		const newPriceFilter = priceFilter.map(price => {
 			if (price.id === id) 
@@ -394,33 +446,50 @@ const fetchDistrict = async (provinceValue) => {
                             ))}
                         </div>
 
-                        <p data-toggle="collapse" data-target="#cityFilter">
-                            <i class="fa fa-chevron-down mr-6"></i>
-                            <i class="fa fa-lock mr-6"></i>
-                            場所
-                        </p>
-                        <div id="cityFilter" class="collapse row">                            
-                            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
-                                <Select
-                                    allowClear
-                                    placeholder='市'
-                                    value={cityFilter}
-                                    onChange={handleChangeCityFilter}
-                                    options={listCityFilter}
-                                    style={{ width: '100%' }}
-                                />
-                            </div>   
-                            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
-                                <Select
-                                    allowClear
-                                    placeholder='区'
-                                    value={districtFilter}
-                                    onChange={handleChangeDistrictFilter}
-                                    options={listDistrictFilter}
-                                    style={{ width: '100%' }}
-                                />
-                            </div>
-                        </div>
+                        {isShowAddressFilter == true ?
+                        (
+                            <React.Fragment>
+                                <p data-toggle="collapse" data-target="#cityFilter">
+                                    <i class="fa fa-chevron-down mr-6"></i>
+                                    <i class="fa fa-lock mr-6"></i>
+                                    場所
+                                </p>
+                                <div id="cityFilter" class="collapse">                            
+                                    <div >
+                                        <Select
+                                            allowClear
+                                            placeholder='市'
+                                            value={cityFilter}
+                                            onChange={handleChangeCityFilter}
+                                            options={listCityFilter}
+                                            style={{ width: '100%', margin: '2px 0' }}
+                                        />
+                                    </div>   
+                                    <div >
+                                        <Select
+                                            allowClear
+                                            placeholder='区'
+                                            value={districtFilter}
+                                            onChange={handleChangeDistrictFilter}
+                                            options={listDistrictFilter}
+                                            style={{ width: '100%', margin: '2px 0' }}
+                                        />
+                                    </div>
+                                    <div >
+                                        <Select
+                                            allowClear
+                                            placeholder='街'
+                                            value={wardFilter}
+                                            onChange={handleChangeWardFilter}
+                                            options={listWardFilter}
+                                            style={{ width: '100%', margin: '2px 0' }}
+                                        />
+                                    </div>
+                                </div>
+                            </React.Fragment>
+                        ):(
+                            <div></div>
+                        )}
                     </div>
                     <div className="action-button d-flex mt-12">
                         <button className="cancel-button" onClick={clearFilter}>クリア</button>
@@ -428,71 +497,64 @@ const fetchDistrict = async (provinceValue) => {
                     </div>
                 </div>
                 <div className="content">
-                    {/* <div className="row">
-                        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-8" >
-                        </div>
-                        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
-                            <div className="search-box d-flex">
-                                <div className="search-icon"><button type="button" class="btn btn-link"><i class="fa fa-search"></i></button></div>
-                                <div className="search-text">
-                                    <input type="text" placeholder='Nem cuốn' value={searchData} onChange={handleSearchData} onKeyUp={handleKeyUp}/>
-                                </div>
-                            </div>
-                        </div>                            
-                    </div>             */}
-                    {/* <FoodList searchData={searchData}></FoodList> */}
-                    {/* <FoodList></FoodList> */}
                     <div className="row">
-        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
-        </div>
-        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-2" >        
-            <select value={searchOption} onChange={handleChangeSearchOption} class="form-select select-search-option" aria-label="Default select example">
-                <option value="1" selected>料理の名前</option>
-                <option value="2">場所</option>
-            </select>
-        </div>
-            {
-                searchOption == 1 ? (
-                    <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
-                        <div className="search-box d-flex">
-                            <div className="search-icon"><button type="button" class="btn btn-link"><i class="fa fa-search"></i></button></div>
-                            <div className="search-text">
-                                <input type="text" placeholder='Nem cuốn' value={searchData} onChange={handleSearchData} onKeyUp={handleKeyUp}/>
-                            </div>
+                        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
                         </div>
-                    </div>                            
-                ) : (
-                    <React.Fragment>
-                        {/* <div id="addressSearch" class="row">        */}
-                            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-2" >
-                                <Select
-                                    allowClear
-                                    placeholder='市'
-                                    value={citySearch}
-                                    onChange={handleChangeCitySearch}
-                                    options={listCityFilter}
-                                    style={{ width: '100%' }}
-                                />
-                            </div>   
-                            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-2" >
-                                <Select
-                                    allowClear
-                                    placeholder='区'
-                                    value={districtSearch}
-                                    onChange={handleChangeDistrictSearch}
-                                    options={listDistrictFilter}
-                                    style={{ width: '100%' }}
-                                />
-                            </div>
-                        {/* </div> */}
-                    </React.Fragment>
-                )
-            }
-      </div>    
+                        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-2" >        
+                            <select value={searchOption} onChange={handleChangeSearchOption} class="form-select select-search-option" aria-label="Default select example">
+                                <option value="1" selected>料理の名前</option>
+                                <option value="2">場所</option>
+                            </select>
+                        </div>
+                        {
+                            searchOption == 1 ? (
+                                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
+                                    <div className="search-box d-flex">
+                                        <div className="search-icon"><button type="button" class="btn btn-link"><i class="fa fa-search"></i></button></div>
+                                        <div className="search-text">
+                                            <input type="text" placeholder='Nem cuốn' value={searchData} onChange={handleSearchData} onKeyUp={handleKeyUp}/>
+                                        </div>
+                                    </div>
+                                </div>                            
+                            ) : (
+                                <React.Fragment>
+                                    <div id="addressSearch" class="address-search-block">       
+                                        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
+                                            <Select
+                                                allowClear
+                                                placeholder='市'
+                                                value={citySearch}
+                                                onChange={handleChangeCitySearch}
+                                                options={listCityFilter}
+                                                style={{ width: '33%' }}
+                                            />
+                                            <Select
+                                                allowClear
+                                                placeholder='区'
+                                                value={districtSearch}
+                                                onChange={handleChangeDistrictSearch}
+                                                options={listDistrictSearch}
+                                                style={{ width: '33%' , padding: '0 1px'}}
+                                            />
+                                            <Select
+                                                allowClear
+                                                placeholder='街'
+                                                value={wardSearch}
+                                                onChange={handleChangeWardSearch}
+                                                options={listWardSearch}
+                                                style={{ width: '33%' , padding: '0 1px'}}
+                                            />
+                                        </div>
+                                    </div>
+                                </React.Fragment>
+                            )
+                        }
+                </div>    
     <div className="food-list d-flex">
         {foodDecription.map((food) => (
           <FoodItem
             key={food.id}
+            id={food.id}
             image_src={"http://localhost:8000" + food.img}
             rating={food.rating}
             name={food.name}

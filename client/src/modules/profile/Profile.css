@@ -85,18 +85,20 @@ text-align: center;
 }
 
 .content-right .title::after {
-    content: "______";
+    content: "_________";
     position: absolute;
     left: -100px;
     top: -15px;
+    letter-spacing: -7px;
     font-weight: 100;
 }
 
 .content-right .title::before {
-    content: "______";
+    content: "__________";
     position: absolute;
     right: -100px;
     top: -15px;
+    letter-spacing: -7px;
 }
 
 .head {
@@ -123,7 +125,6 @@ text-align: center;
 
 .text-right-1 .title-1 {
     display: flex;
-    flex-direction: column;
     text-align: left !important;
 }
 

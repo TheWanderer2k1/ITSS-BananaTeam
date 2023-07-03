@@ -251,6 +251,10 @@
   overflow: auto;
   white-space: nowrap;
 }
+.restaurant-infomation-staff-slider img {
+  height:100%;
+  width: 276px;
+}
 .restaurant-infomation-staff-upload-button {
   width: 26%;
   object-fit: cover;

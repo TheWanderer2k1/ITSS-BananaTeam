@@ -15,3 +15,10 @@ exports.getUserByPhone = async (phone) => {
     let result = await sql.QueryGetData(queryGetData)
     return result[0]
 }
+
+exports.updateUserPoint = async (userId, point) => {
+    query = `UPDATE user
+        SET Point=${point}
+        WHERE id=${userId}`
+    await sql.QueryGetData(query)
+}

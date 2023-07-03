@@ -20,7 +20,7 @@ const FoodItem =  ({ id, image_alt, image_src, name, price, rating, restaurant }
             </div>
             <div className="food-info">
                 <div className="hfood-name">{name}</div>
-                <div className="food-restaurant"><i class="fa fa-pin"></i> {restaurant.name + ', ' + restaurant.address}</div>
+                <div className="food-restaurant"><i class="fa fa-map-marker"></i> {restaurant.name + ', ' + restaurant.detailedAdress}</div>
                 <div className="food-restaurant-time"><i class="fa fa-pin"></i> {restaurant.openTime + ' - ' + restaurant.closeTime}</div>
                 {/* <div className="food-price"><i class="fa fa-money"></i> {price} 円</div> */}
                 <div className="food-price"><i class="fa fa-money"></i> {price} VNĐ</div>

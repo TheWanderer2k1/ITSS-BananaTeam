@@ -24,15 +24,31 @@ exports.getRestaurantInforById = async (restaurantId) => {
 }
 
 exports.getMenu = async (restaurantId) => {
-    queryGetMenu = `SELECT food.ID as foodId , food.Name as name ,fooddescription.Price as price 
-                    FROM food
-                    JOIN fooddescription ON fooddescription.FoodID = food.ID
-                    JOIN restaurant ON restaurant.ID = fooddescription.restaurantId
-                    WHERE restaurant.ID = ${restaurantId}`
+    queryGetMenu = `SELECT fooddescription.ID as foodID , food.Name as name, price, AVG(rating) AS rating
+    FROM fooddescription
+    JOIN food on food.id = fooddescription.FoodID
+    LEFT JOIN FoodReview on fooddescription.id = foodreview.FoodDesId
+    JOIN restaurant on fooddescription.RestaurantID = restaurant.ID
+    JOIN Category ON Category.ID = food.CategoryId
+    WHERE restaurant.id = ${restaurantId}
+    GROUP BY fooddescription.id`
 
-    let listMenu = await sql.QueryGetData(queryGetMenu)
+    let listFood = await sql.QueryGetData(queryGetMenu)
+    for(foodItem of listFood) {
+        queryGetImg = `SELECT src 
+                       FROM image
+                       JOIN fooddescription ON image.GroupID = fooddescription.GroupImageId 
+                       WHERE fooddescription.ID = ${foodItem.foodID}`
 
-    return listMenu
+        listImg = await sql.QueryGetData(queryGetImg)
+       
+        arrImg = []
+        listImg.map((item)=>{
+            arrImg.push(item.src)
+        })
+        foodItem['img'] = arrImg
+    }
+    return listFood
 }
 
 exports.addFood = async (restaurantId, name, categoryId, description, price, images=null) => {
@@ -74,7 +90,7 @@ exports.addFood = async (restaurantId, name, categoryId, description, price, ima
 }
 
 exports.editRestaurantInfor = async (data) => {
-    console.log(data.files.avatar)
+
     let filePath = `${data.files.avatar[0].destination}/${data.files.avatar[0].filename}`.substring(1)
     queryEditRestaurantInfor = `UPDATE restaurant
                                 SET Name = '${data.name}',
@@ -91,6 +107,7 @@ exports.editRestaurantInfor = async (data) => {
                                    (data.files.avatar?`, Avatar = '${filePath}'`:'') +
                                 ` WHERE ID = ${data.restaurantId} `
     
+
     getGroupImageId = `SELECT GroupImageID AS id
                       FROM restaurant
                       WHERE restaurant.ID = ${data.restaurantId}`

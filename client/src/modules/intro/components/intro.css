@@ -657,3 +657,16 @@ span.dx-options  > div > a {
     border: 1px solid #000;
     border-radius: 5px;
 }
+
+.address-search-block {
+    height: 45px;
+    line-height: 45px;
+}
+
+.float-right {
+    float: right;
+}
+
+.mt-12 {
+    margin-top: 12px;
+}

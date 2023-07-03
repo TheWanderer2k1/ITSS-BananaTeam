@@ -58,6 +58,7 @@ router.use("/api/v1", require("./modules/food/food.route"));
 router.use("/api/v1", require("./modules/review/review.route"));
 router.use("/api/v1", require("./modules/restaurant/restaurant.route"));
 router.use("/api/v1", require("./modules/category/category.route"));
+router.use("/api/v1", require("./modules/user/user.route"));
 
 
 router.use("/examples", require("./modules/example/example.route"));

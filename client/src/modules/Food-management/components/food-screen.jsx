@@ -13,7 +13,8 @@ function FoodScreen(props) {
   const [foodDecription, setFoodDescription] = useState({});
   const [foodReviews, setFoodReviews] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [foodId, setFoodId] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(true); // Thêm biến trạng thái isAdmin để xác định vai trò của user
+
   
   const handlePrev = () => {
     if (currentImageIndex > 0) {
@@ -58,12 +59,14 @@ function FoodScreen(props) {
             <FoodInfo
               image={foodDecription.img ? foodDecription.img[currentImageIndex]: ''}
               name={foodDecription.name}
+              price={foodDecription.price}
               description={foodDecription.description}
               score={foodDecription.rating}
               onClickPrev={handlePrev}
               onClickNext={handleNext}
               onClickDelete={handleDelete}
               onClickEdit={handleEdit}
+              isAdmin={isAdmin}
             />
           )}
         </div>

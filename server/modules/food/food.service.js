@@ -87,13 +87,36 @@ exports.editReview = async (foodId, reviewId, data) => {
     await sql.QueryGetData(query)
 }
 
-exports.addReview = async (foodId, data) => {
-    let { userId, review, rating } = data
+exports.addReview = async (foodId,data,files) => {
+    let { userId , review , rating } = data
 
-    //  TODO: Sửa lại file sql
-    let query = `INSERT INTO foodreview (UserID, FoodDesID, Review, Rating, Status)
-    VALUES (${userId}, ${foodId}, "${review}", ${rating}, 1)`
-    let result = await sql.QueryGetData(query)
+    let groupImageId
+    do {
+        
+        let randNum = Math.floor(Math.random() * 10000000)
+        let queryGroupImg = `SELECT src FROM image
+            WHERE GroupID = ${randNum}`
+        let result = await sql.QueryGetData(queryGroupImg)
+        if (result.length == 0) {
+            groupImageId = randNum
+            break;
+        }
+    }while (true)
+    
+
+    let query = `INSERT INTO foodreview (UserID, FoodDesID, Review, Rating, Status,GroupImageId)
+    VALUES (${userId}, ${foodId}, "${review}", ${rating}, 1,${groupImageId})`
+    let result = await sql.QueryUpdateData(query)
+   
+    if (files) {
+        
+        for (let image of files) {
+            let filePath = `${image.destination}/${image.filename}`.substring(1)
+            let imageInsertQuery = `INSERT INTO image (GroupID, Src)
+            VALUES (${groupImageId}, '${filePath}')`
+            await sql.QueryGetData(imageInsertQuery)
+        }
+    }
     return result
 }
 
@@ -112,8 +135,7 @@ exports.unreactReview = async (foodId, reviewId, userId) => {
 
 
 exports.getFoodByAddress = async (data) => {
-    let result=[];
-   
+    let foodTrans=[];
     queryFindRestaurantByAddress = `Select ID as id, Name as name, OpenTime as openTime, CloseTime as closeTime, Province as province, District as district, Ward as ward, DetailedAddress as detailedAddress From Restaurant`
     condition1=`Province like  '%${data.province}%'`
     condition2= `District like '%${data.district}%'`
@@ -124,7 +146,7 @@ exports.getFoodByAddress = async (data) => {
     arrayRestaurant = await sql.QueryGetData(queryFindRestaurantByAddress)
     
     for(restaurant of arrayRestaurant){
-        queryFindFoodByRestaurant =  `SELECT food.ID as id, food.Name as name, image.Src as img, price, AVG(rating) AS rating, fooddescription.Description as description, Category.Id as categoryId , Category.Name as categoryName, Category.Description as categoryDescription
+        queryFindFoodByRestaurant =  `SELECT fooddescription.ID as id, food.Name as name, image.Src as img, price, AVG(rating) AS rating, fooddescription.Description as description, Category.Id as categoryId , Category.Name as categoryName, Category.Description as categoryDescription
         FROM fooddescription
         JOIN food on food.ID = fooddescription.FoodID
         LEFT JOIN FoodReview on fooddescription.id = foodreview.FoodDesId
@@ -133,7 +155,7 @@ exports.getFoodByAddress = async (data) => {
         WHERE fooddescription.RestaurantID = ${restaurant.id}
         GROUP BY fooddescription.ID, img`                
         food=await sql.QueryGetData(queryFindFoodByRestaurant);
-        foodTrans=food.map((foodItem)=>{
+        food.map((foodItem)=>{
             category={
                 id:foodItem.categoryId,
                 name:foodItem.categoryName,
@@ -142,17 +164,15 @@ exports.getFoodByAddress = async (data) => {
             delete foodItem.categoryId
             delete foodItem.categoryName
             delete foodItem.categoryDescription
-            foodItem.category = category;
-            return foodItem;
+            foodItem.category = category
+            foodItem.restaurant = restaurant
+            foodTrans.push(foodItem)
+           
 
-        })
-        result.push({
-            food:foodTrans,
-            restaurant:restaurant
         })
     }
 
-    return result;
+    return foodTrans;
 
 }
 exports.getFoodInforById = async (foodDesId) => {

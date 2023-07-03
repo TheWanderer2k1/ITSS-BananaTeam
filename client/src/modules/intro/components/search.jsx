@@ -16,7 +16,7 @@ import { getStorage, setStorage } from '../../../config';
 import moment from "moment";
 import store from '../../../redux/store';
 import './intro.css';
-import { DatePicker } from '../../../common-components';
+import { Radio } from 'antd';
 
 let initialPriceFilter = [
 	{ id: 0, from: 0, to: 50000, checked: false },
@@ -103,6 +103,7 @@ let listCityFilter = [
     { value: "Tỉnh Bạc Liêu", label: "Tỉnh Bạc Liêu", id: "95" },
     { value: "Tỉnh Cà Mau", label: "Tỉnh Cà Mau", id: "96" },
 ]
+const sortOptions = ['価格の安い順', '価格の高い順'];
 
 function Search () {
     const history = useHistory();
@@ -129,6 +130,13 @@ function Search () {
 	const [searchOption, setSearchOption] = useState(listSearchOption[0].id);
 	const [isShowAddressFilter, setIsShowAddressFilter] = useState(true);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
+    const [sortValue, setSortValue] = useState('');
+
+    const onChangeSort = ({ target: { value } }) => {
+        setSortValue(value);
+        if(value == '価格の高い順') sortByPriceDecrease();
+        else sortByPriceIncrease();
+    };
     
 
     const moveToHomePage = () => {
@@ -385,7 +393,7 @@ function Search () {
                     </div>
                     <hr class="divider"></hr>
                     <div className="filter-box">
-                        <div className="fast-filter">
+                        {/* <div className="fast-filter">
                             <p data-toggle="collapse" data-target="#fastFilter">
                                 <i class="fa fa-chevron-down mr-6"></i>
                                 <i class="fa fa-lock mr-6"></i>
@@ -396,7 +404,7 @@ function Search () {
                                 <Button type="text" onClick={sortByPriceIncrease}>安いから高いまで値段</Button>
                                 <Button type="text" onClick={sortByPriceDecrease}>高いから安いまで値段</Button>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="time-filter">
                             <p data-toggle="collapse" data-target="#timeFilter">
                                 <i class="fa fa-chevron-down mr-6"></i>
@@ -549,7 +557,8 @@ function Search () {
                                 </React.Fragment>
                             )
                         }
-                </div>    
+                    </div>
+                    <Radio.Group options={sortOptions} onChange={onChangeSort} value={sortValue} className='float-right mt-12'/>   
     <div className="food-list d-flex">
         {foodDecription.map((food) => (
           <FoodItem

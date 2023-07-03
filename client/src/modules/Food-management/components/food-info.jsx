@@ -9,7 +9,7 @@ function FoodInfo(props) {
   return (
     <div className="food-info">
       <div className="food-image">
-        <img src={image} alt="Food Image" />
+        <img src={process.env.REACT_APP_SERVER + image} alt="Food Image" />
         <div className="food-nav">
           <button className="prev-button" onClick={onClickPrev}>
             &lt;
@@ -21,9 +21,6 @@ function FoodInfo(props) {
         <div className="food-score">
           <p>{score}/5</p>
         </div>
-         <button className="FileCirclePlus-button">
-      <FontAwesomeIcon className="file-circle-plus-icon" icon={faFileCirclePlus} />
-      </button>
       </div>
       <div className="food-name">
         <h1>{name}</h1>
@@ -31,17 +28,6 @@ function FoodInfo(props) {
       <div className="food-description">
       <p>{description}</p>     
        </div>
-      <div className="food-actions">
-        <button className="delete-button onClick={onClickDelete}">
-      <FontAwesomeIcon className="delete-button-icon" icon={faTrashCan} />
-      Xoá món ăn
-    </button>
-
-    <button className="edit-button" onClick={onClickEdit}>
-    <FontAwesomeIcon className="edit-button-icon" icon={faEdit} />
-     Chỉnh sửa món ăn
-    </button>
-      </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { sendRequest } from '../../../helpers/requestHelper';
 import FoodInfo from './food-info';
 import FoodReview from './food-review';
 import "./food-screen.css"
@@ -12,6 +13,7 @@ function FoodScreen(props) {
   const [foodDecription, setFoodDescription] = useState({});
   const [foodReviews, setFoodReviews] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [foodId, setFoodId] = useState([]);
   
   const handlePrev = () => {
     if (currentImageIndex > 0) {
@@ -32,11 +34,13 @@ function FoodScreen(props) {
   const handleEdit = () => {
     // Xử lý sự kiện nhấn nút Edit
   };
-
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(`http://localhost:8000/api/v1/foods/159`);
-      setFoodDescription(result.data);
+      const resp = await sendRequest({
+        url: `http://localhost:8000/api/v1/foods/${id}`,
+        method: "GET",
+      })
+      setFoodDescription(resp.data['content']);
       setCurrentImageIndex(0);
       console.log("Day la data: " ,result.data )
     };

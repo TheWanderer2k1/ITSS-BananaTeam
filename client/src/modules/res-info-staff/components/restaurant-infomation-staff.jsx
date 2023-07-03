@@ -198,6 +198,7 @@ const RestaurantInfomationStaff = (props) => {
     } catch (error) {
       console.error(error);
     }
+    fetchrestaurantinfo();
   };
 
   return (

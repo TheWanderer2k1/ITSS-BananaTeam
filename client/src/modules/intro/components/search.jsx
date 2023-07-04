@@ -548,7 +548,7 @@ function Search () {
                         <button className="confirm-button" onClick={handleFilter}>適用</button>
                     </div>
                 </div>
-                <div className="content">
+                <div className="h-content">
                     <div className="row">
                         <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
                         </div>

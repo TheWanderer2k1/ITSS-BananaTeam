@@ -1,7 +1,4 @@
 const jwt = require("jsonwebtoken");
-const Models = require('../models');
-const { User, Role, UserRole, Privilege, Link, Company, PrivilegeApi, SystemApi } = Models;
-const ObjectId = require("mongoose").Types.ObjectId;
 const { links } = require("./servicesPermission");
 const multer = require("multer");
 const fs = require("fs");
@@ -85,17 +82,10 @@ exports.authFunc = (checkPage = true) => {
                     fgp = decryptMessage(req.header("fgp")); // fingerprint
                 }
 
-                /**
-                 * Xác định db truy vấn cho request
-                 */
-                initModels(connect(DB_CONNECTION, req.portal), Models);
 
                 if (crtp !== "/") {
                     const fingerprint = fgp; //chữ ký của trình duyệt người dùng - fingerprint
                     const currentRole = crtr; // role hiện tại của người dùng
-                    if (!ObjectId.isValid(currentRole)) {
-                        throw ["role_invalid"]; //trả về lỗi nếu current role là một giá trị không xác định
-                    }
                     req.currentRole = currentRole;
 
                     const role = await Role(connect(DB_CONNECTION, req.portal))

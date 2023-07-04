@@ -39,12 +39,6 @@ const Header = (props) => {
         setUser(user);
         if (user) {
             props.refresh();
-
-            const currentRole = getStorage("currentRole");
-            props.getLinksOfRole(currentRole)
-                .then(res => {
-                    setUser(props.auth.user._id);
-                });
         }
     }, [user]);
 
@@ -98,7 +92,6 @@ function mapState(state) {
 
 const mapDispatchToProps = {
     refresh: AuthActions.refresh,
-    getLinksOfRole: AuthActions.getLinksOfRole,
     getComponentsOfUserInLink: AuthActions.getComponentOfUserInLink,
 }
 

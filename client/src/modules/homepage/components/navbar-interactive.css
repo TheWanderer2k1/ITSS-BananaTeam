@@ -3,6 +3,7 @@
   display: flex;
   position: relative;
   justify-content: center;
+  background-color: white;
 }
 .navbar-interactive-navbar-interactive {
   width: 100%;

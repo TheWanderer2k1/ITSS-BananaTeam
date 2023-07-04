@@ -17,13 +17,16 @@ function ListComponent() {
     setCategories(resp.data['content']['categories'])
   };
   
+
+
   return (
     <div className="home-container1">
-      {categories.map((category) => (
+      {categories.slice(0, 7).map((category) => (
         <CategoryItem
           key={category.categoryId}
           image_src={process.env.REACT_APP_SERVER + category.img}
           categoryId={category.categoryId}
+          text={category.name}
         />
       ))}
     </div>

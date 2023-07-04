@@ -16,6 +16,7 @@ import FoodReview from "../modules/food-review/components";
 const Foods = lazy(() => import("../modules/foods/components"))
 const Home = lazy(() => import("../modules/home/components"))
 const HomePage = lazy(() => import("../modules/homepage/components"))
+const HomePageStaff = lazy(() => import("../modules/homepage-staff/components"))
 import ResInfo from "../modules/res-info/components"
 const ResInfoStaff = lazy(() => import("../modules/res-info-staff/components"))
 const NotFound = lazy(() => import("../modules/not-found/components"))
@@ -70,6 +71,12 @@ class Routes extends Component {
                         auth={auth}
                         path="/homepage"
                         component={HomePage}
+                    />
+                     <AuthRoute
+                        exact
+                        auth={auth}
+                        path="/homepage-staff"
+                        component={HomePageStaff}
                     />
                     <AuthRoute
                         exact

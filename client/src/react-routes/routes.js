@@ -12,6 +12,7 @@ import ResetPassword from "../modules/auth/components/resetPasswordNew"
 import Search from "../modules/search/components";
 import FoodInforPage from "../modules/Food-management/components";
 import FoodReview from "../modules/food-review/components";
+import ProfileWrapper from "../modules/profile";
 
 const Foods = lazy(() => import("../modules/foods/components"))
 const Home = lazy(() => import("../modules/home/components"))
@@ -164,7 +165,13 @@ class Routes extends Component {
                         auth={auth}
                         path="/food-review"
                         component={FoodReview}
-                    />            
+                    />       
+                    <AuthRoute
+                        exact
+                        auth={auth}
+                        path="/profile"
+                        component={ProfileWrapper}
+                    />      
 
                     {/* Example Management */}
                     <PrivateRoute

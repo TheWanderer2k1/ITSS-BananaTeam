@@ -4,13 +4,14 @@
   "private": true,
   "antd": "^5.5.2",
   "scripts": {
+    "dev": "react-scripts start",
     "start": "env-cmd react-scripts --openssl-legacy-provider start",
     "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "browserslist": {
-    "development": [
+  "development": [
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"

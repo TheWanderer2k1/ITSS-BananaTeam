@@ -1,0 +1,114 @@
+.container {
+    margin: 0 12px;   
+}
+
+.c-star-color {
+    color: #FFD233;
+}
+
+.float-right {
+    float: right;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.aic {
+    align-items: center;
+}
+
+.flex-1 {
+    flex: 10%,
+}
+
+.flex-9 {
+    flex: 90%,
+}
+
+.m-12 {
+    margin: 0 12px;
+}
+
+.mt-12 {
+    margin-top: 12px;
+}
+
+.my-12 {
+    margin: 12px 0;
+}
+
+.mb-12 {
+    margin-bottom: 12px;
+}
+
+.mb-24 {
+    margin-bottom: 24px;
+}
+
+
+.mx-12 {
+    margin: 0 12px;
+}
+
+.mx-24 {
+    margin: 0 24px;
+}
+
+.mr-24 {
+    margin-right: 24px;
+}
+
+.p-12 {
+    padding: 12px;
+}
+
+.food-info-item {
+    display: flex;
+    align-items: center;
+    height: 32px;
+}
+
+.food-info__label {
+    width: 20%;
+}
+
+.review-block__header {
+    display: flex;
+    align-items: center;    
+    justify-content: space-between;
+}
+
+.review-block__username {
+    margin: 0 12px;
+    font-weight: bold;
+}
+
+.review-block__avatar img,
+.review-block__my-avatar img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+
+.review-block__body {
+    background-color: #D9D9D9;
+    border-radius: 20px;
+    width: 520px;
+}
+
+.post-avatar img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.comment-text-box {
+    position: relative;
+}
+
+.comment-send-icon {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+}

@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
-import { columns, data, dataSource } from "./data";
-import NavbarInteractive from "./navbar-interactive"
+import NavbarInteractive from '../../homepage/components/navbar-interactive'
 import { sendRequest } from '../../../helpers/requestHelper';
-import { Space, Table, Tag } from 'antd';
 import update5 from './img/update5.png';
 import { useHistory } from 'react-router-dom';
 

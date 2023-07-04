@@ -1,4 +1,10 @@
 .container{
     minHeight: 100vh;
     backgroundColor: white;
+    width: 100%;
+}
+
+.hcontainer {
+    background-color: #fff;
+    width: 100%;
 }

@@ -14,6 +14,7 @@ import { SocketConstants } from './modules/socket/redux/constants';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { getStorage, setStorage } from './config';
+import './app.css'
 
 const history = createBrowserHistory();
 
@@ -51,7 +52,7 @@ class App extends Component {
     render() {
         return (
             <React.Fragment>
-                <ServerDisconnectedAlert/>
+                {/* <ServerDisconnectedAlert/>
                 <AuthAlert />
                 <ToastContainer 
                     enableMultiContainer={true}
@@ -59,7 +60,7 @@ class App extends Component {
                     draggable={false}
                     containerId={'toast-notification'}
                     position={toast.POSITION.TOP_RIGHT}
-                />
+                /> */}
                 <Router history={history}>
                     <Routes/>
                 </Router>

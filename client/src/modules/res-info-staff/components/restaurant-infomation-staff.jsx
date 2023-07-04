@@ -175,13 +175,15 @@ const RestaurantInfomationStaff = (props) => {
       description: description,
     };
     formData = convertJsonObjectToFormData(requestData);
+    
     if (uploadImg && uploadImg.length > 0) {
       uploadImg.forEach(obj => {
           formData.append('img', obj.fileUpload)
       })
     }
+    
     if (logoImg) {
-      formData.append('avatar',logoImg)
+      formData.append('avatar',logoImg.fileUpload)
     }
     
     try {
@@ -191,12 +193,12 @@ const RestaurantInfomationStaff = (props) => {
       const resp = await sendRequest({
         url: url,
         method: 'PUT',
-        data: requestData
+        data: formData
       });
     } catch (error) {
       console.error(error);
     }
-    window.location.reload();
+    fetchrestaurantinfo();
   };
 
   return (
@@ -215,7 +217,7 @@ const RestaurantInfomationStaff = (props) => {
         />
         {previewImage && <img
           alt="image"
-          src={previewImage}
+          src={process.env.REACT_APP_SERVER + previewImage}
           className="restaurant-infomation-staff-logo"
         />}
         <h1 className="restaurant-infomation-staff-text">{restaurantInfo.name}</h1>

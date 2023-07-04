@@ -26,12 +26,20 @@
     flex: 90%,
 }
 
+.mr-6 {
+    margin-right: 6px;
+}
+
 .m-12 {
     margin: 0 12px;
 }
 
 .mt-12 {
     margin-top: 12px;
+}
+
+.mr-12 {
+    margin-right: 12px;
 }
 
 .my-12 {

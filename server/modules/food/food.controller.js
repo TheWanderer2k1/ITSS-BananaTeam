@@ -41,18 +41,24 @@ exports.getReviewList = async (req, res) => {
 exports.addReview = async (req, res) => {
     try {
         let { foodId } = req.params;
-        await FoodService.addReview(foodId, req.body);
-
-        res.status(200).json({
-            success: true,
-            message: 'review success!',
-        })
-    } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: 'something went wrong',
-            content: error
-        })
+        await FoodService.addReview(foodId, req.body,req.files);
+        if(req.body.review && req.body.rating && req.files.length >1){
+            res.status(200).json({
+                success: true,
+                message: '100ポイントを獲得します!'
+        })}
+        else{
+            res.status(200).json({
+                success: true,
+                message: 'review success!',
+            })}    
+        }
+        catch (error) {
+            res.status(400).json({
+                success: false,
+                message: 'something went wrong',
+                content: error
+            })
     }
 }
 

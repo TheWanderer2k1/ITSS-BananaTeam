@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const FoodController = require("./food.controller");
+const { uploadFile } = require("../../middleware");
 
 router.get('/foods', FoodController.getFoodDescriptionList);
 router.get('/food/:foodId/review', FoodController.getReviewList);
-router.post('/food/:foodId/review', FoodController.addReview);
+router.post('/food/:foodId/review',uploadFile([{ name: 'img', path: '/review/food' }], 'array'), FoodController.addReview);
 router.put('/food/:foodId/review/:reviewId', FoodController.editReview);
 router.delete('/food/:foodId/review/:reviewId', FoodController.deleteReview);
 router.post('/food/:foodId/review/:reviewId/reaction', FoodController.reactReview);

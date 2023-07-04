@@ -16,7 +16,7 @@ import { getStorage, setStorage } from '../../../config';
 import moment from "moment";
 import store from '../../../redux/store';
 import './intro.css';
-import { DatePicker } from '../../../common-components';
+import { Radio } from 'antd';
 
 let initialPriceFilter = [
 	{ id: 0, from: 0, to: 50000, checked: false },
@@ -103,6 +103,7 @@ let listCityFilter = [
     { value: "Tỉnh Bạc Liêu", label: "Tỉnh Bạc Liêu", id: "95" },
     { value: "Tỉnh Cà Mau", label: "Tỉnh Cà Mau", id: "96" },
 ]
+const sortOptions = ['価格の安い順', '価格の高い順'];
 
 function Search () {
     const history = useHistory();
@@ -112,10 +113,12 @@ function Search () {
     const [inputValue, setInputValue] = useState('');
     const [searchData, setSearchData] = useState('');
     const [foodDecription, setfoodDecription] = useState([]);
+    const [listCategories, setListCategories] = useState([]);
     const [fromTime, setFromTime] = useState(null);
     const [toTime, setToTime] = useState(null);
 	const [priceFilter, setPriceFilter] = useState(initialPriceFilter);
 	const [ratingFilter, setRatingFilter] = useState(initialRatingFilter);
+	const [categoryFilter, setCategoryFilter] = useState(null);
 	const [cityFilter, setCityFilter] = useState(null);
 	const [districtFilter, setDistrictFilter] = useState(null);
 	const [wardFilter, setWardFilter] = useState(null);
@@ -129,6 +132,13 @@ function Search () {
 	const [searchOption, setSearchOption] = useState(listSearchOption[0].id);
 	const [isShowAddressFilter, setIsShowAddressFilter] = useState(true);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
+    const [sortValue, setSortValue] = useState('');
+
+    const onChangeSort = ({ target: { value } }) => {
+        setSortValue(value);
+        if(value == '価格の高い順') sortByPriceDecrease();
+        else sortByPriceIncrease();
+    };
     
 
     const moveToHomePage = () => {
@@ -185,6 +195,10 @@ function Search () {
             setIsShowAddressFilter(false);
         }
     };
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
     
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -209,6 +223,18 @@ function Search () {
         fetchfoodDecriptionByAddress();
     }, [citySearch, districtSearch, wardSearch]);
 
+    const fetchCategories = async () => {
+        const url = 'http://localhost:8000/api/v1/categories';
+        const resp = await sendRequest({
+            url: url,
+            method: "GET",
+        })
+        const transformedCategories = resp.data['content'].listCategory.map((item) => {
+            return { value: item.ID, label: item.Name }
+        })
+        setListCategories(transformedCategories)
+        console.log('Huy on da test: ' + listCategories);
+    }
     const fetchfoodDecription = async () => {
         var url = `http://localhost:8000/api/v1/foods`;
         if(searchData != ''){url += `?keyword=${searchData}`;}
@@ -218,8 +244,7 @@ function Search () {
             method: "GET",
         })
         setfoodDecription(resp.data['content'])
-            setAllFoodDescription(resp.data['content'])
-            console.log('in fetch', resp.data['content'], foodDecription)
+        setAllFoodDescription(resp.data['content'])
     };
 
     const fetchfoodDecriptionByAddress = async () => {
@@ -307,6 +332,10 @@ function Search () {
 		})
 		setRatingFilter(newRatingFilter)
 	};
+    const handleChangeCategoryFilter = (value) => {
+        console.log(`selected ${value}`);
+        setCategoryFilter(value);
+      };
 
     const clearFilter = () => {
         setFromTime(null);
@@ -335,6 +364,12 @@ function Search () {
             return true;
         }
 
+        const checkCategory = (categoryId) => {
+            if (!categoryFilter) return true;
+            else if (categoryId === categoryFilter) return true;
+            return false;
+        }
+
         const checkTime = (from, to) => {
             var fromTimeFilter = new Date(fromTime);
             var toTimeFilter = new Date(toTime);
@@ -358,7 +393,7 @@ function Search () {
             return false;
         }
         let newFoodDescription = allFoodDescription.filter(food => {
-            return checkPrice(food.price) && checkRating(food.rating) && checkTime(food.restaurant.openTime, food.restaurant.closeTime) && checkProvince(food.restaurant.address)
+            return checkPrice(food.price) && checkRating(food.rating) && checkTime(food.restaurant.openTime, food.restaurant.closeTime) && checkCategory(food.category.id) && checkProvince(food.restaurant.address)
         })
         setfoodDecription(newFoodDescription)
 	}
@@ -385,7 +420,7 @@ function Search () {
                     </div>
                     <hr class="divider"></hr>
                     <div className="filter-box">
-                        <div className="fast-filter">
+                        {/* <div className="fast-filter">
                             <p data-toggle="collapse" data-target="#fastFilter">
                                 <i class="fa fa-chevron-down mr-6"></i>
                                 <i class="fa fa-lock mr-6"></i>
@@ -396,7 +431,7 @@ function Search () {
                                 <Button type="text" onClick={sortByPriceIncrease}>安いから高いまで値段</Button>
                                 <Button type="text" onClick={sortByPriceDecrease}>高いから安いまで値段</Button>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="time-filter">
                             <p data-toggle="collapse" data-target="#timeFilter">
                                 <i class="fa fa-chevron-down mr-6"></i>
@@ -444,6 +479,23 @@ function Search () {
                                     {price.from}-{price.to} VNĐ
                                 </p>
                             ))}
+                        </div>
+
+                        <p data-toggle="collapse" data-target="#categoryFilter">
+                            <i class="fa fa-chevron-down mr-6"></i>
+                            <i class="fa fa-lock mr-6"></i>
+                            項目
+                        </p>
+                        <div id="categoryFilter" class="collapse">
+                            <Select 
+                                showSearch 
+                                    placeholder="項目" 
+                                    optionFilterProp="children" 
+                                            value={categoryFilter}
+                                            onChange={handleChangeCategoryFilter}
+
+                                            options={listCategories} 
+                                    style={{ width: '100%', margin: '2px 0' }}/>
                         </div>
 
                         {isShowAddressFilter == true ?
@@ -549,7 +601,8 @@ function Search () {
                                 </React.Fragment>
                             )
                         }
-                </div>    
+                    </div>
+                    <Radio.Group options={sortOptions} onChange={onChangeSort} value={sortValue} className='float-right mt-12'/>   
     <div className="food-list d-flex">
         {foodDecription.map((food) => (
           <FoodItem

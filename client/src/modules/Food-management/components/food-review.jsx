@@ -37,6 +37,20 @@ const FoodReview = ({id}) => {
   useEffect(() => {
     fetchFoodReview();
   }, []);
+
+  const onClickLikeReview = async(reviewId) => {
+    const url = `http://localhost:8000/api/v1/food/${id}/review/${reviewId}/reaction`;
+    const data = {
+      reactType: 3,
+      userId: 3
+    }
+    const resp = await sendRequest({
+      url: url,
+      method: "POST",
+      data: data,
+    })
+    fetchFoodReview();
+  }
   
   const fetchFoodReview = async () => {
     var url = `http://localhost:8000/api/v1/food/${id}/review`;
@@ -207,7 +221,7 @@ const FoodReview = ({id}) => {
                     <Rate disabled value={comment.rating}/>
                   </div>
                   <div className="review-block__like">
-                    <i class="fa fa-heart"></i> {comment.reactNumber}
+                    <Button onClick={() => onClickLikeReview(comment.reviewId)}><i class="fa fa-heart mr-6"></i> {comment.reactNumber}</Button>
                   </div>
                 </div>
               </div>

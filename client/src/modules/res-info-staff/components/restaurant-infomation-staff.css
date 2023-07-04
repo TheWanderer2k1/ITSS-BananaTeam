@@ -121,7 +121,7 @@
   height: 64px;
   align-self: center;
   box-shadow: 3px 3px 10px 0px #d4d4d4;
-  border-color: var(--dl-color-gray-black);
+  border-color: black;
   border-width: 2px;
   border-radius: 16px;
   font-size: 18px;
@@ -377,3 +377,7 @@
 .restaurant-infomation-staff-image-slider-container .list-upload-file-cmc {
   border: 0;
 }
+.home-staff-resname-input .input .invalid {
+  border-color: red !important;
+}
+

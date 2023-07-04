@@ -13,9 +13,19 @@ const HomeStaff = (props) => {
     const [topFoods, setTopFoods] = useState([]);
     const [firstfour, setFirstFour] = useState([]);
     const [lastfour, setLastFour] = useState([]);
+    const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(false);
 
     const openPopup = () => {
+      if(phoneNumber && phoneNumber.startsWith('0')){
+        console.log("Valid!");
+      }
+      if(phoneNumber.length > 0 && phoneNumber.startsWith('0')){
         setIsOpen(true);
+        fetchUserdata();
+        console.log("phonenumber:" + phoneNumber);
+      }else{
+        setIsPhoneNumberValid(false);
+      }
     };
 
     const closePopup = () => {
@@ -24,6 +34,7 @@ const HomeStaff = (props) => {
 
     const handlePhoneNumberChange = (event) => {
         setPhoneNumber(event.target.value);
+        setIsPhoneNumberValid(true);
     };
 
     const handleUsePoint = (event) => {
@@ -33,10 +44,6 @@ const HomeStaff = (props) => {
     useEffect(() => {
         console.log(user);
     }, [user]);
-
-    useEffect(() => {
-        fetchUserdata();
-    }, [phoneNumber]);
 
     useEffect(() => {
         fetchPageInfo();
@@ -59,8 +66,8 @@ const HomeStaff = (props) => {
       setLastFour(topFoods.slice(4));
   }, [topFoods])
     const fetchUserdata = async () => {
-        let url = process.env.REACT_APP_SERVER + ""; //API here
-        url+= phoneNumber;
+        let url = process.env.REACT_APP_SERVER + "/api/v1/user/"; //API here
+        url+= phoneNumber + "/phone";
         const resp = await sendRequest({
             url: `https://mocki.io/v1/92d0734f-ec77-4ee0-9a36-7a330349f933`,
             method: "GET",
@@ -84,12 +91,13 @@ const HomeStaff = (props) => {
         };
         let formData;
         formData = convertJsonObjectToFormData(requestData);
-        let url = process.env.REACT_APP_SERVER + ""; //API here
-        url+= user.userId;
+        let url = process.env.REACT_APP_SERVER + "/api/v1/user/"; //API here
+        url+= user.userId + "/point";
         const resp = await sendRequest({
             url: `https://mocki.io/v1/92d0734f-ec77-4ee0-9a36-7a330349f933`,
+            //url: url; Main API Route
             method: 'PUT',
-            data: formData
+            body: requestData
         })
         setUserdata(resp.data['content']);
     };
@@ -219,10 +227,10 @@ return (
         <input
           type="text"
           placeholder="sdt bắt đầu bằng số 0"
-          className="home-staff-resname-input input"
+          className={`home-staff-resname-input input ${isPhoneNumberValid ? '' : 'invalid'}`}
           onChange={handlePhoneNumberChange}
         />
-        <button type="button" onClick={openPopup} className="home-staff-button button">
+        <button type="button" onClick={phoneNumber ? openPopup : undefined} className="home-staff-button button">
           Sử dụng điểm
         </button>
       </div>

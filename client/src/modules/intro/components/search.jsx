@@ -645,7 +645,6 @@ function mapState(state) {
 
 const mapDispatchToProps = {
     refresh: AuthActions.refresh,
-    getLinksOfRole: AuthActions.getLinksOfRole,
     getComponentsOfUserInLink: AuthActions.getComponentOfUserInLink,
 }
 

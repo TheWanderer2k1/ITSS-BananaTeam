@@ -26,12 +26,20 @@
     flex: 90%,
 }
 
+.mr-6 {
+    margin-right: 6px;
+}
+
 .m-12 {
     margin: 0 12px;
 }
 
 .mt-12 {
     margin-top: 12px;
+}
+
+.mr-12 {
+    margin-right: 12px;
 }
 
 .my-12 {
@@ -95,6 +103,7 @@
     background-color: #D9D9D9;
     border-radius: 20px;
     width: 520px;
+    position: relative;
 }
 
 .post-avatar img {
@@ -111,4 +120,17 @@
     position: absolute;
     bottom: 12px;
     right: 12px;
+}
+
+.comment-image-block {
+    position: relative;
+    position: absolute;
+    bottom: -50;
+    right: 8px;
+}
+
+.comment-image-block img,
+.comment-image {
+    height: 50px;
+    border-radius: 15px;
 }

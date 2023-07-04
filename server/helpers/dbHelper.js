@@ -1,7 +1,6 @@
 const exec = require('child_process').exec;
 const fs = require('fs');
 const {checkOS} = require("./osHelper");
-const models = require('../models')
 
 const versionName = () => {
     const time = new Date(),

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Checkbox, Rate, Input, Modal } from 'antd';
+import { Button, Checkbox, Rate, Input, Modal, Image  } from 'antd';
 import { sendRequest } from '../../../helpers/requestHelper';
 import { convertJsonObjectToFormData } from '../../../helpers/jsonObjectToFormDataObjectConverter';
 import './food-review.css';
@@ -16,6 +16,7 @@ const FoodReview = ({id}) => {
   const [editCommentUserId, setEditCommentUserId] = useState(0);
   const [editingReviewId, setEditingReviewId] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [visibleFullImage, setVisibleFullImage] = useState(false);
   const showModal = (comment) => {
     setEditingReviewId(comment.reviewId);
     setEditCommentRate(comment.rating);
@@ -37,6 +38,20 @@ const FoodReview = ({id}) => {
   useEffect(() => {
     fetchFoodReview();
   }, []);
+
+  const onClickLikeReview = async(reviewId) => {
+    const url = `http://localhost:8000/api/v1/food/${id}/review/${reviewId}/reaction`;
+    const data = {
+      reactType: 3,
+      userId: 3
+    }
+    const resp = await sendRequest({
+      url: url,
+      method: "POST",
+      data: data,
+    })
+    fetchFoodReview();
+  }
   
   const fetchFoodReview = async () => {
     var url = `http://localhost:8000/api/v1/food/${id}/review`;
@@ -207,13 +222,37 @@ const FoodReview = ({id}) => {
                     <Rate disabled value={comment.rating}/>
                   </div>
                   <div className="review-block__like">
-                    <i class="fa fa-heart"></i> {comment.reactNumber}
+                    <Button onClick={() => onClickLikeReview(comment.reviewId)}><i class="fa fa-heart mr-6"></i> {comment.reactNumber}</Button>
                   </div>
                 </div>
               </div>
               <div className="d-flex">
                 <div className="review-block__body p-12 flex-9">
                   {comment.review}
+                  <div className="comment-image-block">
+                    {/* <img className='comment-image' src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" /> */}
+                    {/* <Image
+                      className='comment-image'
+                      preview={{visibleFullImage: false}}
+                      width={80}
+                      src='https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                      onClick={() => setVisibleFullImage(true)}
+                    /> */}
+                    <div
+                   >
+                      <Image.PreviewGroup
+                        className='comment-image'
+                        preview={{
+                          visibleFullImage,
+                          onVisibleChange: (vis) => setVisibleFullImage(vis)
+                        }}
+                      >
+                        <Image width={80} src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+                        <Image style={{display: 'none'}} src="https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp" />
+                        <Image style={{display: 'none'}} src="https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp" />
+                      </Image.PreviewGroup>
+                    </div>
+                  </div>
                 </div>
                 <div className="flex-1">
                   <Button type="text"><i class="fa fa-edit" onClick={() => showModal(comment)}></i></Button>                

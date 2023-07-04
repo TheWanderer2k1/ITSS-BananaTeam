@@ -25,7 +25,7 @@ const RestaurantInfomation = (props) => {
     history.push(`/foods?res_id=${resIdParam}&staff=0`);
   }
   const fetchrestaurantinfo = async () => {
-    var url = 'http://localhost:8000/api/v1/restaurant/'
+    var url = `${ process.env.REACT_APP_SERVER }/api/v1/restaurant/`
     url +=`${resIdParam}`;
     console.log(url);
     const resp = await sendRequest({

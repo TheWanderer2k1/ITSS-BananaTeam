@@ -63,7 +63,7 @@ const RestaurantInfomationStaff = (props) => {
   }, [restaurantInfo]);
 
   const fetchrestaurantinfo = async () => {
-    var url = 'http://localhost:8000/api/v1/restaurant/'
+    var url = `${ process.env.REACT_APP_SERVER }/api/v1/restaurant/`
         url +=`${resIdParam}`;
     const resp = await sendRequest({
         url: url,
@@ -187,7 +187,7 @@ const RestaurantInfomationStaff = (props) => {
     }
     
     try {
-      var url = 'http://localhost:8000/api/v1/restaurant/'
+      var url = `${ process.env.REACT_APP_SERVER }/api/v1/restaurant/`
       url +=`${resIdParam}`;
       console.log(JSON.stringify(requestData));
       const resp = await sendRequest({
@@ -348,7 +348,7 @@ const RestaurantInfomationStaff = (props) => {
           {restaurantInfo.img && restaurantInfo.img.map((image, index) => (
             <img
               key={index}
-              src={"http://localhost:8000" + image}
+              src={`${ process.env.REACT_APP_SERVER }/${image}`}
               alt={`Image ${index + 1}`}
               className="restaurant-image"
             />

@@ -662,3 +662,11 @@ span.dx-options  > div > a {
     height: 45px;
     line-height: 45px;
 }
+
+.float-right {
+    float: right;
+}
+
+.mt-12 {
+    margin-top: 12px;
+}

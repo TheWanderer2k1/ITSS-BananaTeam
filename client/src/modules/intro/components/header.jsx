@@ -81,7 +81,7 @@ const Header = (props) => {
                 <a style={{ cursor: "pointer" }} onClick={_setVie}><img src='/library/dx/images/vietnam.png' className="img-circle" /></a>
             </span> */}
             <span className="dx-options">
-                <div className="dx-option"><a href="#dx-intro">ホームページ</a></div>
+                <div className="dx-option"><a href="homepage">ホームページ</a></div>
                 {/* <div className="dx-option"><a href="#dx-service">ハノイ</a><i class="fa fa-chevron-down"></i></div>
                 <div className="dx-option"><a href="#dx-contact">食べ物&飲み物</a><i class="fa fa-chevron-down"></i></div> */}
                 <div className="dx-option"><a href="#dx-service-signup">ログアウト</a></div>

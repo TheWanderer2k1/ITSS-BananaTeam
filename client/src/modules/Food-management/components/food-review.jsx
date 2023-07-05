@@ -430,7 +430,7 @@ const FoodReview = ({id}) => {
                         {
                           // comment.img.slice()
                         comment.img.length>1?
-                          comment.img.map((img) => (
+                          comment.img.slice(1).map((img) => (
                             <Image style={{display: 'none'}} key={img} src={process.env.REACT_APP_SERVER + img} />
                           ))
                           :<div></div>

@@ -44,6 +44,7 @@ exports.updateUserPoint = async (req, res) => {
     try {
         let { userId } = req.params
         let { point } = req.body
+        console.log(req.body)
         await UserService.updateUserPoint(userId, point)
 
         res.status(200).json({

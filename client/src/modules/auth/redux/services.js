@@ -8,7 +8,6 @@ import {
 export const AuthService = {
     login,
     editProfile,
-    getLinksOfRole,
     refresh,
     logout,
     logoutAllAccount,
@@ -73,13 +72,6 @@ function changePassword(data, type) {
         data: data,
         params:{type}
     }, true, true, 'auth');
-}
-
-function getLinksOfRole(idRole) {
-    return sendRequest({
-        url: `${ process.env.REACT_APP_SERVER }/auth/get-links-that-role-can-access/${idRole}`,
-        method: 'GET',
-    }, false, true, 'auth');
 }
 
 function refresh() {

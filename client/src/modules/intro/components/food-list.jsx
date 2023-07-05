@@ -20,7 +20,7 @@ function ListComponent(props) {
   }, []); 
 
   const fetchfoodDecription = async () => {
-      var url = `http://localhost:8000/api/v1/foods`;
+      var url = `${ process.env.REACT_APP_SERVER }/api/v1/foods`;
       if(searchData != '') url += `?keyword=${searchData}`
       console.log(url);
       const resp = await sendRequest({
@@ -49,7 +49,7 @@ function ListComponent(props) {
         {foodDecription.map((food) => (
           <FoodItem
             key={food.id}
-            image_src={"http://localhost:8000" + food.img}
+            image_src={`${ process.env.REACT_APP_SERVER }/${food.img}`}
             rating={food.rating}
             name={food.name}
             price={food.price}

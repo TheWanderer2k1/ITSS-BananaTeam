@@ -224,7 +224,7 @@ function Search () {
     }, [citySearch, districtSearch, wardSearch]);
 
     const fetchCategories = async () => {
-        const url = 'http://localhost:8000/api/v1/categories';
+        const url = `${ process.env.REACT_APP_SERVER }/api/v1/categories`;
         const resp = await sendRequest({
             url: url,
             method: "GET",
@@ -236,7 +236,7 @@ function Search () {
         console.log('Huy on da test: ' + listCategories);
     }
     const fetchfoodDecription = async () => {
-        var url = `http://localhost:8000/api/v1/foods`;
+        var url = `${ process.env.REACT_APP_SERVER }/api/v1/foods`;
         if(searchData != ''){url += `?keyword=${searchData}`;}
         console.log(url);
         const resp = await sendRequest({
@@ -248,7 +248,7 @@ function Search () {
     };
 
     const fetchfoodDecriptionByAddress = async () => {
-        var url = `http://localhost:8000/api/v1/foods/findByAddress`;
+        var url = `${ process.env.REACT_APP_SERVER }/api/v1/foods/findByAddress`;
         if(citySearch) {
             url += `?province=${citySearch}`;
             if(districtSearch) {
@@ -548,7 +548,7 @@ function Search () {
                         <button className="confirm-button" onClick={handleFilter}>適用</button>
                     </div>
                 </div>
-                <div className="content">
+                <div className="h-content">
                     <div className="row">
                         <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
                         </div>
@@ -608,7 +608,7 @@ function Search () {
           <FoodItem
             key={food.id}
             id={food.id}
-            image_src={"http://localhost:8000" + food.img}
+            image_src={`${ process.env.REACT_APP_SERVER }/${food.img}`}
             rating={food.rating}
             name={food.name}
             price={food.price}
@@ -645,7 +645,6 @@ function mapState(state) {
 
 const mapDispatchToProps = {
     refresh: AuthActions.refresh,
-    getLinksOfRole: AuthActions.getLinksOfRole,
     getComponentsOfUserInLink: AuthActions.getComponentOfUserInLink,
 }
 

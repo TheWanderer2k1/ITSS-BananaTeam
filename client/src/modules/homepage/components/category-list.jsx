@@ -10,7 +10,7 @@ function ListComponent() {
 
   const fetchCategories = async () => {
     const resp = await sendRequest({
-        url: process.env.REACT_APP_SERVER + `/api/v1/home`,
+        url: `${ process.env.REACT_APP_SERVER }/api/v1/home`,
         method: "GET",
       })
     console.log('in home', resp.data['content']['categories'])

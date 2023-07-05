@@ -8,7 +8,6 @@ export const AuthActions = {
     logout,
     logoutAllAccount,
     editProfile,
-    getLinksOfRole,
     refresh,
     resetPassword,
     forgotPassword,
@@ -125,26 +124,6 @@ function changePassword(data, type) {
     }
 }
 
-function getLinksOfRole(idRole) {
-    return dispatch => {
-        dispatch({ type: AuthConstants.GET_LINKS_OF_ROLE_REQUEST });
-        return new Promise((resolve, reject) => {
-            AuthService.getLinksOfRole(idRole)
-                .then(res => {
-                    dispatch({
-                        type: AuthConstants.GET_LINKS_OF_ROLE_SUCCESS,
-                        payload: res.data.content
-                    });
-                    resolve(res);
-                })
-                .catch(err => {
-                    dispatch({ type: AuthConstants.GET_LINKS_OF_ROLE_FAILE });
-                    reject(err);
-                })
-        })
-
-    }
-}
 
 function refresh() {
     return dispatch => {

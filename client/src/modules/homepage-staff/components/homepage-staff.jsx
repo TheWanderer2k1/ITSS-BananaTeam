@@ -2,8 +2,12 @@ import React,{ useEffect, useState } from 'react'
 import FoodItem from '../../homepage/components/food-item'
 import { sendRequest } from '../../../helpers/requestHelper';
 import './homepage-staff.css'
+import { useHistory, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 import NavbarInteractive from '../../homepage/components/navbar-interactive'
 const HomeStaff = (props) => {
+    const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState([]);
     const [user, setUserdata] = useState([]);
@@ -32,7 +36,10 @@ const HomeStaff = (props) => {
     const closePopup = () => {
         setIsOpen(false);
     };
-
+    const history = useHistory();
+    const openProfile = () => {
+      history.push(`/profile`);
+    }
     const handlePhoneNumberChange = (event) => {
         setPhoneNumber(event.target.value);
         setIsPhoneNumberValid(true);
@@ -199,6 +206,7 @@ return (
           src="https://play.teleporthq.io/static/svg/default-img.svg"
           alt="image"
           className="home-staff-image"
+          onClick={openProfile}
         />
       </div>
       <div className="home-staff-container2">

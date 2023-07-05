@@ -19,10 +19,10 @@ function FoodInfo(props) {
         <div className="food-score">
           <p>{score}/5</p>
         </div>
-      </div>
         <div className="resImg">
           <img className='imgcl' src={process.env.REACT_APP_SERVER + image} alt="Res Image" />
         </div>
+      </div>
       <div className="food-price">
         <h2>{price} VND</h2>
       </div>

@@ -21,7 +21,7 @@ app.use("/upload/template-imports", express.static("upload/template-imports"));
 app.use("/upload/img-resource/foods", express.static("upload/img-resource/foods"));            //food img
 app.use("/upload/img-resource/categories", express.static("upload/img-resource/categories"));  //category img
 app.use("/upload/img-resource/favicon", express.static("upload/img-resource/favicon"));        //favicon img
-app.use("/upload/img-resource/review", express.static("upload/img-resource/review"));          //review img
+app.use("/upload/review/food", express.static("upload/review/food"));                           //review img
 
 app.use("/upload/restaurant/avatar", express.static("upload/restaurant/avatar"));
 app.use("/upload/restaurant/food", express.static("upload/restaurant/food"));

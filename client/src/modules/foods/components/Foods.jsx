@@ -28,7 +28,7 @@ const Foods = () => {
      }, [resIdParam]);
 
     const fetchmenu = async () => {
-        var url = 'http://localhost:8000/api/v1/restaurant/'
+        var url = `${ process.env.REACT_APP_SERVER }/api/v1/restaurant/`
         url +=`${resIdParam}/food`;
         console.log(url);
         const resp = await sendRequest({

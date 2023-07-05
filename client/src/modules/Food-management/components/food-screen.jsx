@@ -38,7 +38,7 @@ function FoodScreen(props) {
   useEffect(() => {
     const fetchData = async () => {
       const resp = await sendRequest({
-        url: `http://localhost:8000/api/v1/foods/${id}`,
+        url: `${ process.env.REACT_APP_SERVER }/api/v1/foods/${id}`,
         method: "GET",
       })
       setFoodDescription(resp.data['content']);

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Checkbox, Rate, Input, Modal, Image  } from 'antd';
+import { Button, Checkbox, Rate, Input, Modal, Image, Upload  } from 'antd';
 import { sendRequest } from '../../../helpers/requestHelper';
+import {  UploadFile } from '../../../common-components';
 import { convertJsonObjectToFormData } from '../../../helpers/jsonObjectToFormDataObjectConverter';
 import './food-review.css';
 import axios from 'axios';
+import { UploadOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
+
 
 const FoodReview = ({id}) => {
   const [listAllComment, setListAllComment] = useState([]);
@@ -17,6 +20,73 @@ const FoodReview = ({id}) => {
   const [editingReviewId, setEditingReviewId] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [visibleFullImage, setVisibleFullImage] = useState(false);
+  const [uploadImg, setUploadImg] = useState({recommendFiles: []});
+  const [fileList, setFileList] = useState([]);
+  const [values, setValues] = useState({
+    cleanliness: '',
+    smell: '',
+    freshness: '',
+    tableware: '',
+    taste: '',
+    price: '',
+    service: '',
+    other: '',
+  });
+  
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setValues({ ...values, [name]: value });
+  };
+  const handleSubmit = (event) => {
+    console.log("aa");
+    event.preventDefault();
+    const data = {
+      cleanliness: values.cleanliness,
+      smell: values.smell,
+      freshness: values.freshness,
+      tableware: values.tableware,
+      taste: values.taste,
+      price: values.price,
+      service: values.service,
+      other: values.other,
+    };
+    const reviewString = `・きれいに並べられたか：${data.cleanliness}<br>・いい匂いか：${data.smell}<br>・新鮮なのか：${data.freshness}<br>・きれいな箸、お茶碗なのか：${data.tableware}<br>・口に合うか：${data.taste}<br>・良い値段か：${data.price}<br>・良いサービスか：${data.service}<br>・他に：${data.other}`;
+    console.log(reviewString);
+    postComment(reviewString);
+    setValues({
+      cleanliness: '',
+      smell: '',
+      freshness: '',
+      tableware: '',
+      taste: '',
+      price: '',
+      service: '',
+      other: '',
+    });
+  };
+  const handleChangeUploadFile = (info) => {
+    let newFileList = [...info.fileList];
+
+    // 1. Limit the number of uploaded files
+    // Only to show two recent uploaded files, and old ones will be replaced by the new
+    newFileList = newFileList.slice(-2);
+
+    // 2. Read from response and show file link
+    newFileList = newFileList.map((file) => {
+      if (file.response) {
+        // Component will show file.url as link
+        file.url = file.response.url;
+      }
+      return file;
+    });
+    setFileList(newFileList);
+  };
+  const props = {
+    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    onChange: handleChangeUploadFile,
+    multiple: true,
+  };
   const showModal = (comment) => {
     setEditingReviewId(comment.reviewId);
     setEditCommentRate(comment.rating);
@@ -40,7 +110,7 @@ const FoodReview = ({id}) => {
   }, []);
 
   const onClickLikeReview = async(reviewId) => {
-    const url = `http://localhost:8000/api/v1/food/${id}/review/${reviewId}/reaction`;
+    const url = `${ process.env.REACT_APP_SERVER }/api/v1/food/${id}/review/${reviewId}/reaction`;
     const data = {
       reactType: 3,
       userId: 3
@@ -54,7 +124,7 @@ const FoodReview = ({id}) => {
   }
   
   const fetchFoodReview = async () => {
-    var url = `http://localhost:8000/api/v1/food/${id}/review`;
+    var url = `${ process.env.REACT_APP_SERVER }/api/v1/food/${id}/review`;
     const resp = await sendRequest({
       url: url,
       method: "GET",
@@ -78,19 +148,36 @@ const FoodReview = ({id}) => {
   };
 
   const postComment = async () => {
+    const comment = {
+      cleanliness: values.cleanliness,
+      smell: values.smell,
+      freshness: values.freshness,
+      tableware: values.tableware,
+      taste: values.taste,
+      price: values.price,
+      service: values.service,
+      other: values.other,
+    };
+    const reviewString = `・きれいに並べられたか：${comment.cleanliness}<br>・いい匂いか：${comment.smell}<br>・新鮮なのか：${comment.freshness}<br>・きれいな箸、お茶碗なのか：${comment.tableware}<br>・口に合うか：${comment.taste}<br>・良い値段か：${comment.price}<br>・良いサービスか：${comment.service}<br>・他に：${comment.other}`;
     const data = { 
       rating: newCommentRate,
-      review: newCommentText,
+      review: reviewString,
       userId: 3,
       img: null,
     };
-    // formData = convertJsonObjectToFormData(data);
+    let formData = convertJsonObjectToFormData(data);
+    if (fileList && fileList.length > 0) {
+      fileList.forEach(obj => {
+          // formData.append('img', obj.fileUpload)
+          formData.append('img', obj.originFileObj)
+      })
+    }
     try {
-      var url = `http://localhost:8000/api/v1/food/${id}/review`;
+      var url = `${ process.env.REACT_APP_SERVER }/api/v1/food/${id}/review`;
       const resp = await sendRequest({
         url: url,
         method: 'POST',
-        data: data,
+        data: formData,
       });
     } catch (error) {
       console.error(error);
@@ -109,7 +196,7 @@ const FoodReview = ({id}) => {
     };
     // formData = convertJsonObjectToFormData(data);
     try {
-      var url = `http://localhost:8000/api/v1/food/${id}/review/`;
+      var url = `${ process.env.REACT_APP_SERVER }/api/v1/food/${id}/review/`;
       url += `${editingReviewId}`;
       console.log('rul day: ', url);
       const resp = await sendRequest({
@@ -127,7 +214,7 @@ const FoodReview = ({id}) => {
   };
   const deleteComment = async (reviewId) => {
     try {
-      var url = `http://localhost:8000/api/v1/food/${id}/review/`;
+      var url = `${ process.env.REACT_APP_SERVER }/api/v1/food/${id}/review/`;
       url += `${reviewId}`;
       console.log('rul day: ', url);
       const resp = await sendRequest({
@@ -154,16 +241,106 @@ const FoodReview = ({id}) => {
     }
   };
 
+  const handleChangeFile = (files) => { 
+    const recommendFiles = files.map(x => ({
+      url: x.urlFile,
+      fileUpload: x.fileUpload
+    }))
+    setUploadImg(recommendFiles);
+  };
+
   return (
     <React.Fragment>
       <div className="container">
         <div className="post-comment mb-24">
           <div className="post-avatar">
-            <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className="mr-24"/>
-            <Rate onChange={setNewCommentRate} value={newCommentRate} />
+            <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className="mr-24" style={{width: '10%'}}/>
+            <Rate style={{width: '30%'}} onChange={setNewCommentRate} value={newCommentRate} />
+              <Upload style={{width: '40%'}} {...props} fileList={fileList}>
+                <Button type="text" danger><i style={{color: 'red'}} class="fas fa-image"></i></Button>
+              </Upload>
+            <div style={{width: '40%'}}>
+            </div>
           </div>
           <div className="comment-text-box">
-            <TextArea onChange={handleCommentText} value={newCommentText} rows={4} className="mt-12" placeholder=""/>
+            {/* <TextArea onChange={handleCommentText} value={newCommentText} rows={4} className="mt-12" placeholder=""/> */}
+            <div className="food-review-form">
+            <div className="form-item">
+        <div className='input-item'>
+        <label>・きれいに並べられたか：</label>
+        <input
+          type="text"
+          name="cleanliness"
+          value={values.cleanliness}
+          onChange={handleChange}
+        />
+      </div>
+      <div className='input-item'>
+        <label>・いい匂いか：</label>
+        <input
+          type="text"
+          name="smell"
+          value={values.smell}
+          onChange={handleChange}
+        />
+      </div>
+      <div className='input-item'>
+        <label>・新鮮なのか：</label>
+        <input
+          type="text"
+          name="freshness"
+          value={values.freshness}
+          onChange={handleChange}
+        />
+      </div>
+      <div className='input-item'>
+        <label>・きれいな箸、お茶碗なのか：</label>
+        <input
+          type="text"
+          name="tableware"
+          value={values.tableware}
+          onChange={handleChange}
+        />
+      </div>
+      <div className='input-item'>
+        <label>・口に合うか：</label>
+        <input
+          type="text"
+          name="taste"
+          value={values.taste}
+          onChange={handleChange}
+        />
+      </div>
+      <div className='input-item'>
+        <label>・良い値段か：</label>
+        <input
+          type="text"
+          name="price"
+          value={values.price}
+          onChange={handleChange}
+        />
+      </div>
+      <div className='input-item'>
+        <label>・良いサービスか：</label>
+        <input
+          type="text"
+          name="service"
+          value={values.service}
+          onChange={handleChange}
+        />
+      </div>
+      <div className='input-item'>
+        <label>・他に：</label>
+        <input
+          type="text"
+          name="other"
+          value={values.other}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        </div>
+      </div></div>
             <div className="comment-send-icon">              
               <Button type="text" onClick	={postComment}><i class="fa fa-paper-plane"></i></Button>
             </div>
@@ -228,7 +405,8 @@ const FoodReview = ({id}) => {
               </div>
               <div className="d-flex">
                 <div className="review-block__body p-12 flex-9">
-                  {comment.review}
+                  {/* {comment.review} */}
+                  <div dangerouslySetInnerHTML={{__html: comment.review}} />
                   <div className="comment-image-block">
                     {/* <img className='comment-image' src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" /> */}
                     {/* <Image
@@ -238,8 +416,8 @@ const FoodReview = ({id}) => {
                       src='https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
                       onClick={() => setVisibleFullImage(true)}
                     /> */}
-                    <div
-                   >
+                    {comment.img && comment.img.length > 0?
+                      <div>
                       <Image.PreviewGroup
                         className='comment-image'
                         preview={{
@@ -247,11 +425,12 @@ const FoodReview = ({id}) => {
                           onVisibleChange: (vis) => setVisibleFullImage(vis)
                         }}
                       >
+                        {/* <Image width={80} src={process.env.REACT_APP_SERVER + comment.img[0]} /> */}
                         <Image width={80} src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
                         <Image style={{display: 'none'}} src="https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp" />
                         <Image style={{display: 'none'}} src="https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp" />
                       </Image.PreviewGroup>
-                    </div>
+                    </div>:<div></div>}
                   </div>
                 </div>
                 <div className="flex-1">

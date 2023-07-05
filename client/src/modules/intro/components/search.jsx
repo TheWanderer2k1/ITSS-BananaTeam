@@ -603,20 +603,20 @@ function Search () {
                         }
                     </div>
                     <Radio.Group options={sortOptions} onChange={onChangeSort} value={sortValue} className='float-right mt-12'/>   
-    <div className="food-list d-flex">
-        {foodDecription.map((food) => (
-          <FoodItem
-            key={food.id}
-            id={food.id}
-            image_src={`${ process.env.REACT_APP_SERVER }/${food.img}`}
-            rating={food.rating}
-            name={food.name}
-            price={food.price}
-            description={food.description}
-            restaurant={food.restaurant}
-          />
-        ))}
-    </div>
+                    <div className="food-list d-flex">
+                        {foodDecription.map((food) => (
+                        <FoodItem
+                            key={food.id}
+                            id={food.id}
+                            image_src={`${ process.env.REACT_APP_SERVER }${food.img}`}
+                            rating={food.rating}
+                            name={food.name}
+                            price={food.price}
+                            description={food.description}
+                            restaurant={food.restaurant}
+                        />
+                        ))}
+                    </div>
                     <div className="row">
                         <div className="col-xs-12 col-sm-12 col-md-6 col-lg-8" >
                         </div>
@@ -630,8 +630,7 @@ function Search () {
                             <button type="button" className="btn btn-link pagination-page">6</button>
                             </div>
                         </div>                            
-                    </div>
-                    
+                    </div>    
                 </div>
             </div>
         </div>

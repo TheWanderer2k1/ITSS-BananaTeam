@@ -10,7 +10,8 @@
 }
 .home-container form {
   align-self: flex-end;
-  margin-right: 7.75%;
+  margin-right: 0%;
+  margin-left: 87%;
 }
 .home-search-field {
   width: 612px;

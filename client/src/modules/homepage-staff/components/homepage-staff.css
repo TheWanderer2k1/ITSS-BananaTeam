@@ -54,6 +54,7 @@
     margin-top: 0px;
     object-fit: cover;
     margin-left: 113px;
+    margin-right: 10px;
   }
   .home-staff-text1{
     font-size: 24px;
@@ -117,6 +118,7 @@
     margin-top: 0px;
     object-fit: cover;
     margin-left: 113px;
+    margin-right: 10px;
   }
   .home-staff-text2 {
     font-size: 24px;
@@ -269,6 +271,7 @@
     font-style: normal;
     font-weight: 800;
     margin-left: 10px;
+    font-size: 18px;
   }
   .page-container6 {
     flex: 0 0 auto;

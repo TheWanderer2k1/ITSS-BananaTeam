@@ -425,10 +425,18 @@ const FoodReview = ({id}) => {
                           onVisibleChange: (vis) => setVisibleFullImage(vis)
                         }}
                       >
-                        {/* <Image width={80} src={process.env.REACT_APP_SERVER + comment.img[0]} /> */}
-                        <Image width={80} src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
-                        <Image style={{display: 'none'}} src="https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp" />
-                        <Image style={{display: 'none'}} src="https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp" />
+                        <Image width={80} src={process.env.REACT_APP_SERVER + comment.img[0]} />
+                        {/* <Image width={80} src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" /> */}
+                        {
+                          // comment.img.slice()
+                        comment.img.length>1?
+                          comment.img.map((img) => (
+                            <Image style={{display: 'none'}} key={img} src={process.env.REACT_APP_SERVER + img} />
+                          ))
+                          :<div></div>
+                        }
+                        {/* <Image style={{display: 'none'}} src="https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp" />
+                        <Image style={{display: 'none'}} src="https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp" /> */}
                       </Image.PreviewGroup>
                     </div>:<div></div>}
                   </div>

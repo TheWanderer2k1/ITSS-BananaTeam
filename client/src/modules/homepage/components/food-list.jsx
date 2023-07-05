@@ -11,7 +11,7 @@ function ListComponent() {
 
   const fetchfoodDecription = async () => {
     const resp = await sendRequest({
-        url: `http://localhost:8000/api/v1/home`,
+        url: process.env.REACT_APP_SERVER + `/api/v1/home`,
         method: "GET",
       })
     console.log('in home', resp.data['content']['foodDecription'])
@@ -26,6 +26,7 @@ function ListComponent() {
       <div className="home-line-1">
         {firstFourfoodDecription.map((food) => (
           <FoodItem
+            id = {food.id}
             key={food.id}
             image_src={process.env.REACT_APP_SERVER +food.img}
             text={food.name}
@@ -35,6 +36,7 @@ function ListComponent() {
       <div className="home-line-2">
         {remainingfoodDecription.map((food) => (
           <FoodItem
+            id = {food.id}
             key={food.id}
             image_src={process.env.REACT_APP_SERVER + food.img}
             text={food.name}

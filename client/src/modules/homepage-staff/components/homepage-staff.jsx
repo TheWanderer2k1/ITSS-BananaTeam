@@ -3,7 +3,6 @@ import FoodItem from '../../homepage/components/food-item'
 import { sendRequest } from '../../../helpers/requestHelper';
 import './homepage-staff.css'
 import NavbarInteractive from '../../homepage/components/navbar-interactive'
-import { convertJsonObjectToFormData } from '../../../helpers/jsonObjectToFormDataObjectConverter';
 const HomeStaff = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState([]);
@@ -13,7 +12,9 @@ const HomeStaff = (props) => {
     const [topFoods, setTopFoods] = useState([]);
     const [firstfour, setFirstFour] = useState([]);
     const [lastfour, setLastFour] = useState([]);
-    const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(false);
+    const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(true);
+    const [isValid, setIsValid] = useState(true);
+    const [errmessage, setErrMessage] = useState([]);
 
     const openPopup = () => {
       if(phoneNumber && phoneNumber.startsWith('0')){
@@ -38,7 +39,23 @@ const HomeStaff = (props) => {
     };
 
     const handleUsePoint = (event) => {
-        setUsedPoint(event.target.value);
+      let localusedPoint = event.target.value;
+      if(localusedPoint.length > 0 && parseInt(localusedPoint) <= parseInt(user.point)){
+        setIsValid(true);
+        setErrMessage('none');
+      }else{
+        setIsValid(false);
+        setErrMessage('Vui lòng nhập số điểm không lớn hơn số điểm khả dụng');
+      }
+      if(parseInt(localusedPoint) < 0){
+        setIsValid(false);
+        setErrMessage('Hãy nhập số nguyên dương');
+      }
+      if(localusedPoint.length == 0){
+        setIsValid(true);
+        setErrMessage('none');
+      }
+      setUsedPoint(event.target.value);
     };
 
     useEffect(() => {
@@ -50,7 +67,7 @@ const HomeStaff = (props) => {
     }, [])
 
     useEffect(() => {
-        changeUserPoint();
+      //console.log('usedpoint:' + usedPoint)  
     }, [usedPoint])
 
     useEffect(() => {
@@ -68,38 +85,43 @@ const HomeStaff = (props) => {
     const fetchUserdata = async () => {
         let url = process.env.REACT_APP_SERVER + "/api/v1/user/"; //API here
         url+= phoneNumber + "/phone";
+        console.log(url);
         const resp = await sendRequest({
-            url: `https://mocki.io/v1/92d0734f-ec77-4ee0-9a36-7a330349f933`,
+            //url: `https://mocki.io/v1/92d0734f-ec77-4ee0-9a36-7a330349f933`,
+            url: url,
             method: "GET",
           })
         setUserdata(resp.data['content']);
+
     };
 
     const fetchPageInfo= async () => {
       let url = process.env.REACT_APP_SERVER + "/api/v1/restaurant/"; //API here
       url += 1 + "/food";
       const resp = await sendRequest({
-          url: `https://mocki.io/v1/8014c1a9-37a0-4143-8701-bc94a515be8a`,
+          //url: `https://mocki.io/v1/8014c1a9-37a0-4143-8701-bc94a515be8a`,
+          url: url,
           method: "GET",
         })
-      setResData(resp.data['content']['menu']);
+      setResData(resp.data['content']);
     };
 
     const changeUserPoint = async () => {
+      if(isValid){
         const requestData = {
-            point:usedPoint
+          point:user.point - usedPoint
         };
-        let formData;
-        formData = convertJsonObjectToFormData(requestData);
+        console.log(requestData)
         let url = process.env.REACT_APP_SERVER + "/api/v1/user/"; //API here
         url+= user.userId + "/point";
         const resp = await sendRequest({
-            url: `https://mocki.io/v1/92d0734f-ec77-4ee0-9a36-7a330349f933`,
-            //url: url; Main API Route
+            //url: `https://mocki.io/v1/92d0734f-ec77-4ee0-9a36-7a330349f933`,
+            url: url, //Main API Route
             method: 'PUT',
-            body: requestData
+            data: requestData
         })
-        setUserdata(resp.data['content']);
+        fetchUserdata();
+      }
     };
     
 return (
@@ -156,13 +178,16 @@ return (
                     </span>
                     <span className="page-text10">Số điểm muốn sử dụng</span>
                     <input
-                        type="text"
+                        type="number"
+                        min="0"
                         placeholder="Số điểm sử dụng"
                         className="page-resname-input input"
+                        onChange={handleUsePoint}
                     />
+                    {!isValid && <div className="error-text">{errmessage}</div>}
                     </div>
                 </div>
-                <button type="button" onClick={handleUsePoint} className="page-button button">
+                <button type="button" onClick={changeUserPoint} className="page-button button">
                     Sử dụng
                 </button>
                 </div>
@@ -191,6 +216,7 @@ return (
         <div className="home-staff-line-1">
           {firstfour.map((food) => (
             <FoodItem
+              id={food.foodID}
               key={food.id}
               image_src={process.env.REACT_APP_SERVER +food.img}
               text={food.name}
@@ -200,6 +226,7 @@ return (
         <div className="home-staff-line-2">
           {lastfour.map((food) => (
             <FoodItem
+              id={food.foodID}
               key={food.id}
               image_src={process.env.REACT_APP_SERVER + food.img}
               text={food.name}

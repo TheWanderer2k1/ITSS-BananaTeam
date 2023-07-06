@@ -111,7 +111,7 @@ exports.addReview = async (foodId,data,files) => {
     
     if (files) {
         if(files.length>1){
-            let queryUpdatePoint = `UPDATE user set Point = 100 WHERE ID = ${userId}`
+            let queryUpdatePoint = `UPDATE user set Point = Point+100 WHERE ID = ${userId}`
             await sql.QueryUpdateData(queryUpdatePoint)
         }
         for (let image of files) {

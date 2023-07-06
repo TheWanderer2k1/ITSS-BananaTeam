@@ -330,4 +330,6 @@
     padding-bottom: 18px;
     background-color: rgb(255, 163, 163);
   }
-  
+  .error-text {
+    color: red;
+  }

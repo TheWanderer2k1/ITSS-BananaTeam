@@ -134,3 +134,33 @@
     height: 50px;
     border-radius: 15px;
 }
+
+.food-review-form {
+    border-radius: 16px;
+    background-color: #E8E8E8;
+  }
+  
+  .form-item {
+    display: flex;
+    flex-direction: column;
+    padding:  16px 0 0 24px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    margin-right: 10px;
+    margin-top: 10px;
+  }
+  
+  input {
+    border: none;
+    background-color: transparent;
+    flex-grow: 1;
+  }
+  
+  
+  input:focus {
+    border: 1px solid blue;
+  }
+  
+  .input-item{
+        display: flex;
+  }

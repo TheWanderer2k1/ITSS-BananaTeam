@@ -13,8 +13,6 @@ function FoodScreen(props) {
   const [foodDecription, setFoodDescription] = useState({});
   const [foodReviews, setFoodReviews] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isAdmin, setIsAdmin] = useState(true); // Thêm biến trạng thái isAdmin để xác định vai trò của user
-
   
   const handlePrev = () => {
     if (currentImageIndex > 0) {
@@ -28,22 +26,17 @@ function FoodScreen(props) {
     }
   };
 
-  const handleDelete = () => {
-    // Xử lý sự kiện nhấn nút Delete
-  };
-
-  const handleEdit = () => {
-    // Xử lý sự kiện nhấn nút Edit
-  };
   useEffect(() => {
     const fetchData = async () => {
       const resp = await sendRequest({
-        url: `http://localhost:8000/api/v1/foods/${id}`,
+        url: `${ process.env.REACT_APP_SERVER }/api/v1/foods/${id}`,
         method: "GET",
       })
       setFoodDescription(resp.data['content']);
       setCurrentImageIndex(0);
-      console.log("Day la data: " ,result.data )
+      console.log("Day la data: " ,foodDecription);      
+      console.log("Day la data: " ,foodDecription.restaurant.avatarImg);
+
     };
 
     fetchData();
@@ -62,11 +55,9 @@ function FoodScreen(props) {
               price={foodDecription.price}
               description={foodDecription.description}
               score={foodDecription.rating}
+              restaurantImg = {foodDecription.restaurant}
               onClickPrev={handlePrev}
               onClickNext={handleNext}
-              onClickDelete={handleDelete}
-              onClickEdit={handleEdit}
-              isAdmin={isAdmin}
             />
           )}
         </div>

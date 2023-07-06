@@ -1,10 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import './food-item.css'
+import { useLocation, useHistory } from 'react-router-dom';
 
-const FoodItem =  ({ image_alt, image_src, text }) => {
+const FoodItem =  ({ id,image_alt, image_src, text }) => {
+  const history = useHistory();
+  const handleRedirect = () => {
+    history.push(`/FoodInforPage/${id}`);
+  }
   return (
-    <div className={`food-item-food-item `}>
+    <div className={`food-item-food-item `} onClick={handleRedirect}>
       <img
         src={image_src}
         alt={image_alt}

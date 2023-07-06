@@ -107,9 +107,13 @@ exports.addReview = async (foodId,data,files) => {
     let query = `INSERT INTO foodreview (UserID, FoodDesID, Review, Rating, Status,GroupImageId)
     VALUES (${userId}, ${foodId}, "${review}", ${rating}, 1,${groupImageId})`
     let result = await sql.QueryUpdateData(query)
-   
+  
+    
     if (files) {
-        
+        if(files.length>1){
+            let queryUpdatePoint = `UPDATE user set Point = Point+100 WHERE ID = ${userId}`
+            await sql.QueryUpdateData(queryUpdatePoint)
+        }
         for (let image of files) {
             let filePath = `${image.destination}/${image.filename}`.substring(1)
             let imageInsertQuery = `INSERT INTO image (GroupID, Src)

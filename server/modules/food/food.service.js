@@ -7,7 +7,7 @@ exports.getFoodDescriptionList = async (keyword) => {
     query = `SELECT CategoryId, c.Name AS categoryName, c.Description AS categoryDes, fooddescription.id, image.Src as img, AVG(rating) AS rating, food.name, price, fooddescription.Description as description, restaurant.name as restaurantName, restaurant.id AS restaurantId, restaurant.OpenTime, restaurant.CloseTime, restaurant.Province, District, Ward, DetailedAddress
         FROM fooddescription
             JOIN food on food.id = fooddescription.FoodID
-            LEFT JOIN FoodReview on fooddescription.id = foodreview.FoodDesId
+            LEFT JOIN foodreview on fooddescription.id = foodreview.FoodDesId
             JOIN restaurant on fooddescription.RestaurantID = restaurant.ID
             JOIN image on fooddescription.GroupImageId = image.GroupId
             LEFT JOIN category c ON food.CategoryId = c.ID
@@ -153,7 +153,7 @@ exports.getFoodByAddress = async (data) => {
         queryFindFoodByRestaurant =  `SELECT fooddescription.ID as id, food.Name as name, image.Src as img, price, AVG(rating) AS rating, fooddescription.Description as description, Category.Id as categoryId , Category.Name as categoryName, Category.Description as categoryDescription
         FROM fooddescription
         JOIN food on food.ID = fooddescription.FoodID
-        LEFT JOIN FoodReview on fooddescription.id = foodreview.FoodDesId
+        LEFT JOIN foodreview on fooddescription.id = foodreview.FoodDesId
         JOIN image on fooddescription.GroupImageId = image.GroupId
         JOIN Category on food.CategoryId = Category.ID
         WHERE fooddescription.RestaurantID = ${restaurant.id}
@@ -183,7 +183,7 @@ exports.getFoodInforById = async (foodDesId) => {
     queryGetFoodInforById = `SELECT fooddescription.ID as id , food.Name as name, price,  AVG(rating) AS rating, fooddescription.Description as description, Category.ID as categoryId, Category.Name as name, Category.Description as categoryDescription, restaurant.Id as restaurantId, restaurant.Avatar AS avatarImg
     FROM fooddescription
     JOIN food on food.id = fooddescription.FoodID
-    LEFT JOIN FoodReview on fooddescription.id = foodreview.FoodDesId
+    LEFT JOIN foodreview on fooddescription.id = foodreview.FoodDesId
     JOIN restaurant on fooddescription.RestaurantID = restaurant.ID
     JOIN Category ON Category.ID = food.CategoryId
     WHERE fooddescription.id = ${foodDesId}

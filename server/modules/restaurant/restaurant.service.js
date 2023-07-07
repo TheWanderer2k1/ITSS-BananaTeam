@@ -27,7 +27,7 @@ exports.getMenu = async (restaurantId) => {
     queryGetMenu = `SELECT fooddescription.ID as foodId , food.Name as name, price, AVG(rating) AS rating
     FROM fooddescription
     JOIN food on food.id = fooddescription.FoodID
-    LEFT JOIN FoodReview on fooddescription.id = foodreview.FoodDesId
+    LEFT JOIN foodreview on fooddescription.id = foodreview.FoodDesId
     JOIN restaurant on fooddescription.RestaurantID = restaurant.ID
     JOIN Category ON Category.ID = food.CategoryId
     WHERE restaurant.id = ${restaurantId}

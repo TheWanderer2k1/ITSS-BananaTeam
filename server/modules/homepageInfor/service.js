@@ -4,23 +4,23 @@ const getCategoryData = "Select category.ID AS categoryid,category.Name as name 
 const getSliderData = `
 	SELECT Src As img,ID AS foodDescriptionId 
   	FROM (
-    	Select foodDescription.ID ,Name,Src ,AVG(rating) AS rate 
-    	from food,foodDescription,foodreview,image 
-    	where foodDescription.ID=FoodDesID 
-        	AND foodDescription.FoodID=food.ID   
-        	AND image.GroupID=foodDescription.GroupImageID 
-      	GROUP By foodDescription.ID, src
+    	Select fooddescription.ID ,Name,Src ,AVG(rating) AS rate 
+    	from food,fooddescription,foodreview,image 
+    	where fooddescription.ID=FoodDesID 
+        	AND fooddescription.FoodID=food.ID   
+        	AND image.GroupID=fooddescription.GroupImageID 
+      	GROUP By fooddescription.ID, src
       	ORDER BY rate DESC LIMIT 6
   	) AS Query_table`
 const getFoodMostLiked = `
 	select ID AS id,Src AS img ,Name  AS name 
 	FROM (
-		Select foodDescription.ID ,Name,Src ,AVG(rating) AS rate 
-		from food,foodDescription,foodreview,image 
-		where foodDescription.ID=FoodDesID 
-			AND foodDescription.FoodID=food.ID   
-			AND image.GroupID=foodDescription.GroupImageID 
-		GROUP By foodDescription.ID, Src
+		Select fooddescription.ID ,Name,Src ,AVG(rating) AS rate 
+		from food,fooddescription,foodreview,image 
+		where fooddescription.ID=FoodDesID 
+			AND fooddescription.FoodID=food.ID   
+			AND image.GroupID=fooddescription.GroupImageID 
+		GROUP By fooddescription.ID, Src
 		ORDER BY rate DESC LIMIT 8
 	) AS Query_table`
 const getRestaurantMostLiked = `
@@ -28,22 +28,22 @@ const getRestaurantMostLiked = `
 	FROM (
 		Select RestaurantID,FoodID,rate 
 		FROM (
-			SELECT foodDescription.ID,RestaurantID,foodDescription.FoodID ,Name,Src ,AVG(rating) AS rate 
-			from food,foodDescription,foodreview,image 
-			where foodDescription.ID=FoodDesID 
-				AND foodDescription.FoodID=food.ID
-				AND image.GroupID=foodDescription.GroupImageID 
-			GROUP By foodDescription.ID, Src 
+			SELECT fooddescription.ID,RestaurantID,fooddescription.FoodID ,Name,Src ,AVG(rating) AS rate 
+			from food,fooddescription,foodreview,image 
+			where fooddescription.ID=FoodDesID 
+				AND fooddescription.FoodID=food.ID
+				AND image.GroupID=fooddescription.GroupImageID 
+			GROUP By fooddescription.ID, Src 
 		) AS t1
 		WHERE (
 			SELECT COUNT(*) 
 			FROM ( 
-				Select foodDescription.ID,RestaurantID,foodDescription.FoodID ,Name,Src ,AVG(rating) AS rate 
-				FROM food,foodDescription,foodreview,image 
-				where foodDescription.ID=FoodDesID 
-					AND foodDescription.FoodID=food.ID
-					AND image.GroupID=foodDescription.GroupImageID 
-				GROUP By foodDescription.ID, Src
+				Select fooddescription.ID,RestaurantID,fooddescription.FoodID ,Name,Src ,AVG(rating) AS rate 
+				FROM food,fooddescription,foodreview,image 
+				where fooddescription.ID=FoodDesID 
+					AND fooddescription.FoodID=food.ID
+					AND image.GroupID=fooddescription.GroupImageID 
+				GROUP By fooddescription.ID, Src
 			) AS t2 
 			WHERE t1.RestaurantID=t2.RestaurantID 
 				AND t2.rate>=t1.rate ) <=3 

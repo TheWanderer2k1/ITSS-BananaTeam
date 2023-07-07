@@ -40,8 +40,10 @@ exports.getReviewList = async (req, res) => {
 
 exports.addReview = async (req, res) => {
     try {
+        console.log('req.files', req.files)
         let { foodId } = req.params;
         await FoodService.addReview(foodId, req.body,req.files);
+        
         if(req.body.review && req.body.rating && req.files.length >1){
             res.status(200).json({
                 success: true,

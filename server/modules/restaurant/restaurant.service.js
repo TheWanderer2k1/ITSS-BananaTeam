@@ -29,7 +29,7 @@ exports.getMenu = async (restaurantId) => {
     JOIN food on food.id = fooddescription.FoodID
     LEFT JOIN foodreview on fooddescription.id = foodreview.FoodDesId
     JOIN restaurant on fooddescription.RestaurantID = restaurant.ID
-    JOIN Category ON Category.ID = food.CategoryId
+    JOIN category ON category.ID = food.CategoryId
     WHERE restaurant.id = ${restaurantId}
     GROUP BY fooddescription.id`
 

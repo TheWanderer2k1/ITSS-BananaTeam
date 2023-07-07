@@ -7,7 +7,7 @@ exports.getFoodDescriptionList = async (keyword) => {
     query = `SELECT CategoryId, c.Name AS categoryName, c.Description AS categoryDes, fooddescription.id, image.Src as img, AVG(rating) AS rating, food.name, price, fooddescription.Description as description, restaurant.name as restaurantName, restaurant.id AS restaurantId, restaurant.OpenTime, restaurant.CloseTime, restaurant.Province, District, Ward, DetailedAddress
         FROM fooddescription
             JOIN food on food.id = fooddescription.FoodID
-            LEFT JOIN FoodReview on fooddescription.id = foodreview.FoodDesId
+            LEFT JOIN foodreview on fooddescription.id = foodreview.FoodDesId
             JOIN restaurant on fooddescription.RestaurantID = restaurant.ID
             JOIN image on fooddescription.GroupImageId = image.GroupId
             LEFT JOIN category c ON food.CategoryId = c.ID
@@ -63,27 +63,59 @@ exports.getReviewList = async (foodId) => {
             let imgList = await sql.QueryGetData(imgQuery) 
             review.img = imgList.map((x) => x.src)
         }
+        likedQuery = `SELECT UserID FROM reactreview
+                        WHERE ReviewID = ${review['reviewId']}`
+        let likedList = await sql.QueryGetData(likedQuery)
+        review.liked = likedList.map((x) => x.UserID)
     }
     
     return result
 }
 
-exports.deleteReview = async (foodId, reviewId) => {
+exports.deleteReview = async (foodId, reviewId, userId) => {
     query = `DELETE FROM foodreview
         WHERE FoodDesID = ${foodId}
-        AND ID = ${reviewId}`
+        AND ID = ${reviewId}
+        AND UserID = ${userId}`
     await sql.QueryGetData(query);
 }
 
-exports.editReview = async (foodId, reviewId, data) => {
+exports.editReview = async (foodId, reviewId, data,files) => {
     let rating = data.rating? `"${data.rating}"` : `Rating`
     let review = data.review? `"${data.review}"` : `Review`
     let userId = data.userId
+    let group_image_query = ``
+
+    if (files) {
+        let groupImageId
+        do {
+            
+            let randNum = Math.floor(Math.random() * 10000000)
+            let queryGroupImg = `SELECT src FROM image
+                WHERE GroupID = ${randNum}`
+            let result = await sql.QueryGetData(queryGroupImg)
+            if (result.length == 0) {
+                groupImageId = randNum
+                break;
+            }
+        } while (true)
+        
+        group_image_query = `, GroupImageId = ${groupImageId}`
+
+        for (let image of files) {
+            let filePath = `${image.destination}/${image.filename}`.substring(1)
+            let imageInsertQuery = `INSERT INTO image (GroupID, Src)
+            VALUES (${groupImageId}, '${filePath}')`
+            await sql.QueryGetData(imageInsertQuery)
+        }
+    }
+
     query = `UPDATE foodreview
-        set Rating = ${rating}, Review = ${review}
+        set Rating = ${rating}, Review = '${review}' ${group_image_query}
         WHERE FoodDesID = ${foodId}
             AND UserID = ${userId}
             AND ID = ${reviewId}`
+
     await sql.QueryGetData(query)
 }
 
@@ -107,9 +139,13 @@ exports.addReview = async (foodId,data,files) => {
     let query = `INSERT INTO foodreview (UserID, FoodDesID, Review, Rating, Status,GroupImageId)
     VALUES (${userId}, ${foodId}, "${review}", ${rating}, 1,${groupImageId})`
     let result = await sql.QueryUpdateData(query)
-   
+  
+    
     if (files) {
-        
+        if(files.length>1){
+            let queryUpdatePoint = `UPDATE user set Point = Point+100 WHERE ID = ${userId}`
+            await sql.QueryUpdateData(queryUpdatePoint)
+        }
         for (let image of files) {
             let filePath = `${image.destination}/${image.filename}`.substring(1)
             let imageInsertQuery = `INSERT INTO image (GroupID, Src)
@@ -149,7 +185,7 @@ exports.getFoodByAddress = async (data) => {
         queryFindFoodByRestaurant =  `SELECT fooddescription.ID as id, food.Name as name, image.Src as img, price, AVG(rating) AS rating, fooddescription.Description as description, Category.Id as categoryId , Category.Name as categoryName, Category.Description as categoryDescription
         FROM fooddescription
         JOIN food on food.ID = fooddescription.FoodID
-        LEFT JOIN FoodReview on fooddescription.id = foodreview.FoodDesId
+        LEFT JOIN foodreview on fooddescription.id = foodreview.FoodDesId
         JOIN image on fooddescription.GroupImageId = image.GroupId
         JOIN Category on food.CategoryId = Category.ID
         WHERE fooddescription.RestaurantID = ${restaurant.id}
@@ -179,7 +215,7 @@ exports.getFoodInforById = async (foodDesId) => {
     queryGetFoodInforById = `SELECT fooddescription.ID as id , food.Name as name, price,  AVG(rating) AS rating, fooddescription.Description as description, Category.ID as categoryId, Category.Name as name, Category.Description as categoryDescription, restaurant.Id as restaurantId, restaurant.Avatar AS avatarImg
     FROM fooddescription
     JOIN food on food.id = fooddescription.FoodID
-    LEFT JOIN FoodReview on fooddescription.id = foodreview.FoodDesId
+    LEFT JOIN foodreview on fooddescription.id = foodreview.FoodDesId
     JOIN restaurant on fooddescription.RestaurantID = restaurant.ID
     JOIN Category ON Category.ID = food.CategoryId
     WHERE fooddescription.id = ${foodDesId}

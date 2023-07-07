@@ -1,0 +1,23 @@
+# fly.toml app configuration file generated for itss-tabeyou on 2023-07-05T00:57:24+07:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "itss-tabeyou"
+primary_region = "hkg"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[env]
+  MYSQL_HOST = "tabeyoudb.internal"
+  MYSQL_PORT = 3306
+  MYSQL_USERNAME = "root"
+  MYSQL_PASSWORD = "password"
+  MYSQL_DATABASE = "tabeyoudb"
+  MYSQL_URL = "mysql://root:password@tabeyoudb.internal:3306/tabeyoudb"

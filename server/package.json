@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "(webpack) && (nodemon build/backend.js)",
     "watch": "webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
@@ -53,6 +52,7 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.2.16",
     "mysql-import": "^5.0.26",
     "raw-loader": "^4.0.2",
     "source-map-loader": "^1.1.2",

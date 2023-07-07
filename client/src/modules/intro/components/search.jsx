@@ -132,6 +132,7 @@ function Search () {
 	const [searchOption, setSearchOption] = useState(listSearchOption[0].id);
 	const [isShowAddressFilter, setIsShowAddressFilter] = useState(true);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
+	const [isSearchByAddress, setIsSearchByAddress] = useState(false);
     const [sortValue, setSortValue] = useState('');
 
     const onChangeSort = ({ target: { value } }) => {
@@ -198,29 +199,30 @@ function Search () {
 
     useEffect(() => {
         fetchCategories();
-    }, []);
-    
-    useEffect(() => {
         const params = new URLSearchParams(location.search);
         const inputValueParam = params.get('search_query');
         const provinceParam = params.get('province');
-        if(isFirstLoad) {
+        if(isFirstLoad && provinceParam) {
+            setIsSearchByAddress(true);
             setCitySearch(provinceParam);
             setIsFirstLoad(false);
         }
-        if(citySearch) {
+        if(provinceParam) {
             setSearchOption(2);
             setIsShowAddressFilter(false);
-            // fetchfoodDecriptionByAddress();
+            fetchfoodDecriptionByAddress();
         } else {
             setInputValue(inputValueParam || '');
             setSearchData(inputValueParam);
-            fetchfoodDecription();
+            fetchfoodDecription(inputValueParam);
         }
-    }, [inputValue, citySearch]); 
+    }, []);
 
     useEffect(() => {
-        fetchfoodDecriptionByAddress();
+        if(isSearchByAddress) {
+            fetchfoodDecriptionByAddress();
+            setIsSearchByAddress(false);
+        }
     }, [citySearch, districtSearch, wardSearch]);
 
     const fetchCategories = async () => {
@@ -235,9 +237,10 @@ function Search () {
         setListCategories(transformedCategories)
         console.log('Huy on da test: ' + listCategories);
     }
-    const fetchfoodDecription = async () => {
+    const fetchfoodDecription = async (searchDataParam = '') => {
         var url = `${ process.env.REACT_APP_SERVER }/api/v1/foods`;
-        if(searchData != ''){url += `?keyword=${searchData}`;}
+        if(searchDataParam != ''){url += `?keyword=${searchDataParam}`;}
+        else if(searchData != ''){url += `?keyword=${searchData}`;}
         console.log(url);
         const resp = await sendRequest({
             url: url,

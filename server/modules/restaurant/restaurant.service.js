@@ -47,6 +47,7 @@ exports.getMenu = async (restaurantId) => {
        
         arrImg = []
         listImg.map((item)=>{
+            item.src = convertFilePath(item.src)
             arrImg.push(item.src)
         })
         foodItem['img'] = arrImg

@@ -62,7 +62,6 @@ const HomeStaff = (props) => {
         setErrMessage('none');
       }
       setUsedPoint(event.target.value);
-      closePopup();
     };
 
     useEffect(() => {
@@ -128,6 +127,7 @@ const HomeStaff = (props) => {
             data: requestData
         })
         fetchUserdata();
+        closePopup();
       }
     };
     

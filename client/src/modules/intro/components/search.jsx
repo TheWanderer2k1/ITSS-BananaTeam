@@ -132,6 +132,7 @@ function Search () {
 	const [searchOption, setSearchOption] = useState(listSearchOption[0].id);
 	const [isShowAddressFilter, setIsShowAddressFilter] = useState(true);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
+	const [isSearchByAddress, setIsSearchByAddress] = useState(false);
     const [sortValue, setSortValue] = useState('');
 
     const onChangeSort = ({ target: { value } }) => {
@@ -198,29 +199,30 @@ function Search () {
 
     useEffect(() => {
         fetchCategories();
-    }, []);
-    
-    useEffect(() => {
         const params = new URLSearchParams(location.search);
         const inputValueParam = params.get('search_query');
         const provinceParam = params.get('province');
-        if(isFirstLoad) {
+        if(isFirstLoad && provinceParam) {
+            setIsSearchByAddress(true);
             setCitySearch(provinceParam);
             setIsFirstLoad(false);
         }
-        if(citySearch) {
+        if(provinceParam) {
             setSearchOption(2);
             setIsShowAddressFilter(false);
-            // fetchfoodDecriptionByAddress();
+            fetchfoodDecriptionByAddress();
         } else {
             setInputValue(inputValueParam || '');
             setSearchData(inputValueParam);
-            fetchfoodDecription();
+            fetchfoodDecription(inputValueParam);
         }
-    }, [inputValue, citySearch]); 
+    }, []);
 
     useEffect(() => {
-        fetchfoodDecriptionByAddress();
+        if(isSearchByAddress) {
+            fetchfoodDecriptionByAddress();
+            setIsSearchByAddress(false);
+        }
     }, [citySearch, districtSearch, wardSearch]);
 
     const fetchCategories = async () => {
@@ -235,9 +237,10 @@ function Search () {
         setListCategories(transformedCategories)
         console.log('Huy on da test: ' + listCategories);
     }
-    const fetchfoodDecription = async () => {
+    const fetchfoodDecription = async (searchDataParam = '') => {
         var url = `${ process.env.REACT_APP_SERVER }/api/v1/foods`;
-        if(searchData != ''){url += `?keyword=${searchData}`;}
+        if(searchDataParam != ''){url += `?keyword=${searchDataParam}`;}
+        else if(searchData != ''){url += `?keyword=${searchData}`;}
         console.log(url);
         const resp = await sendRequest({
             url: url,
@@ -553,14 +556,14 @@ function Search () {
                         <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
                         </div>
                         <div className="col-xs-12 col-sm-12 col-md-6 col-lg-2" >        
-                            <select value={searchOption} onChange={handleChangeSearchOption} class="form-select select-search-option" aria-label="Default select example">
+                            <select value={searchOption} onChange={handleChangeSearchOption} class="form-select h-select-search-option" aria-label="Default select example">
                                 <option value="1" selected>料理の名前</option>
                                 <option value="2">場所</option>
                             </select>
                         </div>
                         {
                             searchOption == 1 ? (
-                                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
+                                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4">
                                     <div className="search-box d-flex">
                                         <div className="search-icon"><button type="button" class="btn btn-link"><i class="fa fa-search"></i></button></div>
                                         <div className="search-text">
@@ -603,20 +606,20 @@ function Search () {
                         }
                     </div>
                     <Radio.Group options={sortOptions} onChange={onChangeSort} value={sortValue} className='float-right mt-12'/>   
-                    <div className="food-list d-flex">
-                        {foodDecription.map((food) => (
-                        <FoodItem
-                            key={food.id}
-                            id={food.id}
-                            image_src={`${ process.env.REACT_APP_SERVER }${food.img}`}
-                            rating={food.rating}
-                            name={food.name}
-                            price={food.price}
-                            description={food.description}
-                            restaurant={food.restaurant}
-                        />
-                        ))}
-                    </div>
+    <div className="food-list d-flex">
+        {foodDecription.map((food) => (
+          <FoodItem
+            key={food.id}
+            id={food.id}
+            image_src={`${ process.env.REACT_APP_SERVER }${food.img}`}
+            rating={food.rating}
+            name={food.name}
+            price={food.price}
+            description={food.description}
+            restaurant={food.restaurant}
+          />
+        ))}
+    </div>
                     <div className="row">
                         <div className="col-xs-12 col-sm-12 col-md-6 col-lg-8" >
                         </div>
@@ -630,7 +633,8 @@ function Search () {
                             <button type="button" className="btn btn-link pagination-page">6</button>
                             </div>
                         </div>                            
-                    </div>    
+                    </div>
+                    
                 </div>
             </div>
         </div>

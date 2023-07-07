@@ -1,25 +1,36 @@
 import React from 'react'
 
 import NavbarInteractive from './navbar-interactive'
-import CategoryItem from './category-item'
 import CategoryList from './category-list'
-import FoodItem from './food-item'
 import FoodList from './food-list'
-import ResItem from './res-item'
 import ResList from './res-list'
 import SlideShow from './slideshow'
 import InputComponent from './input-component'
+import { useHistory, useLocation } from 'react-router-dom';
 import './home.css'
 
 const Home = (props) => {
+  const history = useHistory();
+  const openProfile = () => {
+    history.push(`/profile`);
+  }
   return (
     <div className="home-container">
         <title>TABEYOU</title>
         <meta property="og:title" content="TABEYOU" />
       <NavbarInteractive rootClassName="navbar-interactive-root-class-name"></NavbarInteractive>
-
-      <InputComponent></InputComponent>
-    
+      <div className="big-container">
+        <div className="home-staff-container1">
+          <span className="home-staff-text">Xin chào</span>
+          <img
+            src="https://play.teleporthq.io/static/svg/default-img.svg"
+            alt="image"
+            className="home-staff-image"
+            onClick={openProfile}
+          />
+        </div>
+        <InputComponent></InputComponent>
+      </div>
       <div className='home-slide-show'>
         <SlideShow></SlideShow>
       </div>

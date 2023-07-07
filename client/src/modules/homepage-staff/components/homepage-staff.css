@@ -28,7 +28,7 @@
     object-fit: cover;
     margin-left: 30px;
     border: solid;
-    border-color: var(--dl-color-gray-black);
+    border-color: black;
     border-width: 4px;
     border-radius: 50%;
   }
@@ -139,8 +139,22 @@
     font-weight: 500;
     margin-left: 113px;
   }
+  .page-container6 input {
+    flex-grow: unset;
+    border-width: 1px;
+    border: solid;
+    background-color: white ;
+    padding-left: 10px;
+  }
+  .home-staff-container5 input {
+    flex-grow: unset;
+    border-width: 1px;
+    border: solid;
+    background-color: white ;
+    padding-left: 10px;
+  }
   .home-staff-resname-input {
-    width: 297px;
+    width: 297px !important; 
     height: 53px;
     font-size: 18px;
     align-self: center;

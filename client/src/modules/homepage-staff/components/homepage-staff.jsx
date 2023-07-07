@@ -3,7 +3,6 @@ import FoodItem from '../../homepage/components/food-item'
 import { sendRequest } from '../../../helpers/requestHelper';
 import './homepage-staff.css'
 import { useHistory, useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 import NavbarInteractive from '../../homepage/components/navbar-interactive'
 const HomeStaff = (props) => {
@@ -63,6 +62,7 @@ const HomeStaff = (props) => {
         setErrMessage('none');
       }
       setUsedPoint(event.target.value);
+      closePopup();
     };
 
     useEffect(() => {
@@ -145,13 +145,13 @@ return (
                 />
                 <div className="page-container2">
                     <img
-                    src="https://play.teleporthq.io/static/svg/default-img.svg"
+                    src="/library/dx/images/Black.png"
                     className="page-image1"
                     />
                     <h1 className="page-res-info-heading">Sử dụng điểm</h1>
                     <img
                     alt="image"
-                    src="https://play.teleporthq.io/static/svg/default-img.svg"
+                    src="/library/dx/images/Black.png"
                     className="page-image2"
                     />
                 </div>

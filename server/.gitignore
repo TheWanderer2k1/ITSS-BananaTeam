@@ -12,3 +12,5 @@
 /upload/avatars
 /upload
 package-lock.json
+
+.env

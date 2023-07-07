@@ -172,7 +172,7 @@ exports.unreactReview = async (foodId, reviewId, userId) => {
 
 exports.getFoodByAddress = async (data) => {
     let foodTrans=[];
-    queryFindRestaurantByAddress = `Select ID as id, Name as name, OpenTime as openTime, CloseTime as closeTime, Province as province, District as district, Ward as ward, DetailedAddress as detailedAddress From Restaurant`
+    queryFindRestaurantByAddress = `Select ID as id, Name as name, OpenTime as openTime, CloseTime as closeTime, Province as province, District as district, Ward as ward, DetailedAddress as detailedAddress From restaurant`
     condition1=`Province like  '%${data.province}%'`
     condition2= `District like '%${data.district}%'`
     condition3= `Ward like '%${data.ward}%'`

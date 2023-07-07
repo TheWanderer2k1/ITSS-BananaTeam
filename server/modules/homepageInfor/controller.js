@@ -12,7 +12,7 @@ exports.getDataHomepage = async (req, res) => {
         console.log(error);
         res.status(400).json({
             success: false,
-            messages: ["Add fail"],
+            messages: ["Get fail"],
             content: error.messages
         })
     }

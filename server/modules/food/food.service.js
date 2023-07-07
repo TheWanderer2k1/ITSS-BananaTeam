@@ -1,4 +1,5 @@
 const sql = require("../../seed/queryMysqlDB");
+const { convertFilePath } = require("../../helpers/readFile")
 
 exports.getFoodDescriptionList = async (keyword) => {
     let keySearch = ''
@@ -26,6 +27,7 @@ exports.getFoodDescriptionList = async (keyword) => {
             'ward': food['Ward'],
             'detailedAdress': food['DetailedAddress']
         }
+        food.img = convertFilePath(food.img)
         food['category'] = {
             'id': food['CategoryId'],
             'name': food['categoryName'],
@@ -61,7 +63,8 @@ exports.getReviewList = async (foodId) => {
             imgQuery = `SELECT src FROM image
                 WHERE GroupID = ${review.img}`
             let imgList = await sql.QueryGetData(imgQuery) 
-            review.img = imgList.map((x) => x.src)
+            review.img = imgList.map((x) => convertFilePath(x.src))
+              
         }
         likedQuery = `SELECT UserID FROM reactreview
                         WHERE ReviewID = ${review['reviewId']}`
@@ -171,7 +174,6 @@ exports.unreactReview = async (foodId, reviewId, userId) => {
 
 
 exports.getFoodByAddress = async (data) => {
-    let foodTrans=[];
     queryFindRestaurantByAddress = `Select ID as id, Name as name, OpenTime as openTime, CloseTime as closeTime, Province as province, District as district, Ward as ward, DetailedAddress as detailedAddress From restaurant`
     condition1=`Province like  '%${data.province}%'`
     condition2= `District like '%${data.district}%'`
@@ -197,18 +199,18 @@ exports.getFoodByAddress = async (data) => {
                 name:foodItem.categoryName,
                 description:foodItem.categoryDescription
             }
+            foodItem.img = convertFilePath(foodItem.img)
             delete foodItem.categoryId
             delete foodItem.categoryName
             delete foodItem.categoryDescription
             foodItem.category = category
             foodItem.restaurant = restaurant
-            foodTrans.push(foodItem)
-           
+            return foodItem
 
         })
     }
 
-    return foodTrans;
+    return food;
 
 }
 exports.getFoodInforById = async (foodDesId) => {
@@ -231,7 +233,7 @@ exports.getFoodInforById = async (foodDesId) => {
 
         foodItem['restaurant'] = {
             id:foodItem.restaurantId,
-            avatarImg:foodItem.avatarImg
+            avatarImg:convertFilePath(foodItem.avatarImg)
         }
         
         queryGetImg = `SELECT src 
@@ -242,6 +244,7 @@ exports.getFoodInforById = async (foodDesId) => {
         listImg = await sql.QueryGetData(queryGetImg)
         arrImg = []
         listImg.map((item)=>{
+            item.src = convertFilePath(item.src)
             arrImg.push(item.src)
         })
         foodItem['img'] = arrImg

@@ -1,4 +1,5 @@
 import React from 'react';
+import {RightOutlined, LeftOutlined} from "@ant-design/icons"
 import './food-info.css';
 
 function FoodInfo(props) {
@@ -10,21 +11,21 @@ function FoodInfo(props) {
         <img src={process.env.REACT_APP_SERVER + image} alt="Food Image" />
         <div className="food-nav">
           <button className="prev-button" onClick={onClickPrev}>
-            &lt;
+          <LeftOutlined />
           </button>
           <button className="next-button" onClick={onClickNext}>
-            &gt;
+          <RightOutlined />
           </button>
         </div>
         <div className="food-score">
-          <p>{score}/5</p>
+          <p>{score}/5 <i class="fa fa-star c-star-color"></i></p>
         </div>
         <div className="resImg">
           <img className='imgcl' src={process.env.REACT_APP_SERVER + image} alt="Res Image" />
         </div>
       </div>
       <div className="food-price">
-        <h2>{price} VND</h2>
+        <h2><strong>{price.toLocaleString()}</strong> ドン</h2>
       </div>
       <div className="food-name">
         <h1>{name}</h1>

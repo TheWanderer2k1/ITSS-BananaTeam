@@ -8,8 +8,8 @@
     flex-direction: column;
   }
   .food-item-image {
-    width: 257.5px;
-    height: 169px;
+    width: 230px;
+    height: 120px;
     align-self: center;
     box-shadow: 5px 5px 10px 0px #d4d4d4;
     object-fit: cover;
@@ -22,11 +22,18 @@
     font-style: normal;
     margin-top: 7px;
     font-weight: 900;
+    font-size: 16px;
   }
 
   .food-item {
-    width: 45%;
-    margin: 12px;
+    cursor: pointer;
+    width: 50%;
+    padding: 12px 0 12px 36px;
+}
+
+.optionValue span {
+    font-size: 16px;
+    margin: 12px 0 12px 0;
 }
 
 .food-image img {

@@ -1,4 +1,7 @@
 import React from 'react'
+// import { LeftOutlined } from '@ant-design/icons';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+
 
 import NavbarInteractive from './navbar-interactive'
 import CategoryItem from './category-item'
@@ -34,11 +37,11 @@ const Home = (props) => {
       </div>
       <div className="home-category-container">
         <button type="button" className="home-button button">
-          &lt;
+        <LeftOutlined />
         </button>
         <CategoryList></CategoryList>
         <button type="button" className="home-button button">
-          &gt;        
+        <RightOutlined />       
         </button>
       </div>
       <div className="home-container2">

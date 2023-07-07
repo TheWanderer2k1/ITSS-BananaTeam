@@ -8,12 +8,13 @@
   flex-direction: column;
 }
 .category-item-image {
-  width: 116px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
   align-self: center;
   object-fit: cover;
 }
 .category-item-text {
   align-self: center;
-  margin-top: 8px;
+  margin-top: 10px;
+  text-transform: uppercase;
 }

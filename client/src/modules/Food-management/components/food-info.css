@@ -5,7 +5,7 @@
     .food-image {
     position: relative;
     box-sizing: border-box;
-    width: 350px;
+    width: 400px;
     height: 270px;
     margin: 40px auto;
     border: 2px solid #FFFFFF;
@@ -24,7 +24,7 @@
     position: absolute;
     top: 50%;
     left: -90px;
-    width: 525px;
+    width: 575px;
     transform: translateY(-50%);
     display: flex;
     justify-content: space-between;
@@ -37,7 +37,7 @@
     .next-button {
     border: none;
     background-color: transparent;
-    font-size: 60px;
+    font-size: 40px;
     font-weight: 600;
     cursor: pointer;
     color: #131212;
@@ -46,12 +46,12 @@
     
     
     .food-score {
-        z-index: 2;
+    z-index: 2;
     position: absolute;
     bottom: -50px;
     right: 0;
-    margin: -16px 8px;
-    font-size: 24px;
+    margin: -16px 4px;
+    font-size: 21px;
     color: #EFC636;
     }
 
@@ -84,12 +84,16 @@
     justify-content: center;
     font-family: 'Poppins';
     font-style: normal;
-    font-weight: 400;
+    font-weight: bold;
     font-size: 15px;
     line-height: 16px;
     text-align: center;
-    letter-spacing: 0.045em;
+    letter-spacing: 0.08em;
     color: #000000;
+    }
+
+    .food-price h2 {
+        margin: 6px 0;
     }
     
     .food-name {

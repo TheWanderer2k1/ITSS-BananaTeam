@@ -404,12 +404,12 @@ function Search () {
                 <strong> こにちは、</strong>
                 <div className="user-info">
                     <img src="/library/dx/images/vietnam.png" alt="" />
-                    <div className="user-coin d-flex mt-6"><img src="/library/dx/images/bnn-coin.png" alt="" className="coin-icon"/>1000</div>
+                    <div className="user-coin d-flex mt-6"><img src="/library/dx/images/bnn-coin.png" alt="" className="coin-icon"/><strong>1000</strong></div>
                 </div>
             </div>
             <div className="main-layout d-flex">
-                <div className="filter-sidebar px-12">
-                    <h2>検出</h2>
+                <div className="filter-sidebar px-24">
+                    <h2><strong>検出</strong></h2>
                     <div className="reference-link-list d-flex flex-direction-column">
                         <a className="reference-link-item">
                             <i class="fa fa-home"></i> 人気がある料理
@@ -419,7 +419,9 @@ function Search () {
                         </a>
                     </div>
                     <hr class="divider"></hr>
-                    <div className="filter-box">
+                    <div className="filter-box" style={{ fontSize: '16px',
+    fontWeight: 'bold',
+    margin:' 4px 0',}}>
                         {/* <div className="fast-filter">
                             <p data-toggle="collapse" data-target="#fastFilter">
                                 <i class="fa fa-chevron-down mr-6"></i>
@@ -439,10 +441,11 @@ function Search () {
                                 営業時間
                             </p>
                             <div id="timeFilter" class="collapse row">
-                                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
+                                <div className="col-xs-11 col-sm-11 col-md-5 col-lg-5" >
                                     <TimePicker placeholder='時間' showTime={{ format: 'HH:mm' }} format="HH:mm" value={fromTime} onChange={onChangeFromTime}/>
                                 </div>
-                                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
+                                <span className='col-xs-2 col-sm-2 col-md-2 col-lg-2' >~</span>
+                                <div className="col-xs-11 col-sm-11 col-md-5 col-lg-5" >
                                     <TimePicker placeholder='時間' showTime={{ format: 'HH:mm' }} format="HH:mm" value={toTime} onChange={onChangeToTime}/>
                                 </div>                            
                             </div>
@@ -476,7 +479,7 @@ function Search () {
                                         onChange={() => {onChangePriceFilter(price.id)}} 
                                         defaultChecked={price.checked}/>
                                     {/* {price.from}-{price.to} 円 */}
-                                    {price.from}-{price.to} VNĐ
+                                    {price.from} - {price.to} VNĐ
                                 </p>
                             ))}
                         </div>
@@ -554,7 +557,7 @@ function Search () {
                         </div>
                         <div className="col-xs-12 col-sm-12 col-md-6 col-lg-2" >        
                             <select value={searchOption} onChange={handleChangeSearchOption} class="form-select select-search-option" aria-label="Default select example">
-                                <option value="1" selected>料理の名前</option>
+                                <option value="1" selected><strong>料理の名前</strong></option>
                                 <option value="2">場所</option>
                             </select>
                         </div>
@@ -570,15 +573,14 @@ function Search () {
                                 </div>                            
                             ) : (
                                 <React.Fragment>
-                                    <div id="addressSearch" class="address-search-block">       
-                                        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
+                                    <div id="addressSearch" className="address-search-block">       
                                             <Select
                                                 allowClear
                                                 placeholder='市'
                                                 value={citySearch}
                                                 onChange={handleChangeCitySearch}
                                                 options={listCityFilter}
-                                                style={{ width: '33%' }}
+                                                style={{ width: '33%', padding: '0 40px' }}
                                             />
                                             <Select
                                                 allowClear
@@ -586,7 +588,7 @@ function Search () {
                                                 value={districtSearch}
                                                 onChange={handleChangeDistrictSearch}
                                                 options={listDistrictSearch}
-                                                style={{ width: '33%' , padding: '0 1px'}}
+                                                style={{ width: '33%' , padding: '0 40px'}}
                                             />
                                             <Select
                                                 allowClear
@@ -594,15 +596,16 @@ function Search () {
                                                 value={wardSearch}
                                                 onChange={handleChangeWardSearch}
                                                 options={listWardSearch}
-                                                style={{ width: '33%' , padding: '0 1px'}}
+                                                style={{ width: '33%' , padding: '0 40px'}}
                                             />
                                         </div>
-                                    </div>
                                 </React.Fragment>
                             )
                         }
                     </div>
-                    <Radio.Group options={sortOptions} onChange={onChangeSort} value={sortValue} className='float-right mt-12'/>   
+                    <div className="row optionValue">
+                    <Radio.Group options={sortOptions} onChange={onChangeSort} value={sortValue} className='float-right mt-12 fs-1 optionValue '/>
+                    </div>
     <div className="food-list d-flex">
         {foodDecription.map((food) => (
           <FoodItem

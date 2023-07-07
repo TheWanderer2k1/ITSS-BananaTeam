@@ -10,7 +10,7 @@ const CategoryItem = ({ image_alt, image_src, text }) => {
         src={image_src}
         className="category-item-image"
       />
-      <span className="category-item-text">{text}</span>
+      <span className="category-item-text"><strong>{text}</strong></span>
     </div>
   )
 }

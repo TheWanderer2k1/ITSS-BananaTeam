@@ -5,7 +5,7 @@ import {  UploadFile } from '../../../common-components';
 import { convertJsonObjectToFormData } from '../../../helpers/jsonObjectToFormDataObjectConverter';
 import './food-review.css';
 import axios from 'axios';
-import { UploadOutlined } from '@ant-design/icons';
+import { FileImageOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
 
 
@@ -257,7 +257,7 @@ const FoodReview = ({id}) => {
             <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className="mr-24" style={{width: '10%'}}/>
             <Rate style={{width: '30%'}} onChange={setNewCommentRate} value={newCommentRate} />
               <Upload style={{width: '40%'}} {...props} fileList={fileList}>
-                <Button type="text" danger><i style={{color: 'red'}} class="fas fa-image"></i></Button>
+                <Button type="text" danger><FileImageOutlined style={{color: 'red', fontSize: "24px"}}/></Button>
               </Upload>
             <div style={{width: '40%'}}>
             </div>
@@ -349,7 +349,7 @@ const FoodReview = ({id}) => {
         <div className="food-info-list">
           <div className="food-info-item">
             <div className="food-info__label">
-              星
+              <strong>星</strong>
             </div>
             <div className="food-info__detail">
               <Button type="text" onClick={() => onFilterByStar(0)}>すべて</Button>
@@ -362,7 +362,7 @@ const FoodReview = ({id}) => {
           </div>
           <div className="food-info-item">
             <div className="food-info__label">
-              時間
+              <strong>時間</strong>
             </div>
             <div className="food-info__detail">
               <Button type="text">すべて</Button>
@@ -371,7 +371,7 @@ const FoodReview = ({id}) => {
           </div>
           <div className="food-info-item">
             <div className="food-info__label">
-              添付
+              <strong>添付</strong>
             </div>
             <div className="food-info__detail">
               <Checkbox>写真</Checkbox>
@@ -442,8 +442,8 @@ const FoodReview = ({id}) => {
                   </div>
                 </div>
                 <div className="flex-1">
-                  <Button type="text"><i class="fa fa-edit" onClick={() => showModal(comment)}></i></Button>                
-                  <Button type="text"><i class="fa fa-trash" onClick={() => onClickDeleteComment(comment)}></i></Button>                
+                  <Button type="text"><i class="fa fa-edit" style={{color:"red"}}  onClick={() => showModal(comment)}></i></Button>                
+                  <Button type="text"><i class="fa fa-trash" style={{color:"red"}} onClick={() => onClickDeleteComment(comment)}></i></Button>                
                 </div>
               </div>
               <div className="review-block__footer d-flex my-12">

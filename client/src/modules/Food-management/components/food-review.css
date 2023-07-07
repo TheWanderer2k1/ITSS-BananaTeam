@@ -71,6 +71,10 @@
     padding: 12px;
 }
 
+.review-list {
+    margin-top: 16px;
+}
+
 .food-info-item {
     display: flex;
     align-items: center;
@@ -79,6 +83,7 @@
 
 .food-info__label {
     width: 20%;
+    font-size: 18px;
 }
 
 .review-block__header {
@@ -120,6 +125,10 @@
     position: absolute;
     bottom: 12px;
     right: 12px;
+}
+
+.comment-send-icon i {
+    color: #387ef3;
 }
 
 .comment-image-block {

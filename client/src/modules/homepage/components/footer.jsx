@@ -1,4 +1,5 @@
 import React from 'react'
+import {UpCircleOutlined, UpCircleFilled,FacebookFilled, TwitterCircleFilled, YoutubeFilled} from '@ant-design/icons'
 import { Route } from 'react-router';
 import PropTypes from 'prop-types'
 
@@ -28,21 +29,9 @@ const Footer = (props) => {
             </span>
           </div>
           <div className="footer-container3">
-            <img
-              src="library/dx/images/facebook.png"
-              alt={props.image_alt}
-              className="footer-image1"
-            />
-            <img
-              src="library/dx/images/twitter.png"
-              alt={props.image_alt}
-              className="footer-image1"
-            />
-            <img
-              src="library/dx/images/youtube.png"
-              alt={props.image_alt}
-              className="footer-image1"
-            />
+            <FacebookFilled className="footer-image1" style={{color: "#3b5998"}}/>
+            <TwitterCircleFilled className="footer-image1" style={{color: "#26a6d1"}}/>
+            <YoutubeFilled className="footer-image1" style={{color: "##ff0000"}}/>
           </div>
         </div>
         <div className="footer-container4">
@@ -145,12 +134,13 @@ const Footer = (props) => {
       </div>
       <div className="footer-container7">
         <span className="footer-text6">{props.text}</span>
-        <img
+        {/* <img
           src="library/dx/images/up-arrow.png"
           alt={props.image_alt}
           className="footer-image4"
           onClick={scrollToTop}
-        />
+        /> */}
+        <UpCircleFilled  className="footer-image4" onClick={scrollToTop}/>
       </div>
     </div>
   )

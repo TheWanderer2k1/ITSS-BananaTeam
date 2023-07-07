@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Checkbox, Rate, Input, Modal, Image, Upload  } from 'antd';
+import { Button, Checkbox, Rate, Input, Modal, Image, Upload, message  } from 'antd';
 import { sendRequest } from '../../../helpers/requestHelper';
 import {  UploadFile } from '../../../common-components';
 import { convertJsonObjectToFormData } from '../../../helpers/jsonObjectToFormDataObjectConverter';
@@ -22,6 +22,10 @@ const FoodReview = ({id}) => {
   const [visibleFullImage, setVisibleFullImage] = useState(false);
   const [uploadImg, setUploadImg] = useState({recommendFiles: []});
   const [fileList, setFileList] = useState([]);
+  const [messageApi, contextHolder] = message.useMessage();
+  const pointMessage = () => {
+    messageApi.info('100ポイントを獲得します!');
+  };
   const [values, setValues] = useState({
     cleanliness: '',
     smell: '',
@@ -38,39 +42,13 @@ const FoodReview = ({id}) => {
     const value = event.target.value;
     setValues({ ...values, [name]: value });
   };
-  const handleSubmit = (event) => {
-    console.log("aa");
-    event.preventDefault();
-    const data = {
-      cleanliness: values.cleanliness,
-      smell: values.smell,
-      freshness: values.freshness,
-      tableware: values.tableware,
-      taste: values.taste,
-      price: values.price,
-      service: values.service,
-      other: values.other,
-    };
-    const reviewString = `・きれいに並べられたか：${data.cleanliness}<br>・いい匂いか：${data.smell}<br>・新鮮なのか：${data.freshness}<br>・きれいな箸、お茶碗なのか：${data.tableware}<br>・口に合うか：${data.taste}<br>・良い値段か：${data.price}<br>・良いサービスか：${data.service}<br>・他に：${data.other}`;
-    console.log(reviewString);
-    postComment(reviewString);
-    setValues({
-      cleanliness: '',
-      smell: '',
-      freshness: '',
-      tableware: '',
-      taste: '',
-      price: '',
-      service: '',
-      other: '',
-    });
-  };
+  
   const handleChangeUploadFile = (info) => {
     let newFileList = [...info.fileList];
 
     // 1. Limit the number of uploaded files
     // Only to show two recent uploaded files, and old ones will be replaced by the new
-    newFileList = newFileList.slice(-2);
+    // newFileList = newFileList.slice(-2);
 
     // 2. Read from response and show file link
     newFileList = newFileList.map((file) => {
@@ -158,6 +136,9 @@ const FoodReview = ({id}) => {
       service: values.service,
       other: values.other,
     };
+    // if(comment.cleanliness != '' && comment.smell != '' && comment.freshness != '' && comment.tableware != '' && comment.taste != '' && comment.price != '' && comment.service != '' && comment.other != ''){
+    //   pointMessage();
+    // }
     const reviewString = `・きれいに並べられたか：${comment.cleanliness}<br>・いい匂いか：${comment.smell}<br>・新鮮なのか：${comment.freshness}<br>・きれいな箸、お茶碗なのか：${comment.tableware}<br>・口に合うか：${comment.taste}<br>・良い値段か：${comment.price}<br>・良いサービスか：${comment.service}<br>・他に：${comment.other}`;
     const data = { 
       rating: newCommentRate,
@@ -179,10 +160,24 @@ const FoodReview = ({id}) => {
         method: 'POST',
         data: formData,
       });
+      if(resp.data.message == "100ポイントを獲得します!") {
+        pointMessage();
+      }
     } catch (error) {
       console.error(error);
     }
-    window.location.reload();
+    fetchFoodReview();
+    setValues({
+      cleanliness: '',
+      smell: '',
+      freshness: '',
+      tableware: '',
+      taste: '',
+      price: '',
+      service: '',
+      other: '',
+    });
+    // window.location.reload();
     // const resp = await axios(url, options);
     // setListComment([...listComment, resp.data['content']]);
     // setNewCommentText('');
@@ -251,12 +246,13 @@ const FoodReview = ({id}) => {
 
   return (
     <React.Fragment>
+      {contextHolder}
       <div className="container">
         <div className="post-comment mb-24">
           <div className="post-avatar">
             <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className="mr-24" style={{width: '10%'}}/>
             <Rate style={{width: '30%'}} onChange={setNewCommentRate} value={newCommentRate} />
-              <Upload style={{width: '40%'}} {...props} fileList={fileList}>
+              <Upload style={{width: '40%'}} {...props} fileList={fileList} maxCount={99}>
                 <Button type="text" danger><i style={{color: 'red'}} class="fas fa-image"></i></Button>
               </Upload>
             <div style={{width: '40%'}}>

@@ -239,7 +239,7 @@ function Search () {
     }
     const fetchfoodDecription = async (searchDataParam = '') => {
         var url = `${ process.env.REACT_APP_SERVER }/api/v1/foods`;
-        if(searchDataParam != ''){url += `?keyword=${searchDataParam}`;}
+        if(searchDataParam && searchDataParam != '' ){url += `?keyword=${searchDataParam}`;}
         else if(searchData != ''){url += `?keyword=${searchData}`;}
         console.log(url);
         const resp = await sendRequest({

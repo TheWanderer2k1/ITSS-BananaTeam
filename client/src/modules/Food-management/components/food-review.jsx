@@ -7,7 +7,8 @@ import './food-review.css';
 import axios from 'axios';
 import { UploadOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
-
+const oneDay = 24 * 60 * 60 * 1000; // number of milliseconds in one day
+const now = new Date();
 
 const FoodReview = ({id}) => {
   const [listAllComment, setListAllComment] = useState([]);
@@ -23,6 +24,23 @@ const FoodReview = ({id}) => {
   const [uploadImg, setUploadImg] = useState({recommendFiles: []});
   const [fileList, setFileList] = useState([]);
   const [messageApi, contextHolder] = message.useMessage();
+  const clickRecentReview = (e) => {
+    const newListComment = listComment.filter((item) => {
+      const itemDate = new Date(item.updateAt);
+      return (now - itemDate) < oneDay;
+    })
+    setListComment(newListComment);
+  }
+  const onChangeCheckImage = (e) => {
+    if(e.target.checked) {
+      const newListComment = listComment.filter((item) => {
+        return item.img && item.img.length > 0
+      });
+      setListComment(newListComment);
+    } else {
+      fetchFoodReview();
+    }
+  };
   const pointMessage = () => {
     messageApi.info('100ポイントを獲得します!');
   };
@@ -361,8 +379,8 @@ const FoodReview = ({id}) => {
               時間
             </div>
             <div className="food-info__detail">
-              <Button type="text">すべて</Button>
-              <Button type="text">新着順</Button>              
+              <Button type="text" onClick={fetchFoodReview}>すべて</Button>
+              <Button type="text" onClick={clickRecentReview}>新着順</Button>              
             </div>
           </div>
           <div className="food-info-item">
@@ -370,8 +388,8 @@ const FoodReview = ({id}) => {
               添付
             </div>
             <div className="food-info__detail">
-              <Checkbox>写真</Checkbox>
-              <Checkbox>ビデオ</Checkbox>
+              <Checkbox onChange={onChangeCheckImage}>写真</Checkbox>
+              {/* <Checkbox>ビデオ</Checkbox> */}
             </div>
           </div>
         </div>

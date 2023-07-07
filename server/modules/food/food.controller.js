@@ -65,7 +65,7 @@ exports.addReview = async (req, res) => {
 exports.editReview = async (req, res) => {
     try {
         let { foodId, reviewId } = req.params;
-        await FoodService.editReview(foodId, reviewId, req.body);
+        await FoodService.editReview(foodId, reviewId, req.body, req.files);
 
         res.status(200).json({
             success: true,
@@ -83,7 +83,8 @@ exports.editReview = async (req, res) => {
 exports.deleteReview = async (req, res) => {
     try {
         let { foodId, reviewId } = req.params;
-        await FoodService.deleteReview(foodId, reviewId);
+        let { userId } = req.body
+        await FoodService.deleteReview(foodId, reviewId, userId);
 
         res.status(204).json({
             success: true,

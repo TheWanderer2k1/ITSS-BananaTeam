@@ -63,27 +63,59 @@ exports.getReviewList = async (foodId) => {
             let imgList = await sql.QueryGetData(imgQuery) 
             review.img = imgList.map((x) => x.src)
         }
+        likedQuery = `SELECT UserID FROM reactreview
+                        WHERE ReviewID = ${review['reviewId']}`
+        let likedList = await sql.QueryGetData(likedQuery)
+        review.liked = likedList.map((x) => x.UserID)
     }
     
     return result
 }
 
-exports.deleteReview = async (foodId, reviewId) => {
+exports.deleteReview = async (foodId, reviewId, userId) => {
     query = `DELETE FROM foodreview
         WHERE FoodDesID = ${foodId}
-        AND ID = ${reviewId}`
+        AND ID = ${reviewId}
+        AND UserID = ${userId}`
     await sql.QueryGetData(query);
 }
 
-exports.editReview = async (foodId, reviewId, data) => {
+exports.editReview = async (foodId, reviewId, data,files) => {
     let rating = data.rating? `"${data.rating}"` : `Rating`
     let review = data.review? `"${data.review}"` : `Review`
     let userId = data.userId
+    let group_image_query = ``
+
+    if (files) {
+        let groupImageId
+        do {
+            
+            let randNum = Math.floor(Math.random() * 10000000)
+            let queryGroupImg = `SELECT src FROM image
+                WHERE GroupID = ${randNum}`
+            let result = await sql.QueryGetData(queryGroupImg)
+            if (result.length == 0) {
+                groupImageId = randNum
+                break;
+            }
+        } while (true)
+        
+        group_image_query = `, GroupImageId = ${groupImageId}`
+
+        for (let image of files) {
+            let filePath = `${image.destination}/${image.filename}`.substring(1)
+            let imageInsertQuery = `INSERT INTO image (GroupID, Src)
+            VALUES (${groupImageId}, '${filePath}')`
+            await sql.QueryGetData(imageInsertQuery)
+        }
+    }
+
     query = `UPDATE foodreview
-        set Rating = ${rating}, Review = ${review}
+        set Rating = ${rating}, Review = '${review}' ${group_image_query}
         WHERE FoodDesID = ${foodId}
             AND UserID = ${userId}
             AND ID = ${reviewId}`
+
     await sql.QueryGetData(query)
 }
 

@@ -49,7 +49,7 @@ function ListComponent(props) {
         {foodDecription.map((food) => (
           <FoodItem
             key={food.id}
-            image_src={`${ process.env.REACT_APP_SERVER }/${food.img}`}
+            image_src={`${food.img}`}
             rating={food.rating}
             name={food.name}
             price={food.price}

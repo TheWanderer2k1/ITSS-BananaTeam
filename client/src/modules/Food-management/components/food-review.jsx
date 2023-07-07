@@ -439,13 +439,13 @@ const FoodReview = ({id}) => {
                           onVisibleChange: (vis) => setVisibleFullImage(vis)
                         }}
                       >
-                        <Image width={80} src={process.env.REACT_APP_SERVER + comment.img[0]} />
+                        <Image width={80} src={comment.img[0]} />
                         {/* <Image width={80} src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" /> */}
                         {
                           // comment.img.slice()
                         comment.img.length>1?
                           comment.img.slice(1).map((img) => (
-                            <Image style={{display: 'none'}} key={img} src={process.env.REACT_APP_SERVER + img} />
+                            <Image style={{display: 'none'}} key={img} src={img} />
                           ))
                           :<div></div>
                         }

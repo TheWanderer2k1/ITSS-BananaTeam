@@ -217,7 +217,7 @@ const RestaurantInfomationStaff = (props) => {
         />
         {previewImage && <img
           alt="image"
-          src={process.env.REACT_APP_SERVER + previewImage}
+          src={previewImage}
           className="restaurant-infomation-staff-logo"
         />}
         <h1 className="restaurant-infomation-staff-text">{restaurantInfo.name}</h1>
@@ -348,7 +348,7 @@ const RestaurantInfomationStaff = (props) => {
           {restaurantInfo.img && restaurantInfo.img.map((image, index) => (
             <img
               key={index}
-              src={`${ process.env.REACT_APP_SERVER }/${image}`}
+              src={`${image}`}
               alt={`Image ${index + 1}`}
               className="restaurant-image"
             />

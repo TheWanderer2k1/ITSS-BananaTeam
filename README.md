@@ -6,6 +6,8 @@
 2. Mở mysql workbench và tạo 1 datababse tên là 'tabeyoudb'
 
 #### Cài đặt server
+Trong folder server, tạo 1 file mới là '.env', sau đó copy nội dung file '.env.example' vào file '.env'
+
 Chuyển đường dẫn về server, sau đó chạy lệnh instal như dưới đây:
 ```shell
 cd server
@@ -14,6 +16,8 @@ npm i nodemon
 npm run init-mysqldb
 ```
 #### Cài đặt client
+Trong folder client, tạo 1 file mới là '.env', sau đó copy nội dung file '.env.example' vào file '.env'
+
 Chuyển đường dẫn về client, chạy lệnh install như dưới đây (khi chạy lệnh install mất thời gian khá lâu, khoảng 5p)
 ```shell
 cd client

@@ -109,14 +109,15 @@ function InputComponent() {
 
   return (
     <React.Fragment>
-      <div class="row">
-        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" style={{margin: '50px 0 0 0'}}>
-          <select value={searchOption} onChange={handleChangeSearchOption} class="form-select select-search-option" aria-label="Default select example">
+      <div class="input-row">
+        
+        <div className="dropdown-selectbox" >
+          <select value={searchOption} onChange={handleChangeSearchOption} class="dropdown-selectform" aria-label="Default select example">
             <option value="1" selected>料理の名前</option>
             <option value="2">場所</option>
           </select>
         </div>
-        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
+        <div className="location-selectlist" >
           {
             searchOption == 1 ? (
               <form onSubmit={handleSubmit}>
@@ -130,28 +131,28 @@ function InputComponent() {
               </form>        
             ) : (
               <div id="addressSearch" class="address-search">       
-                <div>
+                <div class="dropdown-list-area">
                     <Select
                         allowClear
                         placeholder='市'
                         value={citySearch}
                         onChange={handleChangeCitySearch}
                         options={listCityFilter}
-                        style={{ width: '200%' }}
+                        style={{ width: '100%' }}
                     />
                     <Select
                         allowClear
                         placeholder='区'
                         value={districtSearch}
                         options={[]}
-                        style={{ width: '200%' , margin: '0 1px'}}
+                        style={{ width: '100%' , margin: '0 1px'}}
                     />
                     <Select
                         allowClear
                         placeholder='街'
                         value={districtSearch}
                         options={[]}
-                        style={{ width: '200%' , margin: '0 1px'}}
+                        style={{ width: '100%' , margin: '0 1px'}}
                     />
                 </div>
               </div>

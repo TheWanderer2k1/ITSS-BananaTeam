@@ -27,7 +27,7 @@ function ListComponent() {
         {firstFourrestaurant.map((restaurant) => (
           <ResItem
             key={restaurant.id}
-            image_src={process.env.REACT_APP_SERVER + restaurant.img}
+            image_src={process.env.REACT_APP_SERVER + restaurant.avatar}
             res_id={restaurant.id}
             text={restaurant.name}
           />

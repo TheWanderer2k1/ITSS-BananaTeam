@@ -136,7 +136,7 @@ function Search() {
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
 	const [isSearchByAddress, setIsSearchByAddress] = useState(false);
 	const [sortValue, setSortValue] = useState('');
-	const [pageinate, setPageinate] = useState(1);
+	const [pageinate, setPageinate] = useState(0);
 
 	const onChangeSort = ({ target: { value } }) => {
 		setSortValue(value);
@@ -157,6 +157,7 @@ function Search() {
 	const handleKeyUp = (event) => {
 		if (event.keyCode === 13) {
 			fetchfoodDecription();
+			setPageinate(0);
 		}
 	}
 
@@ -416,30 +417,32 @@ function Search() {
 		}
 	}
 
-    return (
-        <div className='search-container'>  
-            <div className="salutation">
-                <strong> こにちは、</strong>
-                <div className="user-info">
-                    <img src="/library/dx/images/vietnam.png" alt="" />
-                    <div className="user-coin d-flex mt-6"><img src="/library/dx/images/bnn-coin.png" alt="" className="coin-icon"/><strong>1000</strong></div>
-                </div>
-            </div>
-            <div className="main-layout d-flex">
-                <div className="filter-sidebar px-24">
-                    <h2><strong>検出</strong></h2>
-                    <div className="reference-link-list d-flex flex-direction-column">
-                        <a className="reference-link-item">
-                            <i class="fa fa-home"></i> 人気がある料理
-                        </a>
-                        <a className="reference-link-item">
-                            <i class="fa fa-home"></i> 人気があるレストラン
-                        </a>
-                    </div>
-                    <hr class="divider"></hr>
-                    <div className="filter-box" style={{ fontSize: '16px',
-    fontWeight: 'bold',
-    margin:' 4px 0',}}>
+	return (
+		<div className='search-container'>
+			<div className="salutation">
+				<strong> こにちは、</strong>
+				<div className="user-info">
+					<img src="/library/dx/images/vietnam.png" alt="" />
+					<div className="user-coin d-flex mt-6"><img src="/library/dx/images/bnn-coin.png" alt="" className="coin-icon" /><strong>1000</strong></div>
+				</div>
+			</div>
+			<div className="main-layout d-flex">
+				<div className="filter-sidebar px-24">
+					<h2><strong>検出</strong></h2>
+					<div className="reference-link-list d-flex flex-direction-column">
+						<a className="reference-link-item">
+							<i class="fa fa-home"></i> 人気がある料理
+						</a>
+						<a className="reference-link-item">
+							<i class="fa fa-home"></i> 人気があるレストラン
+						</a>
+					</div>
+					<hr class="divider"></hr>
+					<div className="filter-box" style={{
+						fontSize: '16px',
+						fontWeight: 'bold',
+						margin: ' 4px 0',
+					}}>
 						{/* <div className="fast-filter">
                             <p data-toggle="collapse" data-target="#fastFilter">
                                 <i class="fa fa-chevron-down mr-6"></i>
@@ -452,217 +455,217 @@ function Search() {
                                 <Button type="text" onClick={sortByPriceDecrease}>高いから安いまで値段</Button>
                             </div>
                         </div> */}
-                        <div className="time-filter">
-                            <p data-toggle="collapse" data-target="#timeFilter">
-                                <i class="fa fa-chevron-down mr-6"></i>
-                                <i class="fa fa-lock mr-6"></i>
-                                営業時間
-                            </p>
-                            <div id="timeFilter" class="collapse row">
-                                <div className="col-xs-11 col-sm-11 col-md-5 col-lg-5" >
-                                    <TimePicker placeholder='時間' showTime={{ format: 'HH:mm' }} format="HH:mm" value={fromTime} onChange={onChangeFromTime}/>
-                                </div>
-                                <span className='col-xs-2 col-sm-2 col-md-2 col-lg-2' >~</span>
-                                <div className="col-xs-11 col-sm-11 col-md-5 col-lg-5" >
-                                    <TimePicker placeholder='時間' showTime={{ format: 'HH:mm' }} format="HH:mm" value={toTime} onChange={onChangeToTime}/>
-                                </div>                            
-                            </div>
-                        </div>
-                        <div className="time-filter">
-                            <p data-toggle="collapse" data-target="#starFilter">
-                                <i class="fa fa-chevron-down mr-6"></i>
-                                <i class="fa fa-lock mr-6"></i>
-                                評価
-                            </p>
-                            <div id="starFilter" class="collapse"> 
-                                {ratingFilter.map((rating) => (
-                                    <label className="rate-star-item" key={rating.id}>
-                                        <input type="checkbox" 
-                                            onChange={() => {onChangeRatingFilter(rating.id)}} 
-                                            defaultChecked={rating.checked}/>
-                                        <Rate disabled defaultValue={rating.value} />
-                                    </label>
-                                ))}                                                               
-                            </div>
-                        </div>
-                        <p data-toggle="collapse" data-target="#priceFilter">
-                            <i class="fa fa-chevron-down mr-6"></i>
-                            <i class="fa fa-lock mr-6"></i>
-                            値段
-                        </p>
-                        <div id="priceFilter" class="collapse">
-                            {priceFilter.map((price) => (
-                                <p className="rate-star-item" key={price.id}>
-                                <input type="checkbox" 
-                                        onChange={() => {onChangePriceFilter(price.id)}} 
-                                        defaultChecked={price.checked}/>
-                                    {/* {price.from}-{price.to} 円 */}
-                                    {price.from} - {price.to} VNĐ
-                                </p>
-                            ))}
-                        </div>
+						<div className="time-filter">
+							<p data-toggle="collapse" data-target="#timeFilter">
+								<i class="fa fa-chevron-down mr-6"></i>
+								<i class="fa fa-lock mr-6"></i>
+								営業時間
+							</p>
+							<div id="timeFilter" class="collapse row">
+								<div className="col-xs-11 col-sm-11 col-md-5 col-lg-5" >
+									<TimePicker placeholder='時間' showTime={{ format: 'HH:mm' }} format="HH:mm" value={fromTime} onChange={onChangeFromTime} />
+								</div>
+								<span className='col-xs-2 col-sm-2 col-md-2 col-lg-2' >~</span>
+								<div className="col-xs-11 col-sm-11 col-md-5 col-lg-5" >
+									<TimePicker placeholder='時間' showTime={{ format: 'HH:mm' }} format="HH:mm" value={toTime} onChange={onChangeToTime} />
+								</div>
+							</div>
+						</div>
+						<div className="time-filter">
+							<p data-toggle="collapse" data-target="#starFilter">
+								<i class="fa fa-chevron-down mr-6"></i>
+								<i class="fa fa-lock mr-6"></i>
+								評価
+							</p>
+							<div id="starFilter" class="collapse">
+								{ratingFilter.map((rating) => (
+									<label className="rate-star-item" key={rating.id}>
+										<input type="checkbox"
+											onChange={() => { onChangeRatingFilter(rating.id) }}
+											defaultChecked={rating.checked} />
+										<Rate disabled defaultValue={rating.value} />
+									</label>
+								))}
+							</div>
+						</div>
+						<p data-toggle="collapse" data-target="#priceFilter">
+							<i class="fa fa-chevron-down mr-6"></i>
+							<i class="fa fa-lock mr-6"></i>
+							値段
+						</p>
+						<div id="priceFilter" class="collapse">
+							{priceFilter.map((price) => (
+								<p className="rate-star-item" key={price.id}>
+									<input type="checkbox"
+										onChange={() => { onChangePriceFilter(price.id) }}
+										defaultChecked={price.checked} />
+									{/* {price.from}-{price.to} 円 */}
+									{price.from} - {price.to} VNĐ
+								</p>
+							))}
+						</div>
 
-                        <p data-toggle="collapse" data-target="#categoryFilter">
-                            <i class="fa fa-chevron-down mr-6"></i>
-                            <i class="fa fa-lock mr-6"></i>
-                            項目
-                        </p>
-                        <div id="categoryFilter" class="collapse">
-                            <Select 
-                                showSearch 
-                                    placeholder="項目" 
-                                    optionFilterProp="children" 
-                                            value={categoryFilter}
-                                            onChange={handleChangeCategoryFilter}
+						<p data-toggle="collapse" data-target="#categoryFilter">
+							<i class="fa fa-chevron-down mr-6"></i>
+							<i class="fa fa-lock mr-6"></i>
+							項目
+						</p>
+						<div id="categoryFilter" class="collapse">
+							<Select
+								showSearch
+								placeholder="項目"
+								optionFilterProp="children"
+								value={categoryFilter}
+								onChange={handleChangeCategoryFilter}
 
-                                            options={listCategories} 
-                                    style={{ width: '100%', margin: '2px 0' }}/>
-                        </div>
+								options={listCategories}
+								style={{ width: '100%', margin: '2px 0' }} />
+						</div>
 
-                        {isShowAddressFilter == true ?
-                        (
-                            <React.Fragment>
-                                <p data-toggle="collapse" data-target="#cityFilter">
-                                    <i class="fa fa-chevron-down mr-6"></i>
-                                    <i class="fa fa-lock mr-6"></i>
-                                    場所
-                                </p>
-                                <div id="cityFilter" class="collapse">                            
-                                    <div >
-                                        <Select
-                                            allowClear
-                                            placeholder='市'
-                                            value={cityFilter}
-                                            onChange={handleChangeCityFilter}
-                                            options={listCityFilter}
-                                            style={{ width: '100%', margin: '2px 0' }}
-                                        />
-                                    </div>   
-                                    <div >
-                                        <Select
-                                            allowClear
-                                            placeholder='区'
-                                            value={districtFilter}
-                                            onChange={handleChangeDistrictFilter}
-                                            options={listDistrictFilter}
-                                            style={{ width: '100%', margin: '2px 0' }}
-                                        />
-                                    </div>
-                                    <div >
-                                        <Select
-                                            allowClear
-                                            placeholder='街'
-                                            value={wardFilter}
-                                            onChange={handleChangeWardFilter}
-                                            options={listWardFilter}
-                                            style={{ width: '100%', margin: '2px 0' }}
-                                        />
-                                    </div>
-                                </div>
-                            </React.Fragment>
-                        ):(
-                            <div></div>
-                        )}
-                    </div>
-                    <div className="action-button d-flex mt-12">
-                        <button className="cancel-button" onClick={clearFilter}>クリア</button>
-                        <button className="confirm-button" onClick={handleFilter}>適用</button>
-                    </div>
-                </div>
-                <div className="h-content">
-                    <div className="row">
-                        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
-                        </div>
-                        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-2" >        
-                            <select value={searchOption} onChange={handleChangeSearchOption} class="form-select select-search-option" aria-label="Default select example">
-                                <option value="1" selected><strong>料理の名前</strong></option>
-                                <option value="2">場所</option>
-                            </select>
-                        </div>
-                        {
-                            searchOption == 1 ? (
-                                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
-                                    <div className="search-box d-flex">
-                                        <div className="search-icon"><button type="button" class="btn btn-link"><i class="fa fa-search"></i></button></div>
-                                        <div className="search-text">
-                                            <input type="text" placeholder='Nem cuốn' value={searchData} onChange={handleSearchData} onKeyUp={handleKeyUp}/>
-                                        </div>
-                                    </div>
-                                </div>                            
-                            ) : (
-                                <React.Fragment>
-                                    <div id="addressSearch" className="address-search-block">       
-                                            <Select
-                                                allowClear
-                                                placeholder='市'
-                                                value={citySearch}
-                                                onChange={handleChangeCitySearch}
-                                                options={listCityFilter}
-                                                style={{ width: '33%', marginRight: "8px"  }}
-                                            />
-                                            <Select
-                                                allowClear
-                                                placeholder='区'
-                                                value={districtSearch}
-                                                onChange={handleChangeDistrictSearch}
-                                                options={listDistrictSearch}
-                                                style={{ width: '33%', marginRight: "8px" }}
-                                            />
-                                            <Select
-                                                allowClear
-                                                placeholder='街'
-                                                value={wardSearch}
-                                                onChange={handleChangeWardSearch}
-                                                options={listWardSearch}
-                                                style={{ width: '33%', marginRight: "8px" }}
-                                            />
-                                        </div>
-                                </React.Fragment>
-                            )
-                        }
-                    </div>
-                    <div className="row optionValue">
-                    <Radio.Group options={sortOptions} onChange={onChangeSort} value={sortValue} className='float-right mt-12 fs-1 optionValue '/>
-                    </div>
-    <div className="food-list d-flex">
-        {foodDecription.map((food) => (
-          <FoodItem
-            key={food.id}
-            id={food.id}
-            image_src={`${food.img}`}
-            rating={food.rating}
-            name={food.name}
-            price={food.price}
-            description={food.description}
-            restaurant={food.restaurant}
-          />
-        ))}
-    </div>
-                    <div className="row">
+						{isShowAddressFilter == true ?
+							(
+								<React.Fragment>
+									<p data-toggle="collapse" data-target="#cityFilter">
+										<i class="fa fa-chevron-down mr-6"></i>
+										<i class="fa fa-lock mr-6"></i>
+										場所
+									</p>
+									<div id="cityFilter" class="collapse">
+										<div >
+											<Select
+												allowClear
+												placeholder='市'
+												value={cityFilter}
+												onChange={handleChangeCityFilter}
+												options={listCityFilter}
+												style={{ width: '100%', margin: '2px 0' }}
+											/>
+										</div>
+										<div >
+											<Select
+												allowClear
+												placeholder='区'
+												value={districtFilter}
+												onChange={handleChangeDistrictFilter}
+												options={listDistrictFilter}
+												style={{ width: '100%', margin: '2px 0' }}
+											/>
+										</div>
+										<div >
+											<Select
+												allowClear
+												placeholder='街'
+												value={wardFilter}
+												onChange={handleChangeWardFilter}
+												options={listWardFilter}
+												style={{ width: '100%', margin: '2px 0' }}
+											/>
+										</div>
+									</div>
+								</React.Fragment>
+							) : (
+								<div></div>
+							)}
+					</div>
+					<div className="action-button d-flex mt-12">
+						<button className="cancel-button" onClick={clearFilter}>クリア</button>
+						<button className="confirm-button" onClick={handleFilter}>適用</button>
+					</div>
+				</div>
+				<div className="h-content">
+					<div className="row">
+						<div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
+						</div>
+						<div className="col-xs-12 col-sm-12 col-md-6 col-lg-2" >
+							<select value={searchOption} onChange={handleChangeSearchOption} class="form-select select-search-option" aria-label="Default select example">
+								<option value="1" selected><strong>料理の名前</strong></option>
+								<option value="2">場所</option>
+							</select>
+						</div>
+						{
+							searchOption == 1 ? (
+								<div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
+									<div className="search-box d-flex">
+										<div className="search-icon"><button type="button" class="btn btn-link"><i class="fa fa-search"></i></button></div>
+										<div className="search-text">
+											<input type="text" placeholder='Nem cuốn' value={searchData} onChange={handleSearchData} onKeyUp={handleKeyUp} />
+										</div>
+									</div>
+								</div>
+							) : (
+								<React.Fragment>
+									<div id="addressSearch" className="address-search-block">
+										<Select
+											allowClear
+											placeholder='市'
+											value={citySearch}
+											onChange={handleChangeCitySearch}
+											options={listCityFilter}
+											style={{ width: '33%', marginRight: "8px" }}
+										/>
+										<Select
+											allowClear
+											placeholder='区'
+											value={districtSearch}
+											onChange={handleChangeDistrictSearch}
+											options={listDistrictSearch}
+											style={{ width: '33%', marginRight: "8px" }}
+										/>
+										<Select
+											allowClear
+											placeholder='街'
+											value={wardSearch}
+											onChange={handleChangeWardSearch}
+											options={listWardSearch}
+											style={{ width: '33%', marginRight: "8px" }}
+										/>
+									</div>
+								</React.Fragment>
+							)
+						}
+					</div>
+					<div className="row optionValue">
+						<Radio.Group options={sortOptions} onChange={onChangeSort} value={sortValue} className='float-right mt-12 fs-1 optionValue ' />
+					</div>
+					<div className="food-list d-flex">
+						{foodDecription.slice(pageinate * pageSize, (pageinate + 1) * pageSize).map((food) => (
+							<FoodItem
+								key={food.id}
+								id={food.id}
+								image_src={`${food.img}`}
+								rating={food.rating}
+								name={food.name}
+								price={food.price}
+								description={food.description}
+								restaurant={food.restaurant}
+							/>
+						))}
+					</div>
+					<div className="row">
 						<div className="col-xs-12 col-sm-12 col-md-6 col-lg-8" >
 						</div>
 						<div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
 							<div className="pagination-box">
 								{[...Array(totalPage())].map((x, i) =>
-    							<button key={i}
-										type="button" 
-										className={pageinate==i ? "btn btn-link pagination-page pagination-page__selected"
-																						: "btn btn-link pagination-page"}
+									<button key={i}
+										type="button"
+										className={pageinate == i ? "btn btn-link pagination-page pagination-page__selected"
+											: "btn btn-link pagination-page"}
 										onClick={() => {
 											setPageinate(i)
 										}}
 									>
 										{i + 1}
 									</button>
-								)}					
+								)}
 							</div>
 						</div>
 					</div>
-                    
-                </div>
-            </div>
-        </div>
-    )
+
+				</div>
+			</div>
+		</div>
+	)
 }
 
 function mapState(state) {

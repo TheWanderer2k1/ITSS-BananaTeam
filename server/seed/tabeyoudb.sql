@@ -1,28 +1,42 @@
-﻿SET NAMES 'utf8';
+
+SET NAMES 'utf8';
+
 
 USE tabeyoudb;
+
 
 DROP TABLE IF EXISTS reactreview;
 
+
 DROP TABLE IF EXISTS reply;
+
 
 DROP TABLE IF EXISTS foodreview;
 
+
 DROP TABLE IF EXISTS user;
+
 
 DROP TABLE IF EXISTS role;
 
+
 DROP TABLE IF EXISTS fooddescription;
+
 
 DROP TABLE IF EXISTS restaurant;
 
+
 DROP TABLE IF EXISTS food;
+
 
 DROP TABLE IF EXISTS category;
 
+
 DROP TABLE IF EXISTS image;
 
+
 USE tabeyoudb;
+
 
 CREATE TABLE image (
   ID int NOT NULL AUTO_INCREMENT,
@@ -37,6 +51,7 @@ AVG_ROW_LENGTH = 819,
 CHARACTER SET utf8mb4,
 COLLATE utf8mb4_0900_ai_ci;
 
+
 CREATE TABLE category (
   ID int NOT NULL AUTO_INCREMENT,
   Name varchar(10) NOT NULL DEFAULT '',
@@ -50,9 +65,11 @@ AVG_ROW_LENGTH = 3276,
 CHARACTER SET utf8mb4,
 COLLATE utf8mb4_0900_ai_ci;
 
+
 ALTER TABLE category
  ADD CONSTRAINT FK_category_ImageId FOREIGN KEY (ImageId)
-REFERENCES image (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+REFERENCES image (ID);
+
 
 CREATE TABLE food (
   ID int NOT NULL AUTO_INCREMENT,
@@ -66,9 +83,11 @@ AVG_ROW_LENGTH = 819,
 CHARACTER SET utf8mb4,
 COLLATE utf8mb4_0900_ai_ci;
 
+
 ALTER TABLE food
  ADD CONSTRAINT FK_Food_CategoryId FOREIGN KEY (CategoryId)
 REFERENCES category (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+
 
 CREATE TABLE restaurant (
   ID int NOT NULL AUTO_INCREMENT,
@@ -110,13 +129,16 @@ AVG_ROW_LENGTH = 528,
 CHARACTER SET utf8mb4,
 COLLATE utf8mb4_0900_ai_ci;
 
+
 ALTER TABLE fooddescription
  ADD CONSTRAINT FK_fooddescription_FoodID FOREIGN KEY (FoodID)
 REFERENCES food (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
+
 ALTER TABLE fooddescription
  ADD CONSTRAINT FK_fooddescription_RestaurantID FOREIGN KEY (RestaurantID)
 REFERENCES restaurant (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+
 
 CREATE TABLE role (
   ID int NOT NULL AUTO_INCREMENT,
@@ -128,6 +150,7 @@ AUTO_INCREMENT = 5,
 AVG_ROW_LENGTH = 5461,
 CHARACTER SET utf8mb4,
 COLLATE utf8mb4_0900_ai_ci;
+
 
 CREATE TABLE user (
   ID int NOT NULL AUTO_INCREMENT,
@@ -149,15 +172,19 @@ AVG_ROW_LENGTH = 3276,
 CHARACTER SET utf8mb4,
 COLLATE utf8mb4_0900_ai_ci;
 
+
 ALTER TABLE user
  ADD CONSTRAINT CK_User CHECK ((`RoleId` > -(1)) AND (`RoleId` < 3));
+
 
 ALTER TABLE user
  ADD UNIQUE INDEX Username (Username);
 
+
 ALTER TABLE user
  ADD CONSTRAINT FK_user_RoleId FOREIGN KEY (RoleId)
 REFERENCES role (ID);
+
 
 CREATE TABLE foodreview (
   ID int NOT NULL AUTO_INCREMENT,
@@ -176,13 +203,16 @@ AVG_ROW_LENGTH = 268,
 CHARACTER SET utf8mb4,
 COLLATE utf8mb4_0900_ai_ci;
 
+
 ALTER TABLE foodreview
  ADD CONSTRAINT FK_foodreview_FoodDesID FOREIGN KEY (FoodDesID)
 REFERENCES fooddescription (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
+
 ALTER TABLE foodreview
  ADD CONSTRAINT FK_foodreview_UserID FOREIGN KEY (UserID)
 REFERENCES user (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+
 
 CREATE TABLE reply (
   ID int NOT NULL AUTO_INCREMENT,
@@ -197,13 +227,16 @@ ENGINE = INNODB,
 CHARACTER SET utf8mb4,
 COLLATE utf8mb4_0900_ai_ci;
 
+
 ALTER TABLE reply
  ADD CONSTRAINT FK_reply_ReviewID FOREIGN KEY (ReviewID)
 REFERENCES foodreview (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
+
 ALTER TABLE reply
  ADD CONSTRAINT FK_reply_UserID FOREIGN KEY (UserID)
 REFERENCES user (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+
 
 CREATE TABLE reactreview (
   UserID int NOT NULL,
@@ -212,20 +245,22 @@ CREATE TABLE reactreview (
   PRIMARY KEY (UserID, ReviewID)
 )
 ENGINE = INNODB,
-AVG_ROW_LENGTH = 16384,
 CHARACTER SET utf8mb4,
 COLLATE utf8mb4_0900_ai_ci;
+
 
 ALTER TABLE reactreview
  ADD CONSTRAINT CK_reactreview CHECK ((`React` > -(1)) AND (`React` < 6));
 
+
 ALTER TABLE reactreview
  ADD CONSTRAINT FK_ReactReview_ReviewID FOREIGN KEY (ReviewID)
-REFERENCES foodreview (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+REFERENCES foodreview (ID);
+
 
 ALTER TABLE reactreview
  ADD CONSTRAINT FK_ReactReview_UserID FOREIGN KEY (UserID)
-REFERENCES user (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+REFERENCES user (ID);
 
 
 INSERT INTO image VALUES
@@ -412,9 +447,6 @@ INSERT INTO foodreview VALUES
 (264, 4, 178, 'この料理はとてもおいしい', 3, 1, NULL, '2023-06-02 00:00:00'),
 (265, 1, 169, 'この料理はとてもおいしい', 3, 1, NULL, '2023-06-02 00:00:00'),
 (266, 3, 151, 'この料理はとてもおいしい', 4, 1, 5757865, '2023-07-04 21:09:33');
-
-
--- Table tabeyoudb.reply does not contain any data (it is empty)
 
 
 INSERT INTO reactreview VALUES

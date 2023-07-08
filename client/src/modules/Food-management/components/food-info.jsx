@@ -25,7 +25,7 @@ function FoodInfo(props) {
         </div>
       </div>
       <div className="food-price">
-        <h2><strong>{price}</strong> ドン</h2>
+        <h2><strong>{price ? price.toLocaleString() : 0}</strong> ドン</h2>
       </div>
       <div className="food-name">
         <h1>{name}</h1>

@@ -1,26 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './food-info.css';
+import { Link } from 'react-router-dom';
 
 function FoodInfo(props) {
-  const { image, name, price, description, score, restaurantImg, onClickPrev, onClickNext } = props;
+  const { image , name, price, description, score, restaurantImg,restaurantId } = props;
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const handlePrev = () => {
+    console.log(currentImageIndex);
+    if (currentImageIndex > 0) {
+      setCurrentImageIndex(currentImageIndex - 1);
+    }
+  };
+
+  const handleNext = () => {
+    console.log(currentImageIndex);
+    if ( currentImageIndex < image?.length - 1) {
+      setCurrentImageIndex(currentImageIndex + 1);
+    }
+  };
 
   return (
     <div className="food-info">
       <div className="food-image">
-        <img src={process.env.REACT_APP_SERVER + image} alt="Food Image" />
+        <img src={process.env.REACT_APP_SERVER + image[currentImageIndex]} alt="Food Image" />
         <div className="food-nav">
-          <button className="prev-button" onClick={onClickPrev}>
-            &lt;
-          </button>
-          <button className="next-button" onClick={onClickNext}>
-            &gt;
-          </button>
-        </div>
+  <button className="prev-button" onClick={handlePrev}>
+    &lt;
+  </button>
+  <button className="next-button" onClick={handleNext}>
+    &gt;
+  </button>
+</div>
         <div className="food-score">
           <p>{score}/5</p>
         </div>
         <div className="resImg">
-          <img className='imgcl' src={process.env.REACT_APP_SERVER + image} alt="Res Image" />
+          <Link to={`/resinfo?res_id=${restaurantId}`}>
+    <img className='imgcl' src={process.env.REACT_APP_SERVER + restaurantImg} alt="Res Image" />
+  </Link>
         </div>
       </div>
       <div className="food-price">

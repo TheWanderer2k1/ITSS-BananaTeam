@@ -91,7 +91,8 @@ const FoodReview = ({id}) => {
     setIsModalOpen(true);
   };
   const onClickDeleteComment = (comment) => {
-    deleteComment(comment.reviewId);
+    // deleteComment(comment.reviewId);
+    deleteComment(comment);
   }
 
   const handleOk = () => {
@@ -233,21 +234,23 @@ const FoodReview = ({id}) => {
     } catch (error) {
       console.error(error);
     }
-    window.location.reload();
-    // const resp = await axios(url, options);
-    // setListComment([...listComment, resp.data['content']]);
-    // setNewCommentText('');
+    fetchFoodReview();
   };
-  const deleteComment = async (reviewId) => {
+  const deleteComment = async (review) => {
     try {
+      const data = {
+        userId: review.userId
+      }
       var url = `${ process.env.REACT_APP_SERVER }/api/v1/food/${id}/review/`;
-      url += `${reviewId}`;
+      url += `${review.reviewId}`;
       console.log('rul day: ', url);
       const resp = await sendRequest({
         url: url,
         method: 'DELETE',
+        data: data
       });
-      window.location.reload();
+      fetchFoodReview();
+      // window.location.reload();
     } catch (error) {
       console.error(error);
     }

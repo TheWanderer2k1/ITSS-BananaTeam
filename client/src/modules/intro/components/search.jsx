@@ -1,4 +1,4 @@
-import { Button, Rate, TimePicker, Select  } from 'antd';
+import { Button, Rate, TimePicker, Select } from 'antd';
 import FoodList from './food-list'
 import FoodItem from "./food-item";
 import { useLocation } from 'react-router-dom';
@@ -34,95 +34,97 @@ let initialRatingFilter = [
 	{ id: 5, value: 5, checked: false }
 ]
 let listSearchOption = [
-    {id: 1, value: "料理の名前"},
-    {id: 2, value: "場所"}
+	{ id: 1, value: "料理の名前" },
+	{ id: 2, value: "場所" }
 ]
 
 let listCityFilter = [
-    { value: "HA Noi", label: "Thành phố Hà Nội", id: "01" },
-    { value: "Tỉnh Hà Giang", label: "Tỉnh Hà Giang", id: "02" },
-    { value: "Tỉnh Cao Bằng", label: "Tỉnh Cao Bằng", id: "04" },
-    { value: "Tỉnh Bắc Kạn", label: "Tỉnh Bắc Kạn", id: "06" },
-    { value: "Tỉnh Tuyên Quang", label: "Tỉnh Tuyên Quang", id: "08" },
-    { value: "Tỉnh Lào Cai", label: "Tỉnh Lào Cai", id: "10" },
-    { value: "Tỉnh Điện Biên", label: "Tỉnh Điện Biên", id: "11" },
-    { value: "Tỉnh Lai Châu", label: "Tỉnh Lai Châu", id: "12" },
-    { value: "Tỉnh Sơn La", label: "Tỉnh Sơn La", id: "14" },
-    { value: "Tỉnh Yên Bái", label: "Tỉnh Yên Bái", id: "15" },
-    { value: "Tỉnh Hoà Bình", label: "Tỉnh Hoà Bình", id: "17" },
-    { value: "Tỉnh Thái Nguyên", label: "Tỉnh Thái Nguyên", id: "19" },
-    { value: "Tỉnh Lạng Sơn", label: "Tỉnh Lạng Sơn", id: "20" },
-    { value: "Tỉnh Quảng Ninh", label: "Tỉnh Quảng Ninh", id: "22" },
-    { value: "Tỉnh Bắc Giang", label: "Tỉnh Bắc Giang", id: "24" },
-    { value: "Tỉnh Phú Thọ", label: "Tỉnh Phú Thọ", id: "25" },
-    { value: "Tỉnh Vĩnh Phúc", label: "Tỉnh Vĩnh Phúc", id: "26" },
-    { value: "Tỉnh Bắc Ninh", label: "Tỉnh Bắc Ninh", id: "27" },
-    { value: "Tỉnh Hải Dương", label: "Tỉnh Hải Dương", id: "30" },
-    { value: "Hai Phong", label: "Thành phố Hải Phòng", id: "31" },
-    { value: "Tỉnh Hưng Yên", label: "Tỉnh Hưng Yên", id: "33" },
-    { value: "Tỉnh Thái Bình", label: "Tỉnh Thái Bình", id: "34" },
-    { value: "Tỉnh Hà Nam", label: "Tỉnh Hà Nam", id: "35" },
-    { value: "Tỉnh Nam Định", label: "Tỉnh Nam Định", id: "36" },
-    { value: "Tỉnh Ninh Bình", label: "Tỉnh Ninh Bình", id: "37" },
-    { value: "Tỉnh Thanh Hóa", label: "Tỉnh Thanh Hóa", id: "38" },
-    { value: "Tỉnh Nghệ An", label: "Tỉnh Nghệ An", id: "40" },
-    { value: "Tỉnh Hà Tĩnh", label: "Tỉnh Hà Tĩnh", id: "42" },
-    { value: "Tỉnh Quảng Bình", label: "Tỉnh Quảng Bình", id: "44" },
-    { value: "Tỉnh Quảng Trị", label: "Tỉnh Quảng Trị", id: "45" },
-    { value: "Tỉnh Thừa Thiên Huế", label: "Tỉnh Thừa Thiên Huế", id: "46" },
-    { value: "Da Nang", label: "Thành phố Đà Nẵng", id: "48" },
-    { value: "Tỉnh Quảng Nam", label: "Tỉnh Quảng Nam", id: "49" },
-    { value: "Tỉnh Quảng Ngãi", label: "Tỉnh Quảng Ngãi", id: "51" },
-    { value: "Tỉnh Bình Định", label: "Tỉnh Bình Định", id: "52" },
-    { value: "Tỉnh Phú Yên", label: "Tỉnh Phú Yên", id: "54" },
-    { value: "Tỉnh Khánh Hòa", label: "Tỉnh Khánh Hòa", id: "56" },
-    { value: "Tỉnh Ninh Thuận", label: "Tỉnh Ninh Thuận", id: "58" },
-    { value: "Tỉnh Bình Thuận", label: "Tỉnh Bình Thuận", id: "60" },
-    { value: "Tỉnh Kon Tum", label: "Tỉnh Kon Tum", id: "62" },
-    { value: "Tỉnh Gia Lai", label: "Tỉnh Gia Lai", id: "64" },
-    { value: "Tỉnh Đắk Lắk", label: "Tỉnh Đắk Lắk", id: "66" },
-    { value: "Tỉnh Đắk Nông", label: "Tỉnh Đắk Nông", id: "67" },
-    { value: "Tỉnh Lâm Đồng", label: "Tỉnh Lâm Đồng", id: "68" },
-    { value: "Tỉnh Bình Phước", label: "Tỉnh Bình Phước", id: "70" },
-    { value: "Tỉnh Tây Ninh", label: "Tỉnh Tây Ninh", id: "72" },
-    { value: "Tỉnh Bình Dương", label: "Tỉnh Bình Dương", id: "74" },
-    { value: "Tỉnh Đồng Nai", label: "Tỉnh Đồng Nai", id: "75" },
-    { value: "Tỉnh Bà Rịa - Vũng Tàu", label: "Tỉnh Bà Rịa - Vũng Tàu", id: "77" },
-    { value: "TP HCM", label: "Thành phố Hồ Chí Minh", id: "79" },
-    { value: "Tỉnh Long An", label: "Tỉnh Long An", id: "80" },
-    { value: "Tỉnh Tiền Giang", label: "Tỉnh Tiền Giang", id: "82" },
-    { value: "Tỉnh Bến Tre", label: "Tỉnh Bến Tre", id: "83" },
-    { value: "Tỉnh Trà Vinh", label: "Tỉnh Trà Vinh", id: "84" },
-    { value: "Tỉnh Vĩnh Long", label: "Tỉnh Vĩnh Long", id: "86" },
-    { value: "Tỉnh Đồng Tháp", label: "Tỉnh Đồng Tháp", id: "87" },
-    { value: "Tỉnh An Giang", label: "Tỉnh An Giang", id: "89" },
-    { value: "Tỉnh Kiên Giang", label: "Tỉnh Kiên Giang", id: "91" },
-    { value: "Thành phố Cần Thơ", label: "Thành phố Cần Thơ", id: "92" },
-    { value: "Tỉnh Hậu Giang", label: "Tỉnh Hậu Giang", id: "93" },
-    { value: "Tỉnh Sóc Trăng", label: "Tỉnh Sóc Trăng", id: "94" },
-    { value: "Tỉnh Bạc Liêu", label: "Tỉnh Bạc Liêu", id: "95" },
-    { value: "Tỉnh Cà Mau", label: "Tỉnh Cà Mau", id: "96" },
+	{ value: "HA Noi", label: "Thành phố Hà Nội", id: "01" },
+	{ value: "Tỉnh Hà Giang", label: "Tỉnh Hà Giang", id: "02" },
+	{ value: "Tỉnh Cao Bằng", label: "Tỉnh Cao Bằng", id: "04" },
+	{ value: "Tỉnh Bắc Kạn", label: "Tỉnh Bắc Kạn", id: "06" },
+	{ value: "Tỉnh Tuyên Quang", label: "Tỉnh Tuyên Quang", id: "08" },
+	{ value: "Tỉnh Lào Cai", label: "Tỉnh Lào Cai", id: "10" },
+	{ value: "Tỉnh Điện Biên", label: "Tỉnh Điện Biên", id: "11" },
+	{ value: "Tỉnh Lai Châu", label: "Tỉnh Lai Châu", id: "12" },
+	{ value: "Tỉnh Sơn La", label: "Tỉnh Sơn La", id: "14" },
+	{ value: "Tỉnh Yên Bái", label: "Tỉnh Yên Bái", id: "15" },
+	{ value: "Tỉnh Hoà Bình", label: "Tỉnh Hoà Bình", id: "17" },
+	{ value: "Tỉnh Thái Nguyên", label: "Tỉnh Thái Nguyên", id: "19" },
+	{ value: "Tỉnh Lạng Sơn", label: "Tỉnh Lạng Sơn", id: "20" },
+	{ value: "Tỉnh Quảng Ninh", label: "Tỉnh Quảng Ninh", id: "22" },
+	{ value: "Tỉnh Bắc Giang", label: "Tỉnh Bắc Giang", id: "24" },
+	{ value: "Tỉnh Phú Thọ", label: "Tỉnh Phú Thọ", id: "25" },
+	{ value: "Tỉnh Vĩnh Phúc", label: "Tỉnh Vĩnh Phúc", id: "26" },
+	{ value: "Tỉnh Bắc Ninh", label: "Tỉnh Bắc Ninh", id: "27" },
+	{ value: "Tỉnh Hải Dương", label: "Tỉnh Hải Dương", id: "30" },
+	{ value: "Hai Phong", label: "Thành phố Hải Phòng", id: "31" },
+	{ value: "Tỉnh Hưng Yên", label: "Tỉnh Hưng Yên", id: "33" },
+	{ value: "Tỉnh Thái Bình", label: "Tỉnh Thái Bình", id: "34" },
+	{ value: "Tỉnh Hà Nam", label: "Tỉnh Hà Nam", id: "35" },
+	{ value: "Tỉnh Nam Định", label: "Tỉnh Nam Định", id: "36" },
+	{ value: "Tỉnh Ninh Bình", label: "Tỉnh Ninh Bình", id: "37" },
+	{ value: "Tỉnh Thanh Hóa", label: "Tỉnh Thanh Hóa", id: "38" },
+	{ value: "Tỉnh Nghệ An", label: "Tỉnh Nghệ An", id: "40" },
+	{ value: "Tỉnh Hà Tĩnh", label: "Tỉnh Hà Tĩnh", id: "42" },
+	{ value: "Tỉnh Quảng Bình", label: "Tỉnh Quảng Bình", id: "44" },
+	{ value: "Tỉnh Quảng Trị", label: "Tỉnh Quảng Trị", id: "45" },
+	{ value: "Tỉnh Thừa Thiên Huế", label: "Tỉnh Thừa Thiên Huế", id: "46" },
+	{ value: "Da Nang", label: "Thành phố Đà Nẵng", id: "48" },
+	{ value: "Tỉnh Quảng Nam", label: "Tỉnh Quảng Nam", id: "49" },
+	{ value: "Tỉnh Quảng Ngãi", label: "Tỉnh Quảng Ngãi", id: "51" },
+	{ value: "Tỉnh Bình Định", label: "Tỉnh Bình Định", id: "52" },
+	{ value: "Tỉnh Phú Yên", label: "Tỉnh Phú Yên", id: "54" },
+	{ value: "Tỉnh Khánh Hòa", label: "Tỉnh Khánh Hòa", id: "56" },
+	{ value: "Tỉnh Ninh Thuận", label: "Tỉnh Ninh Thuận", id: "58" },
+	{ value: "Tỉnh Bình Thuận", label: "Tỉnh Bình Thuận", id: "60" },
+	{ value: "Tỉnh Kon Tum", label: "Tỉnh Kon Tum", id: "62" },
+	{ value: "Tỉnh Gia Lai", label: "Tỉnh Gia Lai", id: "64" },
+	{ value: "Tỉnh Đắk Lắk", label: "Tỉnh Đắk Lắk", id: "66" },
+	{ value: "Tỉnh Đắk Nông", label: "Tỉnh Đắk Nông", id: "67" },
+	{ value: "Tỉnh Lâm Đồng", label: "Tỉnh Lâm Đồng", id: "68" },
+	{ value: "Tỉnh Bình Phước", label: "Tỉnh Bình Phước", id: "70" },
+	{ value: "Tỉnh Tây Ninh", label: "Tỉnh Tây Ninh", id: "72" },
+	{ value: "Tỉnh Bình Dương", label: "Tỉnh Bình Dương", id: "74" },
+	{ value: "Tỉnh Đồng Nai", label: "Tỉnh Đồng Nai", id: "75" },
+	{ value: "Tỉnh Bà Rịa - Vũng Tàu", label: "Tỉnh Bà Rịa - Vũng Tàu", id: "77" },
+	{ value: "TP HCM", label: "Thành phố Hồ Chí Minh", id: "79" },
+	{ value: "Tỉnh Long An", label: "Tỉnh Long An", id: "80" },
+	{ value: "Tỉnh Tiền Giang", label: "Tỉnh Tiền Giang", id: "82" },
+	{ value: "Tỉnh Bến Tre", label: "Tỉnh Bến Tre", id: "83" },
+	{ value: "Tỉnh Trà Vinh", label: "Tỉnh Trà Vinh", id: "84" },
+	{ value: "Tỉnh Vĩnh Long", label: "Tỉnh Vĩnh Long", id: "86" },
+	{ value: "Tỉnh Đồng Tháp", label: "Tỉnh Đồng Tháp", id: "87" },
+	{ value: "Tỉnh An Giang", label: "Tỉnh An Giang", id: "89" },
+	{ value: "Tỉnh Kiên Giang", label: "Tỉnh Kiên Giang", id: "91" },
+	{ value: "Thành phố Cần Thơ", label: "Thành phố Cần Thơ", id: "92" },
+	{ value: "Tỉnh Hậu Giang", label: "Tỉnh Hậu Giang", id: "93" },
+	{ value: "Tỉnh Sóc Trăng", label: "Tỉnh Sóc Trăng", id: "94" },
+	{ value: "Tỉnh Bạc Liêu", label: "Tỉnh Bạc Liêu", id: "95" },
+	{ value: "Tỉnh Cà Mau", label: "Tỉnh Cà Mau", id: "96" },
 ]
 const sortOptions = ['価格の安い順', '価格の高い順'];
 
-function Search () {
-    const history = useHistory();
-    const location = useLocation();
-    // Dữ liệu lấy về từ server
-    const [allFoodDescription, setAllFoodDescription] = useState([]);
-    const [inputValue, setInputValue] = useState('');
-    const [searchData, setSearchData] = useState('');
-    const [foodDecription, setfoodDecription] = useState([]);
-    const [listCategories, setListCategories] = useState([]);
-    const [fromTime, setFromTime] = useState(null);
-    const [toTime, setToTime] = useState(null);
+const pageSize = 10;
+
+function Search() {
+	const history = useHistory();
+	const location = useLocation();
+	// Dữ liệu lấy về từ server
+	const [allFoodDescription, setAllFoodDescription] = useState([]);
+	const [inputValue, setInputValue] = useState('');
+	const [searchData, setSearchData] = useState('');
+	const [foodDecription, setfoodDecription] = useState([]);
+	const [listCategories, setListCategories] = useState([]);
+	const [fromTime, setFromTime] = useState(null);
+	const [toTime, setToTime] = useState(null);
 	const [priceFilter, setPriceFilter] = useState(initialPriceFilter);
 	const [ratingFilter, setRatingFilter] = useState(initialRatingFilter);
 	const [categoryFilter, setCategoryFilter] = useState(null);
 	const [cityFilter, setCityFilter] = useState(null);
 	const [districtFilter, setDistrictFilter] = useState(null);
 	const [wardFilter, setWardFilter] = useState(null);
-    const [citySearch, setCitySearch] = useState(null);
+	const [citySearch, setCitySearch] = useState(null);
 	const [districtSearch, setDistrictSearch] = useState(null);
 	const [wardSearch, setWardSearch] = useState(null);
 	const [listDistrictFilter, setListDistrictFilter] = useState([]);
@@ -133,272 +135,285 @@ function Search () {
 	const [isShowAddressFilter, setIsShowAddressFilter] = useState(true);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
 	const [isSearchByAddress, setIsSearchByAddress] = useState(false);
-    const [sortValue, setSortValue] = useState('');
+	const [sortValue, setSortValue] = useState('');
+	const [pageinate, setPageinate] = useState(1);
 
-    const onChangeSort = ({ target: { value } }) => {
-        setSortValue(value);
-        if(value == '価格の高い順') sortByPriceDecrease();
-        else sortByPriceIncrease();
-    };
-    
+	const onChangeSort = ({ target: { value } }) => {
+		setSortValue(value);
+		if (value == '価格の高い順') sortByPriceDecrease();
+		else sortByPriceIncrease();
+	};
 
-    const moveToHomePage = () => {
-        // Navigate to the desired route
-        history.push('/homepage');
-      };
 
-    const handleSearchData = (event) => {
-      setSearchData(event.target.value);
-    };
+	const moveToHomePage = () => {
+		// Navigate to the desired route
+		history.push('/homepage');
+	};
 
-    const handleKeyUp = (event) => {
-      if (event.keyCode === 13) {
-        fetchfoodDecription();
-      }
-    }
+	const handleSearchData = (event) => {
+		setSearchData(event.target.value);
+	};
 
-    const handleChangeCityFilter = (value) => {
-        setCityFilter(value);
-        if(value != undefined) fetchDistrict(value);
-    };
+	const handleKeyUp = (event) => {
+		if (event.keyCode === 13) {
+			fetchfoodDecription();
+		}
+	}
 
-    const handleChangeDistrictFilter = (value) => {
-        setDistrictFilter(value);
-        if(value != undefined) fetchWard(value);
-    };
+	const handleChangeCityFilter = (value) => {
+		setCityFilter(value);
+		if (value != undefined) fetchDistrict(value);
+	};
 
-    const handleChangeWardFilter = (value) => {
-        setWardFilter(value);
-    };
+	const handleChangeDistrictFilter = (value) => {
+		setDistrictFilter(value);
+		if (value != undefined) fetchWard(value);
+	};
 
-    const handleChangeCitySearch = (value) => {
-        setCitySearch(value);
-        if(value != undefined) fetchDistrict(value);
-        // fetchfoodDecriptionByAddress();
-    };
+	const handleChangeWardFilter = (value) => {
+		setWardFilter(value);
+	};
 
-    const handleChangeDistrictSearch = (value) => {
-        setDistrictSearch(value);
-        if(value != undefined) fetchWard(value);
-        // fetchfoodDecriptionByAddress();
-    };
+	const handleChangeCitySearch = (value) => {
+		setCitySearch(value);
+		if (value != undefined) fetchDistrict(value);
+		// fetchfoodDecriptionByAddress();
+	};
 
-    const handleChangeWardSearch = (value) => {
-        setWardSearch(value);
-        // fetchfoodDecriptionByAddress();
-    };
+	const handleChangeDistrictSearch = (value) => {
+		setDistrictSearch(value);
+		if (value != undefined) fetchWard(value);
+		// fetchfoodDecriptionByAddress();
+	};
 
-    const handleChangeSearchOption = (event) => {
-        setSearchOption(event.target.value);
-        if(event.target.value == 1) {
-            setIsShowAddressFilter(true);
-        } else {
-            setIsShowAddressFilter(false);
-        }
-    };
+	const handleChangeWardSearch = (value) => {
+		setWardSearch(value);
+		// fetchfoodDecriptionByAddress();
+	};
 
-    useEffect(() => {
-        fetchCategories();
-        const params = new URLSearchParams(location.search);
-        const inputValueParam = params.get('search_query');
-        const provinceParam = params.get('province');
-        if(isFirstLoad && provinceParam) {
-            setIsSearchByAddress(true);
-            setCitySearch(provinceParam);
-            setIsFirstLoad(false);
-        }
-        if(provinceParam) {
-            setSearchOption(2);
-            setIsShowAddressFilter(false);
-            fetchfoodDecriptionByAddress();
-        } else {
-            setInputValue(inputValueParam || '');
-            setSearchData(inputValueParam);
-            fetchfoodDecription(inputValueParam);
-        }
-    }, []);
+	const handleChangeSearchOption = (event) => {
+		setSearchOption(event.target.value);
+		if (event.target.value == 1) {
+			setIsShowAddressFilter(true);
+		} else {
+			setIsShowAddressFilter(false);
+		}
+	};
 
-    useEffect(() => {
-        if(isSearchByAddress) {
-            fetchfoodDecriptionByAddress();
-            setIsSearchByAddress(false);
-        }
-    }, [citySearch, districtSearch, wardSearch]);
+	useEffect(() => {
+		fetchCategories();
+		const params = new URLSearchParams(location.search);
+		const inputValueParam = params.get('search_query');
+		const provinceParam = params.get('province');
+		if (isFirstLoad && provinceParam) {
+			setIsSearchByAddress(true);
+			setCitySearch(provinceParam);
+			setIsFirstLoad(false);
+		}
+		if (provinceParam) {
+			setSearchOption(2);
+			setIsShowAddressFilter(false);
+			fetchfoodDecriptionByAddress();
+		} else {
+			setInputValue(inputValueParam || '');
+			setSearchData(inputValueParam);
+			fetchfoodDecription(inputValueParam);
+		}
+	}, []);
 
-    const fetchCategories = async () => {
-        const url = `${ process.env.REACT_APP_SERVER }/api/v1/categories`;
-        const resp = await sendRequest({
-            url: url,
-            method: "GET",
-        })
-        const transformedCategories = resp.data['content'].listCategory.map((item) => {
-            return { value: item.ID, label: item.Name }
-        })
-        setListCategories(transformedCategories)
-        console.log('Huy on da test: ' + listCategories);
-    }
-    const fetchfoodDecription = async (searchDataParam = '') => {
-        var url = `${ process.env.REACT_APP_SERVER }/api/v1/foods`;
-        if(searchDataParam && searchDataParam != '' ){url += `?keyword=${searchDataParam}`;}
-        else if(searchData != ''){url += `?keyword=${searchData}`;}
-        console.log(url);
-        const resp = await sendRequest({
-            url: url,
-            method: "GET",
-        })
-        setfoodDecription(resp.data['content'])
-        setAllFoodDescription(resp.data['content'])
-    };
+	useEffect(() => {
+		if (isSearchByAddress) {
+			fetchfoodDecriptionByAddress();
+			setIsSearchByAddress(false);
+		}
+	}, [citySearch, districtSearch, wardSearch]);
 
-    const fetchfoodDecriptionByAddress = async () => {
-        var url = `${ process.env.REACT_APP_SERVER }/api/v1/foods/findByAddress`;
-        if(citySearch) {
-            url += `?province=${citySearch}`;
-            if(districtSearch) {
-                url += `?district=${districtSearch}`;
-                if(wardSearch) {
-                    url += `?ward=${wardSearch}`;
-                }
-            }
-        }
-        console.log(url);
-        const resp = await sendRequest({
-            url: url,
-            method: "GET",
-        })
-        setfoodDecription(resp.data['content'])
-            setAllFoodDescription(resp.data['content'])
-            console.log('in fetch', resp.data['content'], foodDecription)
-    };
+	const fetchCategories = async () => {
+		const url = `${process.env.REACT_APP_SERVER}/api/v1/categories`;
+		const resp = await sendRequest({
+			url: url,
+			method: "GET",
+		})
+		const transformedCategories = resp.data['content'].listCategory.map((item) => {
+			return { value: item.ID, label: item.Name }
+		})
+		setListCategories(transformedCategories)
+		console.log('Huy on da test: ' + listCategories);
+	}
+	const fetchfoodDecription = async (searchDataParam = '') => {
+		var url = `${process.env.REACT_APP_SERVER}/api/v1/foods`;
+		if (searchDataParam && searchDataParam != '') { url += `?keyword=${searchDataParam}`; }
+		else if (searchData != '') { url += `?keyword=${searchData}`; }
+		console.log(url);
+		const resp = await sendRequest({
+			url: url,
+			method: "GET",
+		})
+		setfoodDecription(resp.data['content'])
+		setAllFoodDescription(resp.data['content'])
+	};
 
-    const fetchDistrict = async (provinceValue) => {
-    var provinceId = listCityFilter.find(x => x.value === provinceValue).id;
-    var url = 'https://vapi.vnappmob.com/api/province/district/' + provinceId;
-    const resp = await sendRequest({
-        url: url,
-        method: "GET",
-    })
-    setListDistrictFilter(resp.data['results'].map(item => ({
-        value: item.district_name, label: item.district_name, id: item.district_id})
-    ));
-    setListDistrictSearch(resp.data['results'].map(item => ({
-        value: item.district_name, label: item.district_name, id: item.district_id})
-    ));
-    }
+	const fetchfoodDecriptionByAddress = async () => {
+		var url = `${process.env.REACT_APP_SERVER}/api/v1/foods/findByAddress`;
+		if (citySearch) {
+			url += `?province=${citySearch}`;
+			if (districtSearch) {
+				url += `?district=${districtSearch}`;
+				if (wardSearch) {
+					url += `?ward=${wardSearch}`;
+				}
+			}
+		}
+		console.log(url);
+		const resp = await sendRequest({
+			url: url,
+			method: "GET",
+		})
+		setfoodDecription(resp.data['content'])
+		setAllFoodDescription(resp.data['content'])
+		console.log('in fetch', resp.data['content'], foodDecription)
+	};
 
-    const fetchWard = async (districtValue) => {
-        var districtId = listDistrictFilter.find(x => x.value === districtValue).id;
-        console.log('salad on the test: '+ districtId);
-        var url = 'https://vapi.vnappmob.com/api/province/ward/' + districtId;
-        const resp = await sendRequest({
-            url: url,
-            method: "GET",
-        })
-        setListWardFilter(resp.data['results'].map(item => ({
-            value: item.ward_name, label: item.ward_name, id: item.ward_id})
-        ));
-        setListWardSearch(resp.data['results'].map(item => ({
-            value: item.ward_name, label: item.ward_name, id: item.ward_id})
-        ));
-    }
+	const fetchDistrict = async (provinceValue) => {
+		var provinceId = listCityFilter.find(x => x.value === provinceValue).id;
+		var url = 'https://vapi.vnappmob.com/api/province/district/' + provinceId;
+		const resp = await sendRequest({
+			url: url,
+			method: "GET",
+		})
+		setListDistrictFilter(resp.data['results'].map(item => ({
+			value: item.district_name, label: item.district_name, id: item.district_id
+		})
+		));
+		setListDistrictSearch(resp.data['results'].map(item => ({
+			value: item.district_name, label: item.district_name, id: item.district_id
+		})
+		));
+	}
 
-    const sortByPriceIncrease = () => {
-        setfoodDecription([...foodDecription].sort((a, b) => a.price - b.price));
-    };
+	const fetchWard = async (districtValue) => {
+		var districtId = listDistrictFilter.find(x => x.value === districtValue).id;
+		console.log('salad on the test: ' + districtId);
+		var url = 'https://vapi.vnappmob.com/api/province/ward/' + districtId;
+		const resp = await sendRequest({
+			url: url,
+			method: "GET",
+		})
+		setListWardFilter(resp.data['results'].map(item => ({
+			value: item.ward_name, label: item.ward_name, id: item.ward_id
+		})
+		));
+		setListWardSearch(resp.data['results'].map(item => ({
+			value: item.ward_name, label: item.ward_name, id: item.ward_id
+		})
+		));
+	}
 
-    const sortByPriceDecrease = () => {
-        setfoodDecription([...foodDecription].sort((a, b) => b.price - a.price));
-    };
+	const sortByPriceIncrease = () => {
+		setfoodDecription([...foodDecription].sort((a, b) => a.price - b.price));
+	};
 
-    const onChangeFromTime = (date, dateString) => {
-        setFromTime(date);
-    };
-    const onChangeToTime = (date, dateString) => {
-        setToTime(date);
-    };
+	const sortByPriceDecrease = () => {
+		setfoodDecription([...foodDecription].sort((a, b) => b.price - a.price));
+	};
+
+	const onChangeFromTime = (date, dateString) => {
+		setFromTime(date);
+	};
+	const onChangeToTime = (date, dateString) => {
+		setToTime(date);
+	};
 	const onChangePriceFilter = (id) => {
 		const newPriceFilter = priceFilter.map(price => {
-			if (price.id === id) 
-				return {...price, checked:!price.checked}
-			else 
+			if (price.id === id)
+				return { ...price, checked: !price.checked }
+			else
 				return price
 		})
-        console.log('đổi lọc giá');
+		console.log('đổi lọc giá');
 		setPriceFilter(newPriceFilter)
 	};
-    const onChangeRatingFilter = (id) => {
+	const onChangeRatingFilter = (id) => {
 		const newRatingFilter = ratingFilter.map(rating => {
-			if (rating.id === id) 
-				return {...rating, checked:!rating.checked}
-			else 
+			if (rating.id === id)
+				return { ...rating, checked: !rating.checked }
+			else
 				return rating
 		})
 		setRatingFilter(newRatingFilter)
 	};
-    const handleChangeCategoryFilter = (value) => {
-        console.log(`selected ${value}`);
-        setCategoryFilter(value);
-      };
+	const handleChangeCategoryFilter = (value) => {
+		console.log(`selected ${value}`);
+		setCategoryFilter(value);
+	};
 
-    const clearFilter = () => {
-        setFromTime(null);
-        setToTime(null);
-        setCityFilter(undefined);
-        const newPriceFilter = priceFilter.map(price => ({...price, checked: true}));
+	const clearFilter = () => {
+		setFromTime(null);
+		setToTime(null);
+		setCityFilter(undefined);
+		const newPriceFilter = priceFilter.map(price => ({ ...price, checked: true }));
 		setPriceFilter(newPriceFilter)
-        setPriceFilter(initialPriceFilter)        
-    }
+		setPriceFilter(initialPriceFilter)
+	}
 
 	const handleFilter = async () => {
-        const checkPrice = (price) => {
-            for (let p of priceFilter) {
-                if (p.checked === false && (p.from < price && (p.to == '以上' || price < p.to))) 
-                    return false
-            }
-            return true
-        }
-        const checkRating = (rating) => {
-            if(!rating) return false;
+		const checkPrice = (price) => {
+			for (let p of priceFilter) {
+				if (p.checked === false && (p.from < price && (p.to == '以上' || price < p.to)))
+					return false
+			}
+			return true
+		}
+		const checkRating = (rating) => {
+			if (!rating) return false;
 
-            for (let r of ratingFilter) {
-                if (r.checked === false && (r.value <= rating && rating < r.value + 1))
-                    return false;
-            }
-            return true;
-        }
+			for (let r of ratingFilter) {
+				if (r.checked === false && (r.value <= rating && rating < r.value + 1))
+					return false;
+			}
+			return true;
+		}
 
-        const checkCategory = (categoryId) => {
-            if (!categoryFilter) return true;
-            else if (categoryId === categoryFilter) return true;
-            return false;
-        }
+		const checkCategory = (categoryId) => {
+			if (!categoryFilter) return true;
+			else if (categoryId === categoryFilter) return true;
+			return false;
+		}
 
-        const checkTime = (from, to) => {
-            var fromTimeFilter = new Date(fromTime);
-            var toTimeFilter = new Date(toTime);
-            var openTimeRestaurant = new Date(new Date().setHours(parseInt(from.slice(0,2)), parseInt(from.slice(3,5)), 0, 0));
-            var closeTimeRestaurant = new Date(new Date().setHours(to.slice(0,2), to.slice(3,5), 0, 0));
-            if(fromTime && toTime) {
-                if(fromTimeFilter <= openTimeRestaurant && toTimeFilter >= closeTimeRestaurant) return true;
-                else return false;
-            } else if (fromTime) {
-                if(fromTimeFilter <= openTimeRestaurant) return true;
-                else return false;
-            } else if (toTime) {
-                if(toTimeFilter >= closeTimeRestaurant) return true;
-                else return false;
-            } else return true;       
-        }
+		const checkTime = (from, to) => {
+			var fromTimeFilter = new Date(fromTime);
+			var toTimeFilter = new Date(toTime);
+			var openTimeRestaurant = new Date(new Date().setHours(parseInt(from.slice(0, 2)), parseInt(from.slice(3, 5)), 0, 0));
+			var closeTimeRestaurant = new Date(new Date().setHours(to.slice(0, 2), to.slice(3, 5), 0, 0));
+			if (fromTime && toTime) {
+				if (fromTimeFilter <= openTimeRestaurant && toTimeFilter >= closeTimeRestaurant) return true;
+				else return false;
+			} else if (fromTime) {
+				if (fromTimeFilter <= openTimeRestaurant) return true;
+				else return false;
+			} else if (toTime) {
+				if (toTimeFilter >= closeTimeRestaurant) return true;
+				else return false;
+			} else return true;
+		}
 
-        const checkProvince = (province) => {
-            if (!cityFilter) return true;
-            else if (province === cityFilter) return true;
-            return false;
-        }
-        let newFoodDescription = allFoodDescription.filter(food => {
-            return checkPrice(food.price) && checkRating(food.rating) && checkTime(food.restaurant.openTime, food.restaurant.closeTime) && checkCategory(food.category.id) && checkProvince(food.restaurant.address)
-        })
-        setfoodDecription(newFoodDescription)
+		const checkProvince = (province) => {
+			if (!cityFilter) return true;
+			else if (province === cityFilter) return true;
+			return false;
+		}
+		let newFoodDescription = allFoodDescription.filter(food => {
+			return checkPrice(food.price) && checkRating(food.rating) && checkTime(food.restaurant.openTime, food.restaurant.closeTime) && checkCategory(food.category.id) && checkProvince(food.restaurant.address)
+		})
+		setfoodDecription(newFoodDescription)
+	}
+
+	const totalPage = () => {
+		try {
+			return Math.floor((foodDecription.length + pageSize - 1) / pageSize)
+		} catch (error) {
+			return 1
+		}
 	}
 
     return (
@@ -425,7 +440,7 @@ function Search () {
                     <div className="filter-box" style={{ fontSize: '16px',
     fontWeight: 'bold',
     margin:' 4px 0',}}>
-                        {/* <div className="fast-filter">
+						{/* <div className="fast-filter">
                             <p data-toggle="collapse" data-target="#fastFilter">
                                 <i class="fa fa-chevron-down mr-6"></i>
                                 <i class="fa fa-lock mr-6"></i>
@@ -624,19 +639,25 @@ function Search () {
         ))}
     </div>
                     <div className="row">
-                        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-8" >
-                        </div>
-                        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
-                            <div className="pagination-box">
-                            <button type="button" className="btn btn-link pagination-page pagination-page__selected">1</button>
-                            <button type="button" className="btn btn-link pagination-page">2</button>
-                            <button type="button" className="btn btn-link pagination-page">3</button>
-                            <button type="button" className="btn btn-link pagination-page">4</button>
-                            <button type="button" className="btn btn-link pagination-page">5</button>
-                            <button type="button" className="btn btn-link pagination-page">6</button>
-                            </div>
-                        </div>                            
-                    </div>
+						<div className="col-xs-12 col-sm-12 col-md-6 col-lg-8" >
+						</div>
+						<div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
+							<div className="pagination-box">
+								{[...Array(totalPage())].map((x, i) =>
+    							<button key={i}
+										type="button" 
+										className={pageinate==i ? "btn btn-link pagination-page pagination-page__selected"
+																						: "btn btn-link pagination-page"}
+										onClick={() => {
+											setPageinate(i)
+										}}
+									>
+										{i + 1}
+									</button>
+								)}					
+							</div>
+						</div>
+					</div>
                     
                 </div>
             </div>
@@ -645,13 +666,13 @@ function Search () {
 }
 
 function mapState(state) {
-    const { auth } = state;
-    return { auth };
+	const { auth } = state;
+	return { auth };
 }
 
 const mapDispatchToProps = {
-    refresh: AuthActions.refresh,
-    getComponentsOfUserInLink: AuthActions.getComponentOfUserInLink,
+	refresh: AuthActions.refresh,
+	getComponentsOfUserInLink: AuthActions.getComponentOfUserInLink,
 }
 
 export default connect(mapState, mapDispatchToProps)(withTranslate(Search));

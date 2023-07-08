@@ -53,7 +53,7 @@ const RestaurantInfomation = (props) => {
           className="restaurant-infomation-image"
         />
         <img
-          src={process.env.REACT_APP_SERVER + restaurantInfo.avatar}
+          src={restaurantInfo.avatar}
           alt="image"
           className="restaurant-infomation-logo"
         />
@@ -92,7 +92,7 @@ const RestaurantInfomation = (props) => {
           {restaurantInfo.img && restaurantInfo.img.map((image, index) => (
             <img
               key={index}
-              src={process.env.REACT_APP_SERVER + image}
+              src={image}
               alt={`Image ${index + 1}`}
               className="restaurant-image"
             />

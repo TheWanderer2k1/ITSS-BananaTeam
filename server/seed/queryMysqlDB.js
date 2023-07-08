@@ -6,13 +6,6 @@ require("dotenv").config();
     exports.QueryGetData = async(queryString) => {
       return new Promise((resolve, reject) => {
         var connection = mysql.createConnection(process.env.MYSQL_URL)
-        // {
-        //   host: process.env.MYSQL_HOST,
-		    //   port: process.env.MYSQL_PORT,
-        //   user: process.env.MYSQL_USERNAME,
-        //   password: process.env.MYSQL_PASSWORD,
-        //   database: process.env.MYSQL_DATABASE
-        // });
     
         connection.connect();
     
@@ -30,13 +23,7 @@ require("dotenv").config();
 
       exports.QueryUpdateData = async (queryString) => {
         return new Promise((resolve, reject) => {
-          var connection = mysql.createConnection({
-            host: process.env.MYSQL_HOST,
-            port: process.env.MYSQL_PORT,
-            user: process.env.MYSQL_USERNAME,
-            password: process.env.MYSQL_PASSWORD,
-            database: process.env.MYSQL_DATABASE
-          });
+          var connection = mysql.createConnection(process.env.MYSQL_URL)
       
           connection.connect();
       

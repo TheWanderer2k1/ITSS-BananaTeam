@@ -8,7 +8,7 @@ function FoodInfo(props) {
   return (
     <div className="food-info">
       <div className="food-image">
-        <img src={process.env.REACT_APP_SERVER + image} alt="Food Image" />
+        <img src={image} alt="Food Image" />
         <div className="food-nav">
           <button className="prev-button" onClick={onClickPrev}>
           <LeftOutlined />
@@ -21,7 +21,7 @@ function FoodInfo(props) {
           <p>{score}/5 <i class="fa fa-star c-star-color"></i></p>
         </div>
         <div className="resImg">
-          <img className='imgcl' src={process.env.REACT_APP_SERVER + image} alt="Res Image" />
+          <img className='imgcl' src={image} alt="Res Image" />
         </div>
       </div>
       <div className="food-price">

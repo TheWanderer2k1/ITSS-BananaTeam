@@ -1,10 +1,12 @@
 const sql = require("../../seed/queryMysqlDB");
+const { convertFilePath } = require("../../helpers/readFile")
 
 exports.getUserById = async (userId) => {
     queryGetData = `SELECT Username as username,AvatarLink as avatarLink , Email as email,Phone as phone, Address as address, Sex as sex, Point as point
                     FROM user
                     WHERE ID = ${userId}`
     let result = await sql.QueryGetData(queryGetData)
+    result[0]['avatarLink'] = convertFilePath(result[0]['avatarLink'])
     return result[0]
 }
 
@@ -13,6 +15,7 @@ exports.getUserByPhone = async (phone) => {
                     FROM user
                     WHERE phone like '%${phone}%'`
     let result = await sql.QueryGetData(queryGetData)
+    result[0]['avatarLink'] = convertFilePath(result[0]['avatarLink'])
     return result[0]
 }
 

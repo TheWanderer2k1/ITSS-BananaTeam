@@ -3,7 +3,6 @@ import FoodItem from '../../homepage/components/food-item'
 import { sendRequest } from '../../../helpers/requestHelper';
 import './homepage-staff.css'
 import { useHistory, useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 import NavbarInteractive from '../../homepage/components/navbar-interactive'
 const HomeStaff = (props) => {
@@ -128,6 +127,7 @@ const HomeStaff = (props) => {
             data: requestData
         })
         fetchUserdata();
+        closePopup();
       }
     };
     
@@ -138,26 +138,27 @@ return (
             <div className="page-container">
                 <div className="page-container1">
                 <img
-                    src="/external/mdi_cancel-box-outline-200h.png"
+                    src="/library/dx/images/cancelbox.png"
                     alt="image"
                     className="page-image"
                     onClick={closePopup}
                 />
                 <div className="page-container2">
                     <img
-                    src="https://play.teleporthq.io/static/svg/default-img.svg"
+                    src="/library/dx/images/Black.png"
                     className="page-image1"
                     />
                     <h1 className="page-res-info-heading">Sử dụng điểm</h1>
                     <img
                     alt="image"
-                    src="https://play.teleporthq.io/static/svg/default-img.svg"
+                    src="/library/dx/images/Black.png"
                     className="page-image2"
                     />
                 </div>
                 <div className="page-container3">
                     <div className="page-container4">
                     <img
+                        //src={process.env.REACT_APP_SERVER + '/' + user.avatarLink}
                         src="https://play.teleporthq.io/static/svg/default-img.svg"
                         alt="image"
                         className="page-image3"
@@ -165,7 +166,7 @@ return (
                     <span className="page-text">{user.username}</span>
                     <div className="page-container5">
                         <img
-                        src="https://play.teleporthq.io/static/svg/default-img.svg"
+                        src="/library/dx/images/coin.png"
                         alt="image"
                         className="page-image4"
                         />
@@ -213,7 +214,7 @@ return (
         <div className="home-staff-category-header">
           <img
             alt="image"
-            src="/external/update_2-200h.jpg"
+            src="/library/dx/images/update_2.jpg"
             loading="lazy"
             className="home-staff-image1"
           />
@@ -226,7 +227,7 @@ return (
             <FoodItem
               id={food.foodID}
               key={food.id}
-              image_src={process.env.REACT_APP_SERVER +food.img}
+              image_src={food.img}
               text={food.name}
             />
           ))}
@@ -236,7 +237,7 @@ return (
             <FoodItem
               id={food.foodID}
               key={food.id}
-              image_src={process.env.REACT_APP_SERVER + food.img}
+              image_src={ food.img}
               text={food.name}
             />
           ))}
@@ -247,7 +248,7 @@ return (
         <div className="home-staff-category-header1">
           <img
             alt="image"
-            src="/external/update_2-200h.jpg"
+            src="/library/dx/images/voucher.png"
             loading="lazy"
             className="home-staff-image2"
           />

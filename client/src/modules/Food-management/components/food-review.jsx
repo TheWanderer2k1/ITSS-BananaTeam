@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Checkbox, Rate, Input, Modal, Image, Upload  } from 'antd';
+import { Button, Checkbox, Rate, Input, Modal, Image, Upload, message  } from 'antd';
 import { sendRequest } from '../../../helpers/requestHelper';
 import {  UploadFile } from '../../../common-components';
 import { convertJsonObjectToFormData } from '../../../helpers/jsonObjectToFormDataObjectConverter';
@@ -7,7 +7,8 @@ import './food-review.css';
 import axios from 'axios';
 import { FileImageOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
-
+const oneDay = 24 * 60 * 60 * 1000; // number of milliseconds in one day
+const now = new Date();
 
 const FoodReview = ({id}) => {
   const [listAllComment, setListAllComment] = useState([]);
@@ -22,6 +23,27 @@ const FoodReview = ({id}) => {
   const [visibleFullImage, setVisibleFullImage] = useState(false);
   const [uploadImg, setUploadImg] = useState({recommendFiles: []});
   const [fileList, setFileList] = useState([]);
+  const [messageApi, contextHolder] = message.useMessage();
+  const clickRecentReview = (e) => {
+    const newListComment = listComment.filter((item) => {
+      const itemDate = new Date(item.updateAt);
+      return (now - itemDate) < oneDay;
+    })
+    setListComment(newListComment);
+  }
+  const onChangeCheckImage = (e) => {
+    if(e.target.checked) {
+      const newListComment = listComment.filter((item) => {
+        return item.img && item.img.length > 0
+      });
+      setListComment(newListComment);
+    } else {
+      fetchFoodReview();
+    }
+  };
+  const pointMessage = () => {
+    messageApi.info('100ポイントを獲得します!');
+  };
   const [values, setValues] = useState({
     cleanliness: '',
     smell: '',
@@ -122,6 +144,19 @@ const FoodReview = ({id}) => {
     })
     fetchFoodReview();
   }
+
+  const onRemoveLikeReview = async(reviewId) => {
+    const url = `${ process.env.REACT_APP_SERVER }/api/v1/food/${id}/review/${reviewId}/reaction`;
+    const data = {
+      userId: 3
+    }
+    const resp = await sendRequest({
+      url: url,
+      method: "DELETE",
+      data: data,
+    })
+    fetchFoodReview();
+  }
   
   const fetchFoodReview = async () => {
     var url = `${ process.env.REACT_APP_SERVER }/api/v1/food/${id}/review`;
@@ -179,10 +214,24 @@ const FoodReview = ({id}) => {
         method: 'POST',
         data: formData,
       });
+      if(resp.data.message == "100ポイントを獲得します!") {
+        pointMessage();
+      }
     } catch (error) {
       console.error(error);
     }
-    window.location.reload();
+    fetchFoodReview();
+    setValues({
+      cleanliness: '',
+      smell: '',
+      freshness: '',
+      tableware: '',
+      taste: '',
+      price: '',
+      service: '',
+      other: '',
+    });
+    // window.location.reload();
     // const resp = await axios(url, options);
     // setListComment([...listComment, resp.data['content']]);
     // setNewCommentText('');
@@ -251,6 +300,7 @@ const FoodReview = ({id}) => {
 
   return (
     <React.Fragment>
+      {contextHolder}
       <div className="container">
         <div className="post-comment mb-24">
           <div className="post-avatar">
@@ -365,8 +415,8 @@ const FoodReview = ({id}) => {
               <strong>時間</strong>
             </div>
             <div className="food-info__detail">
-              <Button type="text">すべて</Button>
-              <Button type="text">新着順</Button>              
+              <Button type="text" onClick={fetchFoodReview}>すべて</Button>
+              <Button type="text" onClick={clickRecentReview}>新着順</Button>              
             </div>
           </div>
           <div className="food-info-item">
@@ -374,8 +424,8 @@ const FoodReview = ({id}) => {
               <strong>添付</strong>
             </div>
             <div className="food-info__detail">
-              <Checkbox>写真</Checkbox>
-              <Checkbox>ビデオ</Checkbox>
+              <Checkbox onChange={onChangeCheckImage}>写真</Checkbox>
+              {/* <Checkbox>ビデオ</Checkbox> */}
             </div>
           </div>
         </div>
@@ -399,7 +449,13 @@ const FoodReview = ({id}) => {
                     <Rate disabled value={comment.rating}/>
                   </div>
                   <div className="review-block__like">
-                    <Button onClick={() => onClickLikeReview(comment.reviewId)}><i class="fa fa-heart mr-6"></i> {comment.reactNumber}</Button>
+                    {
+                      comment.liked.length > 0 && comment.liked.includes(3) 
+                      ?
+                      <Button type="primary" onClick={() => onRemoveLikeReview(comment.reviewId)}><i class="fa fa-heart mr-6"></i> {comment.reactNumber}</Button>
+                      :
+                      <Button onClick={() => onClickLikeReview(comment.reviewId)}><i class="fa fa-heart mr-6"></i> {comment.reactNumber}</Button>
+                    }
                   </div>
                 </div>
               </div>
@@ -425,13 +481,13 @@ const FoodReview = ({id}) => {
                           onVisibleChange: (vis) => setVisibleFullImage(vis)
                         }}
                       >
-                        <Image width={80} src={process.env.REACT_APP_SERVER + comment.img[0]} />
+                        <Image width={80} src={comment.img[0]} />
                         {/* <Image width={80} src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" /> */}
                         {
                           // comment.img.slice()
                         comment.img.length>1?
                           comment.img.slice(1).map((img) => (
-                            <Image style={{display: 'none'}} key={img} src={process.env.REACT_APP_SERVER + img} />
+                            <Image style={{display: 'none'}} key={img} src={img} />
                           ))
                           :<div></div>
                         }

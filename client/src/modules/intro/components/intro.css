@@ -709,6 +709,14 @@ span.dx-options  > div > a {
     padding: 0 16px;
 }
 
+.h-select-search-option {
+    width: 100%;
+    height: 45px;
+    background-color: #FFA3A3;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
 .address-search-block {
     width: 100%;
     height: 45px;

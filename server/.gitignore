@@ -8,9 +8,6 @@
 /middleware/_multi-tenant
 /modules/_multi-tenant
 
-/upload/private
-/upload/avatars
-/upload
 package-lock.json
 
 .env

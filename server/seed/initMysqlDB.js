@@ -2,15 +2,10 @@ const fs = require('fs');
 const mysql = require('mysql');
 require("dotenv").config();
 // MySQL connection settings
-var connection = mysql.createConnection({
-  host: process.env.MYSQL_HOST,
-  port: process.env.MYSQL_PORT,
-  user: process.env.MYSQL_USERNAME,
-  password: process.env.MYSQL_PASSWORD
-});
+var connection = mysql.createConnection(process.env.MYSQL_URL);
 
 // Read the SQL file
-const sqlFile = fs.readFileSync('seed/tabeyoudbupdate2_202306171503.sql', 'utf8');
+const sqlFile = fs.readFileSync('seed/tabeyoudb.sql', 'utf8');
 //console.log(sqlFile);
 // Split the SQL file into individual statements
 const sqlStatements = sqlFile.split(';');

@@ -1,5 +1,7 @@
 const sql = require("../../seed/queryMysqlDB");
 const { param } = require("./route");
+const { convertFilePath } = require("../../helpers/readFile")
+
 const getCategoryData = "Select category.ID AS categoryid,category.Name as name ,src AS img from category,image where category.imageId=image.ID";
 const getSliderData = `
 	SELECT Src As img,ID AS foodDescriptionId 
@@ -24,7 +26,7 @@ const getFoodMostLiked = `
 		ORDER BY rate DESC LIMIT 8
 	) AS Query_table`
 const getRestaurantMostLiked = `
-	SELECT RestaurantID AS id,Src AS img,Name AS name 
+	SELECT RestaurantID AS id, Avatar AS img,Name AS name 
 	FROM (
 		Select RestaurantID,FoodID,rate 
 		FROM (
@@ -83,13 +85,25 @@ const getRestaurantMostLiked = `
 */
 exports.getDataHomePage = async () => {
 	var resultSlideData, resultFoodMostLiked, resultCategory, resultRestaurantMostLiked;
-	resultSlideData = await sql.QueryGetData(getSliderData)
+	resultSlideData = (await sql.QueryGetData(getSliderData)).map(item=>{
+		item.img = convertFilePath(item.img)
+		return item
+	})
 
-	resultCategory = await sql.QueryGetData(getCategoryData)
+	resultCategory = (await sql.QueryGetData(getCategoryData)).map(item=>{
+		item.img = convertFilePath(item.img)
+		return item
+	})
 
-	resultFoodMostLiked = await sql.QueryGetData(getFoodMostLiked)
+	resultFoodMostLiked = (await sql.QueryGetData(getFoodMostLiked)).map(item=>{
+		item.img = convertFilePath(item.img)
+		return item
+	})
 
-	resultRestaurantMostLiked = await sql.QueryGetData(getRestaurantMostLiked)
+	resultRestaurantMostLiked = (await sql.QueryGetData(getRestaurantMostLiked)).map(item=>{
+		item.img = convertFilePath(item.img)
+		return item
+	})
 
 	return result = {
 		food_slider: resultSlideData,

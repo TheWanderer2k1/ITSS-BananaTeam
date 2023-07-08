@@ -1,4 +1,5 @@
 const sql = require("../../seed/queryMysqlDB");
+const { convertFilePath } = require("../../helpers/readFile")
 
 exports.getRestaurantInforById = async (restaurantId) => {
     queryGetRestaurantInfor = `SELECT Name as name, Province as province , District as district , Ward as ward , DetailedAddress as detailedAddress , OpenTime as openTime , CloseTime as closeTime , \`From\` as 'from' , \`To\` as 'to', Phone as phone, Description as description, Avatar as avatar
@@ -14,10 +15,12 @@ exports.getRestaurantInforById = async (restaurantId) => {
     arrImg=[]
     let listImg = await sql.QueryGetData(queryGetImg)
     listImg.map((item)=>{
+        item.src = convertFilePath(item.src)
         arrImg.push(item.src);
     })
     for(resItem of restaurantInfor){
         resItem['img'] = arrImg
+        resItem['avatar'] = convertFilePath(resItem['avatar'])
     }
 
     return restaurantInfor[0]
@@ -44,6 +47,7 @@ exports.getMenu = async (restaurantId) => {
        
         arrImg = []
         listImg.map((item)=>{
+            item.src = convertFilePath(item.src)
             arrImg.push(item.src)
         })
         foodItem['img'] = arrImg

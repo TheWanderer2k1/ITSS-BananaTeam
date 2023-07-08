@@ -1,4 +1,4 @@
-﻿
+
 SET NAMES 'utf8';
 
 
@@ -451,4 +451,3 @@ INSERT INTO foodreview VALUES
 
 INSERT INTO reactreview VALUES
 (3, 266, 3);
-

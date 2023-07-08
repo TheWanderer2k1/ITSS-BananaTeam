@@ -62,7 +62,6 @@ const HomeStaff = (props) => {
         setErrMessage('none');
       }
       setUsedPoint(event.target.value);
-      closePopup();
     };
 
     useEffect(() => {
@@ -128,6 +127,7 @@ const HomeStaff = (props) => {
             data: requestData
         })
         fetchUserdata();
+        closePopup();
       }
     };
     
@@ -227,7 +227,7 @@ return (
             <FoodItem
               id={food.foodID}
               key={food.id}
-              image_src={process.env.REACT_APP_SERVER +food.img}
+              image_src={food.img}
               text={food.name}
             />
           ))}
@@ -237,7 +237,7 @@ return (
             <FoodItem
               id={food.foodID}
               key={food.id}
-              image_src={process.env.REACT_APP_SERVER + food.img}
+              image_src={ food.img}
               text={food.name}
             />
           ))}

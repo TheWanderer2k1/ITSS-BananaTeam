@@ -583,7 +583,7 @@ function Search () {
                                                 value={citySearch}
                                                 onChange={handleChangeCitySearch}
                                                 options={listCityFilter}
-                                                style={{ width: '33%', padding: '0 40px' }}
+                                                style={{ width: '33%', marginRight: "8px"  }}
                                             />
                                             <Select
                                                 allowClear
@@ -591,7 +591,7 @@ function Search () {
                                                 value={districtSearch}
                                                 onChange={handleChangeDistrictSearch}
                                                 options={listDistrictSearch}
-                                                style={{ width: '33%' , padding: '0 40px'}}
+                                                style={{ width: '33%', marginRight: "8px" }}
                                             />
                                             <Select
                                                 allowClear
@@ -599,7 +599,7 @@ function Search () {
                                                 value={wardSearch}
                                                 onChange={handleChangeWardSearch}
                                                 options={listWardSearch}
-                                                style={{ width: '33%' , padding: '0 40px'}}
+                                                style={{ width: '33%', marginRight: "8px" }}
                                             />
                                         </div>
                                 </React.Fragment>

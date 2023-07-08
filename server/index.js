@@ -31,7 +31,6 @@ const router = express.Router();
 
 router.use("/api/v1", require("./modules/homepageInfor/route"));
 router.use("/api/v1", require("./modules/food/food.route"));
-router.use("/api/v1", require("./modules/review/review.route"));
 router.use("/api/v1", require("./modules/restaurant/restaurant.route"));
 router.use("/api/v1", require("./modules/category/category.route"));
 router.use("/api/v1", require("./modules/user/user.route"));

@@ -118,6 +118,19 @@ const FoodReview = ({id}) => {
     })
     fetchFoodReview();
   }
+
+  const onRemoveLikeReview = async(reviewId) => {
+    const url = `${ process.env.REACT_APP_SERVER }/api/v1/food/${id}/review/${reviewId}/reaction`;
+    const data = {
+      userId: 3
+    }
+    const resp = await sendRequest({
+      url: url,
+      method: "DELETE",
+      data: data,
+    })
+    fetchFoodReview();
+  }
   
   const fetchFoodReview = async () => {
     var url = `${ process.env.REACT_APP_SERVER }/api/v1/food/${id}/review`;
@@ -413,7 +426,13 @@ const FoodReview = ({id}) => {
                     <Rate disabled value={comment.rating}/>
                   </div>
                   <div className="review-block__like">
-                    <Button onClick={() => onClickLikeReview(comment.reviewId)}><i class="fa fa-heart mr-6"></i> {comment.reactNumber}</Button>
+                    {
+                      comment.liked.length > 0 && comment.liked.includes(3) 
+                      ?
+                      <Button type="primary" onClick={() => onRemoveLikeReview(comment.reviewId)}><i class="fa fa-heart mr-6"></i> {comment.reactNumber}</Button>
+                      :
+                      <Button onClick={() => onClickLikeReview(comment.reviewId)}><i class="fa fa-heart mr-6"></i> {comment.reactNumber}</Button>
+                    }
                   </div>
                 </div>
               </div>
@@ -439,13 +458,13 @@ const FoodReview = ({id}) => {
                           onVisibleChange: (vis) => setVisibleFullImage(vis)
                         }}
                       >
-                        <Image width={80} src={process.env.REACT_APP_SERVER + comment.img[0]} />
+                        <Image width={80} src={comment.img[0]} />
                         {/* <Image width={80} src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" /> */}
                         {
                           // comment.img.slice()
                         comment.img.length>1?
                           comment.img.slice(1).map((img) => (
-                            <Image style={{display: 'none'}} key={img} src={process.env.REACT_APP_SERVER + img} />
+                            <Image style={{display: 'none'}} key={img} src={img} />
                           ))
                           :<div></div>
                         }

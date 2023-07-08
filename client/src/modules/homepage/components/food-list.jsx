@@ -28,7 +28,7 @@ function ListComponent() {
           <FoodItem
             id = {food.id}
             key={food.id}
-            image_src={process.env.REACT_APP_SERVER +food.img}
+            image_src={food.img}
             text={food.name}
           />
         ))}
@@ -38,7 +38,7 @@ function ListComponent() {
           <FoodItem
             id = {food.id}
             key={food.id}
-            image_src={process.env.REACT_APP_SERVER + food.img}
+            image_src={food.img}
             text={food.name}
           />
         ))}

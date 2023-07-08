@@ -109,7 +109,7 @@ function InputComponent() {
 
   return (
     <React.Fragment>
-      <div style={{marginTop: "50px", width: "82.4%", display: 'flex', alignItems: 'center', justifyContent: 'flex-end'}}>
+      <div style={{marginTop: "50px", width: "100%", display: 'flex', alignItems: 'center', justifyContent: 'flex-start'}}>
       <div class="row">
         <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" style={{margin: '50px 0 0 0'}}>
           <select value={searchOption} onChange={handleChangeSearchOption} class="form-select select-search-option" aria-label="Default select example">

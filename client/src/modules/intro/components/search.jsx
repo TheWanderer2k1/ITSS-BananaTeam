@@ -644,7 +644,11 @@ function Search() {
 					<div className="row">
 						<div className="col-xs-12 col-sm-12 col-md-6 col-lg-8" >
 						</div>
-						<div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
+					</div>
+				</div>
+                
+			</div>
+            <div className="" >
 							<div className="pagination-box">
 								{[...Array(totalPage())].map((x, i) =>
 									<button key={i}
@@ -660,10 +664,6 @@ function Search() {
 								)}
 							</div>
 						</div>
-					</div>
-
-				</div>
-			</div>
 		</div>
 	)
 }

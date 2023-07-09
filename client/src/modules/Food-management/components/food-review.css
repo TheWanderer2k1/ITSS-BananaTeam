@@ -1,5 +1,5 @@
 .container {
-    margin: 0 12px;   
+    margin: 80px 12px 0 12px;   
 }
 
 .c-star-color {
@@ -145,8 +145,10 @@
 }
 
 .food-review-form {
-    border-radius: 16px;
+       border-radius: 16px;
     background-color: #E8E8E8;
+    border: 1px solid #c4baba;
+    margin-top: 12px;
   }
   
   .form-item {
@@ -154,7 +156,6 @@
     flex-direction: column;
     padding:  16px 0 0 24px;
     border: none;
-    border-bottom: 1px solid #ccc;
     margin-right: 10px;
     margin-top: 10px;
   }
@@ -172,4 +173,12 @@
   
   .input-item{
         display: flex;
+  }
+
+  .input-item label {
+    font-weight: lighter;
+  }
+
+  .input-item input {
+    margin-bottom: 5px;
   }

@@ -15,19 +15,23 @@ export const Profile = () => {
                     <div className='avt'><img src={Avt} alt="" /></div>
                     <div className='text-left'>
                     <div className='title-1'>佐藤和真</div>
-                    <div className='title-2'><img style={{maxWidth: "30px", marginRight: "10px"}} src={crypto} />1000</div>
-                    <div className='title-3'><img style={{maxWidth: "20px", marginRight: "10px", paddingBlock: '5px'}} src={lock} />情報変更</div>
-                    <div className='title-3'><img style={{maxWidth: "20px", marginRight: "10px", paddingBlock: '5px'}} src={lock} />パスワード変更</div>
+                    <div className='title-2'><img style={{maxWidth: "24px", marginRight: "10px"}} src={crypto} />1000</div>
+                    <div className='title-3'><img style={{maxWidth: "20px", marginRight: "10px", paddingBlock: '5px'}} src={lock} />
+                    <strong>情報変更</strong>
+                    </div>
+                    <div className='title-3'><img style={{maxWidth: "20px", marginRight: "10px", paddingBlock: '5px'}} src={lock} />
+                    <strong>パスワード変更</strong>
+                    </div>
                     </div>
                 </div>
                 <div className='content-right'>
                     <div className='title'>ユーザの情報</div>
                     <div className='head'>
                         <div className='text-right-1'>
-                            <div className='title-1'>名前 <img src={sao} style={{maxWidth: "25px", maxHeight: "25px", marginTop: "10px", marginLeft: "10px"}} /></div>
+                            <div className='title-1'>名前 <img src={sao} style={{maxWidth: "16px", maxHeight: "16px", marginTop: "4px", marginLeft: "4px"}} /></div>
                             <div className='title-2'>佐藤和真</div>
 
-                            <div className='title-1'>Eメール  <img src={sao} style={{maxWidth: "25px", maxHeight: "25px", marginTop: "10px", marginLeft: "10px"}} /></div>
+                            <div className='title-1'>Eメール  <img src={sao} style={{maxWidth: "16px", maxHeight: "16px", marginTop: "4px", marginLeft: "4px"}} /></div>
                             <div className='title-2 email'>satokazuma@gmail.com</div>
                         </div>
                         <div className='qr'>
@@ -36,11 +40,11 @@ export const Profile = () => {
                     </div>
                     <div className='right-bot'>
                         <div className='title-bottom'>
-                            <div className='title-1'>電話番号  <img src={sao} style={{maxWidth: "25px", maxHeight: "25px", marginTop: "0px", marginLeft: "10px"}} /></div>
+                            <div className='title-1'>電話番号  <img src={sao} style={{maxWidth: "16px", maxHeight: "16px", marginBottom: "10px", marginLeft: "4px"}} /></div>
                             <div className='title-2'>0123456789</div>
                         </div>
                         <div className='title-bottom'>
-                            <div className='title-1'>性別  <img src={sao} style={{maxWidth: "25px", maxHeight: "25px", marginTop: "0px", marginLeft: "10px"}} /></div>
+                            <div className='title-1'>性別  <img src={sao} style={{maxWidth: "16px", maxHeight: "16px", marginBottom: "10px", marginLeft: "4px"}} /></div>
                             <div className='title-2'>Male</div>
                         </div>
                     </div>

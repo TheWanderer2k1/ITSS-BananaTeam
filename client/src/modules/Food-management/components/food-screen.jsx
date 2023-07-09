@@ -12,33 +12,35 @@ function FoodScreen(props) {
   let { id } = useParams();
   const [foodDecription, setFoodDescription] = useState({});
   const [foodReviews, setFoodReviews] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // Tạo biến isLoading và khởi tạo là true
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  const handlePrev = () => {
+    if (currentImageIndex > 0) {
+      setCurrentImageIndex(currentImageIndex - 1);
+    }
+  };
 
+  const handleNext = () => {
+    if (currentImageIndex < foodDecription.img.length - 1) {
+      setCurrentImageIndex(currentImageIndex + 1);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        setIsLoading(true); // Bắt đầu fetch data
-        const resp = await sendRequest({
-          url: `${ process.env.REACT_APP_SERVER }/api/v1/foods/${id}`,
-          method: "GET",
-        });
-        setFoodDescription(resp.data['content']);
-        setCurrentImageIndex(0);
-        console.log("Day la data: " ,foodDecription);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsLoading(false); // Kết thúc fetch data
-      }
+      const resp = await sendRequest({
+        url: `${ process.env.REACT_APP_SERVER }/api/v1/foods/${id}`,
+        method: "GET",
+      })
+      setFoodDescription(resp.data['content']);
+      setCurrentImageIndex(0);
+      console.log("Day la data: " ,foodDecription);      
+      // console.log("Day la data: " ,foodDecription.restaurant.avatarImg);
+
     };
 
     fetchData();
-  }, [id]); // Sửa lại dependency của useEffect
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  }, [props.id]);
 
   return (
     <div className='hcontainer'>
@@ -48,13 +50,14 @@ function FoodScreen(props) {
         <div className="left-column col-xs-12 col-sm-12 col-md-6 col-lg-6">
           {foodDecription && (
             <FoodInfo
-              image={foodDecription.img ? foodDecription.img: ''}
+              image={foodDecription.img ? foodDecription.img[currentImageIndex]: ''}
               name={foodDecription.name}
               price={foodDecription.price}
               description={foodDecription.description}
               score={foodDecription.rating}
-              restaurantImg = {foodDecription.restaurant.avatarImg ? foodDecription.restaurant.avatarImg : ''}
-              restaurantId = {foodDecription.restaurant.id}
+              restaurantImg = {foodDecription.restaurant}
+              onClickPrev={handlePrev}
+              onClickNext={handleNext}
             />
           )}
         </div>

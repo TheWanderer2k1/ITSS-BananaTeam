@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+ import React, { useState } from 'react';
 import {RightOutlined, LeftOutlined} from "@ant-design/icons"
 import './food-info.css';
 import { Link } from 'react-router-dom';
@@ -38,7 +38,7 @@ function FoodInfo(props) {
         </div>
         <div className="resImg">
           <Link to={`/resinfo?res_id=${restaurantId}`}>
-    <img className='imgcl' src={process.env.REACT_APP_SERVER + restaurantImg} alt="Res Image" />
+    <img className='imgcl' src={restaurantImg} alt="Res Image" />
   </Link>
         </div>
       </div>

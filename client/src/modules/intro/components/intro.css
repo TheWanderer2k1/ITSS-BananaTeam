@@ -472,7 +472,7 @@ span.dx-options > div > a:first-child {
 .search-container {
     margin-top: 70px;
     background-color: #fff;
-    padding: 24px 80px;
+    padding: 60px 80px;
 }
 
 .salutation {
@@ -670,7 +670,7 @@ input[type="text"]:focus {
     background-color: #FFBCBC33;
     border-radius: 20px;
     padding: 12px 36px; 
-    float: right;
+    float: right;   
 }
 
 .pagination-page {

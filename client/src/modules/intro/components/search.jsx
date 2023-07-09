@@ -648,7 +648,6 @@ function Search() {
 				</div>
                 
 			</div>
-            <div className="" >
 							<div className="pagination-box">
 								{[...Array(totalPage())].map((x, i) =>
 									<button key={i}
@@ -663,7 +662,6 @@ function Search() {
 									</button>
 								)}
 							</div>
-						</div>
 		</div>
 	)
 }

@@ -312,12 +312,12 @@ INSERT INTO category VALUES
 
 
 INSERT INTO restaurant VALUES
-(1, 'a', 'abc', '08:30', '22:30', '0123456730', 'Hà Nội', 1, 1, ' Đỗ Đức Dục', 'Từ Liêm', 'số 8 Đỗ Đức Dục, Từ Liêm, Hà Nội', '/upload/restaurant/avatar/91e7e433e34c3b8843334c1467001cb7.jpg', 'Thứ 2', 'Thứ 6'),
-(2, 'Curry Kingdom', 'adb', '08:00', '22:00', '0123456738', 'Hà Nội', 2, 1, 'Gia Ngư', 'Hoàn Kiếm', '38 Gia Ngư, Hoàn Kiếm, Hà Nội', '/upload/restaurant/avatar/91e7e433e34c3b8843334c1467001cb7.jpg', 'Thứ 2', 'Chủ Nhật'),
-(3, 'Tikka Talk', 'ddddd', '17:30', '21:00', '0123456748', 'Hà Nội', 3, 1, 'Ngụy Như Kon Tum', 'Thanh Xuân', 'số 1 Ngụy Như Kon Tum, Thanh Xuân, Hà Nội', '/upload/restaurant/avatar/91e7e433e34c3b8843334c1467001cb7.jpg', 'Thứ 5', 'Chủ Nhật'),
-(4, 'The Spice Factory', 'ddsads', '06:33', '12:30', '0123456758', 'Hà Nội', 4, 1, 'Nguyễn Quang Bích', 'Hoàn Kiếm', '12 Nguyễn Quang Bích, Hoàn Kiếm, Hà Nội', '/upload/restaurant/avatar/91e7e433e34c3b8843334c1467001cb7.jpg', 'Thứ 6', 'Chủ Nhật'),
-(5, 'The Paneer Bar', 'ewqewq', '08:30', '23:00', '0123456735', 'Hà Nội', 5, 1, 'Đinh Tiên Hoàng', 'Hoàn Kiếm', 'số 7 Đinh Tiên Hoàng, Hoàn Kiếm, Hà Nội', '/upload/restaurant/avatar/91e7e433e34c3b8843334c1467001cb7.jpg', 'Thứ 2', 'Thứ 5'),
-(6, 'Curry Leaves', 'ewqewqe', '12:30', '23:40', '0123456755', 'Hà Nội', 6, 1, 'Tông Đản', 'Hoàn Kiếm', '24 Tông Đản, Tràng Tiền, Hoàn Kiếm, Hà Nội', '/upload/restaurant/avatar/91e7e433e34c3b8843334c1467001cb7.jpg', 'Thứ 3', 'Thứ 7');
+(1, 'a', 'abc', '08:30', '22:30', '0123456730', 'Thành phố Hà Nội', 1, 1, 'Huyện Từ Liêm', 'Phố Đỗ Đức Dục', 'số 8 Đỗ Đức Dục, Từ Liêm, Hà Nội', '/upload/restaurant/avatar/91e7e433e34c3b8843334c1467001cb7.jpg', 'Thứ 2', 'Thứ 6'),
+(2, 'Curry Kingdom', 'adb', '08:00', '22:00', '0123456738', 'Thành phố Hà Nội', 2, 1, 'Quận Hoàn Kiếm', 'Phố Gia Ngư', '38 Gia Ngư, Hoàn Kiếm, Hà Nội', '/upload/restaurant/avatar/91e7e433e34c3b8843334c1467001cb7.jpg', 'Thứ 2', 'Chủ Nhật'),
+(3, 'Tikka Talk', 'ddddd', '17:30', '21:00', '0123456748', 'Thành phố Hà Nội', 3, 1, 'Quận Thanh Xuân', 'Phố Ngụy Như Kon Tum', 'số 1 Ngụy Như Kon Tum, Thanh Xuân, Hà Nội', '/upload/restaurant/avatar/91e7e433e34c3b8843334c1467001cb7.jpg', 'Thứ 5', 'Chủ Nhật'),
+(4, 'The Spice Factory', 'ddsads', '06:33', '12:30', '0123456758', 'Thành phố Hà Nội', 4, 1, 'Quận Hoàn Kiếm', 'Phố Nguyễn Quang Bích', '12 Nguyễn Quang Bích, Hoàn Kiếm, Hà Nội', '/upload/restaurant/avatar/91e7e433e34c3b8843334c1467001cb7.jpg', 'Thứ 6', 'Chủ Nhật'),
+(5, 'The Paneer Bar', 'ewqewq', '08:30', '23:00', '0123456735', 'Thành phố Hà Nội', 5, 1, 'Quận Hoàn Kiếm', 'Phố Đinh Tiên Hoàng', 'số 7 Đinh Tiên Hoàng, Hoàn Kiếm, Hà Nội', '/upload/restaurant/avatar/91e7e433e34c3b8843334c1467001cb7.jpg', 'Thứ 2', 'Thứ 5'),
+(6, 'Curry Leaves', 'ewqewqe', '12:30', '23:40', '0123456755', 'Thành phố Hà Nội', 6, 1, 'Quận Hoàn Kiếm', 'Phố Tông Đản', '24 Tông Đản, Tràng Tiền, Hoàn Kiếm, Hà Nội', '/upload/restaurant/avatar/91e7e433e34c3b8843334c1467001cb7.jpg', 'Thứ 3', 'Thứ 7');
 
 
 INSERT INTO food VALUES

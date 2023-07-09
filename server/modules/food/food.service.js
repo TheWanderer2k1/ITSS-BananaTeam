@@ -76,6 +76,10 @@ exports.getReviewList = async (foodId) => {
 }
 
 exports.deleteReview = async (foodId, reviewId, userId) => {
+    deleteReact = `DELETE FROM reactreview
+                   WHERE ReviewId =${reviewId}
+                   AND UserId =${userId}`
+    await sql.QueryGetData(deleteReact)
     query = `DELETE FROM foodreview
         WHERE FoodDesID = ${foodId}
         AND ID = ${reviewId}
@@ -194,7 +198,7 @@ exports.getFoodByAddress = async (data) => {
         GROUP BY fooddescription.ID, img`                
         food=await sql.QueryGetData(queryFindFoodByRestaurant);
         food.map((foodItem)=>{
-            category={
+            category = {
                 id:foodItem.categoryId,
                 name:foodItem.categoryName,
                 description:foodItem.categoryDescription

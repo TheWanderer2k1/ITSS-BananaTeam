@@ -28,6 +28,7 @@
 }
 
 .home-staff-container1 {
+  cursor: pointer;
   width: 100%;
   display: flex;
   align-items: flex-start;

@@ -435,7 +435,7 @@ span.dx-options {
     /* right: 180px; */
     font-weight: bold;
     height: 48px;
-    line-height: 81px;
+    /* line-height: 81px; */
     background-color: #FFA3A3;
     top: 0;
     right: 36px;
@@ -453,9 +453,19 @@ span.dx-options  > div {
     font-size: 1.6rem;
 }
 
-span.dx-options  > div > a {
+span.dx-options > div > a:first-child {
     color: #000;
     margin-right: 12px;
+    
+}
+.option-selected {
+    padding: 4px 16px;
+    box-shadow: inset -4px 2px 5px #d4d4d4;
+    font-style: normal;
+    font-weight: 700;
+    border-style: hidden;
+    border-radius: 16px;
+    background-color: #fff;
 }
 
 /* Search screen */
@@ -582,10 +592,16 @@ span.dx-options  > div > a {
 }
 
 .search-text input {
+    outline: none;
     border: none;
     border-radius: 20px;
     padding: 12px;
     background-color: transparent;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border: none;
 }
 
 .food-list {
@@ -654,6 +670,7 @@ span.dx-options  > div > a {
     background-color: #FFBCBC33;
     border-radius: 20px;
     padding: 12px 36px; 
+    float: right;
 }
 
 .pagination-page {

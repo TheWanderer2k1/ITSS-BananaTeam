@@ -9,6 +9,7 @@
     background-color: white;
   }
   .home-staff-container1 {
+    cursor: pointer;
     flex: 0 0 auto;
     width: 100%;
     display: flex;
@@ -176,9 +177,6 @@
     padding-right: 24px;
     padding-bottom: 18px;
     background-color: #FFA3A3;
-  }
-  .home-staff-container {
-
   }
 
   .page-container {

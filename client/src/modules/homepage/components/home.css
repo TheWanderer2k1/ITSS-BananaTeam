@@ -20,11 +20,6 @@
   border-width: 0px;
   border-radius: 27px;
   background-color: #ffb1b178;
-  padding-left: 60px; /* Adjust the padding as needed */
-  background-image: url("../../../../public/library/dx/images/search-icon.png"); /* Path to the search icon image */
-  background-repeat: no-repeat;
-  background-position: 20px center; /* Position the icon on the left center */
-  background-size: 21px; /* Adjust the size of the icon */
 }
 
 .home-staff-container1 {
@@ -256,11 +251,6 @@ a {
   display: flex;
   align-items: flex-start;
 }
-
-.address-search {
-  margin-top: 50px;
-}
-
 .address-search div {
   display: flex;
     align-items: center;
@@ -295,11 +285,8 @@ a {
   border-width: 0px;
   border-radius: 27px;
   background-color: #ffb1b178;
-  padding-left: 60px; /* Adjust the padding as needed */
-  background-image: url("../../../../public/library/dx/images/search-icon.png"); /* Path to the search icon image */
-  background-repeat: no-repeat;
-  background-position: 20px center; /* Position the icon on the left center */
-  background-size: 30px; /* Adjust the size of the icon */
+  padding-left: 20px; /* Adjust the padding as needed */
+  margin-top: 0;
 }
 .home-container form {
   width: 100%;
@@ -309,6 +296,37 @@ a {
   width: 100%;
   display: flex;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 90px;
   padding-right: 113px;
+}
+.user-point {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.coin-img {
+  width: 30px;
+  margin-left: 10px;
+}
+.point-text {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  margin-left: 243px;
+}
+.submit-button {
+  width: 45px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: -270px;
+  z-index: 1;
+  border-radius: 50%;
+  background-color: #FFA3A3;
+  border: none;
+  /* Additional styling for the button */
+}
+.button-image {
+  width: 20px;
 }

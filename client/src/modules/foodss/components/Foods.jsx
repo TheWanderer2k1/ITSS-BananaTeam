@@ -13,7 +13,7 @@ const Foods = () => {
     const [resIdParam, setResIdParan] = useState([]);
     const [menuInfo, setMenuInfo] = useState([]);
     const [paging, setPaging] = useState([])
-    let admin = true
+    let admin = false
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);

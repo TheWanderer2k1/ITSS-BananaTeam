@@ -12,6 +12,7 @@ import FoodReview from "../modules/food-review/components";
 import ProfileWrapper from "../modules/profile";
 
 const Foods = lazy(() => import("../modules/foods/components"))
+const Foodss = lazy(() => import("../modules/foodss/components"))
 const Home = lazy(() => import("../modules/home/components"))
 const HomePage = lazy(() => import("../modules/homepage/components"))
 const HomePageStaff = lazy(() => import("../modules/homepage-staff/components"))
@@ -72,6 +73,13 @@ class Routes extends Component {
                         auth={auth}
                         path="/foods"
                         component={Foods}
+                    />
+
+                    <AuthRoute
+                        exact
+                        auth={auth}
+                        path="/foodss"
+                        component={Foodss}
                     />
 
                     <AuthRoute

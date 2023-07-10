@@ -58,7 +58,7 @@ const Foods = () => {
         <div className="wrapper">
             <NavbarInteractive />
             <div className="home-staff-container1">
-          <span style={{fontSize: "20px", whiteSpace: "nowrap"}} className="home-staff-text">こんにちは、</span>
+          <span style={{fontSize: "20px", whiteSpace: "nowrap"}} className="home-staff-text">こんにちは</span>
           <img
             src={Avt}
             alt="image"

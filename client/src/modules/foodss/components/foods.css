@@ -134,3 +134,7 @@
     margin-right: 0%;
     border-radius: 27px;
   }
+
+  .food-main .content {
+    margin-top: 0;
+  }

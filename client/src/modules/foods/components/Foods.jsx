@@ -57,14 +57,14 @@ const Foods = () => {
     return (
         <div className="wrapper">
             <NavbarInteractive />
-            <div className="home-staff-container1">
+            {/* <div className="home-staff-container1">
           <span style={{fontSize: "20px", whiteSpace: "nowrap"}} className="home-staff-text">こんにちは、</span>
           <img
             src={Avt}
             alt="image"
             className="home-staff-image"
           />
-        </div>
+        </div> */}
         <div className='title-2' style={{textAlign: "left", marginLeft: "200px", marginTop: "10px"}}><img style={{maxWidth: "24px", marginRight: "10px"}} src={crypto} />1000</div>
             <div className="food-main">
             <div className="title-menu">
@@ -90,7 +90,7 @@ const Foods = () => {
                 </div>)}
             </div>
             <div className="pagging">
-                <div className={"content-item"}></div>
+                <button className="content-item-add">料理を追加する</button>
                 <div className="content-pagging">
                     <i onClick={() => setSlices(slices - 10 < 0 ? 0 : slices - 10)} class="fa fa-long-arrow-left" ></i>
                     {paging.map(item => <div onClick={() => {setSlices(item * 10 - 10)}} className={(slices+10) / 10 === item && "background-paging"}>{item}</div>)}

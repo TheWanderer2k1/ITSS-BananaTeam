@@ -218,7 +218,7 @@ exports.getFoodByAddress = async (data) => {
 
 }
 exports.getFoodInforById = async (foodDesId) => {
-    queryGetFoodInforById = `SELECT fooddescription.ID as id , food.Name as name, price,  AVG(rating) AS rating, fooddescription.Description as description, category.ID as categoryId, category.Name as name, category.Description as categoryDescription, restaurant.Id as restaurantId, restaurant.Avatar AS avatarImg
+    queryGetFoodInforById = `SELECT fooddescription.ID as id , food.Name as name, price,  AVG(rating) AS rating, fooddescription.Description as description, category.ID as categoryId, category.Name as categoryName, category.Description as categoryDescription, restaurant.Id as restaurantId, restaurant.Avatar AS avatarImg
     FROM fooddescription
     JOIN food on food.id = fooddescription.FoodID
     LEFT JOIN foodreview on fooddescription.id = foodreview.FoodDesId

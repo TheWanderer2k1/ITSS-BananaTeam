@@ -56,8 +56,8 @@ const Foods = () => {
                 <div className="item item-header">詳細</div>
             </div>
             <div className="content">
-                {menuInfo.slice(slices, slices+10).map(item => <div className="item item-content">
-                    <div className="content-item">{item.foodId}</div>
+                {menuInfo.slice(slices, slices+10).map((item, index) => <div className="item item-content">
+                    <div className="content-item">{index + 1}</div>
                     <div className="content-item">{item.name}</div>
                     <div className="content-item">{item.price}</div>
                     <div className={admin ? "content-item" : "hidden-data content-item"}><i class="fa fa-pencil"> </i></div>
@@ -66,7 +66,7 @@ const Foods = () => {
                 </div>)}
             </div>
             <div className="pagging">
-                <div className={!admin ? "content-item" : "add-food"}>料理を追加する</div>
+                <div className={"content-item"}></div>
                 <div className="content-pagging">
                     <i onClick={() => setSlices(slices - 10 < 0 ? 0 : slices - 10)} class="fa fa-long-arrow-left" ></i>
                     {paging.map(item => <div onClick={() => {setSlices(item * 10 - 10)}} className={(slices+10) / 10 === item && "background-paging"}>{item}</div>)}

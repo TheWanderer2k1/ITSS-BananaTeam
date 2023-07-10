@@ -439,7 +439,7 @@ const FoodReview = ({id}) => {
               <div className="review-block__header">  
                 <div className="d-flex aic">
                   <div className="review-block__avatar">
-                    <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                    <img src={comment.avatar} alt="" />
                   </div>
                   <div className="review-block__username">
                     {comment.userName}
@@ -512,12 +512,6 @@ const FoodReview = ({id}) => {
                 </div>
               </div>
               <div className="review-block__footer d-flex my-12">
-                <div className="review-block__my-avatar mx-24">
-                  <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
-                </div>
-                <div className="review-block__comment">
-                  <Input placeholder="Phản hồi" />
-                </div>
               </div>
             </div>
           ))}          

@@ -59,6 +59,9 @@ exports.getReviewList = async (foodId) => {
     result = await sql.QueryGetData(query);
 
     for (review of result) {
+        if (review.avatar) {
+            review.avatar = convertFilePath(review.avatar)
+        }
         if (review.img) {
             imgQuery = `SELECT src FROM image
                 WHERE GroupID = ${review.img}`

@@ -12,6 +12,7 @@ const NavbarInteractive = (props) => {
         data-thq="thq-navbar"
         className="navbar-interactive-navbar-interactive"
       >
+        <Link to="/homepage">
         <div className="navbar-interactive-container1">
           <img
             alt="logo_tabeyou"
@@ -21,6 +22,7 @@ const NavbarInteractive = (props) => {
           />
           <h1 className="navbar-interactive-text">{props.heading}</h1>
         </div>
+        </Link>
         <div
           data-thq="thq-navbar-nav"
           data-role="Nav"

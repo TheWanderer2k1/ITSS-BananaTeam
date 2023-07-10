@@ -27,6 +27,11 @@
     justify-content: center;
 }
 
+.image-profile .avt .user-img-container {
+    display: flex;
+    justify-content: center;
+}
+
 .image-profile .avt img{
     width: 70%;
 }

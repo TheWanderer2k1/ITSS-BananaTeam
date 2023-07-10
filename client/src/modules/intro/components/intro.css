@@ -489,9 +489,8 @@ span.dx-options > div > a:first-child {
     align-items: center;
 }
 
-.user-info > img {
+.user-info .img-container img {
     width: 50px;
-    border: 2px solid #000;
     border-radius: 50%;
 }
 

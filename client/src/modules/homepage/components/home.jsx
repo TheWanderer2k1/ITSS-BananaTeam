@@ -10,6 +10,7 @@ import ResList from './res-list'
 import SlideShow from './slideshow'
 import InputComponent from './input-component'
 import { useHistory, useLocation } from 'react-router-dom';
+import Avt from '../images/avt.png'
 import './home.css'
 
 const Home = (props) => {
@@ -26,7 +27,7 @@ const Home = (props) => {
         <div className="home-staff-container1">
           <span className="home-staff-text">Xin chào</span>
           <img
-            src="https://play.teleporthq.io/static/svg/default-img.svg"
+            src={Avt}
             alt="image"
             className="home-staff-image"
             onClick={openProfile}

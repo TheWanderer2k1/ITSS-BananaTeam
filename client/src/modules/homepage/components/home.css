@@ -41,9 +41,6 @@
   align-self: center;
   object-fit: cover;
   margin-left: 30px;
-  border: solid;
-  border-color: black;
-  border-width: 4px;
   border-radius: 50%;
 }
 

@@ -5,6 +5,8 @@ import { useLocation } from 'react-router-dom';
 
 import { sendRequest } from '../../../helpers/requestHelper';
 import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Avt from '../images/avt.png'
 
 
 
@@ -422,7 +424,9 @@ function Search() {
 			<div className="salutation">
 				<strong> こにちは、</strong>
 				<div className="user-info">
-					<img src="/library/dx/images/vietnam.png" alt="" />
+					<Link className="img-container" to={`/profile`}>
+						<img src={Avt} alt="" />
+					</Link>
 					<div className="user-coin d-flex mt-6"><img src="/library/dx/images/bnn-coin.png" alt="" className="coin-icon" /><strong>1000</strong></div>
 				</div>
 			</div>

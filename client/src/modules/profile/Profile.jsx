@@ -5,6 +5,7 @@ import Avt from './img/avt.png';
 import crypto from './img/crypto.png'
 import lock from './img/Lock.png'
 import sao from './img/sao.png'
+import { Link } from 'react-router-dom';
 
 export const Profile = () => {
     return (
@@ -12,7 +13,11 @@ export const Profile = () => {
             <NavbarInteractive />
             <div className='content'>
                 <div className='image-profile'>
-                    <div className='avt'><img src={Avt} alt="" /></div>
+                    <div className='avt'>
+                    <Link className='user-img-container' to={`/homepage`}>
+                        <img src={Avt} alt="" />
+                    </Link>
+                    </div>
                     <div className='text-left'>
                     <div className='title-1'>佐藤和真</div>
                     <div className='title-2'><img style={{maxWidth: "24px", marginRight: "10px"}} src={crypto} />1000</div>

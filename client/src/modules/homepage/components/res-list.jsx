@@ -27,7 +27,7 @@ function ListComponent() {
         {firstFourrestaurant.map((restaurant) => (
           <ResItem
             key={restaurant.id}
-            image_src={restaurant.avatar}
+            image_src={restaurant.img}
             res_id={restaurant.id}
             text={restaurant.name}
           />

@@ -109,9 +109,9 @@ function InputComponent() {
 
   return (
     <React.Fragment>
-      <div style={{marginTop: "50px", width: "100%", display: 'flex', alignItems: 'center', justifyContent: 'flex-start'}}>
+      <div style={{width: "100%", display: 'flex', alignItems: 'center', justifyContent: 'flex-start'}}>
       <div class="row">
-        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" style={{margin: '50px 0 0 0'}}>
+        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
           <select value={searchOption} onChange={handleChangeSearchOption} class="form-select select-search-option" aria-label="Default select example">
             <option value="1" selected>料理の名前</option>
             <option value="2">場所</option>
@@ -128,6 +128,9 @@ function InputComponent() {
                   onChange={handleChange}
                   className="home-search-field input"
                 />
+                <button type="submit" className="submit-button">
+                  <img src="/library/dx/images/search-icon.png" alt="Submit" className="button-image" />
+                </button>
               </form>        
             ) : (
               <div id="addressSearch" class="address-search">       

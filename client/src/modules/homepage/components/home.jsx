@@ -34,6 +34,14 @@ const Home = (props) => {
         </div>
         <InputComponent></InputComponent>
       </div>
+      <div className='user-point'>
+        <span className="point-text">5400</span>
+        <img
+          src="/library/dx/images/coin.png"
+          alt="image"
+          className="coin-img"
+        />
+      </div>
       <div className='home-slide-show'>
         <SlideShow></SlideShow>
       </div>

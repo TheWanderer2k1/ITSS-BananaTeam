@@ -44,7 +44,7 @@ const NavbarInteractive = (props) => {
 }
 
 NavbarInteractive.defaultProps = {
-  button1: 'ログイン',
+  button1: 'ログアウト',
   button: 'ホームページ',
   heading: 'TABEYOU',
   text: 'ホームページ',

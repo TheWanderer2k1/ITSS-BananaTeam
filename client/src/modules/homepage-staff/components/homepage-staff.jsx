@@ -37,7 +37,7 @@ const HomeStaff = (props) => {
     };
     const history = useHistory();
     const openProfile = () => {
-      history.push(`/profile`);
+      //history.push(`/profile`);
     }
     const handlePhoneNumberChange = (event) => {
         setPhoneNumber(event.target.value);
@@ -98,7 +98,6 @@ const HomeStaff = (props) => {
             method: "GET",
           })
         setUserdata(resp.data['content']);
-
     };
 
     const fetchPageInfo= async () => {

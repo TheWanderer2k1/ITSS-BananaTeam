@@ -25,7 +25,7 @@ const Home = (props) => {
       <NavbarInteractive rootClassName="navbar-interactive-root-class-name"></NavbarInteractive>
       <div className="big-container">
         <div className="home-staff-container1">
-          <span className="home-staff-text">Xin chào</span>
+          <span className="home-staff-text">こんにちは、</span>
           <img
             src={Avt}
             alt="image"

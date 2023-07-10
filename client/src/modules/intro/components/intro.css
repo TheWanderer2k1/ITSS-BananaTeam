@@ -472,7 +472,7 @@ span.dx-options > div > a:first-child {
 .search-container {
     margin-top: 70px;
     background-color: #fff;
-    padding: 60px 80px;
+    padding: 60px 80px 80px 80px;
 }
 
 .salutation {

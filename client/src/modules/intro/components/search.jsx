@@ -430,7 +430,7 @@ function Search() {
 	return (
 		<div className='search-container'>
 			<div className="salutation">
-				<strong> こにちは、</strong>
+				<strong> こんにちは、</strong>
 				<div className="user-info">
 					<Link className="img-container" to={`/profile`}>
 						<img src={Avt} alt="" />

@@ -64,7 +64,7 @@ const RestaurantInfomation = (props) => {
           className="restaurant-infomation-image2"
         />
         <h1 className="restaurant-infomation-res-info-heading">
-          レストラン情報
+          <strong>レストラン情報</strong>
         </h1>
         <img
           className="restaurant-infomation-image2"

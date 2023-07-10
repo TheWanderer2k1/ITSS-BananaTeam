@@ -6,6 +6,7 @@ import { getStorage, setStorage } from '../../../config';
 import moment from "moment";
 import store from '../../../redux/store';
 import { useHistory } from 'react-router-dom';
+import NavbarInteractive from '../../homepage/components/navbar-interactive';
 import './intro.css';
 
 const Header = (props) => {
@@ -67,21 +68,7 @@ const Header = (props) => {
         //         }
         //     </span>
         // </header>
-        <header className="fixed-top p-center-h">
-            <img src="/library/dx/images/tabeyou-logo.png" alt="" className="header-logo"/>
-            <h1>TABEYOU</h1>
-            {/* <span id="dx-language-setting" className="dx-language-setting p-center-h">
-                <a style={{ cursor: "pointer" }} onClick={_setEng}><img src='/library/dx/images/eng.png' className="img-circle" /></a>
-                <a style={{ cursor: "pointer" }} onClick={_setVie}><img src='/library/dx/images/vietnam.png' className="img-circle" /></a>
-            </span> */}
-            <span className="dx-options">
-                <div className="dx-option option-selected"><a href="homepage">ホームページ</a></div>
-                {/* <div className="dx-option"><a href="#dx-service">ハノイ</a><i class="fa fa-chevron-down"></i></div>
-                <div className="dx-option"><a href="#dx-contact">食べ物&飲み物</a><i class="fa fa-chevron-down"></i></div> */}
-                <div className="dx-option"><a href="#dx-service-signup">ログアウト</a></div>
-            </span>
-            
-        </header>
+        <NavbarInteractive />
     )
 }
 

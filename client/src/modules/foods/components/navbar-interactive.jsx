@@ -1,6 +1,7 @@
 import React from 'react'
 
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom';
 
 import './navbar-interactive.css'
 
@@ -31,10 +32,10 @@ const NavbarInteractive = (props) => {
             className="navbar-interactive-nav"
           >
             <button type="button" className="navbar-interactive-button button">
-            ホームページ
+            <Link to="/homepage">{props.button1}</Link>
             </button>
             <button type="button" className="navbar-interactive-button1 button">
-            ログアウト
+              {props.button}
             </button>
           </nav>
         </div>

@@ -132,7 +132,7 @@ const FoodReview = ({id}) => {
     fetchFoodReview();
   }, []);
 
-  const onClickLikeReview = async(reviewId) => {
+  const onClickLikeReview = async(reviewId, index) => {
     const url = `${ process.env.REACT_APP_SERVER }/api/v1/food/${id}/review/${reviewId}/reaction`;
     const data = {
       reactType: 3,
@@ -143,10 +143,14 @@ const FoodReview = ({id}) => {
       method: "POST",
       data: data,
     })
-    fetchFoodReview();
+    let newCommentList = [...listComment]
+    newCommentList[index].liked.push(3);
+    newCommentList[index].reactNumber += 1;
+    setListComment(newCommentList);
+    // fetchFoodReview();
   }
 
-  const onRemoveLikeReview = async(reviewId) => {
+  const onRemoveLikeReview = async(reviewId, index) => {
     const url = `${ process.env.REACT_APP_SERVER }/api/v1/food/${id}/review/${reviewId}/reaction`;
     const data = {
       userId: 3
@@ -155,8 +159,13 @@ const FoodReview = ({id}) => {
       url: url,
       method: "DELETE",
       data: data,
-    })
-    fetchFoodReview();
+    });
+    let newCommentList = [...listComment]
+    const indexToRemove = newCommentList[index].liked.indexOf(3);
+    newCommentList[index].liked.splice(indexToRemove, 1);
+    newCommentList[index].reactNumber -= 1;
+    setListComment(newCommentList);
+    // fetchFoodReview();
   }
   
   const fetchFoodReview = async () => {
@@ -434,7 +443,7 @@ const FoodReview = ({id}) => {
           </div>
         </div>
         <div className="review-list">
-          {listComment.map((comment) => (
+          {listComment.map((comment, index) => (
             <div className="review-block">
               <div className="review-block__header">  
                 <div className="d-flex aic">
@@ -456,9 +465,9 @@ const FoodReview = ({id}) => {
                     {
                       comment.liked.length > 0 && comment.liked.includes(3) 
                       ?
-                      <Button type="primary" onClick={() => onRemoveLikeReview(comment.reviewId)}><i class="fa fa-heart mr-6"></i> {comment.reactNumber}</Button>
+                      <Button type="primary" onClick={() => onRemoveLikeReview(comment.reviewId, index)}><i class="fa fa-heart mr-6"></i> {comment.reactNumber}</Button>
                       :
-                      <Button onClick={() => onClickLikeReview(comment.reviewId)}><i class="fa fa-heart mr-6"></i> {comment.reactNumber}</Button>
+                      <Button onClick={() => onClickLikeReview(comment.reviewId, index)}><i class="fa fa-heart mr-6"></i> {comment.reactNumber}</Button>
                     }
                   </div>
                 </div>

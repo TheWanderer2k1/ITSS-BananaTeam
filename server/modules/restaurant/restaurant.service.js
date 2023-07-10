@@ -27,7 +27,7 @@ exports.getRestaurantInforById = async (restaurantId) => {
 }
 
 exports.getMenu = async (restaurantId) => {
-    queryGetMenu = `SELECT fooddescription.ID as foodID , food.Name as name, price, AVG(rating) AS rating
+    queryGetMenu = `SELECT fooddescription.ID as foodId , food.Name as name, price, AVG(rating) AS rating
     FROM fooddescription
     JOIN food on food.id = fooddescription.FoodID
     LEFT JOIN foodreview on fooddescription.id = foodreview.FoodDesId
@@ -41,7 +41,7 @@ exports.getMenu = async (restaurantId) => {
         queryGetImg = `SELECT src 
                        FROM image
                        JOIN fooddescription ON image.GroupID = fooddescription.GroupImageId 
-                       WHERE fooddescription.ID = ${foodItem.foodID}`
+                       WHERE fooddescription.ID = ${foodItem.foodId}`
 
         listImg = await sql.QueryGetData(queryGetImg)
        
@@ -131,7 +131,6 @@ exports.editRestaurantInfor = async (data) => {
             }
         }
         
-        console.log(queryEditRestaurantInfor)
     await sql.QueryUpdateData(queryEditRestaurantInfor)
     return
     

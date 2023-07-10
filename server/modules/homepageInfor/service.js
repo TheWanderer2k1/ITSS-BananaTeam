@@ -11,7 +11,7 @@ const getSliderData = `
     	where fooddescription.ID=FoodDesID 
         	AND fooddescription.FoodID=food.ID   
         	AND image.GroupID=fooddescription.GroupImageID 
-      	GROUP By fooddescription.ID, src
+      	GROUP By fooddescription.ID
       	ORDER BY rate DESC LIMIT 6
   	) AS Query_table`
 const getFoodMostLiked = `
@@ -22,7 +22,7 @@ const getFoodMostLiked = `
 		where fooddescription.ID=FoodDesID 
 			AND fooddescription.FoodID=food.ID   
 			AND image.GroupID=fooddescription.GroupImageID 
-		GROUP By fooddescription.ID, Src
+		GROUP By fooddescription.ID
 		ORDER BY rate DESC LIMIT 8
 	) AS Query_table`
 const getRestaurantMostLiked = `
@@ -35,7 +35,7 @@ const getRestaurantMostLiked = `
 			where fooddescription.ID=FoodDesID 
 				AND fooddescription.FoodID=food.ID
 				AND image.GroupID=fooddescription.GroupImageID 
-			GROUP By fooddescription.ID, Src 
+			GROUP By fooddescription.ID
 		) AS t1
 		WHERE (
 			SELECT COUNT(*) 
@@ -45,7 +45,7 @@ const getRestaurantMostLiked = `
 				where fooddescription.ID=FoodDesID 
 					AND fooddescription.FoodID=food.ID
 					AND image.GroupID=fooddescription.GroupImageID 
-				GROUP By fooddescription.ID, Src
+				GROUP By fooddescription.ID
 			) AS t2 
 			WHERE t1.RestaurantID=t2.RestaurantID 
 				AND t2.rate>=t1.rate ) <=3 
@@ -53,7 +53,7 @@ const getRestaurantMostLiked = `
 		) As t3 , restaurant,image 
 	where t3.RestaurantID=restaurant.ID 
 		AND restaurant.GroupImageID=image.GroupID 
-	GROUP BY t3.RestaurantID, Src
+	GROUP BY t3.RestaurantID
 	order by AVG(t3.rate) desc limit 8`
 
 /**

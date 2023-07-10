@@ -8,8 +8,8 @@
   background-color: white;
 }
 .restaurant-infomation-container1 {
-  width: 84.5%;
-  height: 550px;
+  width: 70%;
+  height: 280px;
   display: flex;
   position: relative;
   align-self: center;
@@ -24,7 +24,7 @@
 }
 .restaurant-infomation-image {
   width: 97%;
-  height: 68%;
+  height: 80%;
   align-self: center;
   margin-top: 15px;
   object-fit: cover;
@@ -32,8 +32,8 @@
 }
 .restaurant-infomation-logo {
   left: 3%;
-  width: 240px;
-  height: 240px;
+  width: 120px;
+  height: 120px;
   bottom: 5%;
   position: absolute;
   object-fit: cover;
@@ -44,7 +44,7 @@
 }
 .restaurant-infomation-text {
   color: #000000;
-  font-size: 36px;
+  font-size: 24px;
   align-self: flex-start;
   margin-top: 10px;
   margin-left: 24%;
@@ -53,7 +53,7 @@
   flex: 0 0 auto;
   width: 100%;
   display: flex;
-  margin-top: 80px;
+  margin-top: 20px;
   align-items: center;
   justify-content: center;
 }
@@ -66,7 +66,7 @@
   background-color: #000000;
 }
 .restaurant-infomation-res-info-heading {
-  font-size: 36px;
+  font-size: 22px;
 }
 .restaurant-infomation-res-info-container {
   width: 1058px;
@@ -76,12 +76,12 @@
   flex-direction: column;
 }
 .restaurant-infomation-res-name {
-  font-size: 24px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 700;
 }
 .restaurant-infomation-text1 {
-  font-size: 24px;
+  font-size: 16px;
   font-style: normal;
   margin-top: 20px;
   font-weight: 500;
@@ -89,12 +89,12 @@
   margin-bottom: 20px;
 }
 .restaurant-infomation-res-name1 {
-  font-size: 24px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 700;
 }
 .restaurant-infomation-text2 {
-  font-size: 24px;
+  font-size: 18px;
   font-style: normal;
   margin-top: 20px;
   font-weight: 500;
@@ -102,12 +102,12 @@
   margin-bottom: 20px;
 }
 .restaurant-infomation-res-name2 {
-  font-size: 24px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 700;
 }
 .restaurant-infomation-text3 {
-  font-size: 24px;
+  font-size: 18px;
   font-style: normal;
   margin-top: 20px;
   font-weight: 500;
@@ -115,7 +115,7 @@
   margin-bottom: 20px;
 }
 .restaurant-infomation-text4 {
-  font-size: 24px;
+  font-size: 18px;
   font-style: normal;
   margin-top: 20px;
   font-weight: 500;
@@ -123,12 +123,12 @@
   margin-bottom: 20px;
 }
 .restaurant-infomation-res-name3 {
-  font-size: 24px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 700;
 }
 .restaurant-infomation-text5 {
-  font-size: 24px;
+  font-size: 18px;
   font-style: normal;
   margin-top: 20px;
   font-weight: 500;
@@ -136,12 +136,12 @@
   margin-bottom: 20px;
 }
 .restaurant-infomation-res-name4 {
-  font-size: 24px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 700;
 }
 .restaurant-infomation-text6 {
-  font-size: 24px;
+  font-size: 18px;
   font-style: normal;
   margin-top: 20px;
   font-weight: 500;
@@ -149,17 +149,18 @@
   margin-bottom: 20px;
 }
 .restaurant-infomation-res-name5 {
-  font-size: 24px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 700;
 }
 .restaurant-infomation-slider {
-  width: 100%;
-  height: 276px;
+  background-color: #fff;
+  height: 220px;
   margin-top: 20px;
-  background-color: #D9D9D9;
+  padding-bottom: 20px;
   overflow: auto;
   white-space: nowrap;
+  width: 100%;
 }
 .restaurant-infomation-slider img {
   height:100%;
@@ -169,16 +170,16 @@
 }
 .restaurant-infomation-button {
   width: auto;
-  font-size: 26px;
-  font-style: normal;
-  margin-top: 60px;
-  margin-bottom: 40px;
-  font-weight: 700;
-  padding-top: 24px;
-  border-style: hidden;
-  padding-left: 36px;
-  border-radius: 40px;
-  padding-right: 36px;
-  padding-bottom: 24px;
-  background-color: #FFA072;
+    font-size: 16px;
+    font-style: normal;
+    margin-top: 30px;
+    margin-bottom: 60px;
+    font-weight: 700;
+    padding-top: 10px;
+    border-style: hidden;
+    padding-left: 20px;
+    border-radius: 40px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    background-color: #FFA072;
 }

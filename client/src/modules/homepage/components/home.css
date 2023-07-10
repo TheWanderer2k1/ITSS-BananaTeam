@@ -29,8 +29,8 @@
   align-items: flex-start;
 }
 .home-staff-text {
-  width: 100px;
-  font-size: 24px;
+  width: fit-content;
+  font-size: 20px;
   font-style: normal;
   font-weight: 700;
   margin-left: 113px;

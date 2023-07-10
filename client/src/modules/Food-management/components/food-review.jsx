@@ -92,7 +92,7 @@ const FoodReview = ({id}) => {
 
     // 1. Limit the number of uploaded files
     // Only to show two recent uploaded files, and old ones will be replaced by the new
-    newFileList = newFileList.slice(-2);
+    // newFileList = newFileList.slice(-2);
 
     // 2. Read from response and show file link
     newFileList = newFileList.map((file) => {
@@ -222,6 +222,7 @@ const FoodReview = ({id}) => {
       console.error(error);
     }
     fetchFoodReview();
+    setFileList([]);
     setValues({
       cleanliness: '',
       smell: '',
@@ -309,7 +310,7 @@ const FoodReview = ({id}) => {
           <div className="post-avatar">
             <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className="mr-24" style={{width: '10%'}}/>
             <Rate style={{width: '30%'}} onChange={setNewCommentRate} value={newCommentRate} />
-              <Upload style={{width: '40%'}} {...props} fileList={fileList}>
+              <Upload style={{width: '40%'}} {...props} fileList={fileList} listType="picture" maxCount={100} multiple>
                 <Button type="text" danger><FileImageOutlined style={{color: 'red', fontSize: "24px"}}/></Button>
               </Upload>
             <div style={{width: '40%'}}>
@@ -427,7 +428,7 @@ const FoodReview = ({id}) => {
               <strong>添付</strong>
             </div>
             <div className="food-info__detail">
-              <Checkbox onChange={onChangeCheckImage}>写真</Checkbox>
+              <Checkbox style={{marginLeft: '18px'}} onChange={onChangeCheckImage}>写真</Checkbox>
               {/* <Checkbox>ビデオ</Checkbox> */}
             </div>
           </div>
@@ -501,8 +502,13 @@ const FoodReview = ({id}) => {
                   </div>
                 </div>
                 <div className="flex-1">
-                  <Button type="text"><i class="fa fa-edit" style={{color:"red"}}  onClick={() => showModal(comment)}></i></Button>                
-                  <Button type="text"><i class="fa fa-trash" style={{color:"red"}} onClick={() => onClickDeleteComment(comment)}></i></Button>                
+                  {
+                    comment.userId == 3? <React.Fragment>
+                      <Button type="text"><i class="fa fa-edit" style={{color:"red"}}  onClick={() => showModal(comment)}></i></Button>                
+                      <Button type="text"><i class="fa fa-trash" style={{color:"red"}} onClick={() => onClickDeleteComment(comment)}></i></Button>                
+
+                    </React.Fragment>:<div style={{width: '80px'}}></div>
+                  }
                 </div>
               </div>
               <div className="review-block__footer d-flex my-12">
@@ -525,6 +531,7 @@ const FoodReview = ({id}) => {
           </div>
           <div className="comment-text-box">
             <TextArea onChange={handleEditCommentText} value={editCommentText} rows={4} className="mt-12" placeholder=""/>
+            
             <div className="comment-send-icon">              
               <Button type="text" onClick	={editComment}><i class="fa fa-paper-plane"></i></Button>
             </div>

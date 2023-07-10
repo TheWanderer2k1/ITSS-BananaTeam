@@ -41,7 +41,7 @@ let listSearchOption = [
 ]
 
 let listCityFilter = [
-	{ value: "HA Noi", label: "Thành phố Hà Nội", id: "01" },
+	{ value: "Hà nội", label: "Thành phố Hà Nội", id: "01" },
 	{ value: "Tỉnh Hà Giang", label: "Tỉnh Hà Giang", id: "02" },
 	{ value: "Tỉnh Cao Bằng", label: "Tỉnh Cao Bằng", id: "04" },
 	{ value: "Tỉnh Bắc Kạn", label: "Tỉnh Bắc Kạn", id: "06" },
@@ -137,6 +137,7 @@ function Search() {
 	const [isShowAddressFilter, setIsShowAddressFilter] = useState(true);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
 	const [isSearchByAddress, setIsSearchByAddress] = useState(false);
+	const [isFilterByAddress, setIsFilterByAddress] = useState(false);
 	const [sortValue, setSortValue] = useState('');
 	const [pageinate, setPageinate] = useState(0);
 
@@ -160,6 +161,7 @@ function Search() {
 		if (event.keyCode === 13) {
 			fetchfoodDecription();
 			setPageinate(0);
+			clearFilter();
 		}
 	}
 
@@ -200,6 +202,7 @@ function Search() {
 			setIsShowAddressFilter(true);
 		} else {
 			setIsShowAddressFilter(false);
+			setIsFilterByAddress(true);
 		}
 	};
 
@@ -225,7 +228,7 @@ function Search() {
 	}, []);
 
 	useEffect(() => {
-		if (isSearchByAddress) {
+		if (isSearchByAddress || isFilterByAddress) {
 			fetchfoodDecriptionByAddress();
 			setIsSearchByAddress(false);
 		}
@@ -238,7 +241,7 @@ function Search() {
 			method: "GET",
 		})
 		const transformedCategories = resp.data['content'].listCategory.map((item) => {
-			return { value: item.ID, label: item.Name }
+			return { value: item.id, label: item.name }
 		})
 		setListCategories(transformedCategories)
 		console.log('Huy on da test: ' + listCategories);
@@ -266,6 +269,8 @@ function Search() {
 					url += `?ward=${wardSearch}`;
 				}
 			}
+		} else {
+			url = `${process.env.REACT_APP_SERVER}/api/v1/foods`;
 		}
 		console.log(url);
 		const resp = await sendRequest({
@@ -361,6 +366,7 @@ function Search() {
 
 	const handleFilter = async () => {
 		const checkPrice = (price) => {
+			if(priceFilter.every(price => price.checked === false)) return true
 			for (let p of priceFilter) {
 				if (p.checked === false && (p.from < price && (p.to == '以上' || price < p.to)))
 					return false
@@ -369,6 +375,8 @@ function Search() {
 		}
 		const checkRating = (rating) => {
 			if (!rating) return false;
+			if(ratingFilter.every(rating => rating.checked === false)) return true
+
 
 			for (let r of ratingFilter) {
 				if (r.checked === false && (r.value <= rating && rating < r.value + 1))

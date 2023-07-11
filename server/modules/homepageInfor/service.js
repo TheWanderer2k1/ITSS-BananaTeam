@@ -24,7 +24,7 @@ const getFoodMostLiked = `
 		ORDER BY rate DESC LIMIT 8
 	) AS Query_table`
 const getRestaurantMostLiked = `
-	SELECT r.ID, r.GroupImageID as img, r.Name
+	SELECT r.ID, r.Avatar as img, r.Name
 	FROM restaurant r
 		LEFT JOIN fooddescription fd ON r.ID = fd.RestaurantID
 		LEFT JOIN foodreview fr ON fd.ID = fr.FoodDesID
@@ -91,14 +91,7 @@ exports.getDataHomePage = async () => {
 
 	resultRestaurantMostLiked = await sql.QueryGetData(getRestaurantMostLiked)
 	for (let item of resultRestaurantMostLiked) {
-		imgQuery = `select Src as img from image where GroupID = '${item.img}'`
-		
-		a_img = await sql.QueryGetData(imgQuery)
-		if (a_img[0]) {
-			item.img = convertFilePath(a_img[0]['img'])
-		} else {
-			item.img = null
-		}
+		item.img = convertFilePath(item.img)
 	}
 
 	return result = {

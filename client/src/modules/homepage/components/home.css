@@ -200,6 +200,7 @@ a {
   margin-top: 35px;
   align-items: flex-start;
   justify-content: flex-start;
+  z-index: 1;
 }
 .home-image2 {
   width: 47px;

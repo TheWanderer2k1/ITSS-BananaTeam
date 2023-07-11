@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 // import { LeftOutlined } from '@ant-design/icons';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
@@ -9,19 +9,28 @@ import FoodList from './food-list'
 import ResList from './res-list'
 import SlideShow from './slideshow'
 import InputComponent from './input-component'
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 import Avt from '../images/avt.png'
 import './home.css'
 
 const Home = (props) => {
+  /**@type {{hash: "#ninkigaaru_restaurants"|"#ninkigaaru_foods"}}*/
+  const { hash } = useLocation();
   const history = useHistory();
   const openProfile = () => {
     history.push(`/profile`);
   }
+  useEffect(() => {
+    console.log('hash', hash);
+    if (!hash) return;
+    const element = document.getElementById(hash.split('#')[1]);
+    if (!element) return;
+    element.scrollIntoView({ behavior: 'smooth' });
+  }, []);
   return (
     <div className="home-container">
-        <title>TABEYOU</title>
-        <meta property="og:title" content="TABEYOU" />
+      <title>TABEYOU</title>
+      <meta property="og:title" content="TABEYOU" />
       <NavbarInteractive rootClassName="navbar-interactive-root-class-name"></NavbarInteractive>
       <div className="big-container">
         <div className="home-staff-container1">
@@ -57,11 +66,11 @@ const Home = (props) => {
       </div>
       <div className="home-category-container">
         <button type="button" className="home-button button">
-        <LeftOutlined />
+          <LeftOutlined />
         </button>
         <CategoryList></CategoryList>
         <button type="button" className="home-button button">
-        <RightOutlined />       
+          <RightOutlined />
         </button>
       </div>
       <div className="home-container2">
@@ -72,7 +81,7 @@ const Home = (props) => {
             loading="lazy"
             className="home-image1"
           />
-          <h1 className="home-text">人気がある料理</h1>
+          <h1 id="ninkigaaru_foods" className="home-text">人気がある料理</h1>
         </div>
       </div>
       <div className="home-fav-food-container">
@@ -86,7 +95,7 @@ const Home = (props) => {
             loading="lazy"
             className="home-image2"
           />
-          <h1 className="home-text">人気があるレストラン</h1>
+          <h1 id="ninkigaaru_restaurants" className="home-text">人気があるレストラン</h1>
         </div>
       </div>
       <div className="home-fav-res-container">

@@ -1,5 +1,7 @@
 .food-info {
-    position: flex;
+    position: sticky;
+    top: 80px;
+    margin-bottom: 24px;
     }
     
     .food-image {
@@ -97,23 +99,23 @@
     }
     
     .food-name {
-    display: flex;
+        display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
-    font-size: 74px;
-    line-height: 96px;
+    font-size: 54px;
+    line-height: 54px;
     text-align: center;
-    letter-spacing: 0.045em;
+    letter-spacing: 0.025em;
     color: #000000;
-    margin-top: 20px;
+    /* margin-top: 20px; */
     }
     
     .food-description {
     margin: 0 100px;
-    margin-top: 40px;
+    margin-top: 16px;
     display: flex;
     align-items: center;
     justify-content: center;

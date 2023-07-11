@@ -69,10 +69,10 @@
     font-weight: 700;
     border-style: hidden;
     border-radius: 16px;
-    background-color: #fff;
+    /* background-color: #fff; */
     justify-content: center;
     align-items: center;
-    box-shadow: inset 1px 3px 8px 0 rgba(0, 0, 0, 0.2);
+    /* box-shadow: inset 1px 3px 8px 0 rgba(0, 0, 0, 0.2); */
   }
 
   .navbar-interactive-button a {

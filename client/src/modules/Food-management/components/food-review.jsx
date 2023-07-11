@@ -10,6 +10,7 @@ const { TextArea } = Input;
 const oneDay = 24 * 60 * 60 * 1000; // number of milliseconds in one day
 const now = new Date();
 
+<<<<<<< HEAD
 const FoodReview = ({ id }) => {
 
   const [listStart, setListStar] = useState([
@@ -20,6 +21,10 @@ const FoodReview = ({ id }) => {
     { value: 4, label: "4", iconClass: "fa fa-star c-star-color", isHover: false },
     { value: 5, label: "5", iconClass: "fa fa-star c-star-color", isHover: false }
   ])
+=======
+const FoodReview = ({ id ,avatarImage}) => {
+ 
+>>>>>>> bugfix/thuy
 
   const [listAllComment, setListAllComment] = useState([]);
   const [listComment, setListComment] = useState([]);
@@ -366,7 +371,7 @@ const FoodReview = ({ id }) => {
       <div className="container">
         <div className="post-comment mb-24">
           <div className="post-avatar">
-            <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className="mr-24" style={{ width: '10%' }} />
+            <img src={avatarImage} alt="" className="mr-24" style={{ width: '10%' }} />
             <Rate style={{ width: '30%' }} onChange={setNewCommentRate} value={newCommentRate} />
             <Upload style={{ width: '40%' }} {...props} fileList={fileList} listType="picture" maxCount={100} multiple>
               <Button type="text" danger><i className="fa fa-upload"></i><FileImageOutlined style={{ color: 'red', fontSize: "24px" }} /></Button>

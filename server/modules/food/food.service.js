@@ -25,7 +25,7 @@ exports.getFoodDescriptionList = async (keyword) => {
             'province': food['Province'],
             'district': food['District'],
             'ward': food['Ward'],
-            'detailedAdress': food['DetailedAddress']
+            'detailedAddress': food['DetailedAddress']
         }
         food.img = convertFilePath(food.img)
         food['category'] = {
@@ -182,43 +182,66 @@ exports.unreactReview = async (foodId, reviewId, userId) => {
 
 
 exports.getFoodByAddress = async (data) => {
+    console.log('data ne', data)
     queryFindRestaurantByAddress = `Select ID as id, Name as name, OpenTime as openTime, CloseTime as closeTime, Province as province, District as district, Ward as ward, DetailedAddress as detailedAddress From restaurant`
-    condition1=`Province like  '%${data.province}%'`
-    condition2= `District like '%${data.district}%'`
-    condition3= `Ward like '%${data.ward}%'`
-    whereCondition=(data.province?condition1:'1=1')+' AND '+(data.district?condition2:'1=1')+' AND '+(data.ward?condition3:'1=1')
-    if(whereCondition!='')
-    queryFindRestaurantByAddress=queryFindRestaurantByAddress+' Where '+ whereCondition
     arrayRestaurant = await sql.QueryGetData(queryFindRestaurantByAddress)
+
+    let result = []
+
+    let i = arrayRestaurant.length
+    console.log('i ne', i)
+    while (i--) {
+        res = arrayRestaurant[i]  
+        if (data.province && res.province.toLowerCase() != data.province.toLowerCase()) {
+            arrayRestaurant.splice(i, 1)
+            continue
+        }
+        if (data.district && res.district.toLowerCase() != data.district.toLowerCase()) {
+            arrayRestaurant.splice(i, 1)
+            continue
+        }
+        if (data.ward && res.ward.toLowerCase() != data.ward.toLowerCase()) {
+            arrayRestaurant.splice(i, 1)
+            continue
+        }
+    }
+    console.log('')
     
     for(restaurant of arrayRestaurant){
-        queryFindFoodByRestaurant =  `SELECT fooddescription.ID as id, food.Name as name, image.Src as img, price, AVG(rating) AS rating, fooddescription.Description as description, category.Id as categoryId , category.Name as categoryName, category.Description as categoryDescription
+        queryFindFoodByRestaurant =  `
+        SELECT fooddescription.ID as id, food.Name as name, fooddescription.GroupImageId as img, price, AVG(rating) AS rating, fooddescription.Description as description, category.Id as categoryId , category.Name as categoryName, category.Description as categoryDescription
         FROM fooddescription
-        JOIN food on food.ID = fooddescription.FoodID
-        LEFT JOIN foodreview on fooddescription.id = foodreview.FoodDesId
-        JOIN image on fooddescription.GroupImageId = image.GroupId
-        JOIN category on food.CategoryId = category.ID
+            JOIN food on food.ID = fooddescription.FoodID
+            LEFT JOIN foodreview on fooddescription.id = foodreview.FoodDesId
+            JOIN category on food.CategoryId = category.ID
         WHERE fooddescription.RestaurantID = ${restaurant.id}
-        GROUP BY fooddescription.ID, img`                
+        GROUP BY fooddescription.ID`                
         food=await sql.QueryGetData(queryFindFoodByRestaurant);
-        food.map((foodItem)=>{
-            category = {
-                id:foodItem.categoryId,
-                name:foodItem.categoryName,
-                description:foodItem.categoryDescription
+        console.log('food ne', food)
+        for (item of food) {
+            item.category = {
+                id:item.categoryId,
+                name:item.categoryName,
+                description:item.categoryDescription
             }
-            foodItem.img = convertFilePath(foodItem.img)
-            delete foodItem.categoryId
-            delete foodItem.categoryName
-            delete foodItem.categoryDescription
-            foodItem.category = category
-            foodItem.restaurant = restaurant
-            return foodItem
+            item.restaurant = restaurant
+            delete item.categoryId
+            delete item.categoryName
+            delete item.categoryDescription
 
-        })
+            imgQuery = `select Src as img from image where GroupID = '${item.img}'`
+		
+            a_img = await sql.QueryGetData(imgQuery)
+            if (a_img[0]) {
+                item.img = convertFilePath(a_img[0]['img'])
+            } else {
+                item.img = null
+            }
+        }
+        result = result.concat(food)
     }
 
-    return food;
+    return result;
 
 }
 exports.getFoodInforById = async (foodDesId) => {

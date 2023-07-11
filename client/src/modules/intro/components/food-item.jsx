@@ -9,6 +9,8 @@ const FoodItem =  ({ id, image_alt, image_src, name, price, rating, restaurant }
   const handleRedirect = () => {
     history.push(`/FoodInforPage/${id}`);
   }
+
+  console.log("hallooo"+FoodItem);
   return (
     <div className="food-item" onClick={handleRedirect}>
         <div className="row d-flex">

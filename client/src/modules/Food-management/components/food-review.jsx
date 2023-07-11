@@ -255,6 +255,7 @@ const FoodReview = ({id}) => {
         method: 'PUT',
         data: data,
       });
+      setIsModalOpen(false);
     } catch (error) {
       console.error(error);
     }
@@ -311,7 +312,7 @@ const FoodReview = ({id}) => {
             <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className="mr-24" style={{width: '10%'}}/>
             <Rate style={{width: '30%'}} onChange={setNewCommentRate} value={newCommentRate} />
               <Upload style={{width: '40%'}} {...props} fileList={fileList} listType="picture" maxCount={100} multiple>
-                <Button type="text" danger><FileImageOutlined style={{color: 'red', fontSize: "24px"}}/></Button>
+                <Button type="text" danger><i className="fa fa-upload"></i><FileImageOutlined style={{color: 'red', fontSize: "24px"}}/></Button>
               </Upload>
             <div style={{width: '40%'}}>
             </div>
@@ -511,19 +512,19 @@ const FoodReview = ({id}) => {
                   }
                 </div>
               </div>
-              <div className="review-block__footer d-flex my-12">
+              {/* <div className="review-block__footer d-flex my-12">
                 <div className="review-block__my-avatar mx-24">
                   <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
                 </div>
                 <div className="review-block__comment">
                   <Input placeholder="Phản hồi" />
                 </div>
-              </div>
+              </div> */}
             </div>
           ))}          
         </div>
       </div>      
-      <Modal title="Edit review" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={<div></div>}>
+      <Modal title="レビューの編集" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={<div></div>}>
         <React.Fragment>
           <div className="post-avatar">
             <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className="mr-24"/>

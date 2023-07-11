@@ -65,11 +65,14 @@
   }
   .navbar-interactive-button {
     width: 147px;
-    box-shadow: inset 0px 0px 5px #d4d4d4;
     font-style: normal;
     font-weight: 700;
     border-style: hidden;
     border-radius: 16px;
+  }
+
+  .navbar-interactive-button a {
+    color: #000 !important;
   }
   .navbar-interactive-thq-dropdown {
     cursor: pointer;

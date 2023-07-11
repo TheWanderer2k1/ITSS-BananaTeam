@@ -10,8 +10,7 @@ const { TextArea } = Input;
 const oneDay = 24 * 60 * 60 * 1000; // number of milliseconds in one day
 const now = new Date();
 
-<<<<<<< HEAD
-const FoodReview = ({ id }) => {
+const FoodReview = ({ id ,avatarImage}) => {
 
   const [listStart, setListStar] = useState([
     { value: 0, label: "すべて", isHover: true },
@@ -21,10 +20,7 @@ const FoodReview = ({ id }) => {
     { value: 4, label: "4", iconClass: "fa fa-star c-star-color", isHover: false },
     { value: 5, label: "5", iconClass: "fa fa-star c-star-color", isHover: false }
   ])
-=======
-const FoodReview = ({ id ,avatarImage}) => {
- 
->>>>>>> bugfix/thuy
+
 
   const [listAllComment, setListAllComment] = useState([]);
   const [listComment, setListComment] = useState([]);

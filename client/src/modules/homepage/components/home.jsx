@@ -36,7 +36,7 @@ const Home = (props) => {
         <InputComponent></InputComponent>
       </div>
       <div className='user-point'>
-        <span className="point-text">5400</span>
+        <span className="point-text">1000</span>
         <img
           src="/library/dx/images/coin.png"
           alt="image"

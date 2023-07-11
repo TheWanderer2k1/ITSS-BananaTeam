@@ -54,7 +54,7 @@ const FoodReview = ({id}) => {
     service: '',
     other: '',
   });
-  
+
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -167,13 +167,13 @@ const FoodReview = ({id}) => {
     setListComment(newCommentList);
     // fetchFoodReview();
   }
-  
+
   const fetchFoodReview = async () => {
     var url = `${ process.env.REACT_APP_SERVER }/api/v1/food/${id}/review`;
     const resp = await sendRequest({
       url: url,
       method: "GET",
-    });    
+    });
     setListComment(resp.data['content']);
     setListAllComment(resp.data['content']);
   }
@@ -204,7 +204,7 @@ const FoodReview = ({id}) => {
       other: values.other,
     };
     const reviewString = `・きれいに並べられたか：${comment.cleanliness}<br>・いい匂いか：${comment.smell}<br>・新鮮なのか：${comment.freshness}<br>・きれいな箸、お茶碗なのか：${comment.tableware}<br>・口に合うか：${comment.taste}<br>・良い値段か：${comment.price}<br>・良いサービスか：${comment.service}<br>・他に：${comment.other}`;
-    const data = { 
+    const data = {
       rating: newCommentRate,
       review: reviewString,
       userId: 3,
@@ -248,7 +248,7 @@ const FoodReview = ({id}) => {
     // setNewCommentText('');
   };
   const editComment = async () => {
-    const data = { 
+    const data = {
       rating: editCommentRate,
       review: editCommentText,
       userId: editCommentUserId,
@@ -264,6 +264,7 @@ const FoodReview = ({id}) => {
         method: 'PUT',
         data: data,
       });
+      setIsModalOpen(false);
     } catch (error) {
       console.error(error);
     }
@@ -303,7 +304,7 @@ const FoodReview = ({id}) => {
     }
   };
 
-  const handleChangeFile = (files) => { 
+  const handleChangeFile = (files) => {
     const recommendFiles = files.map(x => ({
       url: x.urlFile,
       fileUpload: x.fileUpload
@@ -320,7 +321,7 @@ const FoodReview = ({id}) => {
             <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className="mr-24" style={{width: '10%'}}/>
             <Rate style={{width: '30%'}} onChange={setNewCommentRate} value={newCommentRate} />
               <Upload style={{width: '40%'}} {...props} fileList={fileList} listType="picture" maxCount={100} multiple>
-                <Button type="text" danger><FileImageOutlined style={{color: 'red', fontSize: "24px"}}/></Button>
+                <Button type="text" danger><i className="fa fa-upload"></i><FileImageOutlined style={{color: 'red', fontSize: "24px"}}/></Button>
               </Upload>
             <div style={{width: '40%'}}>
             </div>
@@ -404,10 +405,10 @@ const FoodReview = ({id}) => {
       <div>
         </div>
       </div></div>
-            <div className="comment-send-icon">              
+            <div className="comment-send-icon">
               <Button type="text" onClick	={postComment}><i class="fa fa-paper-plane"></i></Button>
             </div>
-          </div>  
+          </div>
         </div>
         <div className="food-info-list">
           <div className="food-info-item">
@@ -429,7 +430,7 @@ const FoodReview = ({id}) => {
             </div>
             <div className="food-info__detail">
               <Button type="text" onClick={fetchFoodReview}>すべて</Button>
-              <Button type="text" onClick={clickRecentReview}>新着順</Button>              
+              <Button type="text" onClick={clickRecentReview}>新着順</Button>
             </div>
           </div>
           <div className="food-info-item">
@@ -445,7 +446,7 @@ const FoodReview = ({id}) => {
         <div className="review-list">
           {listComment.map((comment, index) => (
             <div className="review-block">
-              <div className="review-block__header">  
+              <div className="review-block__header">
                 <div className="d-flex aic">
                   <div className="review-block__avatar">
                     <img src={comment.avatar} alt="" />
@@ -456,14 +457,14 @@ const FoodReview = ({id}) => {
                   <div className="review-block__date">
                     {getFormatDate(comment.updateAt)}
                   </div>
-                </div>    
+                </div>
                 <div className="d-flex aic">
                   <div className="review-block__rating mx-24 ">
                     <Rate disabled value={comment.rating}/>
                   </div>
                   <div className="review-block__like">
                     {
-                      comment.liked.length > 0 && comment.liked.includes(3) 
+                      comment.liked.length > 0 && comment.liked.includes(3)
                       ?
                       <Button type="primary" onClick={() => onRemoveLikeReview(comment.reviewId, index)}><i class="fa fa-heart mr-6"></i> {comment.reactNumber}</Button>
                       :
@@ -513,20 +514,26 @@ const FoodReview = ({id}) => {
                 <div className="flex-1">
                   {
                     comment.userId == 3? <React.Fragment>
-                      <Button type="text"><i class="fa fa-edit" style={{color:"red"}}  onClick={() => showModal(comment)}></i></Button>                
-                      <Button type="text"><i class="fa fa-trash" style={{color:"red"}} onClick={() => onClickDeleteComment(comment)}></i></Button>                
+                      <Button type="text"><i class="fa fa-edit" style={{color:"red"}}  onClick={() => showModal(comment)}></i></Button>
+                      <Button type="text"><i class="fa fa-trash" style={{color:"red"}} onClick={() => onClickDeleteComment(comment)}></i></Button>
 
                     </React.Fragment>:<div style={{width: '80px'}}></div>
                   }
                 </div>
               </div>
-              <div className="review-block__footer d-flex my-12">
-              </div>
+              {/* <div className="review-block__footer d-flex my-12">
+                <div className="review-block__my-avatar mx-24">
+                  <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                </div>
+                <div className="review-block__comment">
+                  <Input placeholder="Phản hồi" />
+                </div>
+              </div> */}
             </div>
-          ))}          
+          ))}
         </div>
-      </div>      
-      <Modal title="Edit review" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={<div></div>}>
+      </div>
+      <Modal title="レビューの編集" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={<div></div>}>
         <React.Fragment>
           <div className="post-avatar">
             <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className="mr-24"/>
@@ -534,8 +541,8 @@ const FoodReview = ({id}) => {
           </div>
           <div className="comment-text-box">
             <TextArea onChange={handleEditCommentText} value={editCommentText} rows={4} className="mt-12" placeholder=""/>
-            
-            <div className="comment-send-icon">              
+
+            <div className="comment-send-icon">
               <Button type="text" onClick	={editComment}><i class="fa fa-paper-plane"></i></Button>
             </div>
           </div>

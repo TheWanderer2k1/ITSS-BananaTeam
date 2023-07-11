@@ -73,6 +73,7 @@
 
 .review-list {
     margin-top: 16px;
+    margin-bottom: 50px;
 }
 
 .food-info-item {
@@ -84,6 +85,10 @@
 .food-info__label {
     width: 20%;
     font-size: 18px;
+}
+
+.review-block {
+    margin-bottom: 16px;
 }
 
 .review-block__header {
@@ -158,6 +163,7 @@
     border: none;
     margin-right: 10px;
     margin-top: 10px;
+    margin-bottom: 20px;
   }
   
   input {

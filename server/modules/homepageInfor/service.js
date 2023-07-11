@@ -74,14 +74,7 @@ exports.getDataHomePage = async () => {
 
 	resultCategory = await sql.QueryGetData(getCategoryData)
 	for (let item of resultCategory) {
-		imgQuery = `select Src as img from image where GroupID = '${item.img}'`
-		
-		a_img = await sql.QueryGetData(imgQuery)
-		if (a_img[0]) {
-			item.img = convertFilePath(a_img[0]['img'])
-		} else {
-			item.img = null
-		}
+		item.img = convertFilePath(item.img)
 	}
 
 	resultFoodMostLiked = await sql.QueryGetData(getFoodMostLiked)

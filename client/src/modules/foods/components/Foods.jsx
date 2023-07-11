@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import NavbarInteractive from '../../homepage/components/navbar-interactive'
+import Link from "antd/es/typography/Link";
+import Avt from "../../intro/images/avt.png"
 import { sendRequest } from '../../../helpers/requestHelper';
 import update5 from './img/update5.png';
 import { useHistory } from 'react-router-dom';
@@ -43,9 +45,18 @@ const Foods = () => {
         <div className="wrapper">
             <NavbarInteractive />
             <div className="food-main">
+            <div className="salutation">
+				<strong> こんにちは、</strong>
+				<div className="user-info">
+					<Link className="img-container" to={`/profile`}>
+						<img src={Avt} alt="" />
+					</Link>
+					<div className="user-coin d-flex mt-6"><img src="/library/dx/images/bnn-coin.png" alt="" className="coin-icon" /><strong>1000</strong></div>
+				</div>
+			</div>
             <div className="title-menu">
                 <img src={update5} alt="" />
-                <div>Menu</div>
+                <div>メニュー</div>
             </div>
             <div className="header">
                 <div className="item item-header">順番</div>

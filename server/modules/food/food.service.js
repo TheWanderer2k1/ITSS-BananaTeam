@@ -54,11 +54,15 @@ exports.getReviewList = async (foodId) => {
             LEFT JOIN reactreview ON foodreview.ID = reactreview.ReviewID
             LEFT JOIN user ON foodreview.UserID = user.ID
         WHERE FoodDesID = ${foodId}
-        GROUP BY(foodreview.ID)`
+        GROUP BY(foodreview.ID)
+        ORDER BY reactNumber DESC`
 
     result = await sql.QueryGetData(query);
 
     for (review of result) {
+        if (review.avatar) {
+            review.avatar = convertFilePath(review.avatar)
+        }
         if (review.img) {
             imgQuery = `SELECT src FROM image
                 WHERE GroupID = ${review.img}`
@@ -264,30 +268,45 @@ exports.getFoodInforById = async (foodDesId) => {
     
 }
 
-exports.updateFoodInfor = async (data) => {
+exports.updateFoodInfor = async (data,files) => {
     updateFoodInforQuery = `UPDATE fooddescription
                             JOIN food on  fooddescription.foodId = food.ID
                            `
-
+    
     setCondition = (data.name?` food.Name = '${data.name}', `:'')
-                  +(data.categoryId?` food.CategoryId = ${data.categoryId}, `:'')
+                  +(data.categoryId?`food.CategoryId = ${data.categoryId}, `:'')
                   +(data.description?` fooddescription.Description = '${data.description}', `:'')
                   +(data.price?` fooddescription.Price = ${data.price}`:'')
     rowEfect = 0;
-    whereCondition = ` WHERE food.ID = ${data.foodId} `
+    whereCondition = ` WHERE fooddescription.ID = ${data.foodId} `
     if(setCondition!=''){
         updateFoodInforQuery+=' SET ' + setCondition + whereCondition
         rowEfect = await sql.QueryUpdateData(updateFoodInforQuery);
+    }
+    if(files.length>0){
+        getGroupImageId = `SELECT GroupImageID from fooddescription WHERE fooddescription.ID = ${data.foodId}`
+        groupImageId = await sql.QueryGetData(getGroupImageId)
+       
+        deleteQuery = `DELETE from image WHERE GroupID = ${groupImageId[0].GroupImageID}`
+
+        await sql.QueryUpdateData(deleteQuery)
+
+        for (let image of files) {
+            let filePath = `${image.destination}/${image.filename}`.substring(1)
+            let imageInsertQuery = `INSERT INTO image (GroupID, Src)
+            VALUES (${groupImageId[0].GroupImageID}, '${filePath}')`
+            await sql.QueryGetData(imageInsertQuery)
+        } 
     }
     
     return rowEfect;
 }
 
 exports.deleteFoodInfor = async (foodId) => {
-    queryDelteFoodInfor = `DELETE FROM food WHERE ID = ${foodId}`
+    queryDelteFoodInfor = `DELETE FROM fooddescription WHERE ID = ${foodId}`
 
     await sql.QueryUpdateData(queryDelteFoodInfor);
-   
+    
     return;
     
 }

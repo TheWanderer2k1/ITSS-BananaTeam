@@ -161,7 +161,6 @@ exports.getFoodByAddress = async (req, res) => {
 exports.getFoodInforById = async (req, res) => {
     try {
         let {foodDesId} = req.params
-        console.log(foodDesId)
         let foodInfor = await FoodService.getFoodInforById(foodDesId);
 
         res.status(200).json({
@@ -201,10 +200,9 @@ exports.updateFoodInfor = async (req, res) => {
     try {
         let data = req.body
         let {foodId} = req.params
-
+        
         data.foodId = foodId
-        console.log(data)
-        FoodService.updateFoodInfor(data);
+        await FoodService.updateFoodInfor(data,req.files);
       
             res.status(200).json({
                 success: true,

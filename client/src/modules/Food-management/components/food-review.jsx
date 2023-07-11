@@ -54,7 +54,7 @@ const FoodReview = ({id}) => {
     service: '',
     other: '',
   });
-  
+
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -132,7 +132,7 @@ const FoodReview = ({id}) => {
     fetchFoodReview();
   }, []);
 
-  const onClickLikeReview = async(reviewId) => {
+  const onClickLikeReview = async(reviewId, index) => {
     const url = `${ process.env.REACT_APP_SERVER }/api/v1/food/${id}/review/${reviewId}/reaction`;
     const data = {
       reactType: 3,
@@ -143,10 +143,14 @@ const FoodReview = ({id}) => {
       method: "POST",
       data: data,
     })
-    fetchFoodReview();
+    let newCommentList = [...listComment]
+    newCommentList[index].liked.push(3);
+    newCommentList[index].reactNumber += 1;
+    setListComment(newCommentList);
+    // fetchFoodReview();
   }
 
-  const onRemoveLikeReview = async(reviewId) => {
+  const onRemoveLikeReview = async(reviewId, index) => {
     const url = `${ process.env.REACT_APP_SERVER }/api/v1/food/${id}/review/${reviewId}/reaction`;
     const data = {
       userId: 3
@@ -155,16 +159,21 @@ const FoodReview = ({id}) => {
       url: url,
       method: "DELETE",
       data: data,
-    })
-    fetchFoodReview();
+    });
+    let newCommentList = [...listComment]
+    const indexToRemove = newCommentList[index].liked.indexOf(3);
+    newCommentList[index].liked.splice(indexToRemove, 1);
+    newCommentList[index].reactNumber -= 1;
+    setListComment(newCommentList);
+    // fetchFoodReview();
   }
-  
+
   const fetchFoodReview = async () => {
     var url = `${ process.env.REACT_APP_SERVER }/api/v1/food/${id}/review`;
     const resp = await sendRequest({
       url: url,
       method: "GET",
-    });    
+    });
     setListComment(resp.data['content']);
     setListAllComment(resp.data['content']);
   }
@@ -195,7 +204,7 @@ const FoodReview = ({id}) => {
       other: values.other,
     };
     const reviewString = `・きれいに並べられたか：${comment.cleanliness}<br>・いい匂いか：${comment.smell}<br>・新鮮なのか：${comment.freshness}<br>・きれいな箸、お茶碗なのか：${comment.tableware}<br>・口に合うか：${comment.taste}<br>・良い値段か：${comment.price}<br>・良いサービスか：${comment.service}<br>・他に：${comment.other}`;
-    const data = { 
+    const data = {
       rating: newCommentRate,
       review: reviewString,
       userId: 3,
@@ -239,7 +248,7 @@ const FoodReview = ({id}) => {
     // setNewCommentText('');
   };
   const editComment = async () => {
-    const data = { 
+    const data = {
       rating: editCommentRate,
       review: editCommentText,
       userId: editCommentUserId,
@@ -295,7 +304,7 @@ const FoodReview = ({id}) => {
     }
   };
 
-  const handleChangeFile = (files) => { 
+  const handleChangeFile = (files) => {
     const recommendFiles = files.map(x => ({
       url: x.urlFile,
       fileUpload: x.fileUpload
@@ -396,10 +405,10 @@ const FoodReview = ({id}) => {
       <div>
         </div>
       </div></div>
-            <div className="comment-send-icon">              
+            <div className="comment-send-icon">
               <Button type="text" onClick	={postComment}><i class="fa fa-paper-plane"></i></Button>
             </div>
-          </div>  
+          </div>
         </div>
         <div className="food-info-list">
           <div className="food-info-item">
@@ -421,7 +430,7 @@ const FoodReview = ({id}) => {
             </div>
             <div className="food-info__detail">
               <Button type="text" onClick={fetchFoodReview}>すべて</Button>
-              <Button type="text" onClick={clickRecentReview}>新着順</Button>              
+              <Button type="text" onClick={clickRecentReview}>新着順</Button>
             </div>
           </div>
           <div className="food-info-item">
@@ -435,12 +444,12 @@ const FoodReview = ({id}) => {
           </div>
         </div>
         <div className="review-list">
-          {listComment.map((comment) => (
+          {listComment.map((comment, index) => (
             <div className="review-block">
-              <div className="review-block__header">  
+              <div className="review-block__header">
                 <div className="d-flex aic">
                   <div className="review-block__avatar">
-                    <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                    <img src={comment.avatar} alt="" />
                   </div>
                   <div className="review-block__username">
                     {comment.userName}
@@ -448,18 +457,18 @@ const FoodReview = ({id}) => {
                   <div className="review-block__date">
                     {getFormatDate(comment.updateAt)}
                   </div>
-                </div>    
+                </div>
                 <div className="d-flex aic">
                   <div className="review-block__rating mx-24 ">
                     <Rate disabled value={comment.rating}/>
                   </div>
                   <div className="review-block__like">
                     {
-                      comment.liked.length > 0 && comment.liked.includes(3) 
+                      comment.liked.length > 0 && comment.liked.includes(3)
                       ?
-                      <Button type="primary" onClick={() => onRemoveLikeReview(comment.reviewId)}><i class="fa fa-heart mr-6"></i> {comment.reactNumber}</Button>
+                      <Button type="primary" onClick={() => onRemoveLikeReview(comment.reviewId, index)}><i class="fa fa-heart mr-6"></i> {comment.reactNumber}</Button>
                       :
-                      <Button onClick={() => onClickLikeReview(comment.reviewId)}><i class="fa fa-heart mr-6"></i> {comment.reactNumber}</Button>
+                      <Button onClick={() => onClickLikeReview(comment.reviewId, index)}><i class="fa fa-heart mr-6"></i> {comment.reactNumber}</Button>
                     }
                   </div>
                 </div>
@@ -505,8 +514,8 @@ const FoodReview = ({id}) => {
                 <div className="flex-1">
                   {
                     comment.userId == 3? <React.Fragment>
-                      <Button type="text"><i class="fa fa-edit" style={{color:"red"}}  onClick={() => showModal(comment)}></i></Button>                
-                      <Button type="text"><i class="fa fa-trash" style={{color:"red"}} onClick={() => onClickDeleteComment(comment)}></i></Button>                
+                      <Button type="text"><i class="fa fa-edit" style={{color:"red"}}  onClick={() => showModal(comment)}></i></Button>
+                      <Button type="text"><i class="fa fa-trash" style={{color:"red"}} onClick={() => onClickDeleteComment(comment)}></i></Button>
 
                     </React.Fragment>:<div style={{width: '80px'}}></div>
                   }
@@ -521,9 +530,9 @@ const FoodReview = ({id}) => {
                 </div>
               </div> */}
             </div>
-          ))}          
+          ))}
         </div>
-      </div>      
+      </div>
       <Modal title="レビューの編集" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={<div></div>}>
         <React.Fragment>
           <div className="post-avatar">
@@ -532,8 +541,8 @@ const FoodReview = ({id}) => {
           </div>
           <div className="comment-text-box">
             <TextArea onChange={handleEditCommentText} value={editCommentText} rows={4} className="mt-12" placeholder=""/>
-            
-            <div className="comment-send-icon">              
+
+            <div className="comment-send-icon">
               <Button type="text" onClick	={editComment}><i class="fa fa-paper-plane"></i></Button>
             </div>
           </div>

@@ -26,6 +26,7 @@ app.use("/upload/review/food", express.static("upload/review/food"));           
 app.use("/upload/restaurant/avatar", express.static("upload/restaurant/avatar"));
 app.use("/upload/restaurant/food", express.static("upload/restaurant/food"));
 app.use("/upload/restaurant/image", express.static("upload/restaurant/image"));
+app.use("/upload/human-resource/avatars", express.static("upload/human-resource/avatars"));
 
 const router = express.Router();
 

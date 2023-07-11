@@ -14,21 +14,20 @@ function ListComponent() {
         url: `${ process.env.REACT_APP_SERVER }/api/v1/home`,
         method: "GET",
       })
-    console.log('in home', resp.data['content']['restaurant'])
+    console.log('restaurant', resp.data['content']['restaurant'])
     setrestaurant(resp.data['content']['restaurant'])
   };
  
   const firstFourrestaurant = restaurant.slice(0, 4);
   const remainingrestaurant = restaurant.slice(4);
-
   return (
     <div className="home-fav-res">
       <div className="res-line-1">
         {firstFourrestaurant.map((restaurant) => (
           <ResItem
-            key={restaurant.id}
-            image_src={restaurant.avatar}
-            res_id={restaurant.id}
+            key={restaurant.ID}
+            image_src={restaurant.img}
+            res_id={restaurant.ID}
             text={restaurant.name}
           />
         ))}
@@ -36,9 +35,9 @@ function ListComponent() {
       <div className="res-line-2">
         {remainingrestaurant.map((restaurant) => (
           <ResItem
-            key={restaurant.id}
+            key={restaurant.ID}
             image_src={restaurant.img}
-            res_id={restaurant.id}
+            res_id={restaurant.ID}
             text={restaurant.name}
           />
         ))}

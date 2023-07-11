@@ -4,7 +4,7 @@ import { sendRequest } from '../../../helpers/requestHelper';
 
 function ListComponent() {
   const [foodDecription, setfoodDecription] = useState([]);
-
+  
   useEffect(() => {
     fetchfoodDecription();
   }, []); 

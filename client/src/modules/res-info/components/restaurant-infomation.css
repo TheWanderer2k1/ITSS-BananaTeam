@@ -9,10 +9,10 @@
 }
 .restaurant-infomation-container1 {
   width: 70%;
-  height: 280px;
+  height: 300px;
   display: flex;
   align-self: center;
-  margin-top: 30px;
+  margin-top: 80px;
   align-items: flex-start;
   border-color: rgba(120, 120, 120, 0.4);
   border-style: hidden;
@@ -20,6 +20,8 @@
   border-radius: 50px;
   flex-direction: column;
   background-color: #FFA3A352;
+  position: relative;
+  box-shadow: 0 2px 10px -2px #4c4c4c;
 }
 .restaurant-infomation-image {
   width: 97%;
@@ -30,23 +32,25 @@
   border-radius: 40px;
 }
 .restaurant-infomation-logo {
-  left: 3%;
-  width: 120px;
-  height: 120px;
-  bottom: 5%;
+  left: -50px;
+  width: 200px;
+  height: 200px;
+  bottom: -15%;
   position: absolute;
   object-fit: cover;
   border: solid;
   border-color: #FFA3A3;
   border-width: 8px;
   border-radius: 50%;
+  background-color: #ffc4c4;
 }
 .restaurant-infomation-text {
   color: #000000;
   font-size: 24px;
   align-self: flex-start;
   margin-top: 10px;
-  margin-left: 16%;
+  margin-left: 15%;
+  font-weight: bold;
 }
 .restaurant-infomation-container2 {
   flex: 0 0 auto;

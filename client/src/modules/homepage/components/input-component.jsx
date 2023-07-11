@@ -120,16 +120,50 @@ function InputComponent() {
         <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6" >
           {
             searchOption == 1 ? (
-              <form onSubmit={handleSubmit}>
+              <form 
+                onSubmit={handleSubmit}
+                style={{
+                  backgroundColor: "#ffb1b178", 
+                  width: "400px", 
+                  height: 45, 
+                  display: "flex", 
+                  borderRadius: 22,
+                  alignItems: 'center',
+                  paddingLeft: 20,
+                  boxShadow: "0px 4px 5px -2px rgba(0, 0, 0, 0.25)",
+                }}
+              >
                 <input
                   type="text"
                   placeholder="食べ物で検索"
                   value={inputValue}
                   onChange={handleChange}
-                  className="home-search-field input"
+                  style={{flex: 1, height: "100%" }}
+                  // className="home-search-field input"
                 />
-                <button type="submit" className="submit-button">
-                  <img src="/library/dx/images/search-icon.png" alt="Submit" className="button-image" />
+                <button 
+                  type="submit" 
+                  style={{
+                    height: "100%",
+                    aspectRatio: "1/1",
+                    border: "none", 
+                    backgroundColor: "transparent",
+                    borderRadius: 22,
+                    cursor: "pointer",
+                    outline: "none",
+                  }}
+                  // className="submit-button"
+                >
+                  <img 
+                    src="/library/dx/images/search-icon.png" 
+                    alt="Submit" 
+                    style={{
+                      width: "70%",
+                      height: "70%",
+                      objectFit: "contain",
+                    }}
+                    // className="button-image"  
+                  />
                 </button>
               </form>        
             ) : (

@@ -57,7 +57,7 @@ const Foods = () => {
             </div>
             <div className="content">
                 {menuInfo.slice(slices, slices+10).map((item, index) => <div className="item item-content">
-                    <div className="content-item">{index + 1}</div>
+                    <div className="content-item">{index + 1+slices}</div>
                     <div className="content-item">{item.name}</div>
                     <div className="content-item">{item.price}</div>
                     {/* <div className={admin ? "content-item" : "hidden-data content-item"}><i class="fa fa-pencil"> </i></div> */}

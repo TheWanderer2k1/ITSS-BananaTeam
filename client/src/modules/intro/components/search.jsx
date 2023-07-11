@@ -82,12 +82,15 @@ function Search() {
 
 	const handleChangeCitySearch = (value) => {
 		setCitySearch(value);
+		setDistrictSearch(null);
+		setWardSearch(null);
 		if (value != undefined) fetchDistrict(value);
 		// fetchfoodDecriptionByAddress();
 	};
 
 	const handleChangeDistrictSearch = (value) => {
 		setDistrictSearch(value);
+		setWardSearch(null);
 		if (value != undefined) fetchWard(value);
 		// fetchfoodDecriptionByAddress();
 	};
@@ -165,9 +168,9 @@ function Search() {
 		if (citySearch) {
 			url += `?province=${citySearch}`;
 			if (districtSearch) {
-				url += `?district=${districtSearch}`;
+				url += `&district=${districtSearch}`;
 				if (wardSearch) {
-					url += `?ward=${wardSearch}`;
+					url += `&ward=${wardSearch}`;
 				}
 			}
 		} else {
@@ -559,7 +562,7 @@ function Search() {
 						<Radio.Group options={sortOptions} onChange={onChangeSort} value={sortValue} className='float-right mt-12 fs-1 optionValue ' />
 					</div>
 					<div className="food-list d-flex">
-						{foodDecription.slice(pageinate * pageSize, (pageinate + 1) * pageSize).map((food) => (
+						{foodDecription && foodDecription.slice(pageinate * pageSize, (pageinate + 1) * pageSize).map((food) => (
 							<FoodItem
 								key={food.id}
 								id={food.id}

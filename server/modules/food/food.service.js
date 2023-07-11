@@ -25,7 +25,7 @@ exports.getFoodDescriptionList = async (keyword) => {
             'province': food['Province'],
             'district': food['District'],
             'ward': food['Ward'],
-            'detailedAdress': food['DetailedAddress']
+            'detailedAddress': food['DetailedAddress']
         }
         food.img = convertFilePath(food.img)
         food['category'] = {
@@ -189,9 +189,9 @@ exports.getFoodByAddress = async (data) => {
     let result = []
 
     let i = arrayRestaurant.length
+    console.log('i ne', i)
     while (i--) {
-        res = arrayRestaurant[i]
-        console.log(res.province.toLowerCase(), data.province.toLowerCase())    
+        res = arrayRestaurant[i]  
         if (data.province && res.province.toLowerCase() != data.province.toLowerCase()) {
             arrayRestaurant.splice(i, 1)
             continue
@@ -205,6 +205,7 @@ exports.getFoodByAddress = async (data) => {
             continue
         }
     }
+    console.log('')
     
     for(restaurant of arrayRestaurant){
         queryFindFoodByRestaurant =  `
@@ -223,6 +224,7 @@ exports.getFoodByAddress = async (data) => {
                 name:item.categoryName,
                 description:item.categoryDescription
             }
+            item.restaurant = restaurant
             delete item.categoryId
             delete item.categoryName
             delete item.categoryDescription
@@ -236,7 +238,6 @@ exports.getFoodByAddress = async (data) => {
                 item.img = null
             }
         }
-        console.log('sau do food', food)
         result = result.concat(food)
     }
 

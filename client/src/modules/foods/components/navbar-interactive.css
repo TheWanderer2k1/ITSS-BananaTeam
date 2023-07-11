@@ -51,8 +51,8 @@
   .navbar-interactive-nav {
     top: 0px;
     flex: 0 0 auto;
-    left: 66px;
-    right: 66px;
+    /* left: 66px; */
+    /* right: 66px; */
     width: 300px;
     bottom: 0px;
     margin: auto;
@@ -61,14 +61,18 @@
     align-self: stretch;
     align-items: center;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
   }
   .navbar-interactive-button {
-    width: 147px;
+    display: flex;
     font-style: normal;
     font-weight: 700;
     border-style: hidden;
     border-radius: 16px;
+    background-color: #fff;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 1px 3px 8px 0 rgba(0, 0, 0, 0.2);
   }
 
   .navbar-interactive-button a {

@@ -598,7 +598,7 @@ function Search() {
 							searchOption == 1 ? (
 								<div className="col-xs-12 col-sm-12 col-md-6 col-lg-4" >
 									<div className="search-box d-flex">
-										<div className="search-icon"><button type="button" class="btn btn-link"><i class="fa fa-search"></i></button></div>
+										<div className="search-icon"><button type="button" class="btn btn-link"><i class="fa fa-search" style={{color: "#000"}}></i></button></div>
 										<div className="search-text">
 											<input type="text" placeholder='Nem cuốn' value={searchData} onChange={handleSearchData} onKeyUp={handleKeyUp} />
 										</div>

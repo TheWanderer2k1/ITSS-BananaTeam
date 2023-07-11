@@ -21,7 +21,6 @@ const Home = (props) => {
     history.push(`/profile`);
   }
   useEffect(() => {
-    console.log('hash', hash);
     if (!hash) return;
     const element = document.getElementById(hash.split('#')[1]);
     if (!element) return;

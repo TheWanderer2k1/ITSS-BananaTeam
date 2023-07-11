@@ -12,6 +12,7 @@
   height: 176px;
   align-self: center;
   object-fit: cover;
+  cursor: pointer;
 }
 .res-item-text {
   font-size: 16px;

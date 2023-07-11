@@ -7,6 +7,7 @@
     padding: 15px;
     margin-top: 30px;
     border-bottom: 1px solid #FFA3A3;
+    justify-content: space-around;
 }
 
 .content {
@@ -29,6 +30,7 @@
     border-radius: 48px;
     background: #FFE2E2;
     display: flex;
+    justify-content: space-around;
 }
 
 .content-item {

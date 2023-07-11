@@ -38,6 +38,12 @@ const Foods = () => {
             method: "GET",
           })
         setMenuInfo(resp.data['content'])
+        let numOfPage = Math.round(menuInfo.length/10);
+        let pages = [];
+        for (let index = 1; index <= numOfPage; index++) {
+            pages.push(index)
+        }
+        setPaging(pages)
       };
     const [slices, setSlices] = useState(0)
 
@@ -62,8 +68,6 @@ const Foods = () => {
                 <div className="item item-header">順番</div>
                 <div className="item item-header">フード名</div>
                 <div className="item item-header">価値</div>
-                {/* <div className={admin ? 'item item-header' : 'hidden-data item item-header'}>アップデート</div> */}
-                {/* <div className={admin ? 'item item-header' : 'hidden-data item item-header'}>消す</div> */}
                 <div className="item item-header">詳細</div>
             </div>
             <div className="content">
@@ -71,8 +75,6 @@ const Foods = () => {
                     <div className="content-item">{index + 1+slices}</div>
                     <div className="content-item">{item.name}</div>
                     <div className="content-item">{item.price}</div>
-                    {/* <div className={admin ? "content-item" : "hidden-data content-item"}><i class="fa fa-pencil"> </i></div> */}
-                    {/* <div className={admin ? "content-item" : "hidden-data content-item"}><i class="fa fa-trash"> </i></div> */}
                     <div className="content-item"><i class="fa fa-eye"> </i></div>
                 </div>)}
             </div>

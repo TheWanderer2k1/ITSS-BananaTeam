@@ -1,9 +1,9 @@
 export const initialPriceFilter = [
-	{ id: 0, from: 0, to: 50000, checked: false },
-	{ id: 1, from: 50000, to: 100000, checked: false },
-	{ id: 2, from: 100000, to: 200000, checked: false },
-	{ id: 3, from: 200000, to: 300000, checked: false },
-	{ id: 4, from: 300000, to: '以上', checked: false }
+	{ id: 1, from: 0, to: 50000, checked: false },
+	{ id: 2, from: 50000, to: 100000, checked: false },
+	{ id: 3, from: 100000, to: 200000, checked: false },
+	{ id: 4, from: 200000, to: 300000, checked: false },
+	{ id: 5, from: 300000, to: '以上', checked: false }
 ]
 
 export const initialRatingFilter = [

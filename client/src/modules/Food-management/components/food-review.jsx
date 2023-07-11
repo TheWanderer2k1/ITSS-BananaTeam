@@ -10,7 +10,9 @@ const { TextArea } = Input;
 const oneDay = 24 * 60 * 60 * 1000; // number of milliseconds in one day
 const now = new Date();
 
-const FoodReview = ({ id }) => {
+const FoodReview = ({ id ,avatarImage}) => {
+ 
+
   const [listAllComment, setListAllComment] = useState([]);
   const [listComment, setListComment] = useState([]);
   const [newCommentRate, setNewCommentRate] = useState(0);
@@ -339,7 +341,7 @@ const FoodReview = ({ id }) => {
       <div className="container">
         <div className="post-comment mb-24">
           <div className="post-avatar">
-            <img src="https://images.pexels.com/photos/17218003/pexels-photo-17218003/free-photo-of-analog-flowers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className="mr-24" style={{ width: '10%' }} />
+            <img src={avatarImage} alt="" className="mr-24" style={{ width: '10%' }} />
             <Rate style={{ width: '30%' }} onChange={setNewCommentRate} value={newCommentRate} />
             <Upload style={{ width: '40%' }} {...props} fileList={fileList} listType="picture" maxCount={100} multiple>
               <Button type="text" danger><i className="fa fa-upload"></i><FileImageOutlined style={{ color: 'red', fontSize: "24px" }} /></Button>

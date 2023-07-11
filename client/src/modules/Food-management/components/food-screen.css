@@ -3,9 +3,58 @@
     minHeight: 100vh;
     backgroundColor: white;
     width: 100%;
+    margin: 0;
 }
 
 .hcontainer {
     background-color: #fff;
     width: 100%;
 }
+
+.big-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 90px;
+    padding-right: 113px;
+  }
+
+  .user-point {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  .coin-img {
+    width: 30px;
+    margin-left: 10px;
+  }
+  .point-text {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    margin-left: 243px;
+  }
+
+
+.home-staff-container1 {
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+  }
+  .home-staff-text {
+    width: fit-content;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    margin-left: 113px;
+    margin-top: 17px;
+  }
+  .home-staff-image {
+    width: 70px;
+    align-self: center;
+    object-fit: cover;
+    margin-left: 30px;
+    border-radius: 50%;
+  }

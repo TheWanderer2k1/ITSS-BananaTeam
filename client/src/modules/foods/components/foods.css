@@ -68,7 +68,7 @@
 
 .pagging {
     width: 100%;
-    justify-content: space-between;
+    justify-content: end;
     display: flex;
     padding: 20px;
 }
@@ -99,10 +99,18 @@
 
 .background-paging {
     background-color: #FFA3A3;
-    width: 20px;
-    height: 20px;
+}
+
+.paging-item {
+    cursor: pointer;
     border-radius: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 20px;
+    height: 20px;
+}
+
+.paging-item:hover {
+    opacity: .8;
 }

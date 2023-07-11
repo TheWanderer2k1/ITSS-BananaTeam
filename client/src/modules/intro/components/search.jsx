@@ -300,13 +300,13 @@ function Search() {
 		const checkPrice = (price) => {
 			if (priceFilter.every(price => price.checked === false)) return true
 			for (let p of priceFilter) {
-				if (p.checked === false && (p.from < price && (p.to == '以上' || price < p.to)))
-					return false
+				if (p.checked === true && (p.from <= price && (p.to == '以上' || price <= p.to)))
+					return true
 			}
-			return true
+			return false
 		}
 		const checkRating = (rating) => {
-			if (!rating) return false;
+			if (!rating) return true;
 			if (ratingFilter.every(rating => rating.checked === false)) return true
 
 			for (let r of ratingFilter) {
@@ -348,6 +348,7 @@ function Search() {
 			return checkPrice(food.price) && checkRating(food.rating) && checkTime(food.restaurant.openTime, food.restaurant.closeTime) && checkCategory(food.category.id) && checkProvince(food.restaurant.address)
 		})
 		setfoodDecription(newFoodDescription)
+		setPageinate(0)
 	}
 
 	const totalPage = () => {

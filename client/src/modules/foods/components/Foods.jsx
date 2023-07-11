@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import NavbarInteractive from '../../homepage/components/navbar-interactive'
+import Link from "antd/es/typography/Link";
+import Avt from "../../intro/images/avt.png"
 import { sendRequest } from '../../../helpers/requestHelper';
 import update5 from './img/update5.png';
 import { useHistory } from 'react-router-dom';
@@ -36,6 +38,12 @@ const Foods = () => {
             method: "GET",
           })
         setMenuInfo(resp.data['content'])
+        let numOfPage = Math.round(menuInfo.length/10);
+        let pages = [];
+        for (let index = 1; index <= numOfPage; index++) {
+            pages.push(index)
+        }
+        setPaging(pages)
       };
     const [slices, setSlices] = useState(0)
 
@@ -43,25 +51,30 @@ const Foods = () => {
         <div className="wrapper">
             <NavbarInteractive />
             <div className="food-main">
+            <div className="salutation">
+				<strong> こんにちは、</strong>
+				<div className="user-info">
+					<Link className="img-container" to={`/profile`}>
+						<img src={Avt} alt="" />
+					</Link>
+					<div className="user-coin d-flex mt-6"><img src="/library/dx/images/bnn-coin.png" alt="" className="coin-icon" /><strong>1000</strong></div>
+				</div>
+			</div>
             <div className="title-menu">
                 <img src={update5} alt="" />
-                <div>Menu</div>
+                <div>メニュー</div>
             </div>
             <div className="header">
                 <div className="item item-header">順番</div>
                 <div className="item item-header">フード名</div>
                 <div className="item item-header">価値</div>
-                <div className={admin ? 'item item-header' : 'hidden-data item item-header'}>アップデート</div>
-                <div className={admin ? 'item item-header' : 'hidden-data item item-header'}>消す</div>
                 <div className="item item-header">詳細</div>
             </div>
             <div className="content">
                 {menuInfo.slice(slices, slices+10).map((item, index) => <div className="item item-content">
-                    <div className="content-item">{index + 1}</div>
+                    <div className="content-item">{index + 1+slices}</div>
                     <div className="content-item">{item.name}</div>
                     <div className="content-item">{item.price}</div>
-                    <div className={admin ? "content-item" : "hidden-data content-item"}><i class="fa fa-pencil"> </i></div>
-                    <div className={admin ? "content-item" : "hidden-data content-item"}><i class="fa fa-trash"> </i></div>
                     <div className="content-item"><i class="fa fa-eye"> </i></div>
                 </div>)}
             </div>

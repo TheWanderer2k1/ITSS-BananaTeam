@@ -372,12 +372,12 @@ function Search() {
 				<div className="filter-sidebar px-24">
 					<h2><strong>検出</strong></h2>
 					<div className="reference-link-list d-flex flex-direction-column">
-						<a className="reference-link-item">
+						<Link to="/homepage/#ninkigaaru_foods" className="reference-link-item">
 							<i className="fa fa-home"></i> 人気がある料理
-						</a>
-						<a className="reference-link-item">
+						</Link>
+						<Link  to="/homepage/#ninkigaaru_restaurants" className="reference-link-item">
 							<i className="fa fa-home"></i> 人気があるレストラン
-						</a>
+						</Link>
 					</div>
 					<hr className="divider"></hr>
 					<div className="filter-box" style={{

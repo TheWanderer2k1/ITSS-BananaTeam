@@ -54,7 +54,8 @@ exports.getReviewList = async (foodId) => {
             LEFT JOIN reactreview ON foodreview.ID = reactreview.ReviewID
             LEFT JOIN user ON foodreview.UserID = user.ID
         WHERE FoodDesID = ${foodId}
-        GROUP BY(foodreview.ID)`
+        GROUP BY(foodreview.ID)
+        ORDER BY reactNumber DESC`
 
     result = await sql.QueryGetData(query);
 

@@ -20,6 +20,7 @@ function ListComponent() {
  
   const firstFourrestaurant = restaurant.slice(0, 4);
   const remainingrestaurant = restaurant.slice(4);
+  console.log(restaurant);
   return (
     <div className="home-fav-res">
       <div className="res-line-1">
@@ -28,7 +29,7 @@ function ListComponent() {
             key={restaurant.ID}
             image_src={restaurant.img}
             res_id={restaurant.ID}
-            text={restaurant.name}
+            text={restaurant.Name}
           />
         ))}
       </div>
@@ -38,7 +39,7 @@ function ListComponent() {
             key={restaurant.ID}
             image_src={restaurant.img}
             res_id={restaurant.ID}
-            text={restaurant.name}
+            text={restaurant.Name}
           />
         ))}
       </div>

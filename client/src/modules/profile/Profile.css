@@ -4,8 +4,7 @@
 }
 
 .image-profile {
-    position: sticky;
-    top: 70px;
+    margin-top: 40px;
     background-color: #ffa3a380;
     max-width: 250px;
     border-radius: 20px;

@@ -11,6 +11,16 @@ const oneDay = 24 * 60 * 60 * 1000; // number of milliseconds in one day
 const now = new Date();
 
 const FoodReview = ({ id }) => {
+
+  const [listStart, setListStar] = useState([
+    { value: 0, label: "すべて", isHover: true },
+    { value: 1, label: "1", iconClass: "fa fa-star c-star-color", isHover: false },
+    { value: 2, label: "2", iconClass: "fa fa-star c-star-color", isHover: false },
+    { value: 3, label: "3", iconClass: "fa fa-star c-star-color", isHover: false },
+    { value: 4, label: "4", iconClass: "fa fa-star c-star-color", isHover: false },
+    { value: 5, label: "5", iconClass: "fa fa-star c-star-color", isHover: false }
+  ])
+
   const [listAllComment, setListAllComment] = useState([]);
   const [listComment, setListComment] = useState([]);
   const [newCommentRate, setNewCommentRate] = useState(0);
@@ -25,6 +35,7 @@ const FoodReview = ({ id }) => {
   const [fileList, setFileList] = useState([]);
   const [checkedListByImg, setCheckedListByImg] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
+  const [isAllActive, setIsAllActive] = useState(true);
 
   const clickRecentReview = (e) => {
     const newListComment = listComment.filter((item) => {
@@ -32,6 +43,7 @@ const FoodReview = ({ id }) => {
       return (now - itemDate) < oneDay;
     })
     setListComment(newListComment);
+    setIsAllActive(false);
   }
 
   const onChangeCheckImage = (e) => {
@@ -182,6 +194,7 @@ const FoodReview = ({ id }) => {
     });
     setListComment(resp.data['content']);
     setListAllComment(resp.data['content']);
+    setIsAllActive(true);
   }
 
   const getFormatDate = (dateString) => {
@@ -323,6 +336,20 @@ const FoodReview = ({ id }) => {
     } else {
       setListComment(listAllComment);
     }
+    handleChangeStarStatus(rateStar)
+  };
+
+  const handleChangeStarStatus = (value) => {
+
+    const updatedNumStars = listStart.map(star => {
+      if (star.value === value) {
+        return { ...star, isHover: true };
+      } else {
+        return { ...star, isHover: false };
+      }
+    });
+    listStart.length = 0;
+    listStart.push(...updatedNumStars);
   };
 
   const handleChangeFile = (files) => {
@@ -437,12 +464,13 @@ const FoodReview = ({ id }) => {
               <strong>星</strong>
             </div>
             <div className="food-info__detail">
-              <Button type="text" onClick={() => onFilterByStar(0)}>すべて</Button>
-              <Button type="text" onClick={() => onFilterByStar(1)}>1 <i class="fa fa-star c-star-color"></i></Button>
-              <Button type="text" onClick={() => onFilterByStar(2)}>2 <i class="fa fa-star c-star-color"></i></Button>
-              <Button type="text" onClick={() => onFilterByStar(3)}>3 <i class="fa fa-star c-star-color"></i></Button>
-              <Button type="text" onClick={() => onFilterByStar(4)}>4 <i class="fa fa-star c-star-color"></i></Button>
-              <Button type="text" onClick={() => onFilterByStar(5)}>5 <i class="fa fa-star c-star-color"></i></Button>
+              {
+                listStart.map((star) =>
+                  <Button type="text" key={star.value} onClick={() => onFilterByStar(star.value)} className={ star.isHover && 'is-selected' }>
+                    {star.label} {star.iconClass && <i class={star.iconClass}></i>}
+                  </Button>
+                )
+              }
             </div>
           </div>
           <div className="food-info-item">
@@ -450,8 +478,8 @@ const FoodReview = ({ id }) => {
               <strong>時間</strong>
             </div>
             <div className="food-info__detail">
-              <Button type="text" onClick={fetchFoodReview}>すべて</Button>
-              <Button type="text" onClick={clickRecentReview}>新着順</Button>
+              <Button type="text" onClick={fetchFoodReview} className={isAllActive ? "is-selected" : ""}>すべて</Button>
+              <Button type="text" onClick={clickRecentReview} className={!isAllActive ? "is-selected" : ""}>新着順</Button>
             </div>
           </div>
           <div className="food-info-item">
@@ -534,11 +562,11 @@ const FoodReview = ({ id }) => {
                 </div>
                 <div className="flex-1">
                   {
-                    comment.userId == 3 ? <React.Fragment>
+                    comment.userId == 3 ? <>
                       <Button type="text"><i class="fa fa-edit" style={{ color: "red" }} onClick={() => showModal(comment)}></i></Button>
                       <Button type="text"><i class="fa fa-trash" style={{ color: "red" }} onClick={() => onClickDeleteComment(comment)}></i></Button>
 
-                    </React.Fragment> : <div style={{ width: '80px' }}></div>
+                    </> : <div style={{ width: '80px' }}></div>
                   }
                 </div>
               </div>

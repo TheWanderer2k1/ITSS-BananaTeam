@@ -306,7 +306,7 @@ function Search() {
 			return false
 		}
 		const checkRating = (rating) => {
-			if (!rating) return true;
+			if (!rating) return false;
 			if (ratingFilter.every(rating => rating.checked === false)) return true
 
 			for (let r of ratingFilter) {

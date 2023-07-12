@@ -40,7 +40,7 @@ const Foods = () => {
             method: "GET",
         })
         const content = resp.data['content'] || []
-        let numOfPage = Math.round(content.length / 10);
+        let numOfPage = Math.ceil(content.length / 10);
         let pages = [];
         for (let index = 1; index <= numOfPage; index++) {
             pages.push(index)
